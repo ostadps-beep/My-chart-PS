@@ -19,5 +19,7 @@ T1.06 | 2026-10-04 | PASS | CandleCalculation
 T1.07 | 2026-10-04 | PASS | MarketDataBus
 T1.08 | 2026-10-04 | PASS | HistoryMerge
 T1.09 | 2026-10-04 | PASS | MemoryCache
-T1.10 | 2026-10-04 | PENDING | CsvProvider + IDataProvider — await local VERIFY
-T1.11 | 2026-10-04 | PENDING | AggregationEngine / ISeriesView — await local VERIFY
+T1.10 | 2026-10-04 | PASS | CsvProvider + IDataProvider
+T1.11 | 2026-10-04 | PASS | AggregationEngine / ISeriesView
+
+# NEXT = T2.01 TimeIndexMapper (Chart Scale Engine)

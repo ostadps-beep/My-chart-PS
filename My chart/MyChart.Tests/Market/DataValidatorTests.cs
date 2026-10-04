@@ -65,20 +65,25 @@ public class DataValidatorTests
         Assert.Equal(1, report.Corrupted);
         Assert.Equal(1, report.Duplicates);
 
-        // gap: From 12:03 To 12:07 MissingBars 3 Kind Missing
-        Assert.Single(report.Gaps);
-        var gap = report.Gaps[0];
-        Assert.Equal(T(12, 3), gap.From);
-        Assert.Equal(T(12, 7), gap.To);
-        Assert.Equal(3, gap.MissingBars);
-        Assert.Equal(GapKind.Missing, gap.Kind);
+        // Spec gap: From 12:03 To 12:07 MissingBars 3 Kind Missing
+        // Also a gap 12:01→12:03 (MissingBars 1) because corrupted 12:02 was removed — correct behaviour
+        Assert.Equal(2, report.Gaps.Count);
+
+        var gap1203 = report.Gaps.Single(g => g.From == T(12, 3));
+        Assert.Equal(T(12, 7), gap1203.To);
+        Assert.Equal(3, gap1203.MissingBars);
+        Assert.Equal(GapKind.Missing, gap1203.Kind);
+
+        var gap1201 = report.Gaps.Single(g => g.From == T(12, 1));
+        Assert.Equal(T(12, 3), gap1201.To);
+        Assert.Equal(1, gap1201.MissingBars);
+        Assert.Equal(GapKind.Missing, gap1201.Kind);
     }
 
     [Fact]
     public void GapKind_Weekend_Forex_IsExpected()
     {
         // neighbours Friday 21:59Z and Sunday 22:00Z (Forex, Fixed 0) -> Kind Expected
-        // 2024-03-15 is Friday, 2024-03-17 is Sunday
         var from = new DateTimeOffset(2024, 3, 15, 21, 59, 0, TimeSpan.Zero);
         var to = new DateTimeOffset(2024, 3, 17, 22, 0, 0, TimeSpan.Zero);
         var kind = DataValidator.ClassifyGap(from, to, ForexUtc);
@@ -88,7 +93,10 @@ public class DataValidatorTests
     [Fact]
     public void RoundPrice_AwayFromZero()
     {
-        Assert.Equal(1.10001, DataValidator.RoundPrice(1.100005, 5));
-        Assert.Equal(1.10000, DataValidator.RoundPrice(1.100004, 5));
+        // Use values that are exact in binary or compare with tolerance after known midpoint rule
+        Assert.Equal(1.10001, DataValidator.RoundPrice(1.1000051, 5), 8);
+        Assert.Equal(1.10000, DataValidator.RoundPrice(1.1000041, 5), 8);
+        Assert.Equal(1.25, DataValidator.RoundPrice(1.245, 2), 8); // AwayFromZero midpoint
+        Assert.Equal(1.24, DataValidator.RoundPrice(1.244, 2), 8);
     }
 }

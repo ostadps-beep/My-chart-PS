@@ -32,7 +32,9 @@ public class ZoomPanTests
         ZoomEngine.ZoomAt(vs, 100, cursorX, ZoomEngine.ZoomFactor(), notches: 1);
 
         Assert.Equal(8.8, vs.BarSpacing, 9);
-        Assert.Equal(0.454545, vs.RightOffset, 5); // tolerance ~1e-6 level
+        // golden: 0.454545 tolerance 1e-6
+        Assert.True(Math.Abs(vs.RightOffset - 0.45454545454545) < 1e-6,
+            $"RightOffset={vs.RightOffset}");
 
         var cc2 = new CoordinateConverter(vs, 100);
         Assert.Equal(54.5, cc2.U(cursorX), 6);
@@ -48,7 +50,8 @@ public class ZoomPanTests
         ZoomEngine.ZoomAt(vs, 100, 400, factor, notches: 1);
 
         Assert.Equal(8.16, vs.BarSpacing, 9);
-        Assert.Equal(4.019608, vs.RightOffset, 5);
+        Assert.True(Math.Abs(vs.RightOffset - 4.01960784313725) < 1e-5,
+            $"RightOffset={vs.RightOffset}");
     }
 
     [Fact]

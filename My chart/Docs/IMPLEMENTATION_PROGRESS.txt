@@ -11,3 +11,4 @@ T0.06 | 2026-10-04 | PASS | ProgressLog
 T0.07 | 2026-10-04 | PASS | SettingsPrerequisite - ChartSettingValues + DefaultChartSettings + IChartSettings
 T0.08 | 2026-10-04 | PASS | PluginFoundation (PG0.01 + PG0.02) - Plugin contracts, models, DrawingMath, base tools, PluginHost/Plugins/Generator skeletons
 T1.01 | 2026-10-04 | PASS | MarketModels - Candle/Tick/Timeframe/SymbolGroup/SymbolInfo match L1_MODEL; VERIFY reflection tests added
+T1.02 | 2026-10-04 | PENDING | TimeBuckets - SessionCalendar/ServerTimeRule/Floor/Next/Prev/Span implemented; golden tests added — await local VERIFY

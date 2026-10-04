@@ -7,20 +7,44 @@ namespace MyChart.Tests.Market;
 /// <summary>
 /// T1.01 MarketModels VERIFY (Canonical Spec).
 /// Candle has exactly the 6 FINAL fields; Timeframe has exactly 10 members.
+/// L1_MODEL allows helpers IsBullish / IsBearish — they are not counted as FINAL data fields.
 /// </summary>
 public class MarketModelsTests
 {
+    private static readonly string[] FinalCandleFields =
+    {
+        "Timestamp", "Open", "High", "Low", "Close", "Volume"
+    };
+
     [Fact]
     public void Candle_HasExactlySixFinalFields()
     {
-        var fields = typeof(Candle).GetProperties(BindingFlags.Instance | BindingFlags.Public);
-        Assert.Equal(6, fields.Length);
+        var dataProps = typeof(Candle)
+            .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            .Where(p => FinalCandleFields.Contains(p.Name))
+            .ToArray();
 
-        var names = fields.Select(f => f.Name).OrderBy(n => n).ToArray();
+        Assert.Equal(6, dataProps.Length);
+
+        var names = dataProps.Select(f => f.Name).OrderBy(n => n).ToArray();
         Assert.Equal(new[] { "Close", "High", "Low", "Open", "Timestamp", "Volume" }, names);
 
-        // No visual or extraneous members on the type itself beyond helpers
+        // Forbidden visual/extra fields must not exist
+        var allNames = typeof(Candle)
+            .GetProperties(BindingFlags.Instance | BindingFlags.Public)
+            .Select(p => p.Name)
+            .ToHashSet();
+        Assert.DoesNotContain("Color", allNames);
+        Assert.DoesNotContain("Brush", allNames);
+        Assert.DoesNotContain("Theme", allNames);
+        Assert.DoesNotContain("Style", allNames);
+        Assert.DoesNotContain("Index", allNames);
+        Assert.DoesNotContain("Timeframe", allNames);
+        Assert.DoesNotContain("Symbol", allNames);
+
         Assert.True(typeof(Candle).IsValueType);
+
+        // L1_MODEL helpers are required
         Assert.NotNull(typeof(Candle).GetProperty("IsBullish"));
         Assert.NotNull(typeof(Candle).GetProperty("IsBearish"));
     }

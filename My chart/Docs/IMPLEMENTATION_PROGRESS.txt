@@ -32,6 +32,6 @@ T2.08 | 2026-10-04 | PASS | NiceTicks
 T2.09 | 2026-10-04 | PASS | CandleGeometry
 T2.10 | 2026-10-04 | PASS | CurrentPriceValues (local VERIFY: 83/83 tests passed)
 T2.11 | 2026-10-04 | PASS | StartupView (local VERIFY: 83/83 tests passed)
-T3.01 | 2026-10-04 | PENDING | CrosshairCalculations — await local VERIFY (dotnet test)
+T3.01 | 2026-10-04 | PASS | CrosshairCalculations (local VERIFY: 109/109 tests passed)
 
 # NEXT after T3.01 = T3.02 HudData

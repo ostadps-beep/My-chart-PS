@@ -22,10 +22,6 @@ public static class PriceScaleEngine
         state.MaxPrice = state.InverseTransform(maxT);
     }
 
-    /// <summary>
-    /// Auto range over bars [from..to].
-    /// pad 10% top and bottom of span'; min span 20*PointSize in price space.
-    /// </summary>
     public static void ComputeAuto(
         PriceScaleState state,
         IReadOnlyList<Candle> bars,
@@ -36,7 +32,7 @@ public static class PriceScaleEngine
     {
         if (state.Fit != ScaleFit.Auto) return;
         if (bars == null || bars.Count == 0 || from > to || from < 0)
-            return; // keep previous range
+            return;
 
         to = Math.Min(to, bars.Count - 1);
         from = Math.Max(0, from);
@@ -52,9 +48,9 @@ public static class PriceScaleEngine
             if (c.Low <= 0) allLowPositive = false;
         }
 
-        if (state.Transform == ScaleTransformKind.Log && !allLowPositive)
+        if (state.TransformKind == ScaleTransformKind.Log && !allLowPositive)
         {
-            state.Transform = ScaleTransformKind.Linear;
+            state.TransformKind = ScaleTransformKind.Linear;
             state.LogUnavailable = true;
         }
         else
@@ -62,10 +58,9 @@ public static class PriceScaleEngine
             state.LogUnavailable = false;
         }
 
-        if (state.Transform == ScaleTransformKind.Percentage)
+        if (state.TransformKind == ScaleTransformKind.Percentage)
             state.PercentageBase = percentageBaseClose ?? bars[from].Close;
 
-        // min span in price space
         double spanPrice = hi - lo;
         double minSpan = 20 * pointSize;
         if (spanPrice < minSpan)
@@ -80,7 +75,6 @@ public static class PriceScaleEngine
         double spanT = hiT - loT;
         if (spanT < 0) (hiT, loT, spanT) = (loT, hiT, -spanT);
 
-        // pad 10% each side in transform space
         double pad = spanT * 0.10;
         hiT += pad;
         loT -= pad;
@@ -89,7 +83,6 @@ public static class PriceScaleEngine
         state.MaxPrice = state.InverseTransform(hiT);
     }
 
-    /// <summary>Price-axis drag zoom: factor = clamp(1 + (-dy)*0.005, 0.5, 2.0) anchored at start price.</summary>
     public static void ManualDragZoom(PriceScaleState state, double anchorPrice, double dyDip)
     {
         double factor = Math.Clamp(1.0 + (-dyDip) * 0.005, 0.5, 2.0);
@@ -106,7 +99,7 @@ public static class PriceScaleEngine
 
     private static void EnsureMinSpan(PriceScaleState state, ref double minT, ref double maxT, double pointSize)
     {
-        double minSpan = state.Transform switch
+        double minSpan = state.TransformKind switch
         {
             ScaleTransformKind.Log => 1e-5,
             ScaleTransformKind.Percentage => 0.01,

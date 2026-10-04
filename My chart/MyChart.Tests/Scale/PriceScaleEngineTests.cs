@@ -21,9 +21,8 @@ public class PriceScaleEngineTests
     [Fact]
     public void Auto_PadsTenPercent_Linear()
     {
-        var state = new PriceScaleState { Fit = ScaleFit.Auto, Transform = ScaleTransformKind.Linear };
+        var state = new PriceScaleState { Fit = ScaleFit.Auto, TransformKind = ScaleTransformKind.Linear };
         var bars = Bars();
-        // hi=1.1100 lo=1.0950 span=0.015; pad 10% each of spanT=0.015 → ±0.0015
         PriceScaleEngine.ComputeAuto(state, bars, 0, 2, pointSize: 0.00001);
 
         Assert.True(state.MaxPrice > 1.1100);
@@ -36,14 +35,14 @@ public class PriceScaleEngineTests
     [Fact]
     public void Log_FallsBack_WhenLowNonPositive()
     {
-        var state = new PriceScaleState { Fit = ScaleFit.Auto, Transform = ScaleTransformKind.Log };
+        var state = new PriceScaleState { Fit = ScaleFit.Auto, TransformKind = ScaleTransformKind.Log };
         var t0 = new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
         var bars = new List<Candle>
         {
-            new(t0, 1, 1, 0, 1, 1) // Low = 0
+            new(t0, 1, 1, 0, 1, 1)
         };
         PriceScaleEngine.ComputeAuto(state, bars, 0, 0, 0.01);
-        Assert.Equal(ScaleTransformKind.Linear, state.Transform);
+        Assert.Equal(ScaleTransformKind.Linear, state.TransformKind);
         Assert.True(state.LogUnavailable);
     }
 

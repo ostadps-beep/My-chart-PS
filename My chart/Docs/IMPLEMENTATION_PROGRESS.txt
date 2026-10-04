@@ -24,5 +24,6 @@ T1.11 | 2026-10-04 | PASS | AggregationEngine / ISeriesView
 T2.01 | 2026-10-04 | PASS | TimeIndexMapper
 T2.02 | 2026-10-04 | PASS | ViewState + CoordinateConverter
 T2.03 | 2026-10-04 | PASS | RenderWindow
-T2.04 | 2026-10-04 | PENDING | ZoomEngine — await local VERIFY
-T2.05 | 2026-10-04 | PENDING | PanEngine — await local VERIFY
+T2.04 | 2026-10-04 | PASS | ZoomEngine
+T2.05 | 2026-10-04 | PASS | PanEngine
+T2.06 | 2026-10-04 | PENDING | GoToLatest / LatestCandleLock — await local VERIFY

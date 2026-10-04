@@ -1,5 +1,8 @@
 namespace MyChart.Core.Models.Viewport;
 
-public sealed class ScaleTransform
+public enum ScaleTransformKind
 {
+    Linear,
+    Log,
+    Percentage
 }

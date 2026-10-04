@@ -21,6 +21,6 @@ T1.08 | 2026-10-04 | PASS | HistoryMerge
 T1.09 | 2026-10-04 | PASS | MemoryCache
 T1.10 | 2026-10-04 | PASS | CsvProvider + IDataProvider
 T1.11 | 2026-10-04 | PASS | AggregationEngine / ISeriesView
-T2.01 | 2026-10-04 | PASS | TimeIndexMapper — IndexOfTime/TimeAtIndex/SnapIndex; golden TimeIndex verified
-
-# NEXT = T2.02 ViewStateAndCoordinateConverter
+T2.01 | 2026-10-04 | PASS | TimeIndexMapper
+T2.02 | 2026-10-04 | PENDING | ViewState + CoordinateConverter — await local VERIFY
+T2.03 | 2026-10-04 | PENDING | RenderWindow — await local VERIFY

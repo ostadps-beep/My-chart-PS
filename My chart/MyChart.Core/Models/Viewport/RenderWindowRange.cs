@@ -1,3 +1,9 @@
 namespace MyChart.Core.Models.Viewport;
 
-public readonly record struct RenderWindowRange(int FirstIndex, int LastIndex);
+/// <summary>T2.03 RenderWindow range.</summary>
+public readonly record struct RenderWindowRange(
+    int From,
+    int To,
+    int RenderFrom,
+    int RenderTo,
+    int VisibleBarCount);

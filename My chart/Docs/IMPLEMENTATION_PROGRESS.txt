@@ -9,10 +9,11 @@ T0.04 | 2026-10-04 | PASS | ContractsSkeleton - Data/Rendering/Interaction/Servi
 T0.05 | 2026-10-04 | PARTIAL | TestProject - Candle smoke tests present
 T0.06 | 2026-10-04 | PASS | ProgressLog
 T0.07 | 2026-10-04 | PASS | SettingsPrerequisite - ChartSettingValues + DefaultChartSettings + IChartSettings
-T0.08 | 2026-10-04 | PASS | PluginFoundation (PG0.01 + PG0.02) - Plugin contracts, models, DrawingMath, base tools, PluginHost/Plugins/Generator skeletons
+T0.08 | 2026-10-04 | PASS | PluginFoundation (PG0.01 + PG0.02)
 T1.01 | 2026-10-04 | PASS | MarketModels
 T1.02 | 2026-10-04 | PASS | TimeBuckets
 T1.03 | 2026-10-04 | PASS | DataValidation
 T1.04 | 2026-10-04 | PASS | SymbolRegistry + SymbolMath
 T1.05 | 2026-10-04 | PASS | TickFilter + TickBuffer
-T1.06 | 2026-10-04 | PENDING | CandleCalculation - FormingCandle/Fold/TickAggregator — await local VERIFY
+T1.06 | 2026-10-04 | PASS | CandleCalculation - FormingCandle/Fold/TickAggregator
+T1.07 | 2026-10-04 | PENDING | MarketDataBus - await local VERIFY

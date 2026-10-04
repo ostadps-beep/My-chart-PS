@@ -1,0 +1,12 @@
+# MyChart Implementation Progress Log
+# Format: NODE_ID | DATE | VERIFY_RESULT | NOTES
+# One line per finished node.
+
+T0.01 | 2026-10-04 | PASS | SolutionAndBuildConfig
+T0.02 | 2026-10-04 | PASS | ProjectReferenceGraph
+T0.03 | 2026-10-04 | PASS | FolderAndFileSkeleton - Core Models + folders
+T0.04 | 2026-10-04 | PASS | ContractsSkeleton - Data/Rendering/Interaction/Services/UI/Indicators
+T0.05 | 2026-10-04 | PARTIAL | TestProject - Candle smoke tests present
+T0.06 | 2026-10-04 | PASS | ProgressLog
+T0.07 | 2026-10-04 | PASS | SettingsPrerequisite - ChartSettingValues + DefaultChartSettings + IChartSettings
+T0.08 | 2026-10-04 | PASS | PluginFoundation (PG0.01 + PG0.02) - Plugin contracts, models, DrawingMath, base tools, PluginHost/Plugins/Generator skeletons

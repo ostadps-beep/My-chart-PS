@@ -12,4 +12,5 @@ T0.07 | 2026-10-04 | PASS | SettingsPrerequisite - ChartSettingValues + DefaultC
 T0.08 | 2026-10-04 | PASS | PluginFoundation (PG0.01 + PG0.02) - Plugin contracts, models, DrawingMath, base tools, PluginHost/Plugins/Generator skeletons
 T1.01 | 2026-10-04 | PASS | MarketModels - Candle/Tick/Timeframe/SymbolGroup/SymbolInfo match L1_MODEL; VERIFY reflection tests added
 T1.02 | 2026-10-04 | PASS | TimeBuckets - SessionCalendar/ServerTimeRule/Floor/Next/Prev/Span; golden BucketFloor verified
-T1.03 | 2026-10-04 | PENDING | DataValidation - DataValidator + GapKind/GapInfo/ValidationReport per spec; golden tests added — await local VERIFY
+T1.03 | 2026-10-04 | PASS | DataValidation - DataValidator + GapKind/GapInfo/ValidationReport; golden Validation verified
+T1.04 | 2026-10-04 | PENDING | SymbolRegistry + SymbolMath - await local VERIFY

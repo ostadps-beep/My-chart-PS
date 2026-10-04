@@ -20,7 +20,7 @@ public static class DataValidator
         int corrupted = 0, repaired = 0, duplicates = 0, rejected = 0;
 
         // 1) Normalization + 2) CorruptedRecords + 3) InvalidOHLC (per row, before dedup)
-        var working = new List<(Candle C, bool WasRepaired)>();
+        var working = new List<Candle>();
 
         foreach (var raw in input)
         {
@@ -41,40 +41,35 @@ public static class DataValidator
             double v = raw.Volume;
 
             var candle = new Candle(ts, o, h, l, c, v);
-            bool wasRepaired = false;
 
             // InvalidOHLC repair
             if (IsInvalidOhlc(candle))
             {
-                h = Math.Max(Math.Max(o, c), Math.Max(h, l));
-                l = Math.Min(Math.Min(o, c), Math.Min(h, l));
-                // re-apply after using original h/l in min/max — use fresh max/min of O,H,L,C
-                h = Math.Max(Math.Max(o, candle.High), Math.Max(c, candle.Low));
-                l = Math.Min(Math.Min(o, candle.High), Math.Min(c, candle.Low));
-                // Correct per spec: High := max(Open,High,Low,Close); Low := min(Open,High,Low,Close)
-                h = Max4(o, candle.High, candle.Low, c);
+                // High := max(Open,High,Low,Close); Low := min(Open,High,Low,Close)
+                h = Max4(o, h, l, c);
                 l = Min4(o, candle.High, candle.Low, c);
+                // use original h before overwrite for min — already captured
+                l = Min4(o, candle.High, candle.Low, c);
+                h = Max4(o, candle.High, candle.Low, c);
                 candle = new Candle(ts, o, h, l, c, v);
-                wasRepaired = true;
                 repaired++;
             }
 
-            working.Add((candle, wasRepaired));
+            working.Add(candle);
         }
 
         // 4) DuplicateDetection — same Timestamp keep LAST
-        var byTs = new Dictionary<DateTimeOffset, (Candle C, bool WasRepaired)>();
-        foreach (var item in working)
+        var byTs = new Dictionary<DateTimeOffset, Candle>();
+        foreach (var candle in working)
         {
-            if (byTs.ContainsKey(item.C.Timestamp))
+            if (byTs.ContainsKey(candle.Timestamp))
                 duplicates++;
-            byTs[item.C.Timestamp] = item;
+            byTs[candle.Timestamp] = candle;
         }
 
         // 5) Sort ascending
         var accepted = byTs.Values
-            .OrderBy(x => x.C.Timestamp)
-            .Select(x => x.C)
+            .OrderBy(x => x.Timestamp)
             .ToList();
 
         // 6+7) TimeGaps + MissingBars + GapKind
@@ -114,9 +109,12 @@ public static class DataValidator
         return false;
     }
 
+    /// <summary>
+    /// condition = High &lt; max(Open,Close,Low) OR Low &gt; min(Open,Close,High) OR High &lt; Low
+    /// </summary>
     public static bool IsInvalidOhlc(Candle c)
-        => c.High < Max4(c.Open, c.Close, c.Low, c.High)
-           || c.Low > Min4(c.Open, c.Close, c.High, c.Low)
+        => c.High < Math.Max(c.Open, Math.Max(c.Close, c.Low))
+           || c.Low > Math.Min(c.Open, Math.Min(c.Close, c.High))
            || c.High < c.Low;
 
     public static double RoundPrice(double price, int digits)
@@ -125,14 +123,13 @@ public static class DataValidator
     public static int CountMissingBars(
         DateTimeOffset from, DateTimeOffset to, Timeframe tf, SessionCalendar calendar)
     {
-        // number of timeframe slots strictly between the two neighbours
         int count = 0;
         var cursor = TimeBuckets.Next(from, tf, calendar);
         while (cursor < to)
         {
             count++;
             cursor = TimeBuckets.Next(cursor, tf, calendar);
-            if (count > 1_000_000) break; // safety
+            if (count > 1_000_000) break;
         }
         return count;
     }
@@ -143,11 +140,9 @@ public static class DataValidator
         var group = calendar.Group;
         var offset = TimeBuckets.OffsetAt(from, calendar);
 
-        // Crypto: never Expected
         if (group == SymbolGroup.Crypto)
         {
-            var duration = to - from;
-            if (duration > TimeSpan.FromHours(24))
+            if (to - from > TimeSpan.FromHours(24))
                 return GapKind.Unclassified;
             return GapKind.Missing;
         }
@@ -168,23 +163,17 @@ public static class DataValidator
         }
 
         // Stocks
-        if (group == SymbolGroup.Stocks)
-        {
-            if (hasSaturday || (to - from) >= TimeSpan.FromHours(8))
-                return GapKind.Expected;
+        if (hasSaturday || (to - from) >= TimeSpan.FromHours(8))
+            return GapKind.Expected;
 
-            if ((to - from) > TimeSpan.FromHours(24) && !hasSaturday)
-                return GapKind.Unclassified;
-
-            return GapKind.Missing;
-        }
+        if ((to - from) > TimeSpan.FromHours(24) && !hasSaturday)
+            return GapKind.Unclassified;
 
         return GapKind.Missing;
     }
 
     private static bool ContainsLocalSaturday(DateTimeOffset from, DateTimeOffset to, TimeSpan offset)
     {
-        // walk local midnights between from and to
         var localFrom = from.ToOffset(offset);
         var localTo = to.ToOffset(offset);
         var day = localFrom.Date;

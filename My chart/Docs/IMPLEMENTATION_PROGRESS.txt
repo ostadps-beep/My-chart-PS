@@ -27,4 +27,5 @@ T2.03 | 2026-10-04 | PASS | RenderWindow
 T2.04 | 2026-10-04 | PASS | ZoomEngine
 T2.05 | 2026-10-04 | PASS | PanEngine
 T2.06 | 2026-10-04 | PASS | GoToLatest / LatestCandleLock
-T2.07 | 2026-10-04 | PENDING | PriceScaleEngine — await local VERIFY
+T2.07 | 2026-10-04 | PASS | PriceScaleEngine
+T2.08 | 2026-10-04 | PENDING | NiceTicks — await local VERIFY

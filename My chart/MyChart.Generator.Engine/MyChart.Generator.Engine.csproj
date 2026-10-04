@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MyChart.Generator.Engine</RootNamespace>
+    <AssemblyName>MyChart.Generator.Engine</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+  </ItemGroup>
+</Project>

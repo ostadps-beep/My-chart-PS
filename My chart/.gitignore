@@ -1,0 +1,11 @@
+bin/
+obj/
+.vs/
+*.user
+*.db
+artifacts/
+*.suo
+*.userosscache
+*.sln.docstates
+.idea/
+*.nupkg

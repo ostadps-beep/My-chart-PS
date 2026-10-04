@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MyChart.Indicators</RootNamespace>
+    <AssemblyName>MyChart.Indicators</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+  </ItemGroup>
+</Project>

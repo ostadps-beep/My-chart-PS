@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MyChart.Data</RootNamespace>
+    <AssemblyName>MyChart.Data</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+  </ItemGroup>
+</Project>

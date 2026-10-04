@@ -1,0 +1,150 @@
+
+Project Name:
+MyChart
+
+Type:
+Professional Charting Platform
+
+Principles:
+
+- Chart First
+- Analysis First
+- Performance First
+- Predictable Interaction
+- Professional Axis
+- Smart HUD
+- Context Toolbar
+- Advanced Crosshair
+- Optional Navigator
+
+┌─────────────────────────────────────────────┐
+│                TOP TOOLBAR                  │
+├──────┬──────────────────────────────┬───────┤
+│ LEFT │                              │ PRICE │
+│ TOOL │        CHART SURFACE         │ AXIS  │
+│ BAR  │                              │       │
+├──────┴──────────────────────────────┤       │
+│             TIME AXIS               │       │
+├─────────────────────────────────────┴───────┤
+│ TAB BAR                 STATUS BAR          │
+└─────────────────────────────────────────────┘
+
+HUD OVERLAY
+(Above Chart Surface)
+
+
+Provider
+    ↓
+Tick System
+    ↓
+Aggregation Engine
+    ↓
+Market Data Bus
+    ↓
+Viewport
+    ↓
+Rendering Engine
+    ↓
+Candle Renderer
+    ↓
+Axis System
+    ↓
+Interaction
+    ↓
+Drawing
+    ↓
+Indicators
+    ↓
+Workspace
+
+MyChart.Core
+MyChart.Data
+MyChart.Rendering
+MyChart.Interaction
+MyChart.Drawing
+MyChart.Indicators
+MyChart.UI
+MyChart.Infrastructure
+MyChart.App
+
+
+
+
+PHASE 01
+Foundation
+
+PHASE 02
+Data System
+
+PHASE 03
+Chart Engine
+
+PHASE 04
+Interaction
+
+PHASE 05
+Drawing
+
+PHASE 06
+Analysis
+
+PHASE 07
+Completion
+
+
+
+
+1. No Architecture Redesign
+
+2. No Dependency Bypass
+
+3. Data Layer Contains No Visual Logic
+
+4. Renderer Owns Appearance
+
+5. UI Never Talks Directly To Providers
+
+6. State Changes Use Commands
+
+7. Everything Persistable Must Be Serializable
+
+8. Performance Before Visual Effects
+
+9. Chart Surface Is The Center Of The System
+
+10. Follow Implementation Order Exactly
+
+
+
+
+Build Order:
+
+01.03 Solution Structure
+        ↓
+01.04 Command System
+        ↓
+01.05 Serialization
+        ↓
+02.01 Candle Model
+
+
+
+
+Visual Architecture
+=
+Where Things Live
+
+System Map
+=
+How Things Connect
+
+Implementation Sequence
+=
+How Things Are Built
+
+This Document
+=
+Single Entry Point For Development
+
+
+

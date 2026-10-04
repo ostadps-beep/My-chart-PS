@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MyChart.Rendering</RootNamespace>
+    <AssemblyName>MyChart.Rendering</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SkiaSharp" Version="2.88.9" />
+    <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+  </ItemGroup>
+</Project>

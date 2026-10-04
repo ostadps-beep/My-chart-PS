@@ -1,0 +1,10 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>MyChart.Generator.Cli</RootNamespace>
+    <AssemblyName>mychart-gen</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyChart.Generator.Engine\MyChart.Generator.Engine.csproj" />
+  </ItemGroup>
+</Project>

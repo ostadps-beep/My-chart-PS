@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <RootNamespace>MyChart.App</RootNamespace>
+    <AssemblyName>MyChart.App</AssemblyName>
+    <ApplicationIcon />
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+    <ProjectReference Include="..\MyChart.Data\MyChart.Data.csproj" />
+    <ProjectReference Include="..\MyChart.Rendering\MyChart.Rendering.csproj" />
+    <ProjectReference Include="..\MyChart.Interaction\MyChart.Interaction.csproj" />
+    <ProjectReference Include="..\MyChart.Indicators\MyChart.Indicators.csproj" />
+    <ProjectReference Include="..\MyChart.Infrastructure\MyChart.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyChart.UI\MyChart.UI.csproj" />
+    <ProjectReference Include="..\MyChart.PluginHost\MyChart.PluginHost.csproj" />
+    <ProjectReference Include="..\MyChart.Plugins\MyChart.Plugins.csproj" />
+  </ItemGroup>
+</Project>

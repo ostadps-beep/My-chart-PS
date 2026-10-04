@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>MyChart.ToolBuilder</RootNamespace>
+    <AssemblyName>MyChart.ToolBuilder</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+    <ProjectReference Include="..\MyChart.PluginHost\MyChart.PluginHost.csproj" />
+    <ProjectReference Include="..\MyChart.Generator.Engine\MyChart.Generator.Engine.csproj" />
+    <ProjectReference Include="..\MyChart.Rendering\MyChart.Rendering.csproj" />
+  </ItemGroup>
+</Project>

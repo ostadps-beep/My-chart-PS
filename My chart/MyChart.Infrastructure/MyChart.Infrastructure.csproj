@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <RootNamespace>MyChart.Infrastructure</RootNamespace>
+    <AssemblyName>MyChart.Infrastructure</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="8.0.11" />
+    <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+    <ProjectReference Include="..\MyChart.Data\MyChart.Data.csproj" />
+  </ItemGroup>
+</Project>

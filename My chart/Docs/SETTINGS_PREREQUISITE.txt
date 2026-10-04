@@ -1,0 +1,30 @@
+MyChart — SETTINGS PREREQUISITE (T0.07)
+Authority: Engineering Spec v1.3 — REVISION_1_2, section 28 SETTINGS_INTEGRATION, node T0.07 / T6.08
+
+STATUS: RECORDED — not implemented in this repository
+
+RULES (immutable for this project)
+1. The Settings panel already exists as a separate owner project. It must NOT be recreated here.
+2. It must NOT be redesigned or given a second architecture inside MyChart.
+3. Integration happens only at T6.08 (SettingsIntegration), after chart infrastructure is stable.
+4. Chart code uses IChartSettings (Core/Contracts/Services) for values only; no Settings dialog in chart App before T6.08.
+5. Spec forbids ChartMy outside Docs/ in this repo. The legacy Settings folder on the owner machine may still be named ChartMy with namespace ChartMy; at T6.08 it is renamed mechanically to MyChart.Settings.
+
+OWNER MACHINE (legacy — do not commit that tree into MyChart as a rewrite)
+- Historical product name for Settings: ChartMy
+- Expected future project name at integration: MyChart.Settings
+- Location: owner-local (separate from this repo until T6.08)
+
+WHAT T0.07 COMPLETES
+- [x] Prerequisite acknowledged in Docs
+- [x] IChartSettings contract already present under Core/Contracts/Services (T0.04)
+- [x] No Settings window / JSON settings store added to MyChart.App
+- [ ] T6.08: reference MyChart.Settings, rename legacy namespace, wire IChartSettings implementation
+
+BLOCKED UNTIL T6.08
+- Opening Settings from toolbar as a full panel host
+- Duplicating Settings pages inside MyChart.UI
+
+NEXT AFTER T0.07
+- T0.08 PluginFoundation (PG0.01, PG0.02) if remaining T0 nodes require it
+- Then T1 Candle Engine per PRIORITY_EXECUTION_ORDER

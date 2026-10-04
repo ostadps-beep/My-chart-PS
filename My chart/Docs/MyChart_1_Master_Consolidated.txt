@@ -1,0 +1,437 @@
+MYCHART.1 — MASTER CONSOLIDATED ARCHITECTURE & DECISION BASELINE
+Version: Consolidated Baseline Purpose: Single compact source for
+Copilot implementation engineering
+
+Four independent source documents were consolidated: 1. Architecture /
+Roadmap 2. Master Decision File V1.0 3. Interaction + Navigator decision
+transcript 4. Master Architecture Document V1.0
+
+One additional supplied copy of the Architecture / Roadmap was
+identified as a duplicate.
+
+The Master Architecture Document is the structural backbone and MUST be
+preserved. The other sources complete it with finalized decisions,
+behavior, dependencies, execution order, and implementation constraints.
+
+This document defines WHAT is decided and the required functional
+behavior. Copilot’s next task is to define HOW to engineer and implement
+it.
+
+Status: [FINAL] finalized, [OPEN] unresolved, [PLAN]
+implementation/testing/release.
+
+[FINAL] Chart First. Data Is Pure. Single Theme System. Single Color
+System. Module Isolation. Contract Communication. Performance First.
+Interaction Consistency.
+
+Product identity: Analysis First. Pillars: Clean, Fast, Analytical,
+Predictable, Professional. Style: CAD-inspired, professional-terminal
+inspired, low noise, high information density, minimal UI.
+
+Core identity features: - Context Toolbar - Advanced Analysis
+Crosshair - Dual Price Marker - Smart HUD - Optional Navigator -
+Professional Axis - CAD-style Interaction
+
+Visual priority: Price > Analysis > Tools > UI.
+
+[FINAL] - Data never contains visual information. - Renderer owns
+appearance. - One global Theme System and one global Color System. - UI
+never directly accesses a Data Source. - Renderer never accesses
+Database/Network/API. - Data never depends on UI. - Modules communicate
+through Contracts. - Chart Engine is independent of specific
+providers. - Interaction must remain consistent and predictable. -
+Maximum chart space is preferred. - Important state must be
+serializable. - State-changing user actions are Command-based and
+Undo-aware. - Performance has priority over visual effects. - Common
+daily operations should require no more than two clicks.
+
+[FINAL] Projects: ChartMy.Core, ChartMy.Data, ChartMy.Rendering,
+ChartMy.Interaction, ChartMy.Drawing, ChartMy.Indicators, ChartMy.UI,
+ChartMy.Infrastructure, ChartMy.App.
+
+Layers: Data, Rendering, Interaction, Drawing, UI, Infrastructure.
+Dependency: UI -> Services/Contracts -> Core; Core never depends on UI.
+Foundation concepts: Contracts, Models, Services, Managers, Events,
+Commands, Renderers, Controls.
+
+============================================================ 04 — CANDLE
+MODEL ============================================================
+
+[FINAL] Canonical Candle: Timestamp, Open, High, Low, Close, Volume.
+Forbidden: Color, Brush, Theme, Style, Visual State. Rule: Data !=
+Appearance; appearance comes from Renderer/Theme/Color.
+
+============================================================ 05 — DATA
+LAYER ============================================================
+
+[FINAL] Architecture: ChartCore -> MarketDataBus -> Data Layer.
+
+Components: SymbolManager, TimeframeManager, DataProviderManager,
+DataCacheManager, HistoryManager, TickManager, AggregationEngine,
+DataStorage.
+
+IDataProvider: Connect, Disconnect, GetHistory, SubscribeTicks,
+UnsubscribeTicks, GetSymbols, GetTimeframes.
+
+Providers: CSV, MetaTrader, REST API, WebSocket, Replay, Custom.
+Provider Manager: Load, Switch, Reconnect, Health Monitor, Failover.
+
+V1 Provider: MetaTrader Provider. V1 path: MetaTrader -> EA ->
+Socket/TCP/Pipe -> MetaTraderProvider -> MarketDataBus -> ChartMy.1.
+ChartMy.1 is NOT dependent on MetaTrader; MetaTrader is only V1
+provider.
+
+Cache: Memory + Disk. Active memory: M1, M5, M15, M30, H1, H4, D1. Disk:
+SQLite. Logical tables: Symbols, Candles, Ticks, IndicatorsCache,
+Layouts.
+
+HistoryManager: Download, Update, Validate, Merge, Gap Detection,
+Repair. TickManager: Receive, Filter, Distribute, Tick Buffer.
+Aggregation: Tick -> M1 -> M5 -> M15 -> H1 -> H4 -> D1.
+
+MarketDataBus events: TickReceived, CandleUpdated, CandleClosed,
+NewSymbol, NewTimeframe, HistoryLoaded, ProviderChanged.
+
+SymbolManager: Registry, Normalization, Search, Groups, Favorites.
+Groups: Forex, Crypto, Indices, Stocks, Commodities. Timeframes: Tick,
+M1, M5, M15, M30, H1, H4, D1, W1, MN1.
+
+Replay Engine: Backtest, Market Replay, Training. Sources: CSV,
+Database, Provider. Offline: if Provider disconnects, Cache + Database
+continue operation. Pipeline: Provider -> Validation -> Normalization ->
+Cache -> Storage -> MarketDataBus -> Chart Engine. Future: Broker
+Gateway, Multi Provider, Data Merge, Cloud Sync, Distributed Cache.
+
+============================================================ 06 — DATA
+VALIDATION ============================================================
+
+[FINAL] Validation, Normalization, Duplicate detection, Invalid OHLC
+detection, Missing Bars, Time Gaps, Corrupted Records, Gap Detection,
+Repair Logic. Dependency: Data Layer.
+
+[FINAL] Components: Visible Range, Zoom Engine, Pan Engine, Coordinate
+Converter, Render Window. Rules: Smooth Zoom, Pixel Accurate Rendering,
+Infinite Scroll Capability, Latest Candle Lock optional. Primary
+interaction: Wheel = Zoom; Ctrl+Wheel = Precision Zoom; Middle Drag =
+Pan.
+
+[FINAL] ChartRenderer, LayerRenderer, Render Pipeline, Invalidation,
+Performance controls. Renderer must not perform network/database/API
+operations. Layer order: Background, Grid, Candle, Indicator, Drawing,
+Selection, Crosshair, HUD, Tooltip, Overlay.
+
+============================================================ 09 — CANDLE
+RENDERER ============================================================
+
+[FINAL] Supports OHLC, Hollow Candles, Bull/Bear Style, Selection State.
+Appearance comes from centralized Theme/Color/Renderer systems.
+
+============================================================ 10 — AXIS
+SYSTEM ============================================================
+
+[FINAL] Price Axis: right default, left optional, fixed width, separate
+axis area, quiet/low-contrast presentation, right-aligned labels,
+monospaced labels, smart density, collision avoidance, no overlap. Time
+Axis: bottom default. Scale modes: Auto, Manual, Log, Percentage.
+
+Axis behavior: dynamic label density, frozen axis during pan where
+applicable, realtime update, auto-scale indicator, manual-scale lock
+indicator, log badge.
+
+Grid: major price labels connect to grid; minor labels do not require
+grid. Current price: always visible; horizontal thin dashed line (~40%
+opacity); axis-attached rounded/capsule marker; bull/bear color; price;
+optional countdown. Crosshair price label remains above current-price
+marker layer.
+
+Dual Marker System: 1. Current Market Price Marker 2. Crosshair Analysis
+Price Marker
+
+Axis identity: Minimal Professional, quiet axis, strong current-price
+marker, analysis-oriented, dual marker enabled.
+
+[FINAL] Mode 1 Cursor: Price, Time. Mode 2 Analysis: Price Difference,
+Point Difference, Pip Difference, Time Difference, Candle Count,
+Percentage Change. Mode 3 Data Inspector: Date, Time, Open, High, Low,
+Close, Volume. Mode 4 Magnet: Open, High, Low, Close. Crosshair is a
+complete analysis system, not only a cursor.
+
+============================================================ 12 —
+INTERACTION ============================================================
+
+[FINAL] Each input has one primary behavior. Wheel=Zoom;
+Ctrl+Wheel=Precision Zoom; Middle+Drag=Pan; Left Click=Select; Double
+Click Object=Properties/Tool Settings; Right Click=Context Menu;
+Space+Drag=Temporary Pan; Shift+Click=Multi Select; Esc=Cancel Tool;
+Enter=Finish Drawing; Home=Go To Latest Candle.
+
+Consistency: Wheel always Zoom; Middle always Pan; Right Click always
+Context Menu; Esc always Cancel. Common operations <=2 clicks.
+
+Context menu is context-sensitive: Chart:
+navigation/crosshair/drawing/indicator/chart options/reset. Drawing
+object: edit/lock/clone/delete/object settings. Exact exhaustive
+right-click command inventory is not separately frozen.
+
+============================================================ 13 —
+TOOLBAR ============================================================
+
+[FINAL] Top: Symbol, Timeframe, Chart Type, Indicators, Templates,
+Layout, Settings. Left: Cursor, Crosshair, TrendLine, Rectangle, Arrow,
+Text, Fibonacci, Measure. Compact, modular, chart-space-first.
+
+[FINAL] Selection/context controls: Color, Width, Opacity, Style,
+Template, Lock, Clone, Delete. Purpose: change tool/object properties
+without opening separate windows. Core identity feature.
+
+============================================================ 15 — HUD
+
+[FINAL] HUD = informational Analysis Overlay. Default: Visible, Compact,
+Adaptive, top-left inside chart, mouse transparent, non-interactive, no
+selection, theme controlled, approximately 75% opacity, no automatic
+hide in the detailed final decision.
+
+Information: Symbol, Timeframe, OHLC under mouse, Spread, Market Status,
+Visible Bars, Start, End. Advanced optional: Zoom Level, FPS, Loaded
+Candles, Provider Name, Cache Status. Adaptive: large chart -> full;
+medium -> compact; small -> minimal. Minimal: Symbol, Timeframe, Spread.
+Refresh only when data/state changes.
+
+SOURCE CONFLICT RESOLUTION: An older summary contains Auto Hide /
+Minimal / Expanded. The detailed finalized HUD decision is
+authoritative: HUD remains visible, compact and adaptive. Auto Hide is
+superseded unless explicitly reopened.
+
+[FINAL HIGH-LEVEL] Types: TrendLine, Rectangle, Arrow, Text, Fibonacci,
+Measure. Lifecycle: Create -> Select -> Edit -> Move -> Resize -> Clone
+-> Lock -> Hide -> Delete -> Serialize -> Template. Rules: Selectable,
+Movable, Resizable, Serializable, Theme Aware, Template Aware, Undo
+Aware. Hit testing required.
+
+[FINAL HIGH-LEVEL] Indicator Base, Inputs, Outputs, Rendering. Must
+respect Data/Rendering contracts.
+
+============================================================ 18 —
+NAVIGATOR ============================================================
+
+[FINAL] Optional Analysis Module, not permanent main-layout UI. Default:
+Hidden.
+
+Level 1: Wheel Zoom, Pan, normal viewport navigation. Level 2: Go To
+Date, Go To Candle, Go To Time, Go To Latest; Home=latest;
+Ctrl+G=navigation dialog; Ctrl+Home=latest market position. Level 3:
+Optional Navigator Panel.
+
+Panel: bottom of chart, 8%–12% chart height, Mini Chart/Mini Map,
+Visible Range Box, Range Statistics, Current Position. Visible Range Box
+represents current viewport/zoom range and is draggable. Overview shows
+entire history/dataset with current visible range. Auto Hide enabled for
+optional panel after invocation. Performance: simplified rendering,
+reduced detail, independent cache. Main rule: Navigator never
+permanently reduces main chart space.
+
+============================================================ 19 —
+WORKSPACE ============================================================
+
+[FINAL HIGH-LEVEL] Layouts: 1, 2, 4, 6, 8 charts. Operations: Save,
+Load, Export, Import. Remember: Open Symbols, Drawings, Viewports.
+Multi-monitor/detached/floating behavior is OPEN/FUTURE.
+
+============================================================ 20 — THEME
+
+[FINAL] One Global Theme System. Scope: Chart, Toolbar, Panels, HUD,
+Drawings, Axis, Controls. Profiles: Dark, Light, Pro Dark, Custom.
+
+============================================================ 21 — COLOR
+
+[FINAL] BullColor, BearColor, GridColor, GridMajorColor, GridMinorColor,
+AxisColor, HudColor, AccentColor, BackgroundColor, SelectionColor,
+WarningColor, ErrorColor, SuccessColor. All appearance uses centralized
+colors.
+
+============================================================ 22 — ICON
+SYSTEM ============================================================
+
+[FINAL] Vector based, SVG/Geometry, Fluent Outline direction,
+Monochrome, Theme Aware.
+
+[FINAL HIGH-LEVEL] Command Bus, Undo, Redo, History, Command Stack.
+State-changing user actions should be Command-based and Undo-aware.
+
+[FINAL] Serializable: Workspace, Layouts, Drawings, Templates, User
+Settings, Theme, Crosshair Preferences. Independent categories: Market
+Data, Indicator Data, Drawing Data, Layout Data, Settings Data, Theme
+Data.
+
+============================================================ 25 —
+PERFORMANCE ============================================================
+
+[FINAL] Virtual Rendering, Object Pooling, Viewport Rendering,
+Incremental Refresh, Drawing Cache, Dirty Region Updates. Target: 60
+FPS+. No I/O in Renderer. Navigator uses simplified rendering. HUD
+refreshes only when required. Data/rendering remain isolated.
+
+============================================================ 26 —
+DEFAULT UX ============================================================
+
+[FINAL] Startup: Clean Chart, Crosshair Enabled, Navigator Hidden, HUD
+Minimal presentation, Auto Scale Enabled, Current Candle Centered. HUD
+Minimal means minimal presentation at startup/small state, not automatic
+hiding.
+
+============================================================ 27 — VISUAL
+IDENTITY ============================================================
+
+[FINAL] Analysis First. Recognizable features: Context Toolbar, Advanced
+Crosshair, Dual Price Marker, Smart HUD, Optional Navigator,
+Professional Axis, CAD Style Interaction, Compact Minimal UI. Visual
+priority: Price > Analysis > Tools > UI.
+
+============================================================ 28 — EXECUTION TREE
+============================================================
+
+[FINAL] The execution tree defines implementation order only. It does not
+change the finalized product architecture or functional decisions.
+
+00 — PROJECT PREREQUISITES
+    ├── Required project files
+    ├── Required source modules
+    ├── Required contracts and interfaces
+    ├── Required data models and schemas
+    ├── Required configuration/resources
+    ├── Existing ChartMy Settings project
+    │   ├── Already implemented separately
+    │   ├── Must not be recreated
+    │   ├── Must not be redesigned
+    │   ├── Must not create a second settings architecture
+    │   └── Integration occurs only at the defined integration stage
+    └── Review and prepare all prerequisites before implementation begins
+
+01 — INFRASTRUCTURE EXECUTION PRIORITY
+    ├── Chart Environment / Chart Body
+    ├── Core Calculation Infrastructure
+    ├── Coordinate System
+    ├── Viewport Engine
+    ├── Scale & Geometry Engine
+    ├── Data Pipeline
+    ├── Data Validation & Proof
+    └── Rendering Infrastructure
+
+02 — STANDARD CHART
+    ├── Candle Geometry
+    ├── Standard Candle Renderer
+    ├── Axis System
+    └── Current Price / Dual Price Marker
+
+03 — ANALYSIS
+    ├── Crosshair
+    ├── Analysis Calculations
+    └── HUD
+
+04 — INTERACTION & UI
+    ├── Core Interaction
+    ├── Toolbar
+    └── Context Toolbar
+
+05 — ANALYTICAL TOOLS
+    ├── Drawing Framework
+    ├── Drawing Tools
+    ├── Indicator Framework
+    └── Navigator
+
+06 — FINAL INTEGRATION
+    ├── Existing ChartMy Settings Integration
+    ├── Workspace
+    ├── Serialization
+    ├── Theme / Color / Icon Integration
+    ├── Performance Optimization
+    ├── Testing
+    └── Release Validation
+
+EXECUTION GATES
+    ├── Do not begin a stage before its prerequisites are prepared.
+    ├── A stage is complete only when implementation, dependencies,
+    │   deterministic calculations, and required tests are complete.
+    ├── Data receipt alone is not proof of correctness.
+    ├── Data correctness requires validation, normalization,
+    │   calculations, and verification.
+    ├── Coordinate, scale, geometry, and calculation infrastructure
+    │   must not be recreated inside downstream renderers or tools.
+    ├── Downstream modules must consume established contracts.
+    ├── Do not use temporary downstream logic to compensate for
+    │   incomplete infrastructure.
+    └── If a required architectural decision is missing:
+        BLOCKED / DECISION REQUIRED.
+
+STANDARD CANDLE DEPENDENCY CHAIN
+    Data
+    -> Validation
+    -> Normalization
+    -> Calculation Infrastructure
+    -> Coordinate System
+    -> Scale & Geometry
+    -> Viewport
+    -> Candle Geometry
+    -> Rendering Infrastructure
+    -> Standard Candle Renderer
+
+SETTINGS INTEGRATION RULE
+    The existing ChartMy Settings project remains an independent,
+    already implemented component. It is referenced during prerequisite
+    preparation so its contracts/resources can be identified, but it is
+    not implemented again. Its integration is performed only after the
+    required chart infrastructure and final integration contracts are
+    stable.
+
+Architecture baseline: 100% finalized in Master Architecture V1.0
+source. Recorded source markers: Product Architecture ~95%; UI/UX
+Architecture ~95%; Data Architecture 100%; Implementation Plan ~5%;
+Coding 0%. These are historical source markers, not a current repository
+claim. Architecture completion != implementation completion.
+
+============================================================ 31 —
+TESTING ============================================================
+
+[PLAN] Data Tests, Viewport Tests, Renderer Tests, Drawing Tests. Tests
+follow corresponding implementation stages.
+
+============================================================ 32 —
+RELEASE ============================================================
+
+[PLAN] Build, Performance, Memory, Stress Test, Final Review.
+
+[FINAL] Single Source of Truth. Do not create duplicate
+Guide/Tutorial/Explanation/ Architecture files. The master document
+contains Architecture + Decisions + Rules + Dependencies + Execution
+Order + Progress. Every future architectural decision must be added
+here.
+
+[OPEN 01] HUD Auto Hide wording conflict; current interpretation:
+visible, compact, adaptive; Auto Hide not active. [OPEN 02] Exact
+exhaustive Right-Click command inventory is not frozen.
+Context-sensitive behavior is final. [OPEN 03]
+Multi-monitor/detached/floating Workspace behavior is future/open. [OPEN
+04] Technology-stack details are not fully specified; do not invent
+them. No other item is intentionally reopened.
+
+Use this document as the recovered product/architecture baseline.
+
+Do not redesign finalized decisions. Do not replace the Master
+Architecture structure. Do not invent missing requirements. Do not
+create duplicate guide documents. Do not mix implementation decisions
+with product decisions. Do not place visual concerns in data models. Do
+not couple ChartCore to MetaTrader. Do not bypass module contracts.
+
+Do: - Preserve every [FINAL] decision. - Follow roadmap order. - Respect
+dependencies. - Convert finalized sections into concrete engineering
+architecture. - Define project/module ownership. - Define
+interfaces/contracts. - Define services/managers where required. -
+Define data/event flow. - Define lifecycle and serialization
+boundaries. - Define testing boundaries. - Keep providers and modules
+replaceable. - Keep implementation modular.
+
+NEXT OUTPUT REQUIRED FROM COPILOT: A detailed Engineering /
+Implementation Specification explaining HOW to implement this finalized
+baseline, without changing WHAT has already been decided here.
+
+END OF CHARTMY.1 CONSOLIDATED MASTER DOCUMENT

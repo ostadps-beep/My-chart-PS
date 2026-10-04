@@ -1,0 +1,392 @@
+MyChart
+IMPLEMENTATION MASTER SEQUENCE
+Version 1.0
+
+PURPOSE
+
+This document defines the exact implementation order.
+
+This document does not redefine architecture.
+
+Visual architecture is defined in:
+
+MyChart_Visual_Architecture_v1.0.png
+
+System relationships are defined in:
+
+MyChart_System_Map_v1.0.txt
+
+Implementation must follow this sequence exactly.
+
+============================================================
+PHASE 01
+FOUNDATION
+============================================================
+
+01.01 Product Vision
+
+01.02 Global Rules
+
+01.03 Solution Structure
+
+Projects:
+
+MyChart.Core
+MyChart.Data
+MyChart.Rendering
+MyChart.Interaction
+MyChart.Drawing
+MyChart.Indicators
+MyChart.UI
+MyChart.Infrastructure
+MyChart.App
+
+01.04 Command System
+
+Dependencies:
+01.02
+01.03
+
+01.05 Serialization Foundation
+
+Dependencies:
+01.03
+
+============================================================
+PHASE 02
+DATA SYSTEM
+============================================================
+
+02.01 Candle Model
+
+Dependencies:
+01.02
+
+------------------------------------------------------------
+
+02.02 Data Validation
+
+Dependencies:
+02.01
+
+------------------------------------------------------------
+
+02.03 Data Layer
+
+Dependencies:
+02.01
+02.02
+
+------------------------------------------------------------
+
+02.04 Provider Framework
+
+Dependencies:
+02.03
+
+------------------------------------------------------------
+
+02.05 MetaTrader Provider
+
+Dependencies:
+02.04
+
+------------------------------------------------------------
+
+02.06 Cache And Storage
+
+Dependencies:
+02.03
+
+------------------------------------------------------------
+
+02.07 History Manager
+
+Dependencies:
+02.06
+
+------------------------------------------------------------
+
+02.08 Tick System
+
+Dependencies:
+02.03
+
+------------------------------------------------------------
+
+02.09 Aggregation Engine
+
+Dependencies:
+02.08
+
+------------------------------------------------------------
+
+02.10 Market Data Bus
+
+Dependencies:
+02.03
+02.08
+02.09
+
+============================================================
+PHASE 03
+CHART ENGINE
+============================================================
+
+03.01 Viewport Engine
+
+Dependencies:
+02.10
+
+------------------------------------------------------------
+
+03.02 Rendering Engine
+
+Dependencies:
+03.01
+
+------------------------------------------------------------
+
+03.03 Candle Renderer
+
+Dependencies:
+03.02
+
+------------------------------------------------------------
+
+03.04 Axis System
+
+Dependencies:
+03.02
+
+------------------------------------------------------------
+
+03.05 Grid System
+
+Dependencies:
+03.04
+
+------------------------------------------------------------
+
+03.06 Current Price Marker
+
+Dependencies:
+03.04
+
+------------------------------------------------------------
+
+03.07 Dual Marker System
+
+Dependencies:
+03.06
+04.02
+
+============================================================
+PHASE 04
+INTERACTION
+============================================================
+
+04.01 Input System
+
+Dependencies:
+03.01
+
+------------------------------------------------------------
+
+04.02 Crosshair System
+
+Dependencies:
+03.04
+
+------------------------------------------------------------
+
+04.03 Interaction System
+
+Dependencies:
+04.01
+
+------------------------------------------------------------
+
+04.04 Toolbar
+
+Dependencies:
+04.03
+
+------------------------------------------------------------
+
+04.05 HUD
+
+Dependencies:
+03.01
+02.10
+
+============================================================
+PHASE 05
+DRAWING SYSTEM
+============================================================
+
+05.01 Drawing Framework
+
+Dependencies:
+04.03
+
+------------------------------------------------------------
+
+05.02 Hit Testing
+
+Dependencies:
+05.01
+
+------------------------------------------------------------
+
+05.03 Drawing Tools
+
+Dependencies:
+05.01
+
+------------------------------------------------------------
+
+05.04 Context Toolbar
+
+Dependencies:
+05.03
+
+============================================================
+PHASE 06
+ANALYSIS
+============================================================
+
+06.01 Indicator Framework
+
+Dependencies:
+02.10
+
+------------------------------------------------------------
+
+06.02 Navigator
+
+Dependencies:
+03.01
+
+------------------------------------------------------------
+
+06.03 Navigator Panel
+
+Dependencies:
+06.02
+
+------------------------------------------------------------
+
+06.04 Workspace
+
+Dependencies:
+06.01
+06.02
+
+============================================================
+PHASE 07
+COMPLETION
+============================================================
+
+07.01 Theme System
+
+Dependencies:
+All Previous UI Modules
+
+------------------------------------------------------------
+
+07.02 Color System
+
+Dependencies:
+07.01
+
+------------------------------------------------------------
+
+07.03 Icon System
+
+Dependencies:
+07.01
+
+------------------------------------------------------------
+
+07.04 Performance
+
+Dependencies:
+Entire System
+
+------------------------------------------------------------
+
+07.05 Default UX
+
+Dependencies:
+Entire System
+
+------------------------------------------------------------
+
+07.06 Testing
+
+Dependencies:
+Entire System
+
+------------------------------------------------------------
+
+07.07 Release
+
+Dependencies:
+07.06
+
+============================================================
+EXECUTION ORDER
+============================================================
+
+Foundation
+    ↓
+Data System
+    ↓
+Chart Engine
+    ↓
+Interaction
+    ↓
+Drawing System
+    ↓
+Analysis
+    ↓
+Completion
+
+============================================================
+PROJECT START POINT
+============================================================
+
+01.03 Solution Structure
+    ↓
+01.04 Command System
+    ↓
+01.05 Serialization Foundation
+    ↓
+02.01 Candle Model
+
+============================================================
+RULES
+============================================================
+
+No Architecture Redesign
+
+No Dependency Bypass
+
+Data Layer Contains No Visual Logic
+
+Renderer Owns Appearance
+
+UI Never Talks Directly To Providers
+
+All State Changes Use Commands
+
+All Persistent State Must Be Serializable
+
+Performance Before Visual Effects
+
+Follow Phase Order Exactly
+
+============================================================
+END
+============================================================

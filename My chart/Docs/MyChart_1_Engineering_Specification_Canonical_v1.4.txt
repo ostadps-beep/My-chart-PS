@@ -1,0 +1,3030 @@
+MYCHART.1 ENGINEERING IMPLEMENTATION SPECIFICATION
+CANONICAL REORDERED BASELINE
+VERSION 1.4 (content-preserving reordering of VERSION 1.3)
+DOCUMENT_STATUS=CANONICAL_EXECUTION_BASELINE
+SOURCE_BASELINE=MyChart_1_Engineering_Specification.txt VERSION 1.3
+CONTENT_POLICY=Every original decision, rule, requirement, node, test vector and historical revision is preserved; no original technical content is deleted.
+ARCHITECTURE_MODE=PLUGIN_FIRST
+SETTINGS_MODE=EXISTING_EXTERNAL_SUBSYSTEM; REAL_INTEGRATION=T6.08
+EXECUTION_PRIORITY=PROJECT_BASELINE_AND_REQUIRED_INFRASTRUCTURE_BEFORE_PRODUCT_FEATURES
+ROOT
+├─ READ_BEFORE_EXECUTION
+│  ├─ Read this control plane before reading or executing any node.
+│  ├─ The canonical order is the reading and execution order; node DEPENDS remains the normative technical dependency relation.
+│  ├─ The execution tree is a control view; the dependency relation is a graph and must be checked as a graph.
+│  ├─ Architecture is PLUGIN_FIRST: first-party icons and tools are plugin components, not UI-owned features.
+│  ├─ Settings is an existing separate subsystem; only its contract is prepared early and the real panel is integrated at T6.08.
+│  ├─ Do not execute from the roadmap index alone; load the complete selected node and all of its dependency nodes.
+│  ├─ Do not guess a missing requirement, reopen a FINAL decision, or skip a required gate.
+│  ├─ A node is complete only when its OUTPUT exists, its VERIFY passes, its GATE is satisfied, and its progress is recorded.
+│  └─ The original VERSION 1.3 remains the historical baseline; this VERSION 1.4 is the operational canonical arrangement.
+├─ CANONICAL_CONTROL_RULES
+│  ├─ SOURCE_PRIORITY=ACTIVE decisions in the latest revision override superseded decisions; historical text remains for traceability only.
+│  ├─ INFRASTRUCTURE_BASELINE=solution skeleton, contracts, project boundaries, test harness, cross-cutting contracts, plugin foundation and composition-root boundaries.
+│  ├─ RUNTIME_INFRASTRUCTURE=storage, providers, persistence and external adapters; it is implemented only after its contracts and consumers are ready.
+│  ├─ FIRST_PARTY_COMPONENTS=created only after the Plugin Integration and Acceptance Gate defined by PG4.02.
+│  ├─ SETTINGS_RULE=MyChart.Settings is not the architecture baseline and is not recreated or redesigned; it is connected only through the specified bridge.
+│  └─ VERSION_AXES=specification revision, product version, plugin contract version, vocabulary version and drawing type version are distinct.
+└─ CANONICAL_SECTION_INDEX
+   ├─ 01 AUTHORITY (ORIGINAL_LINE=6)
+   ├─ 02 REVISION_1_1 (ORIGINAL_LINE=14)
+   ├─ 03 REVISION_1_2 (ORIGINAL_LINE=24)
+   ├─ 04 REVISION_1_3 (ORIGINAL_LINE=33)
+   ├─ 05 GLOBAL_RULES (ORIGINAL_LINE=2012)
+   ├─ 06 IMPLEMENTATION_RULES (ORIGINAL_LINE=2858)
+   ├─ 07 FORBIDDEN (ORIGINAL_LINE=2880)
+   ├─ 08 PROJECT_STRUCTURE (ORIGINAL_LINE=144)
+   ├─ 09 SOLUTION (ORIGINAL_LINE=2029)
+   ├─ 10 LAYERS (ORIGINAL_LINE=2043)
+   ├─ 11 DEPENDENCY_RULES (ORIGINAL_LINE=2051)
+   ├─ 12 CANDLE_LAYER_SEPARATION (ORIGINAL_LINE=273)
+   ├─ 13 PLUGIN_SCOPE_V1 (ORIGINAL_LINE=316)
+   ├─ 14 PLUGIN_ARCHITECTURE_DECISIONS (ORIGINAL_LINE=333)
+   ├─ 15 PLUGIN_DEPENDENCY_DIRECTION (ORIGINAL_LINE=360)
+   ├─ 16 PLUGIN_CONTRACTS (ORIGINAL_LINE=374)
+   ├─ 17 PLUGIN_MANIFEST_STANDARD (ORIGINAL_LINE=437)
+   ├─ 18 TOOL_DEFINITION_VOCABULARY (ORIGINAL_LINE=461)
+   ├─ 19 PLUGIN_COMPONENT_FOLDER_STANDARD (ORIGINAL_LINE=503)
+   ├─ 20 TRUST_AND_FAULTS (ORIGINAL_LINE=520)
+   ├─ 21 PLUGIN_REVIEW_RESOLUTIONS (ORIGINAL_LINE=1986)
+   ├─ 22 SETTINGS_INTEGRATION (ORIGINAL_LINE=1847)
+   ├─ 23 SETTINGS_KEY_MAP (ORIGINAL_LINE=1884)
+   ├─ 24 MIGRATION_FROM_CURRENT_REPO (ORIGINAL_LINE=252)
+   ├─ 25 CORE (ORIGINAL_LINE=2069)
+   ├─ 26 CANDLE_MODEL (ORIGINAL_LINE=2094)
+   ├─ 27 DATA (ORIGINAL_LINE=2111)
+   ├─ 28 DATA_VALIDATION (ORIGINAL_LINE=2248)
+   ├─ 29 CHART_ENGINE (ORIGINAL_LINE=2260)
+   ├─ 30 NAVIGATION (ORIGINAL_LINE=2272)
+   ├─ 31 RENDERING (ORIGINAL_LINE=2277)
+   ├─ 32 CANDLE_RENDERER (ORIGINAL_LINE=2299)
+   ├─ 33 AXIS (ORIGINAL_LINE=2310)
+   ├─ 34 CROSSHAIR (ORIGINAL_LINE=2365)
+   ├─ 35 INTERACTION (ORIGINAL_LINE=2392)
+   ├─ 36 INTERACTION_CONSISTENCY (ORIGINAL_LINE=2406)
+   ├─ 37 CONTEXT_MENU (ORIGINAL_LINE=2413)
+   ├─ 38 TOOLBAR (ORIGINAL_LINE=2431)
+   ├─ 39 HUD (ORIGINAL_LINE=2468)
+   ├─ 40 DRAWING (ORIGINAL_LINE=2511)
+   ├─ 41 INDICATORS (ORIGINAL_LINE=2545)
+   ├─ 42 NAVIGATOR (ORIGINAL_LINE=2553)
+   ├─ 43 WORKSPACE (ORIGINAL_LINE=2598)
+   ├─ 44 THEME (ORIGINAL_LINE=2623)
+   ├─ 45 COLOR (ORIGINAL_LINE=2641)
+   ├─ 46 ICON (ORIGINAL_LINE=2658)
+   ├─ 47 COMMANDS (ORIGINAL_LINE=2667)
+   ├─ 48 SERIALIZATION (ORIGINAL_LINE=2676)
+   ├─ 49 PERFORMANCE (ORIGINAL_LINE=2694)
+   ├─ 50 DEFAULT_UX (ORIGINAL_LINE=2708)
+   ├─ 51 VISUAL_IDENTITY (ORIGINAL_LINE=2721)
+   ├─ 52 CONSTANTS_TABLE (ORIGINAL_LINE=1664)
+   ├─ 53 CONSTANTS_TABLE_PLUGINS (ORIGINAL_LINE=1692)
+   ├─ 54 GOLDEN_TEST_VECTORS (ORIGINAL_LINE=1712)
+   ├─ 55 PLUGIN_ACCEPTANCE_TESTS (ORIGINAL_LINE=1797)
+   ├─ 56 NODE_EXECUTION_SCHEMA (ORIGINAL_LINE=2906)
+   ├─ 57 EXECUTION_PROTOCOL (ORIGINAL_LINE=2922)
+   ├─ 58 PRIORITY_EXECUTION_ORDER (ORIGINAL_LINE=52)
+   ├─ 59 IMPLEMENTATION_STATUS (ORIGINAL_LINE=2776)
+   ├─ 60 OPEN_ITEMS (ORIGINAL_LINE=2816)
+   ├─ 61 OPEN_ITEM_PROTOCOL (ORIGINAL_LINE=2852)
+   ├─ 62 T0_SPEC (ORIGINAL_LINE=533)
+   ├─ 63 T1_SPEC (ORIGINAL_LINE=604)
+   ├─ 64 T2_SPEC (ORIGINAL_LINE=779)
+   ├─ 65 T3_SPEC (ORIGINAL_LINE=975)
+   ├─ 66 T4_SPEC (ORIGINAL_LINE=1307)
+   ├─ 67 T5_SPEC (ORIGINAL_LINE=1460)
+   ├─ 68 T6_SPEC (ORIGINAL_LINE=1521)
+   ├─ 69 T7_SPEC (ORIGINAL_LINE=1626)
+   ├─ 70 EXECUTION_ORDER (PHASE_GROUPING_ONLY; ORDER_AUTHORITY=PRIORITY_EXECUTION_ORDER; where the two differ PRIORITY_EXECUTION_ORDER wins) (ORIGINAL_LINE=2738)
+   ├─ 71 EXECUTION_DEPENDENCY_RULE (ORIGINAL_LINE=2773)
+   ├─ 72 TESTING (ORIGINAL_LINE=2800)
+   └─ 73 RELEASE (ORIGINAL_LINE=2808)
+├─ AUTHORITY
+│  ├─ SOURCE=MyChart_1_Master_Consolidated.txt
+│  ├─ FINAL_DECISIONS=IMMUTABLE
+│  ├─ MISSING_REQUIREMENT=OPEN/DECISION_REQUIRED
+│  ├─ PRODUCT_DECISIONS != IMPLEMENTATION
+│  ├─ ARCHITECTURE_BACKBONE=MASTER_ARCHITECTURE
+│  └─ SOURCE_OF_TRUTH=THIS_SPEC
+│
+├─ REVISION_1_1
+│  ├─ BASE=VERSION_1_0 (every FINAL decision preserved unchanged)
+│  ├─ ADDS=PRIORITY_EXECUTION_ORDER;PROJECT_STRUCTURE;CANDLE_LAYER_SEPARATION;T1..T7 node specs;CONSTANTS_TABLE;GOLDEN_TEST_VECTORS;CLOSED_OPEN_ITEMS
+│  ├─ APPROVED_BY=PS (request: resolve every undefined item with a standard value; leave nothing open)
+│  ├─ MARK=DECIDED_V1_1 means a standard default chosen in revision 1.1; implement it exactly as written
+│  ├─ RULE=A requirement that is still missing from this spec is OPEN; implementation stops and asks; it never guesses
+│  ├─ RULE=GOLDEN_TEST_VECTORS are normative; if code disagrees with a vector the code is wrong
+│  ├─ RULE=Every number used in code comes from CONSTANTS_TABLE (one Constants class per project); no magic numbers
+│  └─ NAMING=SUPERSEDED_BY_REVISION_1_2 (one name, MyChart, everywhere)
+│
+├─ REVISION_1_2
+│  ├─ BASE=REVISION_1_1
+│  ├─ OWNER_AMENDMENT_1=The project and product name is MyChart everywhere; the name ChartMy is retired (it belonged to the separate Settings panel). This amends the v1.0 FINAL project list (ChartMy.* -> MyChart.*)
+│  ├─ OWNER_AMENDMENT_2=The existing Settings panel (built separately, no repository) is integrated at T6.08 per SETTINGS_INTEGRATION; it is never recreated, redesigned or duplicated (Master_Consolidated section 28)
+│  ├─ NAMING=MyChart.Core, MyChart.Data, MyChart.Rendering, MyChart.Interaction, MyChart.Drawing, MyChart.Indicators, MyChart.UI, MyChart.Infrastructure, MyChart.App, MyChart.Tests, MyChart.Settings (added at T6.08); product name MyChart.1 (revision 1.3: MyChart.Drawing is removed, see A6; plugin and generator projects are added, see PROJECT_STRUCTURE)
+│  ├─ RULE=The string ChartMy must not appear in the repository (source, csproj, sln, namespaces, paths, file names) outside Docs/
+│  ├─ LEGACY=The Settings panel folder on the owner machine is still named ChartMy with namespace ChartMy; it is renamed mechanically to MyChart.Settings at T6.08
+│  ├─ CHANGES=candle body width follows candles.spacing; zoom factor follows chart.zoom.speed; HUD opacity follows hud.overlay.hud.transparency; JsonSettingsStore and Settings.json removed from the chart; the T6.03 Settings dialog removed; T0.07 and T6.08 SettingsIntegration added; Workspace is now T6.09
+│  └─ MARK=DECIDED_V1_2 means chosen in revision 1.2; the owner may revise it
+├─ REVISION_1_3
+│  ├─ BASE=REVISION_1_2
+│  ├─ MERGED=Plugin and Generator Platform specification v1.2 (nodes PG0.01 to PG6.03 and the PLUGIN_* reference nodes)
+│  ├─ OWNER_AMENDMENTS (each changes a FINAL or earlier decision)
+│  │  ├─ A1 the FINAL tool list (TrendLine, Rectangle, Arrow, Text, Fibonacci, Measure) becomes six first-party DataTool components
+│  │  ├─ A2 T6.04 left toolbar and T6.02, T6.05 menus are slot-driven; the UI project contains no tool name and no icon
+│  │  ├─ A3 T7.01 IconSystem: icons come from icon components; MyChart.UI/Icons/IconGeometry.xaml is not created; the UI converts IconDescriptor.PathData to StreamGeometry at load
+│  │  ├─ A4 T3.04 is split: DrawingMath and generic hit-test dispatch stay in Core; shape-specific geometry lives in the DataTool engine (PG2) with unchanged values
+│  │  ├─ A5 the IRenderContext contract (T0.04, implemented in T4.01) gains MeasureText(string text, TextStyle style) returning SizeD (device pixels); the test double RecordingRenderContext implements it from PG1.07 on
+│  │  ├─ A6 the project MyChart.Drawing is removed; models go to Core/Models/Drawing, tools to MyChart.Plugins components, dispatch to Core/Rendering and Core/Analysis
+│  │  ├─ A7 contracts IDrawingObject, IDrawingTool, IDrawingHitTester of T0.04 are replaced by PLUGIN_CONTRACTS (DrawingObject is a record)
+│  │  ├─ A8 T3.07 DrawingData serialization uses typeId, typeVersion and UnknownDrawingObject (PG1.05)
+│  │  ├─ A9 Generator.Engine references Core; identity, manifest, vocabulary and expression code exists once in Core/Plugins
+│  │  ├─ A10 user-made DataTools and icons load at runtime from %AppData%/MyChart/UserComponents without rebuild (PLUGIN_ARCHITECTURE_DECISIONS AD06)
+│  │  └─ A11 every node gains the field GATE (AUTOMATED or VISUAL); VISUAL nodes: T4.03 to T4.08, T4.09, T6.01 to T6.10, T7.01, T7.02 and the PG nodes marked VISUAL; VISUAL proof = PNG files from VisualProof (T4.01) for anything rendered, screenshots for UI
+│  ├─ NODE_ID_SCHEME=T nodes define the execution order; PG nodes are sub-nodes of T0.08, T3.08, T3.09, T3.10, T3.11, T4.09 and T6.10; both kinds are valid DEPENDS and NEXT targets; a container node (those seven) is done when all its PG children are verified
+│  ├─ MARK=DECIDED_PG_1_2 on plugin nodes means decided in the plugin specification v1.2 and adopted here unchanged
+│  └─ NOTE=the string ChartMy appears in this document only where it describes the retired name, the rule that forbids it, the rename step, the T0.03 check, and the legacy namespace of the Settings panel
+│
+├─ GLOBAL_RULES
+│  ├─ ChartFirst
+│  ├─ DataIsPure
+│  ├─ SingleThemeSystem
+│  ├─ SingleColorSystem
+│  ├─ ModuleIsolation
+│  ├─ ContractCommunication
+│  ├─ PerformanceFirst
+│  ├─ InteractionConsistency
+│  ├─ MaximizeChartSpace
+│  ├─ ImportantStateSerializable
+│  ├─ StateChangingActions=CommandBased
+│  ├─ StateChangingActions=UndoAware
+│  ├─ RendererNoIO
+│  ├─ CommonDailyOperations<=2Clicks
+│  └─ NoUnapprovedProductRedesign
+│
+├─ IMPLEMENTATION_RULES
+│  ├─ PreserveEveryFINALDecision
+│  ├─ FollowRoadmapOrder
+│  ├─ RespectDependencies
+│  ├─ ConvertWHATIntoHOW
+│  ├─ DefineProjectOwnership
+│  ├─ DefineModuleOwnership
+│  ├─ DefineInterfaces
+│  ├─ DefineContracts
+│  ├─ DefineServices
+│  ├─ DefineManagers
+│  ├─ DefineEvents
+│  ├─ DefineCommands
+│  ├─ DefineDataFlow
+│  ├─ DefineLifecycleBoundaries
+│  ├─ DefineSerializationBoundaries
+│  ├─ DefineTestingBoundaries
+│  ├─ KeepProvidersReplaceable
+│  ├─ KeepModulesReplaceable
+│  ├─ KeepImplementationModular
+│  └─ DoNotChangeProductDecisions
+│
+├─ FORBIDDEN
+│  ├─ RedesignFinalizedRequirements
+│  ├─ InventMissingRequirements
+│  ├─ MixProductAndImplementationDecisions
+│  ├─ CreateDuplicateGuideDocuments
+│  ├─ CreateDuplicateArchitectureDocuments
+│  ├─ PutVisualPropertiesIntoDataModels
+│  ├─ CoupleChartCoreToMetaTrader
+│  ├─ BypassModuleContracts
+│  ├─ PutDatabaseAccessIntoRenderer
+│  ├─ PutNetworkAccessIntoRenderer
+│  ├─ PutAPIAccessIntoRenderer
+│  ├─ PutThemeIntoMarketData
+│  ├─ PutColorIntoCandleModel
+│  ├─ ImplementOPENItemsByGuess
+│  ├─ NameConcreteToolOrIconInChartUiOrCore (except CoreBuiltIns.cs)
+│  ├─ GeneratorWritesOutsideAllowedScope (PLUGIN_ARCHITECTURE_DECISIONS AD05)
+│  ├─ EditGeneratedFilesByHand
+│  ├─ ToolDefinesOwnSettingsStorage
+│  ├─ CoreReferencesPluginHostPluginsGeneratorOrToolBuilder
+│  ├─ ComponentReferencesPluginHost
+│  ├─ LoadCodeToolFromUserRootOrLoadAssembliesDynamically
+│  ├─ CreateFirstPartyComponentBeforePG4_02
+│  ├─ WorkAroundMissingVocabularyInsteadOfReporting
+│  └─ SkipVisualGate
+│
+├─ PROJECT_STRUCTURE
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ RULE=Create every folder and file below in T0.03 as compilable skeletons (empty types/interfaces) before any logic is written
+│  ├─ ROOT_FILES
+│  │  ├─ MyChart.sln
+│  │  ├─ Directory.Build.props (net8.0; Nullable=enable; ImplicitUsings=enable; LangVersion=latest; TreatWarningsAsErrors=true; UI projects override to net8.0-windows)
+│  │  ├─ global.json (SDK 8.0.x; rollForward=latestFeature)
+│  │  ├─ .editorconfig
+│  │  ├─ .gitignore (bin, obj, .vs, *.user, *.db, artifacts/)
+│  │  └─ README.md (one paragraph + pointer to Docs/MyChart_1_Engineering_Specification.txt)
+│  ├─ Docs
+│  │  ├─ MyChart_1_Engineering_Specification.txt = SOURCE_OF_TRUTH (this file)
+│  │  ├─ MyChart_1_Master_Consolidated.txt = reference only
+│  │  ├─ MyChart_System_Map_v1.0.txt = reference only
+│  │  ├─ IMPLEMENTATION_PROGRESS.txt = single progress log (one line per finished node: ID | date | tests passed)
+│  │  ├─ MyChart_Implementation_Master_Sequence_v1.0.txt = SUPERSEDED (kept, not edited)
+│  │  └─ MyChart_Master_Execution_Package_v1.0.txt = SUPERSEDED (kept, not edited)
+│  ├─ Mockups
+│  │  └─ MyChart_Visual_Architecture_v1.0.png
+│  ├─ MyChart.Core (net8.0; references NOTHING)
+│  │  ├─ Contracts
+│  │  │  ├─ Data: IDataProvider, ISymbolManager, ITimeframeManager, IDataProviderManager, IDataCacheManager, IHistoryManager, ITickManager, IAggregationEngine, IDataStorage, IMarketDataBus
+│  │  │  ├─ Rendering: IRenderContext, IChartRenderer, ILayerRenderer, ICandleRenderer, IAxisRenderer
+│  │  │  ├─ Interaction: IPointerInput, IChartInputHandler
+│  │  │  ├─ Drawing: (replaced by Plugins below; see A7)
+│  │  │  ├─ Plugins: IChartPlugin, IPluginHost, IToolRegistry, IDrawingTypeRegistry, IIconRegistry, IContributionRegistry, IToolContext, IChartMapper, IDrawingTool, IDrawingObjectPainter, IDrawingHitTester, IDrawingObjectMigrator, PluginContractVersion
+│  │  │  ├─ Indicators: IIndicator
+│  │  │  ├─ UI: IThemeService, IIconProvider
+│  │  │  └─ Services: IClock, ILogService, IStateSerializer, IChartSettings
+│  │  ├─ Models
+│  │  │  ├─ Market: Candle, Tick, Timeframe, SymbolInfo, SymbolGroup, GapInfo, GapKind, ValidationReport
+│  │  │  ├─ Chart: ChartType, CrosshairState, HudState
+│  │  │  ├─ Viewport: ViewState, PriceScaleState, ScaleFit, ScaleTransform, RenderWindowRange
+│  │  │  ├─ Drawing: DrawingObject (record), DrawingAnchor, DrawingStyle, UnknownDrawingObject
+│  │  │  ├─ Plugins: ToolDescriptor, DrawingTypeDescriptor, IconDescriptor, SlotContribution, Slot, Placement, ParameterDescriptor, ParameterKind, ToolCategory, ToolResult, PointerEvent, KeyEvent, DrawContext, DrawState, HitResult, HitKind, ComponentManifest
+│  │  │  ├─ Indicator: IndicatorParameter, IndicatorOutput
+│  │  │  ├─ Workspace: WorkspaceModel, ChartLayoutModel
+│  │  │  └─ Settings: ChartSettingValues, DefaultChartSettings
+│  │  ├─ Candles (LAYER L2, pure calculation)
+│  │  │  └─ SessionCalendar.cs, ServerTimeRule.cs, CalendarBuckets.cs, FormingCandle.cs, CandleFold.cs, CandleAggregator.cs
+│  │  ├─ Data
+│  │  │  └─ Validation: CandleValidator.cs, TickValidator.cs
+│  │  ├─ ChartEngine
+│  │  │  ├─ Constants: ChartConstants.cs
+│  │  │  ├─ TimeIndexMapper.cs, CoordinateConverter.cs, RenderWindow.cs, ZoomEngine.cs, PanEngine.cs, ScrollLimits.cs, Viewport.cs, StartupView.cs, ChartSession.cs
+│  │  │  ├─ PriceScale: PriceScaleEngine.cs, PriceTransform.cs, NiceTicks.cs
+│  │  │  └─ Axis: PriceAxisModel.cs, TimeAxisModel.cs, TimeLabelPlanner.cs, LabelCollision.cs
+│  │  ├─ Analysis
+│  │  │  └─ SymbolMath.cs, CrosshairCalculator.cs, MeasureCalculator.cs, HudDataProvider.cs, NavigatorCalculator.cs, DrawingMath.cs (DistancePointToSegment, DistancePointToRectEdges, PointInRect, DistancePointToEllipseEdge)
+│  │  ├─ Plugins (pure; shared by the host and the Generator)
+│  │  │  ├─ Identity: IdRules, HotkeyRules, GeometryPathGrammar, SemVer
+│  │  │  ├─ Manifest: ManifestSchema, ManifestValidator, ErrorCodes
+│  │  │  ├─ Vocabulary: ToolDefinition (model), DefinitionValidator, VocabularyVersion, PrimitiveKinds
+│  │  │  ├─ Expressions: ExpressionParser, ExpressionEvaluator, BuiltInFunctions
+│  │  │  └─ Base: TwoPointToolBase, SinglePointToolBase, ClickToolBase
+│  │  ├─ Rendering (draw logic on IRenderContext only)
+│  │  │  ├─ Geometry: CandleGeometry.cs, CandleGeometryCalculator.cs, ColumnAggregator.cs
+│  │  │  └─ BackgroundRenderer, GridRenderer, PriceAxisRenderer, TimeAxisRenderer, CandleRenderer, CurrentPriceMarkerRenderer, DualMarkerRenderer, CrosshairRenderer, HudRenderer, DrawingRenderer, RenderPipeline, RenderLayer
+│  │  ├─ Commands: CommandBus, CommandHistory, IChartCommand, AddDrawingCommand, RemoveDrawingsCommand, MoveDrawingCommand, EditDrawingCommand
+│  │  ├─ Serialization: category serializers (MarketData excluded from workspace), SerializationCategory, SerializationException
+│  │  └─ Events, State
+│  ├─ MyChart.Data (references Core)
+│  │  ├─ Managers: SymbolManager, TimeframeManager, DataProviderManager, DataCacheManager, HistoryManager, TickManager (LAYER L3)
+│  │  ├─ Aggregation: AggregationEngine.cs (LAYER L3 service; calls Core/Candles only)
+│  │  ├─ Bus: MarketDataBus.cs
+│  │  ├─ Providers: CsvProvider.cs, ReplayProvider.cs
+│  │  └─ Cache: InMemoryDataCache.cs
+│  ├─ MyChart.Infrastructure (references Core, Data)
+│  │  ├─ Storage: SqliteDataStorage.cs
+│  │  ├─ Providers/MetaTrader: MetaTraderProvider.cs, PipeTransport.cs, TcpTransport.cs, MessageCodec.cs
+│  │  ├─ Logging: FileLogService.cs
+│  │  └─ Serialization: JsonStateSerializer.cs
+│  ├─ MyChart.Rendering (references Core; SkiaSharp 2.88.9)
+│  │  └─ Skia: SkiaRenderContext.cs, SkiaLayerCache.cs, PaintCache.cs, SkiaPngRenderContext.cs (headless PNG export for VISUAL proofs)
+│  ├─ MyChart.Interaction (references Core)
+│  │  ├─ Input: ChartInputController.cs, KeyBindings.cs, PointerEventData.cs
+│  │  └─ Crosshair: CrosshairController.cs
+│  ├─ MyChart.Indicators (references Core)
+│  │  └─ IndicatorBase.cs, IndicatorHost.cs
+│  ├─ MyChart.PluginHost (references Core)
+│  │  ├─ Registries: ToolRegistry, DrawingTypeRegistry, IconRegistry, ContributionRegistry
+│  │  ├─ Guard: GuardedPainter, GuardedHitTester, GuardedTool, GuardedMigrator, CircuitBreaker, FaultLog
+│  │  ├─ DataTools: DataToolPainter, DataToolHitTester, DataToolFactory, ShapeGeometry
+│  │  └─ Loading: PluginHost.cs, UserComponentLoader.cs, DescriptorValidator.cs, PluginLoadReport.cs, CoreBuiltIns.cs
+│  ├─ MyChart.Plugins (references Core only; never PluginHost)
+│  │  ├─ Components/<ComponentId>/ (see PLUGIN_COMPONENT_FOLDER_STANDARD)
+│  │  └─ Generated/PluginCatalog.g.cs, Generated/IconCatalog.g.cs
+│  ├─ MyChart.Settings (added ONLY at T6.08; net8.0-windows; WPF class library; the existing Settings panel converted per SETTINGS_INTEGRATION R1; references NOTHING and never references Core)
+│  │  └─ Model, Services, ViewModels, Views, Controls, Themes (contents of the existing panel, unchanged apart from R1)
+│  ├─ MyChart.UI (net8.0-windows; WPF; references Core)
+│  │  ├─ Controls: ChartHost.xaml(.cs)
+│  │  └─ Toolbars, Panels, Menus, Themes (no icons and no tool names)
+│  ├─ MyChart.App (WinExe; references all runtime projects (including PluginHost and Plugins) and, from T6.08, MyChart.Settings)
+│  │  ├─ Integration: SettingsBridge.cs (added at T6.08; the only file that references the Settings project)
+│  │  └─ App.xaml(.cs), MainWindow.xaml(.cs) (thin: no business logic, code-behind <= 150 lines), CompositionRoot.cs (manual wiring; no DI container)
+│  ├─ MyChart.Generator.Engine (references Core only)
+│  │  ├─ Templates: ScaffoldTemplates (embedded text)
+│  │  └─ Operations: FilePlan, Transaction, CatalogGenerator, DependencyGraph, Validate, ToolOperations, IconOperations, GitGateway
+│  ├─ MyChart.Generator.Cli (references Generator.Engine)
+│  │  └─ Program.cs, Commands (one class per verb), JsonOutput.cs
+│  ├─ MyChart.ToolBuilder (WPF; net8.0-windows; references Core, PluginHost, Generator.Engine, Rendering)
+│  │  └─ Views, ViewModels, Preview (see PG6)
+│  ├─ MyChart.Generator.Tests (references Generator.Engine)
+│  │  └─ ValidationTests, TransactionTests, CatalogTests, CliTests, Fixtures
+│  ├─ MyChart.Tests (xUnit; net8.0; references Core, Data, Rendering, Interaction, PluginHost, Plugins, Indicators, Infrastructure)
+│  │  └─ CandleTests, DataTests, ViewportTests, RendererTests, DrawingTests (DrawingMath), PluginTests, VocabularyTests, ExpressionTests, Support (HostHarness, RecordingRenderContext, FakeChartMapper, FakeToolContext, ConformanceSuite, VisualProof, ComponentScenes), Fixtures (csv golden files, expected-output files)
+│  └─ DEPENDENCY_CHECK=Core has zero ProjectReference; Renderer projects have zero DB/Network references; Data has no reference to Rendering/UI; Settings references nothing; PluginHost, Plugins, Generator.* and ToolBuilder follow PLUGIN_DEPENDENCY_DIRECTION (Core never references them; Plugins never references PluginHost; runtime projects never reference Generator.* or ToolBuilder)
+│
+├─ SOLUTION
+│  ├─ MyChart.Core
+│  ├─ MyChart.Data
+│  ├─ MyChart.Rendering
+│  ├─ MyChart.Interaction
+│  ├─ MyChart.Drawing (REMOVED in revision 1.3, A6)
+│  ├─ MyChart.Indicators
+│  ├─ MyChart.UI
+│  ├─ MyChart.Infrastructure
+│  ├─ MyChart.App
+│  ├─ MyChart.PluginHost (added in revision 1.3)
+│  ├─ MyChart.Plugins (added in revision 1.3)
+│  └─ MyChart.Generator.Engine, MyChart.Generator.Cli, MyChart.ToolBuilder (added in revision 1.3)
+│
+├─ LAYERS
+│  ├─ Data
+│  ├─ Rendering
+│  ├─ Interaction
+│  ├─ Drawing
+│  ├─ UI
+│  └─ Infrastructure
+│
+├─ DEPENDENCY_RULES
+│  ├─ UI -> Services/Contracts -> Core
+│  ├─ Core -X-> UI
+│  ├─ Data -X-> UI
+│  ├─ Renderer -X-> Database
+│  ├─ Renderer -X-> Network
+│  ├─ Renderer -X-> API
+│  ├─ Data -X-> Appearance
+│  ├─ Data -X-> Theme
+│  ├─ Data -X-> Brush
+│  ├─ Data -X-> VisualState
+│  ├─ ChartCore -X-> ProviderSpecificImplementation
+│  ├─ Modules communicate through Contracts
+│  ├─ Core -X-> PluginHost, Plugins, Generator, ToolBuilder (revision 1.3)
+│  ├─ Plugins -X-> PluginHost
+│  ├─ Runtime projects -X-> Generator and ToolBuilder
+│  └─ Plugin projects: see PLUGIN_DEPENDENCY_DIRECTION
+│
+├─ CANDLE_LAYER_SEPARATION
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ PURPOSE=Candle data, candle calculation, candle service, candle geometry and candle drawing are five different jobs. Each job lives in exactly one place. No job may do the work of another.
+│  ├─ L1_MODEL
+│  │  ├─ OWNER=MyChart.Core/Models/Market/Candle.cs
+│  │  ├─ IS=immutable readonly record struct Candle(DateTimeOffset Timestamp, double Open, double High, double Low, double Close, double Volume)
+│  │  ├─ TIMESTAMP=bar OPEN time; UTC; aligned to the timeframe bucket
+│  │  ├─ HAS_NO=color;brush;theme;style;pixels;index;timeframe;symbol;spread;flags
+│  │  ├─ HELPERS=IsBullish (Close >= Open); IsBearish (Close < Open)
+│  │  └─ NOTE=Timeframe, Symbol and repair flags belong to the series or report that holds the candle, never to Candle
+│  ├─ L2_CALCULATION
+│  │  ├─ OWNER=MyChart.Core/Candles/
+│  │  ├─ IS=pure functions and small state structs (FormingCandle)
+│  │  ├─ DOES=bucket floor; fold candles; apply one tick to a forming candle; validation math
+│  │  ├─ INPUT=ticks or candles + Timeframe + SessionCalendar
+│  │  ├─ OUTPUT=candles
+│  │  ├─ HAS_NO=IO;events;clock;pixels;coordinates;bar spacing;colors;static mutable state
+│  │  └─ DETERMINISTIC=same input always gives the same output
+│  ├─ L3_SERVICE
+│  │  ├─ OWNER=MyChart.Data/Aggregation/AggregationEngine.cs and MyChart.Data/Managers/TickManager.cs
+│  │  ├─ IS=stateful orchestration
+│  │  ├─ DOES=hold the forming candle per (symbol,timeframe); call L2; own the series lists; publish MarketDataBus events
+│  │  └─ HAS_NO=pixels;coordinates;colors;drawing
+│  ├─ L4_GEOMETRY
+│  │  ├─ OWNER=MyChart.Core/Rendering/Geometry/CandleGeometryCalculator.cs
+│  │  ├─ IS=pure screen math
+│  │  ├─ DOES=(candle, index, ViewState, price scale, DpiScale) -> CandleGeometry in integer device pixels
+│  │  ├─ OUTPUT=CandleGeometry{Mode,WickX,WickTop,WickBottom,BodyLeft,BodyTop,BodyWidth,BodyHeight,IsBull,IsDoji}; Mode in {FullCandle,WickOnly,PixelColumn}
+│  │  └─ HAS_NO=SkiaSharp;colors;IO;ticks;aggregation
+│  ├─ L5_RENDERER
+│  │  ├─ OWNER=MyChart.Core/Rendering/CandleRenderer.cs
+│  │  ├─ IS=drawing only
+│  │  ├─ DOES=ask L4 for geometry; pick color from Theme by IsBull; call IRenderContext.FillRect
+│  │  └─ HAS_NO=price math;index math;rounding;aggregation;validation;IO
+│  ├─ FORBIDDEN_CROSSINGS
+│  │  ├─ Renderer computing OHLC, buckets or aggregation
+│  │  ├─ Aggregation or validation referencing pixels, ViewState, BarSpacing or color
+│  │  ├─ Geometry reading Theme or calling Skia
+│  │  ├─ Candle gaining visual, timeframe, symbol or spread fields
+│  │  ├─ Any layer reading DateTime.UtcNow directly (use IClock)
+│  │  └─ Any layer keeping mutable static state
+│  ├─ ORDER=L1 -> L2 -> L3 inside Tier 1; L4 inside Tier 2; L5 inside Tier 4; each layer passes its own tests before the next layer starts
+│  └─ TEST_ISOLATION=L1,L2,L4 tests need no Skia, no WPF, no files; L3 tests use a fake IClock and a fake provider
+├─ PLUGIN_SCOPE_V1
+│  ├─ IN
+│  │  ├─ Component kinds: DataTool (tool defined by a JSON definition, no code), CodeTool (tool written in C# against the same contracts), Icon
+│  │  ├─ Runtime PluginHost with four registries (tools, drawing types, icons, slot contributions)
+│  │  ├─ Versioned contracts with a compatibility policy; versioned tool vocabulary with an extension policy
+│  │  ├─ Trust model with fault isolation and a circuit breaker; fault log
+│  │  ├─ Component test toolkit and a conformance suite that runs against every component automatically
+│  │  ├─ Generator Engine with command-line tool; git is the backup and undo mechanism
+│  │  └─ Tool Builder (WPF) for creating DataTools without programming (PG6)
+│  └─ OUT (deferred; no stubs, no partial code)
+│     ├─ Widget components and Widget Generator
+│     ├─ Command Generator (tools use the existing CommandBus commands AddDrawing, MoveDrawing, EditDrawing, RemoveDrawings)
+│     ├─ Indicator plugins and Trading tools
+│     ├─ Authoring UI for CodeTools (CodeTools are written in an editor and compiled into MyChart.Plugins)
+│     ├─ Bitmap icons, theme-variant icons
+│     ├─ Marketplace, third-party plugins, sandbox or separate process, signing, hot reload of code, dynamic assembly loading, cloud sync, AI designer
+│     └─ SQLite index, snapshot store, synchronizer (replaced by git and the validate command)
+├─ PLUGIN_ARCHITECTURE_DECISIONS
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ AD01 TWO_MECHANISMS
+│  │  ├─ RUNTIME=PluginHost inside the application: validates, registers, guards, isolates
+│  │  ├─ DEV_TIME=Generator Engine, CLI and Tool Builder: create, update, remove and validate components on disk
+│  │  └─ RULE=the application never references the Generator; the Generator may reference Core (AD02)
+│  ├─ AD02 PLUGIN_DEPENDENCY_DIRECTION=see PLUGIN_DEPENDENCY_DIRECTION; Generator.Engine references Core so that identity rules, manifest model, manifest validator, geometry grammar, tool-definition validator and expression parser exist ONCE (in Core/Plugins); Core never references PluginHost, Plugins or Generator
+│  ├─ AD03 CONTRACTS_LOCATION=MyChart.Core/Contracts/Plugins and MyChart.Core/Plugins (no separate contracts project)
+│  ├─ AD04 SINGLE_SOURCE_OF_TRUTH=the Manifest.json files on disk in the two component roots (AD05); there is no index or database; tools scan the roots (dozens of files, instant)
+│  ├─ AD05 COMPONENT_ROOTS
+│  │  ├─ RepoRoot = MyChart.Plugins/Components/ (first-party; under git; all kinds)
+│  │  ├─ UserRoot = %AppData%/MyChart/UserComponents/ (user-made; DataTool and Icon only; not under git)
+│  │  └─ WRITE_SCOPE=the Generator may write only inside RepoRoot, UserRoot, and the two files MyChart.Plugins/Generated/PluginCatalog.g.cs and IconCatalog.g.cs; any other path is a violation (E013)
+│  ├─ AD06 LOADING
+│  │  ├─ RepoRoot components are compiled into the assembly MyChart.Plugins through the generated catalogs (deterministic; a rebuild is needed after add or remove)
+│  │  ├─ UserRoot components (DataTool and Icon) are read at application start by UserComponentLoader; no compile, no rebuild; a CodeTool found in UserRoot is rejected with E023
+│  │  └─ no reflection scanning, no dynamic assembly loading
+│  ├─ AD07 MANIFEST_AT_RUNTIME=RepoRoot manifests are embedded by the catalog generator as code; UserRoot manifests and definitions are parsed at start with the same Core validators
+│  ├─ AD08 SETTINGS=no per-tool settings storage; a tool declares ParameterDescriptors; defaults may reference Settings keys ("@drawing.tools.tool.color"); parameter values live inside the drawing object (Style and Extra) in the workspace; the Settings panel stays the only owner of settings (SETTINGS_INTEGRATION R2, R3)
+│  ├─ AD09 NAMING=generator templates are called ScaffoldTemplates; the word Templates is reserved for the user templates of the top toolbar (T6.03)
+│  ├─ AD10 ICONS=vector only: one SVG path-data string per icon, viewBox 16x16, monochrome, coloured by theme tokens; key Icon.<Name>; the UI project owns no icon
+│  ├─ AD11 CLI_AND_GUI=every generator operation exists in the CLI (--dry-run, --json) for AI models; the Tool Builder (PG6) is the user interface for DataTools; both call the same Engine
+│  ├─ AD12 STANDARD_DRAWING_OBJECT=Core owns one immutable DrawingObject record {Id, TypeId, TypeVersion, Anchors, Style, Locked, Hidden, Extra(JsonObject)}; components never define object classes; tool-specific data lives in Extra
+│  ├─ AD13 TECHNOLOGY=.NET 8; Windows only; System.Text.Json; xUnit; no DI container; no database in the platform
+│  ├─ AD14 NO_PERSONA=no assistant name or persona appears in any specification
+│  ├─ AD15 TRUST=every component is code or data of the owner; CodeTools run in the application process; protection = fault isolation and circuit breaker (TRUST_AND_FAULTS); a sandbox is out of scope; an infinite loop inside a CodeTool cannot be interrupted in-process (accepted residual risk)
+│  └─ AD16 BACKUP_AND_UNDO=git: a mutating operation on RepoRoot requires a clean working tree for the allowed paths (E024) unless --allow-dirty; with --commit the operation ends with one commit "gen: <verb> <id>"; `gen undo` reverts the last such commit; UserRoot has no git, so the Builder keeps the previous version of a component as Definition.json.bak (one level)
+├─ PLUGIN_DEPENDENCY_DIRECTION
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ MyChart.Core = references nothing (holds Contracts/Plugins, Models/Plugins, Plugins/ (manifest, validators, vocabulary, expression engine, base classes), Analysis/DrawingMath)
+│  ├─ MyChart.PluginHost = references Core
+│  ├─ MyChart.Plugins = references Core only (never PluginHost)
+│  ├─ MyChart.App = references Core, PluginHost, Plugins (and the projects of this spec)
+│  ├─ MyChart.UI = references Core only
+│  ├─ MyChart.Generator.Engine = references Core only
+│  ├─ MyChart.Generator.Cli = references Generator.Engine
+│  ├─ MyChart.ToolBuilder (WPF) = references Core, PluginHost, Generator.Engine, and the rendering projects it needs for preview (MyChart.Rendering)
+│  ├─ MyChart.Generator.Tests = references Generator.Engine
+│  ├─ MyChart.Tests = references Core, PluginHost, Plugins and the other test targets
+│  ├─ FORBIDDEN=Core -> PluginHost, Plugins, Generator, ToolBuilder ; Plugins -> PluginHost ; any runtime project (App, UI, PluginHost) -> Generator.* or ToolBuilder
+│  └─ CHECK=a script lists every ProjectReference and compares with this node (part of PG0.02 VERIFY)
+├─ PLUGIN_CONTRACTS
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ PluginContractVersion=1.0 (major.minor; see VERSIONING_POLICY)
+│  ├─ IChartPlugin
+│  │  ├─ string ComponentId
+│  │  └─ void Register(IPluginHost host)
+│  ├─ IPluginHost (what a component may call; nothing else is reachable)
+│  │  ├─ IToolRegistry Tools; IDrawingTypeRegistry DrawingTypes; IIconRegistry Icons; IContributionRegistry Contributions
+│  │  └─ IChartSettings Settings (read only); ILogService Log
+│  ├─ IToolRegistry
+│  │  └─ void Register(ToolDescriptor descriptor, Func<IToolContext, IDrawingTool> factory)
+│  ├─ IDrawingTypeRegistry
+│  │  └─ void Register(DrawingTypeDescriptor descriptor, IDrawingObjectPainter painter, IDrawingHitTester hitTester, IDrawingObjectMigrator? migrator)
+│  ├─ IIconRegistry
+│  │  └─ void Register(IconDescriptor descriptor)
+│  ├─ IContributionRegistry
+│  │  └─ void Add(SlotContribution contribution)
+│  ├─ IDrawingTool
+│  │  ├─ string ToolId
+│  │  ├─ void Activate(); void Deactivate()
+│  │  ├─ ToolResult OnPointer(PointerEvent e); ToolResult OnKey(KeyEvent e)
+│  │  └─ DrawingObject? Preview
+│  ├─ ToolResult = None | Commit(DrawingObject) | Cancel
+│  ├─ PointerEvent = {Kind: Down|Move|Up, Button, X, Y (DIP), Modifiers}
+│  ├─ KeyEvent = {Key, Modifiers}
+│  ├─ IToolContext
+│  │  ├─ IChartMapper Map; ICommandBus Commands; IChartSettings Settings; IThemeService Theme
+│  │  ├─ SymbolInfo Symbol
+│  │  ├─ PointD Snap(PointD p) (applies drawing.tools.snap.mode)
+│  │  ├─ void PromptText(Action<string?> onDone)
+│  │  └─ void Invalidate()
+│  ├─ IChartMapper (read only; DIP)
+│  │  ├─ double X(double u); double U(double x); double Y(double price); double Price(double y)
+│  │  ├─ double IndexOfTime(DateTimeOffset t); DateTimeOffset TimeAtIndex(double u); int SnapIndex(double u)
+│  │  └─ RectD PlotRect
+│  ├─ IDrawingObjectPainter
+│  │  └─ void Paint(DrawContext ctx, DrawingObject obj)
+│  ├─ DrawContext = {IRenderContext Render, IChartMapper Map, ThemeTokens Theme, SymbolInfo Symbol, double DpiScale, bool ShowLabels, DrawState State (Normal|Hover|Selected|Preview)}
+│  ├─ IDrawingHitTester
+│  │  └─ HitResult HitTest(DrawingObject obj, PointD p, IChartMapper map, double toleranceDip)
+│  ├─ HitResult = {Kind: None|Body|Handle, HandleIndex}
+│  ├─ IDrawingObjectMigrator (optional)
+│  │  └─ JsonObject Migrate(JsonObject extra, int fromVersion)
+│  ├─ Descriptors
+│  │  ├─ ToolDescriptor = {ComponentId, ToolId, DisplayName, Category, IconKey, Hotkey?, TypeId, AnchorCount, Parameters[]}
+│  │  ├─ DrawingTypeDescriptor = {TypeId, TypeVersion, AnchorCount}
+│  │  ├─ IconDescriptor = {IconKey, PathData, ViewBox=16}
+│  │  ├─ SlotContribution = {Slot, ItemId, IconKey, Order, Group, CommandRef}
+│  │  ├─ Slot = LeftToolbar | TopToolbar | ContextToolbar | ChartContextMenu | DrawingContextMenu
+│  │  ├─ CommandRef = "tool:<ToolId>" or "core:<CommandId>"
+│  │  ├─ ParameterDescriptor = {Key, Label, Kind: Color|Number|Choice|Toggle|Text|NumberList, Default (literal or "@<settings key>"), Min?, Max?, Options?}
+│  │  └─ ToolCategory = Lines | Shapes | Annotation | Fibonacci | Measure
+│  ├─ RULES
+│  │  ├─ contracts contain no WPF type, no Skia type and no file or network access
+│  │  ├─ a component receives services only through IPluginHost and IToolContext
+│  │  └─ DrawingObject is immutable; a tool returns a new object; the host executes AddDrawingCommand
+│  └─ VERSIONING_POLICY
+│     ├─ contractVersion in a manifest is "major.minor"
+│     ├─ the host accepts a component when major is equal and the component minor <= host minor
+│     ├─ additive changes (new optional member with a default implementation, new registry, new descriptor field with a default) bump minor
+│     ├─ removal or change of meaning bumps major and requires migrating every first-party component in the same change
+│     ├─ a member is marked Obsolete for one minor version (a fault-log warning when used) before removal
+│     └─ an incompatible component is disabled with E008, never crashes the host
+├─ PLUGIN_MANIFEST_STANDARD
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ FILE=<root>/<ComponentId>/Manifest.json ; UTF-8 ; property names camelCase ; unknown properties are rejected (E015)
+│  ├─ COMMON FIELDS (required unless marked optional)
+│  │  ├─ schema="mychart.component" ; schemaVersion=1
+│  │  ├─ componentId=string, regex ^[A-Z][A-Za-z0-9]{2,39}$ (an icon component uses "Icon" + Name, for example IconTrendLine, key Icon.TrendLine)
+│  │  ├─ kind="DataTool" | "CodeTool" | "Icon"
+│  │  ├─ name=display name 1..60 chars ; version=SemVer ^\d+\.\d+\.\d+$ ; contractVersion="1.0" ; author ; description (optional)
+│  │  ├─ dependencies=array of {id, range} with range ">=a.b.c <d.0.0" (may be empty)
+│  │  ├─ files=array of {path, owner: "user"|"generated", sha256 (generated only)}
+│  │  └─ status="Active" | "Disabled"
+│  ├─ Tool FIELDS (DataTool and CodeTool)
+│  │  ├─ tool={toolId, typeId, typeVersion, anchorCount, iconKey, hotkey (optional), category, placements[], parameters[]}
+│  │  ├─ toolId=componentId ; typeId="drawing." + lowercase componentId ; typeVersion>=1 ; anchorCount 1..8 (CodeTool: 1..8 as well)
+│  │  └─ placements=array of {slot, order, group}; one LeftToolbar and one ChartContextMenu placement
+│  ├─ DataTool extra FIELDS
+│  │  └─ vocabularyVersion="1.0" (minimum vocabulary the definition needs); definitionFile="Definition.json"
+│  ├─ CodeTool extra FIELDS
+│  │  └─ entryPoint=full type name of the generated registration class
+│  ├─ Icon FIELDS
+│  │  └─ icon={key: "Icon.<Name>", viewBox: 16, geometryFile: "Geometry.txt"}
+│  ├─ VERSIONING
+│  │  └─ patch=fixes ; minor=new parameter, shape or placement ; major=typeVersion change or removed parameter ; typeVersion changes only with a migrator accepting all older versions
+│  └─ STATUS_MEANING=Disabled components stay on disk but are excluded from catalogs and from loading
+├─ TOOL_DEFINITION_VOCABULARY
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ PURPOSE=A DataTool is pure data: a Definition.json interpreted by one generic engine in PluginHost (painter, hit tester, workflow). Needs no code and no rebuild when it lives in UserRoot.
+│  ├─ VocabularyVersion=1.0 (major.minor; extension policy below)
+│  ├─ DEFINITION FILE (Definition.json)
+│  │  ├─ {schema "mychart.tooldef", vocabularyVersion "1.0", anchors N (1..8), workflow, parameters[], named[], shapes[]}
+│  │  ├─ workflow = "Click" (the user places N anchors with N clicks; Move shows a Preview whose last anchor follows the cursor; Esc cancels) | "ClickThenText" (N must be 1; after the click PromptText runs; empty or cancelled text creates nothing; text is stored in Extra.text)
+│  │  ├─ implicit parameters on every tool (DrawingStyle): color, width, opacity, dash (solid|dashed|dotted); shapes use them unless a shape overrides
+│  │  ├─ parameters[] = ParameterDescriptor list for extra parameters (kinds Color, Number, Choice, Toggle, Text, NumberList)
+│  │  └─ named[] = [{name, expr}] evaluated in order; a name may use only earlier names
+│  ├─ VARIABLES in expressions
+│  │  └─ anchor[i].price ; anchor[i].index (bar coordinate u) ; param.<key> ; named.<name> ; text (ClickThenText) ; symbol.digits ; symbol.point ; symbol.pip (NaN when undefined) ; inside LevelLines: level and price
+│  ├─ POINT = {x: XSpec, y: YSpec, dx?: number|expr (DIP), dy?: number|expr (DIP)}
+│  │  ├─ XSpec = {anchor:i} | {min:[i,...]} | {max:[i,...]} | {mid:[i,j]} | {index: expr}
+│  │  └─ YSpec = {anchor:i} | {min:[i,...]} | {max:[i,...]} | {mid:[i,j]} | {price: expr}
+│  ├─ SHAPES (max 16 per definition; each may carry color, strokeWidth, dash overrides and hit:true|false)
+│  │  ├─ Line {from: Point, to: Point, extend: none|right|both}
+│  │  ├─ Rect {p1: Point, p2: Point, fillAlpha: 0..1}
+│  │  ├─ Ellipse {p1: Point, p2: Point, fillAlpha: 0..1}
+│  │  ├─ Polyline {points: Point[], closed: bool, fillAlpha: 0..1}
+│  │  ├─ Text {at: Point, text: expr (string), size: DIP, align: left|center|right}
+│  │  ├─ ArrowHead {tip: Point, from: Point, length: DIP, halfAngle: degrees} (filled triangle; default hit:false)
+│  │  ├─ LevelLines {levels: number[] or param.<NumberList key> (max 64), x1: XSpec, x2: XSpec, price: expr using level, label: expr (shown only when DrawContext.ShowLabels)}
+│  │  └─ InfoBox {at: Point, lines: expr[] (string; empty strings are omitted), size: DIP, padding: DIP, fillAlpha: 0..1}
+│  ├─ AUTOMATIC HIT TEST (hit:true default except ArrowHead)
+│  │  ├─ Line = distance to the segment (extend right/both: to the ray or line) <= tolerance
+│  │  ├─ Rect and Ellipse = distance to the outline <= tolerance OR inside
+│  │  ├─ Polyline = distance to any segment (closed: and inside when filled)
+│  │  ├─ Text and InfoBox = inside the measured bounding box (IRenderContext.MeasureText)
+│  │  ├─ LevelLines = distance to any level segment
+│  │  └─ handles = the anchors (core draws and hits them)
+│  ├─ EXPRESSION LANGUAGE (pure, no loops, no assignment, no I/O, deterministic)
+│  │  ├─ types number, string, bool ; operators + - * / % == != < <= > >= && || ! and ?: ; parentheses ; literals
+│  │  ├─ maximum 256 characters per expression, nesting depth 16, at most 400 expression nodes per definition, evaluation budget 10000 operations per object per paint
+│  │  ├─ division by zero and invalid operations give NaN; an evaluation error skips only that shape for that paint and counts one fault (FaultIsolation)
+│  │  └─ FUNCTIONS v1: abs, min, max, round(x,n), floor, ceil, sqrt, pow, sign, if(c,a,b), concat(...), fmt(x,decimals), fmtSigned(x,decimals), fmtPct(x,decimals), hasPip(), priceDiff(i,j) = anchor[j].price - anchor[i].price, pointDiff(i,j) = priceDiff / symbol.point, pipDiff(i,j) = priceDiff / symbol.pip, pctChange(i,j) = (pj - pi) / pi * 100, barCount(i,j) = abs(round(index_j) - round(index_i)), timeText(i,j) = elapsed time between the two bars as "Nd Nh Nm" (omitting zero leading parts)
+│  ├─ EXTENSION POLICY (how the vocabulary grows for needs unknown today)
+│  │  ├─ a new shape, function, parameter kind or XSpec/YSpec form is added in Core/Plugins/Vocabulary with a minor bump of VocabularyVersion; existing definitions stay valid
+│  │  ├─ a definition declares the minimum vocabularyVersion it needs; the host accepts it when major is equal and the minor <= host minor
+│  │  ├─ an unknown shape or function, or a newer major, disables that tool with E021 and a clear message; it never crashes the host and never changes other tools
+│  │  └─ removal or change of meaning of an existing element is a major bump and needs a migration of every first-party definition in the same change
+│  └─ LIMITS=MaxShapes 16 ; MaxLevels 64 ; MaxAnchors 8 ; MaxExpressionChars 256 ; MaxExpressionNodes 400 ; MaxEvalOps 10000 (violations give E022)
+├─ PLUGIN_COMPONENT_FOLDER_STANDARD
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ DataTool folder <root>/<Id>/
+│  │  ├─ Manifest.json (generated) ; Definition.json (owner user; created by scaffold or Builder) ; Documentation.txt (created once; owner user)
+│  │  └─ Definition.json.bak (UserRoot only; previous version kept by the Builder)
+│  ├─ CodeTool folder MyChart.Plugins/Components/<Id>/ (RepoRoot only)
+│  │  └─ Manifest.json (generated) ; Documentation.txt ; <Id>Tool.cs, <Id>Painter.cs, <Id>HitTester.cs (created once; owner user) ; <Id>Migrator.cs (optional) ; <Id>Registration.g.cs (generated)
+│  ├─ Icon folder <root>/Icon<Name>/
+│  │  └─ Manifest.json (generated) ; Geometry.txt (created once; owner user; one SVG path-data string)
+│  ├─ FILE_OWNERSHIP
+│  │  ├─ generated = overwritten on every generate or update; never edited by hand; header "// <auto-generated> DO NOT EDIT" for C# and a sha256 recorded in the manifest
+│  │  ├─ user = created once by scaffold; the Generator never overwrites it during add or update (E014); only `remove` deletes it
+│  │  └─ a generated file whose sha256 differs from the manifest is reported by `validate` and restored only by an explicit update
+│  └─ GENERATED_CATALOGS (RepoRoot only)
+│     ├─ PluginCatalog.g.cs = static class PluginCatalog { IReadOnlyList<IChartPlugin> Create() } : every Active component of RepoRoot (CodeTools as registration classes; DataTools as a DataToolPlugin constructed from embedded manifest and definition text), sorted by ComponentId ordinal
+│     ├─ IconCatalog.g.cs = static class IconCatalog { IReadOnlyList<IconDescriptor> All } : every Active icon of RepoRoot sorted by IconKey ordinal
+│     └─ both begin with a header line holding the sha256 of the sorted manifest hashes (validate compares it)
+├─ TRUST_AND_FAULTS
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ TRUST_MODEL=all components are the owner's; CodeTools are compiled in the repository only; UserRoot accepts data only
+│  ├─ GUARD=every contract object a component registers is wrapped: GuardedPainter, GuardedHitTester, GuardedTool, GuardedMigrator; each call runs in try/catch and is timed
+│  ├─ CIRCUIT_BREAKER (per component, per session)
+│  │  ├─ OPEN when 3 faults (exception, evaluation error counted once per object per second) occur within 60 seconds
+│  │  ├─ OR when that component's total paint time per frame exceeds 8 ms for 5 consecutive frames
+│  │  ├─ OPEN means: its objects are not painted or hit, its tool cannot be activated, its objects stay in the workspace unchanged (saved byte-identical)
+│  │  ├─ a notice appears once per component per session in the Overlay layer: "<DisplayName> was disabled after errors"
+│  │  └─ there is no automatic retry in v1; a restart resets all breakers
+│  ├─ FAULT_LOG=ring buffer of 200 entries {utc, componentId, where, exceptionType, message, durationMs}; written to ILogService; readable by diagnostics
+│  └─ LIMITATION=an infinite loop or a stack overflow inside a CodeTool cannot be interrupted in-process; this residual risk is accepted (AD15)
+│
+├─ PLUGIN_REVIEW_RESOLUTIONS
+│  ├─ STATUS=CLOSED
+│  ├─ 1 wrong dependency arrow -> PLUGIN_DEPENDENCY_DIRECTION, AD02
+│  ├─ 2 two mechanisms mixed -> AD01, AD05
+│  ├─ 3 three sources of truth -> AD04, AD07
+│  ├─ 4 MVP scope vs execution order -> PLUGIN_SCOPE_V1, PRIORITY_EXECUTION_ORDER
+│  ├─ 5 per-tool Settings.cs -> AD08
+│  ├─ 6 Templates name clash -> AD09
+│  ├─ 7 assistant persona in the document -> AD14
+│  ├─ 8 how code reaches the application -> AD06, AD07
+│  ├─ 9 contracts too thin -> PLUGIN_CONTRACTS, AD12
+│  ├─ 10 no slots for toolbar and menu -> PLUGIN_CONTRACTS (Slot, SlotContribution), PG1.06
+│  ├─ 11 manifest without schema -> PLUGIN_MANIFEST_STANDARD
+│  ├─ 12 deleted tool vs saved drawings; migration -> PG1.05
+│  ├─ 13 backup and rollback -> AD16, PG3.04 (git replaces a snapshot store)
+│  ├─ 14 validation rules -> PG1.02, PG3.01, AT5
+│  ├─ 15 icon format -> AD10
+│  ├─ 16 command line for models -> AD11, PG3.08
+│  ├─ 17 write boundary, file ownership, dry-run -> AD05, FILE_OWNERSHIP, PG3.04
+│  ├─ 18 contracts location and missing host project -> AD03, PROJECT_STRUCTURE
+│  ├─ 19 tools without programming, and tools that use code -> kinds DataTool and CodeTool, TOOL_DEFINITION_VOCABULARY, PG2
+│  ├─ 20 trust model and fault isolation -> AD15, TRUST_AND_FAULTS, PG1.04
+│  ├─ 21 component test toolkit -> PG1.07, AT11
+│  ├─ 22 simpler generator (git instead of snapshots, no index, validate instead of synchronizer) -> AD04, AD16, PG3.04, PG3.06
+│  ├─ 23 versioned contracts and vocabulary -> VERSIONING_POLICY, EXTENSION POLICY
+│  └─ 24 NOT ADOPTED after owner remark: a separate domain-independent platform project and a capability model with reserved kinds
+├─ SETTINGS_INTEGRATION
+│  ├─ STATUS=DECIDED_V1_2
+│  ├─ SOURCE=Master_Consolidated section 28 (stage 00 prerequisite, stage 06 integration) and the inventory of the existing panel (settings_inventory.txt)
+│  ├─ PANEL_FACTS
+│  │  ├─ kind=standalone WPF WinExe; TargetFramework net10.0-windows; root namespace ChartMy; own App with custom Main and exception dialog; one window MainWindow; own Themes/Dark.xaml
+│  │  ├─ schema=SettingsSchema.Fields is the single source of truth: 9 categories, dotted keys, root name chart.settings, ControlKind {Toggle,Numeric,Slider,Dropdown,Color,Text,CheckList,ParameterList,Command}, ApplyMode {Immediate,OnApply}
+│  │  ├─ protocol=SettingsProtocol publish/subscribe: ISettingsProtocolListener {OnUpdate(SettingsUpdateMessage(Key,Value)), OnApplied(SettingsAppliedMessage(Status,Changed[])), OnSave(SettingsSaveMessage(Path))}
+│  │  ├─ behaviour=Immediate keys publish UPDATE and APPLIED at once; OnApply keys publish when Apply or Ok is pressed; Cancel republishes saved values of Immediate keys; ResetCategory, ResetLayout, Import and Load republish changed keys
+│  │  ├─ persistence=settings/chart.json and settings/chart.backup.json relative to AppContext.BaseDirectory; JSON = {"chart.settings": {nested by JsonSections}}
+│  │  └─ value types=bool, int, double, string, List<string> (CheckList), List<ParameterEntry{Name,Value}>
+│  ├─ RULES
+│  │  ├─ R1=the panel is never recreated, redesigned or duplicated; the ONLY allowed changes are mechanical: rename to MyChart.Settings; retarget to net8.0-windows; OutputType Library; remove App.xaml, App.xaml.cs and Main; rename MainWindow to SettingsWindow; every schema key, default and behaviour stays
+│  │  ├─ R2=only MyChart.App/Integration/SettingsBridge.cs references the panel; Core, Data, Rendering, Interaction, Drawing, Indicators, UI and Infrastructure never reference SettingsSchema, SettingsController or any panel type
+│  │  ├─ R3=the chart reads settings only through IChartSettings (Core contract): typed values + event Changed(IReadOnlyList<string> keys)
+│  │  ├─ R4=until T6.08 the chart uses DefaultChartSettings; its values equal the defaults listed in SETTINGS_KEY_MAP
+│  │  ├─ R5=SettingsBridge implements ISettingsProtocolListener: OnUpdate routes (key,value) through SETTINGS_KEY_MAP into ChartSettingValues and raises Changed; OnApplied causes ONE layer invalidation for the batch; OnSave is only logged
+│  │  ├─ R6=SEED: at startup, after the controller has loaded, the bridge pushes every non-Command key of SettingsController.Working through the same routing once (the protocol publishes only changes)
+│  │  ├─ R7=a key marked NOT_IN_V1 is stored and published by the panel and ignored by the chart; it never raises an error
+│  │  ├─ R8=an unsupported option value (for example candles.type = Line) is ignored and the chart keeps its current value
+│  │  ├─ R9=the top toolbar Settings button opens ONE SettingsWindow (Show, owner = main window; activates the existing one when open); the button is disabled until T6.08 is done
+│  │  ├─ R10=panel workspace.* commands act on the settings document only; they are unrelated to T6.09 Workspace (layouts, drawings, view state)
+│  │  ├─ R11=settings/chart.json stays beside the executable; the chart never reads or writes it; the product ships as a portable folder (not under Program Files), otherwise the panel base directory must be redirected before release
+│  │  ├─ R12=theme: the SettingsWindow keeps its own Themes/Dark.xaml until T7.02, where its brushes are mapped to MyChart theme tokens
+│  │  ├─ R13=the panel is a first version built to be connected now and will be extended by the owner; its current gaps (every NOT_IN_V1 key, ignored option values, undefined units) are ACCEPTED for v1 by owner decision and are not defects
+│  │  ├─ R14=extension procedure when the panel schema changes: for each new or changed key add one row to SETTINGS_KEY_MAP (consumer rule or NOT_IN_V1) and one routing test; unknown keys are ignored (never an error), so the panel and the chart can be released independently
+│  │  └─ R15=a key is never renamed or deleted in the panel without a new revision of SETTINGS_KEY_MAP (saved settings files store keys)
+│  └─ CONFLICT_DECISIONS (owner may revise)
+│     ├─ C1 INTERACTION_OPTIONS=chart.mouse.wheel Pan and Both and chart.zoom.behavior Price are honored (routing in T2.04); the schema defaults (Zoom, Both) equal the FINAL behaviour
+│     ├─ C2 CHART_TYPE_KEYS=candles.type and chart.display.mode both route to ChartType; the last update wins; at seed candles.type is applied after chart.display.mode; Line, Area, Heikin Ashi are ignored (R8); Heikin Ashi is a candle calculation (layer L2) and needs its own revision
+│     ├─ C3 DECIMALS=price labels always use SymbolInfo.Digits; axes.decimal.count is NOT_IN_V1 because its default 2 would cut 5-digit Forex prices; recommended owner change: add an Auto value to the schema
+│     ├─ C4 CANDLE_COLORS=the schema defaults apply (bull #26A69A, bear #EF5350, wick #CCCCCC, border #1A1A1A); this replaces the one-color-per-candle rule of v1.1 T4.04
+│     ├─ C5 VISIBLE_CANDLES=formula in T2.11; the schema default 500 gives about 1.4 DIP per bar at 1400 DIP width (PixelColumn mode); recommended owner change: default 100
+│     ├─ C6 HUD_DEFAULTS=schema defaults replace v1.1 values (items OHLC, Change, Volume; opacity 100 percent); Symbol and Timeframe are always shown; Spread is shown when it is in the items OR the presentation is Minimal
+│     ├─ C7 HUD_ITEM_DEFINITIONS=Change = Close minus previous Close and percent ; Volume = candle Volume ; Time = bar time ; High/Low = highest High and lowest Low of the visible bars ; Bid/Ask = last tick ; Position = CurrentPosition of T3.03 ; OHLC also requires chart.show.ohlc = true
+│     ├─ C8 TARGET_FRAMEWORK=panel net10.0-windows becomes net8.0-windows at T6.08 (the chart is net8.0); if the build fails the failure is reported, not worked around
+│     └─ C9 CACHE_UNIT=advanced.cache.size is read as megabytes (the schema states no unit)
+│
+├─ SETTINGS_KEY_MAP
+│  ├─ STATUS=DECIDED_V1_2
+│  ├─ FORMAT=key (schema default) -> consumer and rule ; NOT_IN_V1 = no consumer (rule R7)
+│  ├─ chart
+│  │  ├─ chart.offline (false) -> T5.06: true pauses the TickPump and sets MarketStatus Offline; false resumes
+│  │  ├─ chart.on.foreground (false) -> NOT_IN_V1 (layer order is FINAL)
+│  │  ├─ chart.shift (true) -> T2.11 and GoToLatest: true centres the latest bar; false sets RightOffset 0
+│  │  ├─ chart.autoscroll (true) -> T2.05 APPEND_RULE: false means Following is always false
+│  │  ├─ chart.scale.fix.one.to.one (false) -> NOT_IN_V1
+│  │  ├─ chart.scale.fix (false) -> T2.07 FIXED_SCALE
+│  │  ├─ chart.scale.fixed.minimum (0) -> T2.07 FIXED_SCALE
+│  │  ├─ chart.scale.fixed.maximum (0) -> T2.07 FIXED_SCALE
+│  │  ├─ chart.zoom.behavior (Both) -> T2.04 ROUTING (Time and Both = normal; Price = wheel on the plot acts like wheel on the price axis)
+│  │  ├─ chart.mouse.wheel (Zoom) -> T2.04 ROUTING (Zoom, Pan, Both)
+│  │  ├─ chart.zoom.speed (50) -> T2.04: factor = 1 + speed * 0.002
+│  │  ├─ chart.scroll.speed (50) -> T2.04 ROUTING: Pan scrolls speed / 10 bars per notch
+│  │  ├─ chart.visible.candles (500, OnApply) -> T2.11 and Reset View
+│  │  ├─ grid.background.show.grid (true) -> T4.03: false hides both grid directions
+│  │  ├─ grid.background.horizontal.color (#2A2E39) -> T4.03: GridColor and GridMajorColor; GridMinorColor = same colour at 50 percent alpha
+│  │  ├─ grid.background.grid.style (Solid) -> T4.03 dash: Solid none ; Dash [6,4] ; Dot [2,3] ; DashDot [6,3,2,3]
+│  │  ├─ grid.background.show.horizontal (true) -> T4.03 horizontal lines
+│  │  ├─ axes.show.vertical.grid (true) -> T4.03 vertical lines
+│  │  ├─ grid.background.grid.transparency (40) -> T4.03: alpha = (100 - value) / 100
+│  │  ├─ chart.display.mode (Candlesticks) -> ChartType per C2 (Bar Chart = OHLC ; Candlesticks = Candles ; Hollow Candlesticks = HollowCandles ; Line Chart, Area Chart ignored)
+│  │  ├─ chart.show.ohlc (true) -> T3.02: OHLC HUD field needs this true AND the item ticked
+│  │  ├─ chart.show.ask.line (false) -> NOT_IN_V1
+│  │  ├─ chart.show.period.separators (true) -> NOT_IN_V1
+│  │  ├─ chart.show.volumes (true) -> NOT_IN_V1 (no volume pane in the FINAL spec)
+│  │  └─ chart.show.object.descriptions (false) -> NOT_IN_V1 (drawing labels use drawing.tools.show.labels)
+│  ├─ axes
+│  │  ├─ axes.price.position (Right) -> PriceAxisSide for Left and Right ; Both and Hidden ignored (R8)
+│  │  ├─ axes.show.last.price (true) -> T4.05 marker and line visibility
+│  │  ├─ axes.decimal.count (2) -> NOT_IN_V1 (C3)
+│  │  ├─ axes.time.position (Bottom) -> Bottom only ; Top and Hidden ignored (R8)
+│  │  ├─ axes.time.format (HH:mm) -> T3.01 crosshair time label and the time-of-day labels of T2.08 (HH:mm, HH:mm:ss, dd MMM HH:mm); yyyy-MM-dd applies to the crosshair label of D1 and higher
+│  │  ├─ axes.axis.color (#888888) -> AxisColor
+│  │  └─ axes.axis.thickness (1) -> T4.03 axis line thickness in device px
+│  ├─ candles
+│  │  ├─ candles.type (Candlestick) -> ChartType per C2 (Candlestick = Candles ; Hollow Candlesticks = HollowCandles ; OHLC = OHLC ; Line, Area, Heikin Ashi ignored)
+│  │  ├─ candles.bull.color (#26A69A) -> BullColor
+│  │  ├─ candles.bear.color (#EF5350) -> BearColor
+│  │  ├─ candles.wick.color (#CCCCCC) -> T4.04 WickColor
+│  │  ├─ candles.border.color (#1A1A1A) -> T4.04 BorderColor
+│  │  ├─ candles.show.body (true) -> T2.09: false = WickOnly for every bar
+│  │  ├─ candles.body.thickness (1) -> T2.09 hollow border thickness in device px
+│  │  ├─ candles.spacing (2) -> T2.09 gap in DIP between bodies
+│  │  ├─ candles.show.wicks (true) -> T2.09: false = no wicks
+│  │  ├─ candles.wick.thickness (1) -> T2.09 wick width in device px
+│  │  ├─ grid.background.background.color (#131722) -> BackgroundColor
+│  │  ├─ grid.background.gradient.mode (None) -> NOT_IN_V1 (only None)
+│  │  └─ grid.background.background.transparency (0) -> NOT_IN_V1
+│  ├─ drawing
+│  │  ├─ drawing.tools.tool.color (#2196F3) -> T3.04 default style colour
+│  │  ├─ drawing.tools.tool.thickness (1) -> T3.04 default width
+│  │  ├─ drawing.tools.tool.style (Solid) -> T3.04 default line style (dash arrays as grid.style)
+│  │  ├─ drawing.tools.tool.transparency (0) -> T3.04 default opacity = 100 - value percent
+│  │  ├─ drawing.tools.show.labels (true) -> DrawContext.ShowLabels (PG2.04): LevelLines labels and the InfoBox
+│  │  ├─ drawing.tools.snap.mode (Candle) -> IToolContext.Snap (PG2.05) anchor placement: None = free ; Candle = X snaps to the bar centre ; Price = price snaps by the T3.01 magnet rule ; Both = both
+│  │  ├─ drawing.tools.selection.mode (Single) -> T3.04: Single = click replaces, Shift+Click adds ; Multi = click toggles
+│  │  ├─ drawing.tools.drag.behavior (Free) -> Free only ; AxisLock and Copy ignored (R8)
+│  │  └─ drawing.tools.hotkey (L) -> NOT_IN_V1
+│  ├─ modules
+│  │  ├─ analytical.modules.enabled (true) -> NOT_IN_V1
+│  │  ├─ analytical.modules.display.type (Line) -> NOT_IN_V1
+│  │  ├─ analytical.modules.update.mode (Realtime) -> NOT_IN_V1
+│  │  ├─ analytical.modules.input.parameters (Period=14) -> NOT_IN_V1
+│  │  ├─ analytical.modules.main.color (#FF9800) -> NOT_IN_V1
+│  │  ├─ analytical.modules.alert.color (#FFEB3B) -> NOT_IN_V1
+│  │  ├─ analytical.modules.area.background (#33FF9800) -> NOT_IN_V1
+│  │  ├─ analytical.modules.transparency (0) -> NOT_IN_V1
+│  │  ├─ analytical.modules.thickness (1) -> NOT_IN_V1
+│  │  └─ NOTE=no analytical modules exist in the v1 spec; indicator parameters come from the T6.06 dialog
+│  ├─ hud
+│  │  ├─ hud.overlay.hud.items (OHLC, Change, Volume) -> T3.02 fields per C6 and C7
+│  │  ├─ hud.overlay.hud.position (TopLeft) -> T6.01 corner
+│  │  ├─ hud.overlay.fixed.follow (Fixed) -> Fixed only ; FollowPrice and FollowCursor ignored (R8)
+│  │  ├─ hud.overlay.text.color (#FFFFFF) -> HudColor
+│  │  ├─ hud.overlay.font.size (12) -> T6.01 font size in DIP
+│  │  ├─ hud.overlay.font.type (Segoe UI) -> T6.01 font family
+│  │  └─ hud.overlay.hud.transparency (0) -> T6.01 opacity = 1 - value / 100
+│  ├─ performance
+│  │  ├─ performance.fps.limit (60, OnApply) -> T4.01: minimum frame interval = 1000 / limit ms
+│  │  ├─ performance.gpu.acceleration (true, OnApply) -> NOT_IN_V1 (software SKElement in v1)
+│  │  ├─ performance.anti.aliasing (true, OnApply) -> T4.01: antialiasing of lines, text and markers ; candles are never antialiased
+│  │  ├─ performance.buffer.size (2048, OnApply) -> NOT_IN_V1 (meaning undefined)
+│  │  ├─ performance.log.level (Info) -> ILogService minimum level
+│  │  └─ performance.error.behavior (Continue) -> Continue = log only ; Dialog = message box ; Pause = TickPump paused and the Overlay shows "Paused after error" until closed
+│  ├─ workspace
+│  │  ├─ workspace.save.layout (command) -> panel only (R10)
+│  │  ├─ workspace.load.layout (command) -> panel only (R10)
+│  │  ├─ workspace.reset.layout (command) -> panel only (R10)
+│  │  ├─ workspace.export.settings (command) -> panel only (R10)
+│  │  └─ workspace.import.settings (command) -> panel only (R10)
+│  └─ advanced
+│     ├─ advanced.multi.threading (true) -> NOT_IN_V1 (the chart is single-threaded by design)
+│     ├─ advanced.engine.mode (Balanced, OnApply) -> NOT_IN_V1
+│     ├─ advanced.cache.size (256) -> T1.09: MemoryMaxM1Bars = floor(MB * 1048576 / 56 / 8) (C9)
+│     ├─ advanced.backup.restore (command) -> panel only
+│     ├─ advanced.python.bridge.host (127.0.0.1) -> NOT_IN_V1
+│     ├─ advanced.python.bridge.port (8765) -> NOT_IN_V1
+│     └─ advanced.python.bridge.timeout (3000) -> NOT_IN_V1
+│
+├─ MIGRATION_FROM_CURRENT_REPO
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ PURPOSE=Exact fate of every file that already exists in the repo, so the model does not improvise
+│  ├─ RENAME first (mechanical, build must pass before anything else): solution, 9 projects, folders, namespaces, usings, ProjectReferences, StartupObject and every string ChartMy -> MyChart (rule of REVISION_1_2)
+│  ├─ DELETE MyChart.Core/Class1.cs
+│  ├─ DELETE MyChart.Core/Data/AggregationEngine.cs (rewritten as a service in MyChart.Data/Aggregation; its W1 floor was wrong)
+│  ├─ MOVE MyChart.Core/Data/CandleAggregator.cs -> MyChart.Core/Candles/
+│  ├─ MOVE MyChart.Core/Data/CalendarBuckets.cs -> MyChart.Core/Candles/ (then extend with SessionCalendar offset)
+│  ├─ MOVE interface files in MyChart.Core/Data/I*.cs -> MyChart.Core/Contracts/Data/
+│  ├─ KEEP MyChart.Core/Data/Validation/* (extend per T1.03)
+│  ├─ KEEP MyChart.Core/Data/SampleDataProvider.cs (test and demo use only; never the runtime default)
+│  ├─ REWRITE MyChart.Core/ChartEngine/TimeScale.cs -> replaced by ViewState(BarSpacing,RightOffset) + TimeIndexMapper
+│  ├─ REWRITE MyChart.Core/ChartEngine/Viewport.cs and CoordinateConverter.cs (T2.02..T2.05)
+│  ├─ REWRITE MyChart.Core/Rendering/CandleRenderer.cs (split: CandleGeometryCalculator + CandleRenderer; T2.09 and T4.04)
+│  ├─ REWRITE MyChart.Interaction/Input/ChartInputController.cs (Wheel=Zoom; MiddleDrag=Pan; T4.07)
+│  ├─ REPLACE candle price basis: Tick.Mid is no longer used; candles use Bid
+│  ├─ REMOVE the project MyChart.Drawing entirely (A6): models to Core/Models/Drawing, hit-test dispatch to Core/Analysis, painting dispatch to Core/Rendering; existing tool code in it is not migrated; the six tools are re-created as DataTools (PG5.03 to PG5.08)
+│  ├─ SHRINK MyChart.App/MainWindow.xaml.cs (671 lines) to a thin shell; move logic into the owning projects (T4.08)
+│  ├─ REPLACE blocking startup .GetAwaiter().GetResult() with async load in Loaded event
+│  └─ REPLACE hard-coded 60/4/22 margins and 900px fit with ViewState constants
+│
+├─ CORE
+│  ├─ CONTRACTS
+│  │  ├─ DataContracts
+│  │  ├─ RenderingContracts
+│  │  ├─ InteractionContracts
+│  │  ├─ DrawingContracts
+│  │  ├─ IndicatorContracts
+│  │  ├─ UIContracts
+│  │  └─ ServiceContracts
+│  │
+│  ├─ MODELS
+│  │  ├─ MarketModels
+│  │  ├─ ChartModels
+│  │  ├─ ViewportModels
+│  │  ├─ DrawingModels
+│  │  ├─ IndicatorModels
+│  │  ├─ WorkspaceModels
+│  │  └─ SettingsModels
+│  │
+│  ├─ SERVICES
+│  ├─ MANAGERS
+│  ├─ EVENTS
+│  ├─ COMMANDS
+│  └─ STATE
+│
+├─ CANDLE_MODEL
+│  ├─ STATUS=FINAL
+│  ├─ FIELDS
+│  │  ├─ Timestamp
+│  │  ├─ Open
+│  │  ├─ High
+│  │  ├─ Low
+│  │  ├─ Close
+│  │  └─ Volume
+│  ├─ FORBIDDEN
+│  │  ├─ Color
+│  │  ├─ Brush
+│  │  ├─ Theme
+│  │  ├─ Style
+│  │  └─ VisualState
+│  └─ RULE=Data != Appearance
+│
+├─ DATA
+│  ├─ STATUS=FINAL_ARCHITECTURE
+│  ├─ FLOW
+│  │  └─ ChartCore -> MarketDataBus -> DataLayer
+│  │
+│  ├─ COMPONENTS
+│  │  ├─ SymbolManager
+│  │  ├─ TimeframeManager
+│  │  ├─ DataProviderManager
+│  │  ├─ DataCacheManager
+│  │  ├─ HistoryManager
+│  │  ├─ TickManager
+│  │  ├─ AggregationEngine
+│  │  └─ DataStorage
+│  │
+│  ├─ IDataProvider
+│  │  ├─ Connect
+│  │  ├─ Disconnect
+│  │  ├─ GetHistory
+│  │  ├─ SubscribeTicks
+│  │  ├─ UnsubscribeTicks
+│  │  ├─ GetSymbols
+│  │  └─ GetTimeframes
+│  │
+│  ├─ PROVIDERS
+│  │  ├─ CSV
+│  │  ├─ MetaTrader
+│  │  ├─ REST_API
+│  │  ├─ WebSocket
+│  │  ├─ Replay
+│  │  └─ Custom
+│  │
+│  ├─ PROVIDER_MANAGER
+│  │  ├─ Load
+│  │  ├─ Switch
+│  │  ├─ Reconnect
+│  │  ├─ HealthMonitor
+│  │  └─ Failover
+│  │
+│  ├─ V1_PROVIDER
+│  │  └─ MetaTrader
+│  │
+│  ├─ V1_DATA_FLOW
+│  │  └─ MetaTrader -> EA -> Socket/TCP/Pipe
+│  │     -> MetaTraderProvider -> MarketDataBus -> MyChart.1
+│  │
+│  ├─ PROVIDER_RULE
+│  │  └─ MyChart.1 is not dependent on MetaTrader
+│  │
+│  ├─ CACHE
+│  │  ├─ Memory
+│  │  └─ Disk
+│  │
+│  ├─ ACTIVE_MEMORY_TIMEFRAMES
+│  │  ├─ M1
+│  │  ├─ M5
+│  │  ├─ M15
+│  │  ├─ M30
+│  │  ├─ H1
+│  │  ├─ H4
+│  │  └─ D1
+│  │
+│  ├─ DISK
+│  │  └─ SQLite
+│  │
+│  ├─ LOGICAL_TABLES
+│  │  ├─ Symbols
+│  │  ├─ Candles
+│  │  ├─ Ticks
+│  │  ├─ IndicatorsCache
+│  │  └─ Layouts
+│  │
+│  ├─ HISTORY_MANAGER
+│  │  ├─ Download
+│  │  ├─ Update
+│  │  ├─ Validate
+│  │  ├─ Merge
+│  │  ├─ GapDetection
+│  │  └─ Repair
+│  │
+│  ├─ TICK_MANAGER
+│  │  ├─ Receive
+│  │  ├─ Filter
+│  │  ├─ Distribute
+│  │  └─ TickBuffer
+│  │
+│  ├─ AGGREGATION
+│  │  └─ Tick -> M1 -> M5 -> M15 -> H1 -> H4 -> D1
+│  │
+│  ├─ MARKET_DATA_BUS
+│  │  ├─ TickReceived
+│  │  ├─ CandleUpdated
+│  │  ├─ CandleClosed
+│  │  ├─ NewSymbol
+│  │  ├─ NewTimeframe
+│  │  ├─ HistoryLoaded
+│  │  └─ ProviderChanged
+│  │
+│  ├─ SYMBOL_MANAGER
+│  │  ├─ Registry
+│  │  ├─ Normalization
+│  │  ├─ Search
+│  │  ├─ Groups
+│  │  └─ Favorites
+│  │
+│  ├─ SYMBOL_GROUPS
+│  │  ├─ Forex
+│  │  ├─ Crypto
+│  │  ├─ Indices
+│  │  ├─ Stocks
+│  │  └─ Commodities
+│  │
+│  ├─ TIMEFRAMES
+│  │  ├─ Tick
+│  │  ├─ M1
+│  │  ├─ M5
+│  │  ├─ M15
+│  │  ├─ M30
+│  │  ├─ H1
+│  │  ├─ H4
+│  │  ├─ D1
+│  │  ├─ W1
+│  │  └─ MN1
+│  │
+│  ├─ REPLAY_ENGINE
+│  │  ├─ Backtest
+│  │  ├─ MarketReplay
+│  │  └─ Training
+│  │
+│  ├─ REPLAY_SOURCES
+│  │  ├─ CSV
+│  │  ├─ Database
+│  │  └─ Provider
+│  │
+│  └─ OFFLINE
+│     └─ ProviderDisconnected -> Cache + Database continue
+│
+├─ DATA_VALIDATION
+│  ├─ STATUS=FINAL
+│  ├─ Validation
+│  ├─ Normalization
+│  ├─ DuplicateDetection
+│  ├─ InvalidOHLCDetection
+│  ├─ MissingBars
+│  ├─ TimeGaps
+│  ├─ CorruptedRecords
+│  ├─ GapDetection
+│  └─ RepairLogic
+│
+├─ CHART_ENGINE
+│  ├─ STATUS=FINAL
+│  ├─ VisibleRange
+│  ├─ ZoomEngine
+│  ├─ PanEngine
+│  ├─ CoordinateConverter
+│  ├─ RenderWindow
+│  ├─ SmoothZoom
+│  ├─ PixelAccurateRendering
+│  ├─ InfiniteScrollCapability
+│  └─ LatestCandleLock=Optional
+│
+├─ NAVIGATION
+│  ├─ Wheel=Zoom
+│  ├─ Ctrl+Wheel=PrecisionZoom
+│  └─ MiddleDrag=Pan
+│
+├─ RENDERING
+│  ├─ STATUS=FINAL
+│  ├─ ChartRenderer
+│  ├─ LayerRenderer
+│  ├─ RenderPipeline
+│  ├─ Invalidation
+│  ├─ PerformanceControls
+│  ├─ NO_DATABASE
+│  ├─ NO_NETWORK
+│  ├─ NO_API
+│  └─ LAYER_ORDER
+│     ├─ 1 Background
+│     ├─ 2 Grid
+│     ├─ 3 Candle
+│     ├─ 4 Indicator
+│     ├─ 5 Drawing
+│     ├─ 6 Selection
+│     ├─ 7 Crosshair
+│     ├─ 8 HUD
+│     ├─ 9 Tooltip
+│     └─ 10 Overlay
+│
+├─ CANDLE_RENDERER
+│  ├─ STATUS=FINAL
+│  ├─ OHLC
+│  ├─ HollowCandles
+│  ├─ BullBearStyle
+│  ├─ SelectionState
+│  └─ AppearanceSource
+│     ├─ Theme
+│     ├─ Color
+│     └─ Renderer
+│
+├─ AXIS
+│  ├─ STATUS=FINAL
+│  ├─ PRICE_AXIS
+│  │  ├─ Right=Default
+│  │  ├─ Left=Optional
+│  │  ├─ FixedWidth
+│  │  ├─ SeparateAxisArea
+│  │  ├─ Quiet
+│  │  ├─ LowContrast
+│  │  ├─ RightAlignedLabels
+│  │  ├─ MonospacedLabels
+│  │  ├─ SmartDensity
+│  │  └─ CollisionAvoidance
+│  │
+│  ├─ TIME_AXIS
+│  │  └─ Bottom=Default
+│  │
+│  ├─ SCALE_MODES
+│  │  ├─ Auto
+│  │  ├─ Manual
+│  │  ├─ Log
+│  │  └─ Percentage
+│  │
+│  ├─ BEHAVIOR
+│  │  ├─ DynamicLabelDensity
+│  │  ├─ FrozenAxisDuringPanWhereApplicable
+│  │  ├─ RealtimeUpdate
+│  │  ├─ AutoScaleIndicator
+│  │  ├─ ManualScaleLockIndicator
+│  │  └─ LogBadge
+│  │
+│  ├─ GRID
+│  │  ├─ MajorPriceLabelsConnectToGrid
+│  │  └─ MinorLabelsGridOptional
+│  │
+│  ├─ CURRENT_PRICE
+│  │  ├─ AlwaysVisible
+│  │  ├─ HorizontalThinDashedLine
+│  │  ├─ ApproxOpacity=40Percent
+│  │  ├─ AxisAttachedRoundedMarker
+│  │  ├─ BullBearColor
+│  │  ├─ Price
+│  │  └─ OptionalCountdown
+│  │
+│  ├─ DUAL_MARKER
+│  │  ├─ CurrentMarketPriceMarker
+│  │  └─ CrosshairAnalysisPriceMarker
+│  │
+│  └─ IDENTITY
+│     ├─ MinimalProfessional
+│     ├─ QuietAxis
+│     ├─ StrongCurrentPriceMarker
+│     ├─ AnalysisOriented
+│     └─ DualMarkerEnabled
+│
+├─ CROSSHAIR
+│  ├─ STATUS=FINAL
+│  ├─ MODE_CURSOR
+│  │  ├─ Price
+│  │  └─ Time
+│  ├─ MODE_ANALYSIS
+│  │  ├─ PriceDifference
+│  │  ├─ PointDifference
+│  │  ├─ PipDifference
+│  │  ├─ TimeDifference
+│  │  ├─ CandleCount
+│  │  └─ PercentageChange
+│  ├─ MODE_DATA_INSPECTOR
+│  │  ├─ Date
+│  │  ├─ Time
+│  │  ├─ Open
+│  │  ├─ High
+│  │  ├─ Low
+│  │  ├─ Close
+│  │  └─ Volume
+│  ├─ MODE_MAGNET
+│  │  ├─ Open
+│  │  ├─ High
+│  │  ├─ Low
+│  │  └─ Close
+│  └─ RULE=CompleteAnalysisSystem
+│
+├─ INTERACTION
+│  ├─ STATUS=FINAL
+│  ├─ Wheel=Zoom
+│  ├─ Ctrl+Wheel=PrecisionZoom
+│  ├─ MiddleDrag=Pan
+│  ├─ LeftClick=Select
+│  ├─ DoubleClickObject=Properties/ToolSettings
+│  ├─ RightClick=ContextMenu
+│  ├─ Space+Drag=TemporaryPan
+│  ├─ Shift+Click=MultiSelect
+│  ├─ Esc=CancelTool
+│  ├─ Enter=FinishDrawing
+│  └─ Home=GoToLatestCandle
+│
+├─ INTERACTION_CONSISTENCY
+│  ├─ WheelAlwaysZoom
+│  ├─ MiddleAlwaysPan
+│  ├─ RightClickAlwaysContextMenu
+│  ├─ EscAlwaysCancel
+│  └─ CommonOperations<=2Clicks
+│
+├─ CONTEXT_MENU
+│  ├─ ChartContext
+│  │  ├─ Navigation
+│  │  ├─ Crosshair
+│  │  ├─ Drawing
+│  │  ├─ Indicator
+│  │  ├─ ChartOptions
+│  │  └─ Reset
+│  │
+│  ├─ DrawingObjectContext
+│  │  ├─ Edit
+│  │  ├─ Lock
+│  │  ├─ Clone
+│  │  ├─ Delete
+│  │  └─ ObjectSettings
+│  │
+│  └─ INVENTORY=NOT_EXHAUSTIVELY_FROZEN
+│
+├─ TOOLBAR
+│  ├─ STATUS=FINAL
+│  ├─ TOP
+│  │  ├─ Symbol
+│  │  ├─ Timeframe
+│  │  ├─ ChartType
+│  │  ├─ Indicators
+│  │  ├─ Templates
+│  │  ├─ Layout
+│  │  └─ Settings
+│  │
+│  ├─ LEFT
+│  │  ├─ Cursor
+│  │  ├─ Crosshair
+│  │  ├─ TrendLine
+│  │  ├─ Rectangle
+│  │  ├─ Arrow
+│  │  ├─ Text
+│  │  ├─ Fibonacci
+│  │  └─ Measure
+│  │
+│  ├─ DESIGN
+│  │  ├─ Compact
+│  │  ├─ Modular
+│  │  └─ ChartSpaceFirst
+│  │
+│  ├─ CONTEXT_SELECTION
+│  │  ├─ Color
+│  │  ├─ Width
+│  │  ├─ Opacity
+│  │  ├─ Style
+│  │  ├─ Template
+│  │  ├─ Lock
+│  │  ├─ Clone
+│  │  └─ Delete
+│  └─ AMENDED_IN_REVISION_1_3=A2: LEFT items are slot contributions (Cursor and Crosshair from the core, tools from components); the UI contains no tool name
+│
+├─ HUD
+│  ├─ STATUS=FINAL
+│  ├─ DEFAULT
+│  │  ├─ Visible
+│  │  ├─ Compact
+│  │  ├─ Adaptive
+│  │  ├─ TopLeftInsideChart
+│  │  ├─ MouseTransparent
+│  │  ├─ NonInteractive
+│  │  ├─ NoSelection
+│  │  ├─ ThemeControlled
+│  │  ├─ ApproxOpacity=75Percent
+│  │  └─ AutoHide=Inactive
+│  │
+│  ├─ INFORMATION
+│  │  ├─ Symbol
+│  │  ├─ Timeframe
+│  │  ├─ OHLCUnderMouse
+│  │  ├─ Spread
+│  │  ├─ MarketStatus
+│  │  ├─ VisibleBars
+│  │  ├─ Start
+│  │  └─ End
+│  │
+│  ├─ ADVANCED_OPTIONAL
+│  │  ├─ ZoomLevel
+│  │  ├─ FPS
+│  │  ├─ LoadedCandles
+│  │  ├─ ProviderName
+│  │  └─ CacheStatus
+│  │
+│  ├─ ADAPTIVE
+│  │  ├─ Large=Full
+│  │  ├─ Medium=Compact
+│  │  └─ Small=Minimal
+│  │
+│  ├─ MINIMAL
+│  │  ├─ Symbol
+│  │  ├─ Timeframe
+│  │  └─ Spread
+│  │
+│  └─ REFRESH=OnlyWhenDataOrStateChanges
+│
+├─ DRAWING
+│  ├─ STATUS=FINAL_HIGH_LEVEL
+│  ├─ TYPES
+│  │  ├─ TrendLine
+│  │  ├─ Rectangle
+│  │  ├─ Arrow
+│  │  ├─ Text
+│  │  ├─ Fibonacci
+│  │  └─ Measure
+│  │
+│  ├─ LIFECYCLE
+│  │  ├─ Create
+│  │  ├─ Select
+│  │  ├─ Edit
+│  │  ├─ Move
+│  │  ├─ Resize
+│  │  ├─ Clone
+│  │  ├─ Lock
+│  │  ├─ Hide
+│  │  ├─ Delete
+│  │  ├─ Serialize
+│  │  └─ Template
+│  │
+│  ├─ REQUIRED
+│  │  ├─ Selectable
+│  │  ├─ Movable
+│  │  ├─ Resizable
+│  │  ├─ Serializable
+│  │  ├─ ThemeAware
+│  │  ├─ TemplateAware
+│  │  ├─ UndoAware
+│  │  └─ HitTesting
+│  └─ AMENDED_IN_REVISION_1_3=A1, A4, A6, A7: the six tools are first-party DataTool components; objects are DrawingObject records; see PLUGIN_ARCHITECTURE_DECISIONS and TOOL_DEFINITION_VOCABULARY
+│
+├─ INDICATORS
+│  ├─ STATUS=FINAL_HIGH_LEVEL
+│  ├─ IndicatorBase
+│  ├─ Inputs
+│  ├─ Outputs
+│  ├─ Rendering
+│  └─ RespectDataRenderingContracts
+│
+├─ NAVIGATOR
+│  ├─ STATUS=FINAL
+│  ├─ TYPE=OPTIONAL_ANALYSIS_MODULE
+│  ├─ DEFAULT=HIDDEN
+│  │
+│  ├─ LEVEL_1
+│  │  ├─ WheelZoom
+│  │  └─ Pan
+│  │
+│  ├─ LEVEL_2
+│  │  ├─ GoToDate
+│  │  ├─ GoToCandle
+│  │  ├─ GoToTime
+│  │  ├─ GoToLatest
+│  │  └─ Home=Latest
+│  │
+│  ├─ KEYBOARD
+│  │  ├─ Ctrl+G=NavigationDialog
+│  │  └─ Ctrl+Home=LatestMarketPosition
+│  │
+│  ├─ LEVEL_3
+│  │  └─ OptionalNavigatorPanel
+│  │
+│  ├─ PANEL
+│  │  ├─ BottomOfChart
+│  │  ├─ Height=8%-12%ChartHeight
+│  │  ├─ MiniChart/MiniMap
+│  │  ├─ VisibleRangeBox
+│  │  ├─ RangeStatistics
+│  │  └─ CurrentPosition
+│  │
+│  ├─ VISIBLE_RANGE_BOX
+│  │  ├─ RepresentsCurrentViewport
+│  │  ├─ RepresentsCurrentZoomRange
+│  │  └─ Draggable
+│  │
+│  ├─ OVERVIEW
+│  │  └─ EntireHistoryOrDataset
+│  │
+│  ├─ AUTO_HIDE=EnabledAfterInvocation
+│  └─ PERFORMANCE
+│     ├─ SimplifiedRendering
+│     ├─ ReducedDetail
+│     └─ IndependentCache
+│
+├─ WORKSPACE
+│  ├─ STATUS=FINAL_HIGH_LEVEL
+│  ├─ LAYOUTS
+│  │  ├─ 1Chart
+│  │  ├─ 2Charts
+│  │  ├─ 4Charts
+│  │  ├─ 6Charts
+│  │  └─ 8Charts
+│  │
+│  ├─ OPERATIONS
+│  │  ├─ Save
+│  │  ├─ Load
+│  │  ├─ Export
+│  │  └─ Import
+│  │
+│  ├─ REMEMBER
+│  │  ├─ OpenSymbols
+│  │  ├─ Drawings
+│  │  └─ Viewports
+│  │
+│  └─ OPEN_FUTURE
+│     ├─ MultiMonitor
+│     ├─ DetachedWindows
+│     └─ FloatingWindows
+│
+├─ THEME
+│  ├─ STATUS=FINAL
+│  ├─ SINGLE_GLOBAL_THEME_SYSTEM
+│  ├─ SCOPE
+│  │  ├─ Chart
+│  │  ├─ Toolbar
+│  │  ├─ Panels
+│  │  ├─ HUD
+│  │  ├─ Drawings
+│  │  ├─ Axis
+│  │  └─ Controls
+│  │
+│  └─ PROFILES
+│     ├─ Dark
+│     ├─ Light
+│     ├─ ProDark
+│     └─ Custom
+│
+├─ COLOR
+│  ├─ STATUS=FINAL
+│  ├─ SINGLE_GLOBAL_COLOR_SYSTEM
+│  ├─ BullColor
+│  ├─ BearColor
+│  ├─ GridColor
+│  ├─ GridMajorColor
+│  ├─ GridMinorColor
+│  ├─ AxisColor
+│  ├─ HudColor
+│  ├─ AccentColor
+│  ├─ BackgroundColor
+│  ├─ SelectionColor
+│  ├─ WarningColor
+│  ├─ ErrorColor
+│  └─ SuccessColor
+│
+├─ ICON
+│  ├─ STATUS=FINAL
+│  ├─ VectorBased
+│  ├─ SVGOrGeometry
+│  ├─ FluentOutlineDirection
+│  ├─ Monochrome
+│  ├─ ThemeAware
+│  └─ AMENDED_IN_REVISION_1_3=A3: icons are icon components (PG5.02); the UI project owns no icon
+│
+├─ COMMANDS
+│  ├─ STATUS=FINAL_HIGH_LEVEL
+│  ├─ CommandBus
+│  ├─ Undo
+│  ├─ Redo
+│  ├─ History
+│  ├─ CommandStack
+│  └─ RULE=StateChangingUserActionsAreCommands
+│
+├─ SERIALIZATION
+│  ├─ STATUS=FINAL_HIGH_LEVEL
+│  ├─ Workspace
+│  ├─ Layouts
+│  ├─ Drawings
+│  ├─ Templates
+│  ├─ UserSettings (REALIZED_AS=ChartSettingValues; values come from the Settings panel through IChartSettings; see SETTINGS_INTEGRATION)
+│  ├─ Theme
+│  ├─ CrosshairPreferences
+│  │
+│  └─ INDEPENDENT_CATEGORIES
+│     ├─ MarketData
+│     ├─ IndicatorData
+│     ├─ DrawingData
+│     ├─ LayoutData
+│     ├─ SettingsData
+│     └─ ThemeData
+│
+├─ PERFORMANCE
+│  ├─ STATUS=FINAL
+│  ├─ VirtualRendering
+│  ├─ ObjectPooling
+│  ├─ ViewportRendering
+│  ├─ IncrementalRefresh
+│  ├─ DrawingCache
+│  ├─ DirtyRegionUpdates
+│  ├─ TARGET=60FPS+
+│  ├─ RendererNoIO
+│  ├─ NavigatorSimplifiedRendering
+│  ├─ HUDRefreshOnlyWhenRequired
+│  └─ DataRenderingIsolation
+│
+├─ DEFAULT_UX
+│  ├─ STATUS=FINAL
+│  ├─ STARTUP
+│  │  ├─ CleanChart
+│  │  ├─ CrosshairEnabled
+│  │  ├─ NavigatorHidden
+│  │  ├─ HUDMinimalPresentation
+│  │  ├─ AutoScaleEnabled
+│  │  └─ CurrentCandleCentered
+│  │
+│  └─ HUD_MINIMAL
+│     └─ MinimalPresentation != AutomaticHiding
+│
+├─ VISUAL_IDENTITY
+│  ├─ STATUS=FINAL
+│  ├─ AnalysisFirst
+│  ├─ ContextToolbar
+│  ├─ AdvancedCrosshair
+│  ├─ DualPriceMarker
+│  ├─ SmartHUD
+│  ├─ OptionalNavigator
+│  ├─ ProfessionalAxis
+│  ├─ CADStyleInteraction
+│  ├─ CompactMinimalUI
+│  └─ PRIORITY
+│     ├─ Price
+│     ├─ Analysis
+│     ├─ Tools
+│     └─ UI
+│
+├─ CONSTANTS_TABLE
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ RULE=Each constant lives once: Core/ChartEngine/Constants/ChartConstants.cs (chart and scale values) or the owning project's Constants class; names below are the exact identifiers
+│  ├─ Chart
+│  │  ├─ DefaultBarSpacing=8 ; MinBarSpacing=0.5 ; MaxBarSpacing=50 ; ZoomLevelBaseSpacing=6
+│  │  ├─ WheelZoomFactor=1.10 ; PrecisionZoomFactor=1.02 (both derived defaults: DefaultZoomSpeed=50 ; ZoomSpeedToFactor=0.002 ; PrecisionZoomRatio=0.2) ; DefaultScrollSpeed=50 ; DefaultVisibleCandles=500 ; SmoothZoomTauSeconds=0.050 ; SmoothZoomSnapEpsilon=0.01
+│  │  ├─ PanStartThresholdDip=3 ; MinVisibleBarsOnScroll=2
+│  │  ├─ PriceAxisWidthDip=64 ; TimeAxisHeightDip=24
+│  │  ├─ PricePaddingTop=0.10 ; PricePaddingBottom=0.10 ; MinAutoSpanPoints=20 ; MinManualSpanPoints=5 ; MinManualSpanLog=1e-5 ; MinManualSpanPercent=0.01
+│  │  ├─ AxisDragSensitivity=0.005 ; AxisDragFactorMin=0.5 ; AxisDragFactorMax=2.0 ; AutoRefitEaseMs=100
+│  │  ├─ PriceLabelTargetSpacingDip=50 ; PriceLabelMinSpacingDip=40 ; PriceLabelHeightDip=14 ; PriceLabelGapDip=4 ; TimeLabelMinSpacingDip=80
+│  │  └─ LoadMoreThresholdBars=200 ; HistoryPrefetchBars=2000 ; HistoryChunkBars=50000 ; HistoryMaxM1PerRequest=200000
+│  ├─ Candle geometry
+│  │  └─ DefaultCandleGapDip=2 ; DefaultWickThickness=1 ; DefaultBodyBorderThickness=1 ; OhlcTickRatio=0.36 ; FullCandleMinSpacingDev=3 ; WickOnlyMinSpacingDev=2
+│  ├─ Interaction
+│  │  └─ MagnetRadiusDip=24 ; HitToleranceDip=6 ; HandleSizeDip=8 ; CloneOffsetDip=12 ; CommandHistoryDepth=200
+│  ├─ Data
+│  │  ├─ TickBufferCapacity=100000 ; TickPumpMaxPerFrame=5000 ; MaxTickJumpPercent=5 ; SpikeConfirmTicks=3 ; SpikeAgreePercent=1 ; MinTicksBeforeSpikeCheck=10
+│  │  ├─ MaxFutureSkewMinutes=5 ; CorruptedAbortPercent=50 ; RepairMaxAttempts=2 ; UpdateOverlapBars=2
+│  │  ├─ MemoryMaxSymbols=8 ; MemoryMaxM1Bars=600000 (default; derived from advanced.cache.size 256 MB as floor(MB * 1048576 / 56 / 8)) ; TickRetentionDays=7 ; SqliteBatchRows=5000
+│  │  ├─ CandleUpdatedMinIntervalMs=16 ; ClockSkewAlpha=0.2 ; StaleTickSeconds=30
+│  │  └─ ProviderHeartbeatSeconds=5 ; ProviderTimeoutSeconds=15 ; ReconnectBackoffSeconds=1,2,4,8,16,30 ; FailoverAfterFailedReconnects=3
+│  └─ HUD and panels
+│     ├─ HudFullMinWidthDip=900 ; HudCompactMinWidthDip=500 ; HudIdleOpacityFactor=0.40 ; HudIdleSeconds=5 ; HudFpsRefreshHz=2
+│     ├─ NavigatorHeightRatio=0.10 ; NavigatorMinHeightDip=48 ; NavigatorMaxHeightDip=120 ; NavigatorAutoHideSeconds=5
+│     ├─ MaxSubPanes=4 ; SubPaneHeightRatio=0.25
+│     ├─ TopToolbarHeightDip=32 ; LeftToolbarWidthDip=36 ; ToolbarButtonDip=32 ; IconSizeDip=16 ; ContextToolbarGapDip=8
+│     └─ AutosaveIntervalSeconds=60
+├─ CONSTANTS_TABLE_PLUGINS
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ PluginContractVersion=1.0 ; VocabularyVersion=1.0
+│  ├─ ComponentIdMinLength=3 ; ComponentIdMaxLength=40
+│  ├─ OrderMin=0 ; OrderMax=999
+│  ├─ GeometryMaxChars=4096 ; IconViewBox=16
+│  ├─ MaxShapes=16 ; MaxLevels=64 ; MaxAnchors=8 ; MaxExpressionChars=256 ; MaxExpressionNodes=400 ; MaxEvalOps=10000
+│  ├─ FaultWindowSeconds=60 ; FaultLimit=3 ; SlowPaintMs=8 ; SlowFrameLimit=5 ; FaultLogSize=200
+│  ├─ ConformancePaintBudgetMs=2 ; ConformanceRandomObjects=100 ; ConformancePaintRuns=200
+│  ├─ EllipseSegments=48 ; PreviewOpacityFactor=0.6
+│  ├─ DashDashed=6,4 ; DashDotted=2,3
+│  ├─ ToolOrders=TrendLine 100 ; Rectangle 110 ; Arrow 120 ; Text 130 ; Fibonacci 140 ; Measure 150
+│  ├─ CoreOrders=Cursor 0 ; Crosshair 10
+│  ├─ RectangleFillAlpha=0.15 ; ArrowHeadLengthDip=10 ; ArrowHeadHalfAngleDegrees=25 ; TextFontSizeDip=12
+│  ├─ FibonacciLevels=0,0.236,0.382,0.5,0.618,0.786,1
+│  ├─ ReservedHotkeys=Esc, Enter, Space, Delete, Home, Ctrl+Home, Ctrl+G, Ctrl+Z, Ctrl+Y, Ctrl+Shift+Z, Ctrl+C, Ctrl+V
+│  ├─ ExitCodes=0 ok ; 1 validation ; 2 dependency ; 3 transaction rolled back ; 4 IO or scope ; 5 unexpected
+│  ├─ PreviewDebounceMs=250
+│  └─ RULE=constants live in Core/Plugins (shared) and are used by the host and the Engine; no second copy
+│
+├─ GOLDEN_TEST_VECTORS
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ RULE=Normative. Each vector becomes at least one xUnit test in the matching test folder. Tolerance for doubles = 1e-9 unless stated
+│  ├─ BucketFloor (SessionCalendar Fixed(+00:00), group Forex unless stated)
+│  │  ├─ t = 2024-03-13T14:37:42Z (a Wednesday)
+│  │  │  ├─ M1 14:37:00Z ; M5 14:35:00Z ; M15 14:30:00Z ; M30 14:30:00Z ; H1 14:00:00Z ; H4 12:00:00Z
+│  │  │  └─ D1 2024-03-13T00:00:00Z ; W1 2024-03-11T00:00:00Z ; MN1 2024-03-01T00:00:00Z
+│  │  ├─ Fixed(+02:00), t = 2024-03-13T22:30:00Z -> D1 2024-03-13T22:00:00Z ; H4 2024-03-13T22:00:00Z
+│  │  ├─ Fixed(+00:00), t = 2024-03-17T22:00:00Z (a Sunday) -> Forex W1 2024-03-18T00:00:00Z ; Stocks W1 2024-03-11T00:00:00Z ; D1 2024-03-17T00:00:00Z
+│  │  ├─ EET_US_DST, t = 2024-03-17T22:00:00Z -> D1 2024-03-17T21:00:00Z ; W1 2024-03-17T21:00:00Z (Sunday-open bars land on Monday local)
+│  │  ├─ EET_US_DST, t = 2024-01-10T21:30:00Z -> D1 2024-01-09T22:00:00Z (winter, UTC+2)
+│  │  ├─ EET_US_DST, t = 2024-07-10T21:30:00Z -> D1 2024-07-10T21:00:00Z (summer, UTC+3)
+│  │  └─ Fixed(+00:00), t = 2024-02-29T23:59:00Z -> MN1 2024-02-01T00:00:00Z
+│  ├─ TicksToM1 (EURUSD, Digits 5, M1)
+│  │  ├─ ticks (UTC, Bid, Ask): 12:00:05.000 1.10000 1.10010 ; 12:00:20.000 1.10020 1.10030 ; 12:00:40.000 1.09990 1.10000 ; 12:00:59.900 1.10005 1.10015 ; 12:01:03.000 1.10010 1.10020
+│  │  ├─ result M1 12:00 (closed at the 5th tick): O 1.10000 H 1.10020 L 1.09990 C 1.10005 V 4
+│  │  ├─ result M1 12:01 (forming): O 1.10010 H 1.10010 L 1.10010 C 1.10010 V 1
+│  │  ├─ result M5 12:00 (forming, not closed): O 1.10000 H 1.10020 L 1.09990 C 1.10010 V 5
+│  │  └─ events: exactly one CandleClosed(M1,12:00) and no CandleClosed for M5
+│  ├─ FoldM5 (M1 candles 12:00..12:04)
+│  │  ├─ 12:00 O 1.1000 H 1.1010 L 1.0995 C 1.1005 V 10
+│  │  ├─ 12:01 O 1.1005 H 1.1020 L 1.1000 C 1.1015 V 12
+│  │  ├─ 12:02 O 1.1015 H 1.1018 L 1.0990 C 1.0995 V 8
+│  │  ├─ 12:03 O 1.0995 H 1.1000 L 1.0985 C 1.0990 V 9
+│  │  ├─ 12:04 O 1.0990 H 1.1005 L 1.0988 C 1.1002 V 11
+│  │  └─ result M5 12:00: O 1.1000 H 1.1020 L 1.0985 C 1.1002 V 50
+│  ├─ Validation (M1, Digits 5, Forex, Fixed(0)); input rows in this order
+│  │  ├─ a 12:00 O 1.10000 H 1.10010 L 1.09990 C 1.10005 V 5
+│  │  ├─ b 12:01 O 1.10005 H 1.10000 L 1.09990 C 1.10020 V 3   (High below Close)
+│  │  ├─ c 12:02 O -1.0 H 1.1 L 1.0 C 1.1 V 1                   (corrupted)
+│  │  ├─ d1 12:03 O 1.10000 H 1.10000 L 1.10000 C 1.10000 V 1
+│  │  ├─ d2 12:03 O 1.10030 H 1.10040 L 1.10020 C 1.10035 V 2   (duplicate timestamp)
+│  │  ├─ e 12:07 O 1.10035 H 1.10050 L 1.10030 C 1.10040 V 4
+│  │  ├─ result candles: a, b with High 1.10020, d2, e (4 candles)
+│  │  ├─ report: Accepted 4, Repaired 1, Rejected 1, Corrupted 1, Duplicates 1
+│  │  ├─ gap: From 12:03 To 12:07 MissingBars 3 Kind Missing
+│  │  └─ gap example: neighbours Friday 21:59Z and Sunday 22:00Z (Forex, Fixed 0) -> Kind Expected
+│  ├─ TickFilter (EURUSD)
+│  │  ├─ accepted: 12:00:00.000 bid 1.10000 ask 1.10010 ; 12:00:00.500 bid 1.10005 ask 1.10015
+│  │  ├─ rejected out of order: 12:00:00.400 bid 1.10002 ask 1.10012
+│  │  ├─ rejected crossed: 12:00:01.000 bid 1.10010 ask 1.10005
+│  │  └─ spike: after 10 accepted ticks near 1.10000 a tick bid 1.20000 (+9.09 percent) is rejected; then 1.20005 rejected; then 1.20002 accepted as the new level
+│  ├─ Merge
+│  │  ├─ existing M1: 12:00 C 1.1000 ; 12:01 C 1.1001 ; 12:02 C 1.1002
+│  │  ├─ incoming M1: 12:02 C 1.1009 ; 12:03 C 1.1003
+│  │  └─ result: 12:00 C 1.1000 ; 12:01 C 1.1001 ; 12:02 C 1.1009 ; 12:03 C 1.1003 (ascending, incoming wins)
+│  ├─ TimeIndex (H1 series, Forex, Fixed(0)); bar Opens: index0 2024-03-15T20:00Z ; index1 2024-03-15T21:00Z ; index2 2024-03-17T22:00Z
+│  │  ├─ IndexOfTime 2024-03-15T20:30Z = 0.5 ; 2024-03-15T21:00Z = 1.0 ; 2024-03-15T22:30Z (in the gap) = 2.0 ; 2024-03-17T22:30Z = 2.5 ; 2024-03-18T00:00Z = 4.0
+│  │  ├─ TimeAtIndex 0.5 = 2024-03-15T20:30Z ; 2.0 = 2024-03-17T22:00Z ; 4.0 = 2024-03-18T00:00Z
+│  │  └─ SnapIndex 1.5 = 2 ; SnapIndex 1.49 = 1
+│  ├─ XMapping (N=100, plotLeft 0, plotWidth 800, BarSpacing 8, RightOffset 5)
+│  │  ├─ X(99)=756 ; X(0)=-36 ; U(756)=99 ; U(0)=4.5 ; U(800)=104.5
+│  │  ├─ from=5 ; to=99 ; renderFrom=4 ; renderTo=99 ; VisibleBarCount=95
+│  │  └─ resize to plotWidth 600 with the same BarSpacing and RightOffset: X(99)=556 ; from=30
+│  ├─ Zoom (same state, cursorX 400, U(400)=54.5)
+│  │  ├─ one wheel notch in (1.10): BarSpacing 8.8 ; RightOffset 0.454545 (tolerance 1e-6) ; U(400) still 54.5
+│  │  ├─ one Ctrl+wheel notch in (1.02): BarSpacing 8.16 ; RightOffset 4.019608 (tolerance 1e-6)
+│  │  └─ BarSpacing 49.9 zoomed in by 1.10 clamps to 50
+│  ├─ Pan
+│  │  ├─ drag +40 DIP right at BarSpacing 8 from RightOffset 5 -> 10
+│  │  ├─ plotWidth 800, N=100, BarSpacing 8: RightOffset upper limit 98 ; lower limit -98 ; a drag to 130 clamps to 98
+│  │  └─ append with RightOffset 5 (Following) -> stays 5 ; append with RightOffset -20 -> -21 ; append with RightOffset 120 -> 119
+│  ├─ Startup (chart.visible.candles 50 and chart.shift true, plotWidth 800 -> BarSpacing 8, N >= 51)
+│  │  └─ RightOffset 49.5 ; X(N-1)=400 ; from=N-51 ; to=N-1 ; VisibleBarCount=51
+│  ├─ PriceScale (EURUSD, Digits 5, PointSize 0.00001)
+│  │  ├─ Auto: visible High max 1.10500 and Low min 1.09500 -> range [1.09400, 1.10600]
+│  │  ├─ Auto flat: High=Low=1.10000 -> range [1.09988, 1.10012]
+│  │  ├─ Percentage: base Close 1.1000 ; price 1.1055 -> +0.50 percent
+│  │  └─ Manual axis zoom: range [1.0940, 1.1060], anchor price 1.1000, drag up 20 DIP (factor 1.10) -> range [1.094545, 1.105455] (tolerance 1e-6)
+│  ├─ NiceTicks (plotHeight 500)
+│  │  └─ span 0.0100 -> step 0.001 ; span 0.0234 -> step 0.0025 ; span 3.4 -> step 0.5 ; span 1200 -> step 200
+│  ├─ TimeLabels (H1 chart, BarSpacing 40 DIP, bars from 2024-03-13T22:00Z to 2024-03-14T03:00Z, display UTC)
+│  │  └─ labels: "22:00", "14" (at 00:00), "02:00" ; all other bars unlabelled (min spacing 80 DIP)
+│  ├─ CandleGeometry (range [1.09400, 1.10600], plotHeight 500, candle O 1.10000 H 1.10300 L 1.09800 C 1.10200 at X=756.0, BarSpacing 8, DpiScale 1, candles.spacing 2, wick thickness 1)
+│  │  ├─ Mode FullCandle ; wickX 756 ; bodyWidth 5 ; bodyLeft 754 ; wickTop 125 ; wickBottom 333 ; bodyTop 167 ; bodyBottom 250 ; bodyHeight 83 ; IsBull true
+│  │  ├─ DpiScale 2: cx 1512 ; bodyWidth 11 ; bodyLeft 1507 ; wickTop 250 ; wickBottom 667 ; bodyTop 333 ; bodyBottom 500
+│  │  ├─ body width by BarSpacing at DpiScale 1: 8 -> 5 ; 6 -> 3 ; 3 -> 1 ; 2.5 -> Mode WickOnly ; 1.5 -> Mode PixelColumn
+│  │  └─ doji: Open == Close -> IsDoji true and bodyHeight 1
+│  ├─ Crosshair / Analysis
+│  │  ├─ EURUSD Digits 5: A index 10 price 1.10000 ; B index 25 price 1.10250 (M15, no gaps) -> PriceDifference +0.00250 ; PointDifference +250 ; PipDifference +25.0 ; PercentageChange +0.23 percent ; CandleCount 15 ; TimeDifference 3h 45m
+│  │  ├─ USDJPY Digits 3: A 150.000 ; B 150.500 -> PriceDifference +0.500 ; PointDifference +500 ; PipDifference +50.0 ; PercentageChange +0.33 percent
+│  │  └─ XAUUSD (Commodities): PipDifference hidden
+│  └─ DrawingHit
+│     ├─ segment (0,0)-(100,0): point (50,5) hit ; (50,7) miss ; (103,4) hit ; (110,0) miss
+│     └─ Fibonacci P1 1.1000 P2 1.1100 levels 0 -> 1.11000 ; 0.236 -> 1.10764 ; 0.382 -> 1.10618 ; 0.5 -> 1.10500 ; 0.618 -> 1.10382 ; 0.786 -> 1.10214 ; 1 -> 1.10000
+├─ PLUGIN_ACCEPTANCE_TESTS
+│  ├─ STATUS=DECIDED_PG_1_2
+│  ├─ RULE=Every test is an automated xUnit test; Generator tests run against a temporary git repository created from Fixtures
+│  ├─ AT1 WriteScope
+│  │  └─ for each of: icon add, tool add (repo and user), tool update, tool remove, enable, disable, regenerate, undo -> every changed path lies under RepoRoot, UserRoot, or the two catalog files; nothing else changes
+│  ├─ AT2 AddRemoveSymmetry
+│  │  └─ tool add X then tool remove X -> the repository tree is byte-identical to before
+│  ├─ AT3 Determinism
+│  │  └─ running generate or regenerate twice gives identical bytes; catalogs are sorted (ordinal)
+│  ├─ AT4 UndoViaGit
+│  │  └─ tool add --commit then undo -> byte-identical tree; a dirty tree gives E024; missing git gives E025
+│  ├─ AT5 ValidationVectors (one implementation in Core; the host and the Engine must give the same verdict)
+│  │  ├─ V1 ids: "trendline" E001 ; "Trend Line" E001 ; "TL" E001 ; "TrendLine" ok
+│  │  ├─ V2 hotkeys: "Esc" E006 ; "Ctrl+Z" E006 ; "Ctrl+Q" ok ; "T" ok ; a second tool using "T" E007
+│  │  ├─ V3 icon: a tool with an unknown iconKey E005 (host: the tool is disabled and logged)
+│  │  ├─ V4 duplicates: same componentId E002 ; same typeId E003 ; same toolId E004
+│  │  ├─ V5 contract: "1.0" ok ; "1.1" with host 1.0 E008 ; "2.0" E008 ; "0.9" E008
+│  │  ├─ V6 geometry: "M2 2 L14 14" ok ; "M2 2 X14 14" E009 ; "M2 2 L14" E009 ; empty E009 ; 4097 characters E009
+│  │  ├─ V7 order: 1000 E017 ; -1 E017 ; 0 and 999 ok
+│  │  ├─ V8 version: "1.0" E018 ; "1.0.0" ok
+│  │  ├─ V9 slot: "Sidebar" E016
+│  │  └─ V10 manifest with an unknown property E015
+│  ├─ AT6 UnknownObjectRoundTrip
+│  │  └─ workspace with 2 known and 1 unknown drawing loads and saves byte-identical; the unknown one is never painted or hit
+│  ├─ AT7 DryRun
+│  │  └─ every mutating verb with --dry-run leaves the tree untouched and prints the plan
+│  ├─ AT8 FailureInjection
+│  │  └─ an exception injected while writing file 3 of 6 leaves the tree byte-identical and exits with code 3
+│  ├─ AT9 NoRegression
+│  │  └─ after PG5 the DrawingHit and Crosshair/Analysis vectors of this spec still pass through the six DataTools
+│  ├─ AT10 NoToolNamesInChart
+│  │  └─ outside MyChart.Plugins, MyChart.Generator.*, MyChart.ToolBuilder, tests and CoreBuiltIns.cs no source file contains a typeId literal ("drawing.") or any of the ComponentIds TrendLine, Rectangle, Arrow, Text, Fibonacci, Measure as a string literal, and no file outside CoreBuiltIns.cs contains an Icon.<Name> literal
+│  ├─ AT11 ConformanceSuite
+│  │  └─ C1..C10 of PG1.07 pass for FakePlugin, for a sample DataTool, and (after PG5) for all six first-party tools and every component found in a test UserRoot
+│  ├─ AT12 CircuitBreaker
+│  │  └─ 3 faults within 60 s open the breaker and other components keep working ; 4 faults spread over 61 s do not ; 5 consecutive frames above 8 ms open it, 4 do not ; the workspace keeps a disabled component's objects byte-identical ; one Overlay notice per component per session
+│  ├─ AT13 ExpressionVectors (EURUSD Digits 5, point 0.00001, pip 0.0001; anchors: anchor[0] price 1.1000 index 10 ; anchor[1] price 1.1025 index 25; M15 series; formatted results compared as strings)
+│  │  ├─ "1+2*3" = 7 ; "abs(-2.5)" = 2.5 ; "round(1.23456,3)" = 1.235 ; "fmt(1.1,5)" = "1.10000" ; "if(1>2,1,2)" = 2
+│  │  ├─ "fmtSigned(priceDiff(0,1),5)" = "+0.00250" ; "fmtSigned(pointDiff(0,1),0)" = "+250" ; "fmtSigned(pipDiff(0,1),1)" = "+25.0" ; "fmtSigned(pctChange(0,1),2)" = "+0.23" ; "concat(barCount(0,1),\" bars\")" = "15 bars" ; "timeText(0,1)" = "3h 45m" ; "hasPip()" = true (XAUUSD: false)
+│  │  ├─ "fmtSigned(-0.0025,5)" = "-0.00250" ; "fmtSigned(0.5,3)" = "+0.500"
+│  │  ├─ "1/0" = NaN (no exception)
+│  │  └─ errors: "1+" E020 with position ; "anchor[5].price" with 2 anchors E020 ; "param.zzz" (undefined) E020 ; "foo(1)" E021 ; an expression of 257 characters E022
+│  ├─ AT14 VocabularyVectors
+│  │  ├─ valid: the six first-party definitions of PG5 pass
+│  │  └─ anchors 0 and anchors 9 E019 ; unknown property "colour" E019 ; shape "Spiral" E021 ; vocabularyVersion "2.0" E021 ; vocabularyVersion "1.1" with host 1.0 E021 ; 17 shapes E022 ; 65 levels E022 ; ClickThenText with anchors 2 E019 ; a named value using a later name E019 ; Point {anchor:2} with 2 anchors E019 ; a tool with an unknown shape is disabled while other tools still load
+│  └─ AT15 DataToolHitVectors
+│     ├─ through the TrendLine definition (2 anchors at screen (0,0) and (100,0)): point (50,5) Body ; (50,7) None ; (103,4) Body ; (110,0) None ; (0,0) Handle 0 ; (100,0) Handle 1
+│     ├─ through the Rectangle definition (corners (0,0) and (100,50)): inside (50,25) Body ; on edge (50,4) Body ; outside (150,25) None
+│     └─ through the Fibonacci definition: prices 1.11000, 1.10764, 1.10618, 1.10500, 1.10382, 1.10214, 1.10000 for P1 1.1000 and P2 1.1100
+│
+├─ NODE_EXECUTION_SCHEMA
+│  ├─ ID
+│  ├─ TYPE
+│  ├─ STATUS
+│  ├─ PURPOSE
+│  ├─ REQUIREMENTS
+│  ├─ DEPENDENCIES
+│  ├─ CONTRACTS
+│  ├─ BEHAVIOR
+│  ├─ IMPLEMENTATION
+│  ├─ DO_NOT
+│  ├─ VERIFY
+│  ├─ OUTPUT
+│  ├─ GATE
+│  └─ NEXT
+│
+├─ EXECUTION_PROTOCOL
+   ├─ READ_SOURCE_BASELINE
+   ├─ PRESERVE_FINAL_DECISIONS
+   ├─ IDENTIFY_DEPENDENCIES
+   ├─ IMPLEMENT_IN_EXECUTION_ORDER
+   ├─ DEFINE_CONCRETE_ENGINEERING_STRUCTURE
+   ├─ DEFINE_CONTRACTS_BEFORE_CONSUMERS
+   ├─ DEFINE_TEST_BOUNDARIES
+   ├─ VERIFY_STAGE
+   ├─ RECORD_IMPLEMENTATION_PROGRESS
+   ├─ DO_NOT_REOPEN_FINAL_DECISIONS
+   ├─ DO_NOT_GUESS_OPEN_ITEMS
+   └─ UPDATE_THIS_SPEC_AS_IMPLEMENTATION_SOURCE_OF_TRUTH
+├─ PRIORITY_EXECUTION_ORDER
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ ORDER_AUTHORITY=THIS_NODE (supersedes EXECUTION_ORDER phase grouping and Implementation_Master_Sequence numbering)
+│  ├─ RULE=CalculationBeforeVisual
+│  ├─ RULE=NoToolbarNoIconNoThemeProfileBeforeT1toT3Verified
+│  ├─ RULE=TierN starts only when every VERIFY of TierN-1 passes
+│  ├─ RULE=A node starts only when every node in its DEPENDS is verified
+│  ├─ RULE=One node at a time; no parallel nodes; no skipping ahead
+│  ├─ RULE=Candle layers are never mixed (see CANDLE_LAYER_SEPARATION)
+│  ├─ RULE=After each node: run its VERIFY tests, then append one line to Docs/IMPLEMENTATION_PROGRESS.txt
+│  ├─ RULE=GATE: every node is AUTOMATED (automatic tests decide) or VISUAL (automatic tests must pass AND the executor produces PNG or screenshot proofs and waits for the owner to approve before the next node)
+│  ├─ RULE=Infrastructure before tools: no first-party tool or icon component is created before PG4.02 (T3.11) is verified
+│  ├─ T0 PROJECT_STRUCTURE (folders, files, references, contracts, test project)
+│  │  ├─ T0.01 SolutionAndBuildConfig
+│  │  ├─ T0.02 ProjectReferenceGraph
+│  │  ├─ T0.03 FolderAndFileSkeleton (includes MIGRATION_FROM_CURRENT_REPO)
+│  │  ├─ T0.04 ContractsSkeleton
+│  │  ├─ T0.05 TestProject
+│  │  ├─ T0.06 ProgressLog
+│  │  ├─ T0.07 SettingsPrerequisite
+│  │  └─ T0.08 PluginFoundation (PG0.01, PG0.02)
+│  ├─ T1 CANDLE_ENGINE (data and candle calculation only; zero UI; zero pixels)
+│  │  ├─ T1.01 MarketModels
+│  │  ├─ T1.02 TimeBuckets
+│  │  ├─ T1.03 DataValidation
+│  │  ├─ T1.04 SymbolRegistry (includes Point and Pip math)
+│  │  ├─ T1.05 TickFilterAndBuffer
+│  │  ├─ T1.06 CandleCalculation
+│  │  ├─ T1.07 MarketDataBus
+│  │  ├─ T1.08 HistoryMergeGapRepair
+│  │  ├─ T1.09 MemoryCache
+│  │  ├─ T1.10 ProviderContractAndCsvProvider
+│  │  └─ T1.11 CandleSeriesService
+│  ├─ T2 CHART_SCALE_ENGINE (all X/Y/zoom/pan/axis/pixel math; zero drawing)
+│  │  ├─ T2.01 TimeIndexMapper
+│  │  ├─ T2.02 ViewStateAndCoordinateConverter
+│  │  ├─ T2.03 RenderWindow
+│  │  ├─ T2.04 ZoomEngine
+│  │  ├─ T2.05 PanEngineAndScrollLimits
+│  │  ├─ T2.06 LatestCandleLockGoToLatestInfiniteScroll
+│  │  ├─ T2.07 PriceScaleEngine
+│  │  ├─ T2.08 NiceTicksAndAxisLabelPlanning
+│  │  ├─ T2.09 CandleGeometry (pixel-accurate)
+│  │  ├─ T2.10 CurrentPriceAndDualMarkerValues
+│  │  └─ T2.11 StartupView
+│  ├─ T3 ANALYSIS_CALCULATIONS (still zero drawing)
+│  │  ├─ T3.01 CrosshairCalculations
+│  │  ├─ T3.02 HudData
+│  │  ├─ T3.03 NavigatorCalculations
+│  │  ├─ T3.04 DrawingGeometryAndHitTest
+│  │  ├─ T3.05 IndicatorFramework
+│  │  ├─ T3.06 Commands
+│  │  ├─ T3.07 Serialization
+│  │  ├─ T3.08 PluginHost (PG1.01 to PG1.07)
+│  │  ├─ T3.09 DeclarativeEngine (PG2.01 to PG2.06)
+│  │  ├─ T3.10 GeneratorEngine (PG3.01 to PG3.08)
+│  │  └─ T3.11 PluginIntegration (PG4.01, PG4.02)
+│  ├─ T4 RENDERING_AND_INTERACTION (first visual tier)
+│  │  ├─ T4.01 RenderContextAndPipeline
+│  │  ├─ T4.02 ColorTokensMinimal
+│  │  ├─ T4.03 BackgroundGridAxisRenderers
+│  │  ├─ T4.04 CandleRenderer
+│  │  ├─ T4.05 CurrentPriceAndDualMarkerRenderers
+│  │  ├─ T4.06 CrosshairRenderer
+│  │  ├─ T4.07 InputBindings
+│  │  ├─ T4.08 ChartHostAndThinAppShell
+│  │  └─ T4.09 FirstPartyComponents (PG5.01 to PG5.08)
+│  ├─ T5 DATA_INFRASTRUCTURE
+│  │  ├─ T5.01 SqliteStorage
+│  │  ├─ T5.02 ProviderManager
+│  │  ├─ T5.03 MetaTraderProviderAndEA
+│  │  ├─ T5.04 SymbolGroupsFavoritesSearch
+│  │  ├─ T5.05 ReplayEngine
+│  │  └─ T5.06 OfflineMode
+│  ├─ T6 UI_TOOLS
+│  │  ├─ T6.01 HudRenderer
+│  │  ├─ T6.02 ContextMenus
+│  │  ├─ T6.03 TopToolbar
+│  │  ├─ T6.04 LeftToolbarAndDrawingTools
+│  │  ├─ T6.05 ContextToolbar
+│  │  ├─ T6.06 IndicatorLayerAndDialog
+│  │  ├─ T6.07 NavigatorPanel
+│  │  ├─ T6.08 SettingsIntegration
+│  │  ├─ T6.09 Workspace
+│  │  └─ T6.10 ToolBuilder (PG6.01 to PG6.03)
+│  └─ T7 LOWEST_PRIORITY
+│     ├─ T7.01 IconSystem
+│     ├─ T7.02 ThemeProfiles
+│     ├─ T7.03 PerformanceTuning
+│     ├─ T7.04 TestingSweep
+│     └─ T7.05 ReleaseChecklist
+│
+├─ IMPLEMENTATION_STATUS
+│  ├─ 01 SolutionStructure=PLAN
+│  ├─ 02 CoreFoundation=PLAN
+│  ├─ 03 DataLayer=FINAL_ARCHITECTURE
+│  ├─ 04 DataValidation=FINAL_ARCHITECTURE
+│  ├─ 05 Viewport=FINAL_ARCHITECTURE
+│  ├─ 06 Rendering=FINAL_ARCHITECTURE
+│  ├─ 07 CandleRenderer=FINAL_ARCHITECTURE
+│  ├─ 08 Axis=FINAL_ARCHITECTURE
+│  ├─ 09 Crosshair=FINAL_ARCHITECTURE
+│  ├─ 10 Interaction=FINAL_ARCHITECTURE
+│  ├─ 11 Toolbar=FINAL_ARCHITECTURE
+│  ├─ 12 HUD=FINAL_ARCHITECTURE
+│  ├─ 13 DrawingFramework=FINAL_HIGH_LEVEL
+│  ├─ 14 DrawingTools=FINAL_HIGH_LEVEL
+│  ├─ 15 ContextToolbar=FINAL_ARCHITECTURE
+│  ├─ 16 IndicatorFramework=FINAL_HIGH_LEVEL
+│  ├─ 17 Navigator=FINAL_ARCHITECTURE
+│  ├─ 18 Workspace=FINAL_HIGH_LEVEL
+│  ├─ 19 Theme=FINAL_ARCHITECTURE
+│  ├─ 20 Performance=FINAL_ARCHITECTURE
+│  ├─ 21 Testing=PLAN
+│  └─ 22 Release=PLAN
+│
+├─ OPEN_ITEMS
+│  ├─ STATUS_OF_LIST=ALL_CLOSED_IN_REVISION_1_1 (the list is kept for traceability)
+│  ├─ 01 HUD_AUTO_HIDE_WORDING_CONFLICT
+│  │  ├─ STATUS=CLOSED_V1_1
+│  │  └─ DECISION=HUD starts visible in Minimal presentation; after 5 s idle it dims to 30 percent opacity; it is never removed (see T6.01)
+│  ├─ 02 EXHAUSTIVE_RIGHT_CLICK_COMMAND_INVENTORY
+│  │  ├─ STATUS=CLOSED_V1_1
+│  │  └─ DECISION=INVENTORY_V1_1 in T6.02 is the complete v1.1 menu list; a new item needs a new revision
+│  ├─ 03 WORKSPACE_DETACHED_FLOATING_MULTIMONITOR
+│  │  ├─ STATUS=DEFERRED_OUT_OF_SCOPE_V1
+│  │  └─ DECISION=not implemented in v1; no stubs and no partial code (see T6.09)
+│  ├─ 04 TECHNOLOGY_STACK_DETAILS
+│  │  ├─ STATUS=CLOSED_V1_1
+│  │  └─ DECISION=.NET 8 ; WPF ; SkiaSharp 2.88.9 (+ SkiaSharp.Views.WPF in MyChart.UI) ; Microsoft.Data.Sqlite ; System.Text.Json ; xUnit ; manual composition root (no DI container) ; own ILogService with a file sink ; no ORM
+│  ├─ 05 TICK_MODEL_FIELDS -> CLOSED in T1.01
+│  ├─ 06 PIP_POINT_DIGITS_SOURCE -> CLOSED in T1.04
+│  ├─ 07 TIME_ZONE_AND_BUCKET_BOUNDARIES -> CLOSED in T1.02
+│  ├─ 08 X_AXIS_MODEL_INDEX_VS_TIME -> CLOSED in T2 header and T2.01
+│  ├─ 09 ZOOM_LIMITS_AND_SMOOTHING -> CLOSED in T2.04
+│  ├─ 10 FUTURE_SPACE_AND_CURRENT_CANDLE_CENTERED -> CLOSED in T2.05, T2.06, T2.11
+│  ├─ 11 PRICE_SCALE_RULES_AUTO_MANUAL_LOG_PERCENT -> CLOSED in T2.07
+│  ├─ 12 AXIS_LABEL_ALGORITHMS -> CLOSED in T2.08
+│  ├─ 13 ANALYSIS_FORMULAS -> CLOSED in T3.01
+│  ├─ 14 AGGREGATION_DETAILS (M30, W1, MN1, forming candle, late ticks, volume, price basis) -> CLOSED in T1.06
+│  ├─ 15 REALTIME_UPDATE_RATE_AND_COUNTDOWN_SOURCE -> CLOSED in T1.07 and T2.10
+│  ├─ 16 NUMERIC_TYPES_AND_ROUNDING -> CLOSED in T1.01 and T1.03
+│  ├─ 17 PIXEL_ACCURATE_RENDERING_RULES -> CLOSED in T2.09
+│  ├─ 18 GAPS_VS_MARKET_CLOSED -> CLOSED in T1.03 (GapKind)
+│  ├─ 19 TWO_SOURCES_OF_TRUTH (phase numbering, project names) -> CLOSED by PRIORITY_EXECUTION_ORDER and NAMING in REVISION_1_1
+│  ├─ 20 NODE_LEVEL_VERIFY_AND_TEST_VECTORS -> CLOSED by T0..T7 node specs and GOLDEN_TEST_VECTORS
+│  ├─ 21 SETTINGS_PROJECT_INTEGRATION -> CLOSED in T0.07 (prerequisite), T6.08 (integration), SETTINGS_INTEGRATION and SETTINGS_KEY_MAP
+│  ├─ 22 PLUGIN_AND_GENERATOR_PLATFORM
+│  │  ├─ STATUS=CLOSED_V1_3
+│  │  └─ DECISION=merged as PLUGIN_* nodes, T0.08, T3.08 to T3.11, T4.09, T6.10 (PG nodes inside); deferred items: Widget components, Command Generator, indicator plugins, trading tools, CodeTool authoring UI, bitmap and theme-variant icons, marketplace, third-party plugins, sandbox or separate process, signing, hot reload of code, dynamic loading, cloud sync, AI designer, SQLite index, snapshot store
+│  └─ NOTE=OPEN_ITEM_PROTOCOL below still applies to any NEW missing requirement discovered during implementation
+│
+├─ OPEN_ITEM_PROTOCOL
+│  ├─ OPEN != FINAL
+│  ├─ OPEN != PERMISSION_TO_GUESS
+│  ├─ OPEN_REQUIRES_DECISION
+│  └─ IMPLEMENTATION_MUST_STOP_AT_MISSING_REQUIRED_DECISION
+│
+├─ T0_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ T0.01 SolutionAndBuildConfig
+│  │  ├─ DEPENDS=none
+│  │  ├─ OUTPUT=ROOT_FILES of PROJECT_STRUCTURE
+│  │  ├─ VERIFY=dotnet build MyChart.sln succeeds on an empty skeleton with warnings-as-errors
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T0.02
+│  ├─ T0.02 ProjectReferenceGraph
+│  │  ├─ DEPENDS=T0.01
+│  │  ├─ RULE=Core -> nothing; Data -> Core; Rendering -> Core; Interaction -> Core; PluginHost -> Core; Plugins -> Core; Generator.Engine -> Core; Generator.Cli -> Generator.Engine; ToolBuilder -> Core,PluginHost,Generator.Engine,Rendering; Indicators -> Core; Infrastructure -> Core,Data; UI -> Core; App -> all runtime projects (Settings from T6.08); Settings -> nothing; Tests -> all except App, UI, Settings, ToolBuilder and Generator.Cli
+│  │  ├─ VERIFY=script lists ProjectReference of every csproj and matches this rule
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T0.03
+│  ├─ T0.03 FolderAndFileSkeleton
+│  │  ├─ DEPENDS=T0.02
+│  │  ├─ OUTPUT=every folder and file in PROJECT_STRUCTURE, plus MIGRATION_FROM_CURRENT_REPO actions
+│  │  ├─ VERIFY=solution builds; no file outside PROJECT_STRUCTURE exists except test fixtures; grep -ri chartmy over the repository excluding Docs/ returns nothing
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T0.04
+│  ├─ T0.04 ContractsSkeleton
+│  │  ├─ DEPENDS=T0.03
+│  │  ├─ OUTPUT=all interfaces named in Core/Contracts with their final method signatures (signatures for T1 contracts are in T1.10 and T1.07)
+│  │  ├─ RULE=Contracts before consumers
+│  │  ├─ NOTE=the plugin contracts (PLUGIN_CONTRACTS) are created in T0.08 (PG0.01), not here
+│  │  ├─ VERIFY=build passes; no implementation class references another module's implementation, only contracts
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T0.05
+│  ├─ T0.05 TestProject
+│  │  ├─ DEPENDS=T0.03
+│  │  ├─ OUTPUT=MyChart.Tests with one passing smoke test per folder
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T0.06
+│  ├─ T0.06 ProgressLog
+│  │  ├─ DEPENDS=T0.03
+│  │  ├─ OUTPUT=Docs/IMPLEMENTATION_PROGRESS.txt (header line only)
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T0.07
+│  ├─ T0.07 SettingsPrerequisite
+│  │  ├─ DEPENDS=T0.04,T0.06
+│  │  ├─ PURPOSE=record the contracts of the existing Settings panel before any chart code depends on settings (Master_Consolidated stage 00)
+│  │  ├─ RULE=the panel is not recreated, not redesigned, and NOT added to the solution before T6.08; no second settings architecture
+│  │  ├─ OUTPUT=Core/Contracts/Services/IChartSettings.cs (typed values + event Changed(IReadOnlyList<string> keys)) ; Core/Models/Settings/ChartSettingValues.cs ; Core/Models/Settings/DefaultChartSettings.cs (values = the defaults in SETTINGS_KEY_MAP) ; nothing else
+│  │  ├─ VERIFY=every default listed in SETTINGS_KEY_MAP that has a chart consumer equals the matching DefaultChartSettings value; no file in the solution references SettingsSchema
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T0.08
+│  └─ T0.08 PluginFoundation
+│     ├─ DEPENDS=T0.07
+│     ├─ CONTRACTS=see the PG child nodes
+│     ├─ REQUIRES=execute PG0.01 then PG0.02 (children below); nothing else is created in this node
+│     ├─ OUTPUT=Core/Contracts/Plugins, Core/Models/Plugins, Core/Models/Drawing, Core/Plugins skeletons, DrawingMath; projects PluginHost, Plugins, Generator.Engine, Generator.Cli, ToolBuilder, Generator.Tests
+│     ├─ VERIFY=VERIFY of PG0.01 and PG0.02
+│     ├─ GATE=AUTOMATED
+│     ├─ NEXT=T1.01
+│     ├─ PG0.01 PluginContractsInCore
+│     │  ├─ DEPENDS=T0.04
+│     │  ├─ CONTRACTS=provides every interface, record and enum of PLUGIN_CONTRACTS, the pure parts of PROJECT_STRUCTURE/MyChart.Core/Plugins (as compilable skeletons) and DrawingMath
+│     │  ├─ REQUIRES=Core keeps zero ProjectReference; no WPF or Skia type; PluginContractVersion 1.0; DrawingObject is an immutable record; base classes TwoPointToolBase, SinglePointToolBase, ClickToolBase (N clicks, preview follows the cursor, Esc cancels); DrawingMath holds only pure geometry (segment, rectangle edges, ellipse edge)
+│     │  ├─ OUTPUT=Core/Contracts/Plugins/*.cs ; Core/Models/Plugins/*.cs ; Core/Models/Drawing/*.cs ; Core/Plugins/** skeletons ; Core/Analysis/DrawingMath.cs
+│     │  ├─ VERIFY=solution builds; reflection test: member list of each contract equals PLUGIN_CONTRACTS; Core has no ProjectReference; DrawingMath vectors (segment (0,0)-(100,0): point (50,5) distance 5, (110,0) distance 10, (103,4) distance 5)
+│     │  ├─ GATE=AUTOMATED
+│     │  └─ NEXT=PG0.02
+│     └─ PG0.02 PluginProjectsSkeleton
+│        ├─ DEPENDS=PG0.01,T0.03
+│        ├─ CONTRACTS=none (projects only)
+│        ├─ REQUIRES=projects and references exactly as PLUGIN_DEPENDENCY_DIRECTION: MyChart.PluginHost, MyChart.Plugins (empty Components/, empty compilable PluginCatalog.g.cs and IconCatalog.g.cs with the auto-generated header), MyChart.Generator.Engine, MyChart.Generator.Cli, MyChart.ToolBuilder (empty WPF project, net8.0-windows), MyChart.Generator.Tests
+│        ├─ OUTPUT=the six projects (csproj + skeleton files); solution updated
+│        ├─ VERIFY=script over all csproj matches PLUGIN_DEPENDENCY_DIRECTION; dotnet build succeeds
+│        ├─ GATE=AUTOMATED
+│        └─ NEXT=T1.01
+│
+├─ T1_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ T1.01 MarketModels
+│  │  ├─ DEPENDS=T0
+│  │  ├─ Candle=see L1_MODEL
+│  │  ├─ Tick=readonly record struct Tick(DateTimeOffset Timestamp, double Bid, double Ask, double Volume)
+│  │  ├─ Tick.Timestamp=UTC with millisecond precision
+│  │  ├─ Tick.Volume=0 means the provider gave no volume
+│  │  ├─ Timeframe=enum {Tick,M1,M5,M15,M30,H1,H4,D1,W1,MN1}
+│  │  ├─ Timeframe.Span=M1 1min; M5 5min; M15 15min; M30 30min; H1 1h; H4 4h; D1 24h
+│  │  ├─ Timeframe.W1_MN1=calendar based; NominalSpan for layout only: W1 7d; MN1 30.436875d
+│  │  ├─ SymbolGroup=enum {Forex,Crypto,Indices,Stocks,Commodities}
+│  │  ├─ SymbolInfo=record(Name, ProviderName, Group, Digits)
+│  │  ├─ PRICE_TYPE=double (no decimal); prices are rounded to Digits on input; equality tolerance = 0.5 * 10^-Digits
+│  │  ├─ VOLUME_TYPE=double; meaning = tick count unless the provider supplies real volume
+│  │  ├─ CANDLE_PRICE_BASIS=Bid (not Mid, not Ask)
+│  │  ├─ VERIFY=reflection test: Candle has exactly the 6 FINAL fields; Timeframe has exactly 10 members
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.02
+│  ├─ T1.02 TimeBuckets
+│  │  ├─ DEPENDS=T1.01
+│  │  ├─ SessionCalendar=record(ServerTimeRule Rule, SymbolGroup Group)
+│  │  ├─ ServerTimeRule=Fixed(offset) OR EET_US_DST
+│  │  ├─ Fixed.default=+00:00 (UTC)
+│  │  ├─ EET_US_DST=UTC+2 normally; UTC+3 from the second Sunday of March to the first Sunday of November; allowed only for groups Forex, Indices, Commodities
+│  │  ├─ Crypto_Stocks=always Fixed(+00:00) unless the provider states another Fixed offset
+│  │  ├─ OffsetAt(utc)=evaluated at the SOURCE candle or tick timestamp
+│  │  ├─ ASSUMPTION=offset changes happen inside the weekend closure, so one bucket never spans two offsets (this is why Crypto is forced to Fixed)
+│  │  ├─ Floor(t, tf, calendar)
+│  │  │  ├─ local = t + OffsetAt(t)
+│  │  │  ├─ M1,M5,M15,M30,H1 = floor local time to the span
+│  │  │  ├─ H4 = local hour floored to a multiple of 4 (00,04,08,12,16,20)
+│  │  │  ├─ D1 = local 00:00
+│  │  │  ├─ W1 = local Monday 00:00; a Sunday belongs to the NEXT week for Forex, Indices, Commodities and to the PREVIOUS Monday for Crypto, Stocks
+│  │  │  ├─ MN1 = local day 1 at 00:00
+│  │  │  └─ result = bucketLocal - OffsetAt(t)
+│  │  ├─ Next(bucketStart, tf) and Prev(bucketStart, tf)=calendar-correct neighbours (W1 +-7d local; MN1 +-1 calendar month local)
+│  │  ├─ Span(bucketStart, tf)=Next(bucketStart) - bucketStart
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.BucketFloor
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.03
+│  ├─ T1.03 DataValidation
+│  │  ├─ DEPENDS=T1.01,T1.02
+│  │  ├─ ORDER_OF_STEPS=Normalization -> CorruptedRecords -> InvalidOHLC -> Duplicate -> Sort -> TimeGaps -> MissingBars
+│  │  ├─ Normalization
+│  │  │  └─ timestamp floored to the timeframe grid (Floor of T1.02); prices rounded to Digits (MidpointRounding.AwayFromZero)
+│  │  ├─ CorruptedRecords
+│  │  │  ├─ reject a candle when any price is NaN, Infinity or <= 0; when Volume is NaN or < 0; when Timestamp > now + 5 minutes
+│  │  │  ├─ unparsable source rows are counted and skipped and logged with their row number
+│  │  │  └─ abort the whole load with error SourceCorrupted only when more than 50 percent of rows are corrupted
+│  │  ├─ InvalidOHLC
+│  │  │  ├─ condition = High < max(Open,Close,Low) OR Low > min(Open,Close,High) OR High < Low
+│  │  │  └─ RepairLogic = High := max(Open,High,Low,Close); Low := min(Open,High,Low,Close); count as Repaired
+│  │  ├─ DuplicateDetection
+│  │  │  └─ same Timestamp in one batch -> keep the LAST occurrence
+│  │  ├─ Sort=strictly ascending Timestamp after validation
+│  │  ├─ TimeGaps=every pair of neighbours with (t[i+1] - t[i]) > Span(t[i]) is a GapInfo
+│  │  ├─ MissingBars=GapInfo.MissingBars = number of timeframe slots strictly between the two neighbours = (t[i+1] - t[i]) / Span - 1 (for W1 and MN1 count buckets by iterating Next)
+│  │  ├─ GapKind
+│  │  │  ├─ Expected = the gap interval contains at least one local Saturday, for Forex, Indices, Commodities; for Stocks also any gap >= 8 hours; for Crypto never
+│  │  │  ├─ Missing = a gap that is not Expected and not Unclassified
+│  │  │  └─ Unclassified = gap > 24 hours without a Saturday for Indices, Stocks, Commodities (holidays); reported only, never repaired automatically
+│  │  ├─ NO_FABRICATION=validation and repair never invent candles; gaps stay gaps; the index-based X axis skips them
+│  │  ├─ ValidationReport=record(Accepted, Repaired, Rejected, Duplicates, Corrupted, Gaps[])
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.Validation
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.04
+│  ├─ T1.04 SymbolRegistry
+│  │  ├─ DEPENDS=T1.01
+│  │  ├─ Registry=Register(SymbolInfo); Get(name); List(); alias map (ProviderName -> canonical Name)
+│  │  ├─ Normalization=Trim + ToUpperInvariant only; suffixes such as .m or .cash are NEVER stripped automatically; the alias map is the only way to rename
+│  │  ├─ GroupFallback=provider group if given; else Forex when the name is 6 letters made of two known ISO currency codes; else Stocks-rules (no pip)
+│  │  ├─ SymbolMath
+│  │  │  ├─ PointSize = 10^-Digits
+│  │  │  ├─ PipSize (Forex group only) = PointSize * 10 when Digits is 3 or 5; = PointSize when Digits is 2 or 4
+│  │  │  └─ PipSize for other groups = undefined; PipDifference is hidden for them; PointDifference is always available
+│  │  ├─ VERIFY=EURUSD digits5 -> Point 0.00001, Pip 0.0001; USDJPY digits3 -> Point 0.001, Pip 0.01; XAUUSD (Commodities) -> Pip undefined
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.05
+│  ├─ T1.05 TickFilterAndBuffer
+│  │  ├─ DEPENDS=T1.01,T1.04
+│  │  ├─ TickFilter rejects a tick when
+│  │  │  ├─ any value is NaN or Infinity; Bid <= 0; Ask < Bid
+│  │  │  ├─ Timestamp < last accepted Timestamp (out of order); equal timestamps are allowed
+│  │  │  ├─ Timestamp > now + 5 minutes
+│  │  │  └─ abs(Bid - prevBid) / prevBid * 100 > 5 after at least 10 accepted ticks (spike); exception: when 3 consecutive ticks fall outside the band but agree with each other within 1 percent, the THIRD is accepted as the new level (the first two stay rejected)
+│  │  ├─ TickBuffer
+│  │  │  └─ ring buffer per symbol; capacity 100000; overflow drops the OLDEST tick and increments a counter
+│  │  ├─ TickPump
+│  │  │  └─ provider threads only enqueue; ONE drain per UI frame on the chart thread; at most 5000 ticks per drain
+│  │  ├─ Distribute=drained ticks go to AggregationEngine then TickReceived is published
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.TickFilter
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.06
+│  ├─ T1.06 CandleCalculation
+│  │  ├─ DEPENDS=T1.02,T1.03
+│  │  ├─ FormingCandle (mutable struct, lives in L3, logic in L2)
+│  │  │  ├─ Open(tick): Open=High=Low=Close=tick.Bid; Volume = (tick.Volume > 0 ? tick.Volume : 1)
+│  │  │  ├─ Apply(tick): High=max(High,Bid); Low=min(Low,Bid); Close=Bid; Volume += (tick.Volume > 0 ? tick.Volume : 1)
+│  │  │  └─ A new candle Open is the FIRST tick Bid of that bucket (not the previous Close)
+│  │  ├─ Bucket change
+│  │  │  ├─ when Floor(tick.Timestamp) > forming.Timestamp: emit closed candle, start a new forming candle with that tick
+│  │  │  └─ when Floor(tick.Timestamp) < forming.Timestamp: the tick belongs to a closed bar; DISCARD it and count LateTicks (history fixes go through HistoryManager only)
+│  │  ├─ Every active timeframe (M1,M5,M15,M30,H1,H4,D1) receives every tick directly; closed candles never change
+│  │  ├─ W1 and MN1 are folded from D1 candles, not from ticks
+│  │  ├─ Fold(sources) -> candle: Timestamp = bucket start; Open = first.Open; High = max High; Low = min Low; Close = last.Close; Volume = sum
+│  │  ├─ Aggregate(source list, sourceTf, targetTf, calendar) is valid only if target span is an exact multiple of source span and boundaries nest with the same calendar
+│  │  ├─ CHAIN (canonical dependency): Tick -> M1 -> M5 -> M15 -> (M30) -> H1 -> H4 -> D1 -> W1, MN1 ; M30 sits between M15 and H1 for dependency purposes; W1 and MN1 fold from D1
+│  │  ├─ SOURCE_OF_TRUTH=M1 base series; higher timeframes are always derived locally
+│  │  ├─ NativeSeries EXCEPTION=D1, W1, MN1 may come from a provider that flags SupportsNativeHigherTimeframes, only for buckets older than the first COMPLETE aggregated bucket
+│  │  ├─ CompleteBucket=an aggregated bucket is Complete only when the base data starts at or before the bucket start
+│  │  ├─ INVARIANT=for every closed higher-timeframe candle, Fold(closed M1 candles of that bucket) equals the candle produced by direct tick application
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.TicksToM1, GOLDEN_TEST_VECTORS.FoldM5, invariant test on 10000 random ticks
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.07
+│  ├─ T1.07 MarketDataBus
+│  │  ├─ DEPENDS=T1.01
+│  │  ├─ CONTRACT=IMarketDataBus { IDisposable Subscribe<T>(Action<T>); void Publish<T>(T evt) }
+│  │  ├─ EVENTS=TickReceived(Symbol,Tick); CandleUpdated(Symbol,Timeframe,Candle forming); CandleClosed(Symbol,Timeframe,Candle); NewSymbol(SymbolInfo); NewTimeframe(Symbol,Timeframe); HistoryLoaded(Symbol,Timeframe,Count,FirstTimestamp,LastTimestamp); ProviderChanged(ProviderName,State)
+│  │  ├─ THREADING=publish and handlers run on the chart thread (same thread as the TickPump); no locks needed
+│  │  ├─ COALESCING=CandleUpdated at most once per (symbol,timeframe) per frame (16 ms); CandleClosed is never coalesced and never dropped
+│  │  ├─ ISOLATION=an exception in one subscriber is logged and does not stop other subscribers
+│  │  ├─ VERIFY=order of delivery; coalescing; exception isolation
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.08
+│  ├─ T1.08 HistoryMergeGapRepair
+│  │  ├─ DEPENDS=T1.03,T0.04
+│  │  ├─ PROVIDER_CONTRACT=IDataProvider as created in T0.04 (signature final in T1.10); tests use a fake provider, not CsvProvider
+│  │  ├─ Download(symbol,from,to)=requests M1 in chunks of 50000 bars
+│  │  ├─ Update=re-request from (last stored timestamp - 2 bars) to now
+│  │  ├─ Validate=T1.03 on every chunk
+│  │  ├─ Merge(existing, incoming)=union by Timestamp; on conflict the INCOMING candle wins; result strictly ascending
+│  │  ├─ GapDetection=T1.03 TimeGaps after every merge
+│  │  ├─ Repair=for each Missing gap request exactly that range once (max 2 attempts); if still missing mark Unrepairable and log; never block the chart
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.Merge
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.09
+│  ├─ T1.09 MemoryCache
+│  │  ├─ DEPENDS=T1.01
+│  │  ├─ KEY=(Symbol, Timeframe)
+│  │  ├─ LIMITS=8 symbols in memory (LRU eviction); M1 series capped at 600000 bars per symbol (oldest bars stay on disk only)
+│  │  ├─ Derived timeframes are rebuilt from M1 on demand and dropped with the symbol
+│  │  ├─ VERIFY=LRU eviction order; cap enforcement
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.10
+│  ├─ T1.10 ProviderContractAndCsvProvider
+│  │  ├─ DEPENDS=T1.01,T1.04
+│  │  ├─ CONTRACT IDataProvider
+│  │  │  ├─ Task ConnectAsync(CancellationToken)
+│  │  │  ├─ Task DisconnectAsync()
+│  │  │  ├─ Task<IReadOnlyList<Candle>> GetHistoryAsync(string symbol, Timeframe tf, DateTimeOffset? from, DateTimeOffset? to, int maxBars, CancellationToken)
+│  │  │  ├─ IDisposable SubscribeTicks(string symbol, Action<Tick> onTick)
+│  │  │  ├─ void UnsubscribeTicks(string symbol)
+│  │  │  ├─ Task<IReadOnlyList<SymbolInfo>> GetSymbolsAsync(CancellationToken)
+│  │  │  ├─ IReadOnlyList<Timeframe> GetTimeframes()
+│  │  │  └─ bool IsConnected; string Name; bool SupportsNativeHigherTimeframes; ServerTimeRule ServerTimeRule
+│  │  ├─ RULE=every timestamp leaving a provider is already UTC; server-time conversion happens INSIDE the provider
+│  │  ├─ CsvProvider
+│  │  │  ├─ file name = <SYMBOL>_<TF>.csv ; header = timestamp_utc,open,high,low,close,volume ; ISO-8601 UTC ; '.' decimal ; ascending
+│  │  │  └─ symbol Digits read from a sidecar <SYMBOL>.info (Digits=5; Group=Forex)
+│  │  ├─ VERIFY=load Fixtures/EURUSD_M1.csv, validate, no exception; wrong header -> SourceCorrupted
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T1.11
+│  └─ T1.11 CandleSeriesService
+│     ├─ DEPENDS=T1.05,T1.06,T1.07,T1.08,T1.09,T1.10
+│     ├─ AggregationEngine (L3) API
+│     │  ├─ SetBaseHistory(symbol, candles)
+│     │  ├─ OnTick(symbol, tick)
+│     │  └─ ISeriesView GetSeries(symbol, tf)  { int Count; Candle this[int]; bool HasForming; DateTimeOffset OpenTime(int) }
+│     ├─ RULE=the forming candle is the LAST element of the series and is flagged by HasForming
+│     ├─ RULE=series mutation happens only on the chart thread
+│     ├─ VERIFY=replay of Fixtures/ticks_sample.csv reproduces Fixtures/expected_M1_M5_H1.csv exactly; invariant of T1.06 holds
+│     ├─ GATE=AUTOMATED
+│     └─ NEXT=T2.01
+│
+├─ T2_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ UNITS=all ViewState sizes are DIP (device independent px); geometry (T2.09) converts to device pixels with DpiScale = dpi/96
+│  ├─ X_AXIS_MODEL=INDEX-BASED: bars have equal spacing; gaps (weekends, holidays) take no space; time is derived from the bar index
+│  ├─ T2.01 TimeIndexMapper
+│  │  ├─ DEPENDS=T1.11
+│  │  ├─ INPUT=ISeriesView (N bars), Timeframe, SessionCalendar
+│  │  ├─ u=logical bar coordinate (double); bar i occupies the slot [i-0.5, i+0.5]; its centre is u=i
+│  │  ├─ IndexOfTime(t) -> u
+│  │  │  ├─ N=0 -> 0
+│  │  │  ├─ t inside a bar span [Open[i], Open[i]+Span_i) -> u = i + (t - Open[i]) / Span_i
+│  │  │  ├─ t inside a gap after bar i (t >= Open[i]+Span_i and t < Open[i+1]) -> u = i + 1
+│  │  │  ├─ t >= Open[N-1] + Span_last -> u = (N-1) + BucketDistance(Open[N-1], t)
+│  │  │  └─ t < Open[0] -> u = -BucketDistance(t, Open[0])
+│  │  ├─ BucketDistance(a,b)=fixed timeframes: (b-a)/Span ; W1: (b-a)/7d ; MN1: whole calendar months between + fraction of the month
+│  │  ├─ TimeAtIndex(u)
+│  │  │  ├─ 0 <= u <= N-1 -> i=floor(u); Open[i] + (u-i)*Span_i
+│  │  │  ├─ u > N-1 -> AddBuckets(Open[N-1], floor(u-(N-1))) + frac * Span
+│  │  │  └─ u < 0 -> AddBuckets(Open[0], floor(u)) + frac * Span
+│  │  ├─ SnapIndex(u)=floor(u + 0.5) (round half up)
+│  │  ├─ ROUNDTRIP=TimeAtIndex(IndexOfTime(t)) == t for t inside a bar or after the last bar; for t inside a gap the result is Open of the next bar
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.TimeIndex
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.02
+│  ├─ T2.02 ViewStateAndCoordinateConverter
+│  │  ├─ DEPENDS=T2.01
+│  │  ├─ ViewState = {Width, Height, PriceAxisWidth=64, TimeAxisHeight=24, PriceAxisSide=Right, BarSpacing (DIP), RightOffset (bars, may be fractional or negative), PriceScaleState}
+│  │  ├─ RightOffset=distance in bars between the centre-slot edge of the LAST bar and the right edge of the plot; the last bar centre is at plotRight - (RightOffset + 0.5) * BarSpacing
+│  │  ├─ PlotRect
+│  │  │  ├─ plotLeft = (PriceAxisSide == Left ? PriceAxisWidth : 0)
+│  │  │  ├─ plotWidth = Width - PriceAxisWidth
+│  │  │  └─ plotTop = 0 ; plotHeight = Height - TimeAxisHeight
+│  │  ├─ X(u) = plotLeft + plotWidth - (N - 1 + RightOffset - u + 0.5) * BarSpacing
+│  │  ├─ U(x) = N - 1 + RightOffset + 0.5 - (plotLeft + plotWidth - x) / BarSpacing
+│  │  ├─ Y(price) = plotTop + (max' - p') / (max' - min') * plotHeight where p' = PriceTransform(price) and [min',max'] is the price range in transform space
+│  │  ├─ Price(y)=inverse of Y then inverse transform
+│  │  ├─ RESIZE_RULE=BarSpacing and RightOffset do NOT change on resize; the right edge stays anchored; only the number of visible bars changes
+│  │  ├─ RULE=no magic numbers; margins come from ViewState only
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.XMapping; X(U(x)) == x within 1e-9
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.03
+│  ├─ T2.03 RenderWindow
+│  │  ├─ DEPENDS=T2.02
+│  │  ├─ iLeft = U(plotLeft) ; iRight = U(plotLeft + plotWidth)
+│  │  ├─ from = max(0, floor(iLeft + 0.5)) ; to = min(N-1, ceil(iRight + 0.5) - 1)
+│  │  ├─ renderFrom = max(0, from - 1) ; renderTo = min(N-1, to + 1)  (one-bar overdraw for wicks and rounding)
+│  │  ├─ VisibleBarCount = to - from + 1 (0 when N=0 or from > to)
+│  │  ├─ RULE=every renderer and every autoscale loops only over [from..to] or [renderFrom..renderTo], never over the whole series
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.XMapping (from=5,to=99,renderFrom=4,renderTo=99)
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.04
+│  ├─ T2.04 ZoomEngine
+│  │  ├─ DEPENDS=T2.03
+│  │  ├─ Wheel on plot or time axis = Zoom; wheel up = zoom in
+│  │  ├─ factor per notch = 1 + chart.zoom.speed * 0.002 (default speed 50 -> 1.10) ; Ctrl+Wheel (PrecisionZoom) = 1 + (factor - 1) * 0.2 (default 1.02)
+│  │  ├─ ROUTING=chart.mouse.wheel Zoom (default) = as above ; Pan = a wheel notch scrolls chart.scroll.speed / 10 bars (wheel up = toward older bars) and Ctrl+Wheel still zooms ; Both = Zoom, and Shift+Wheel scrolls as Pan
+│  │  ├─ ROUTING=chart.zoom.behavior Time or Both = as above ; Price = the wheel on the plot acts like the wheel on the price axis
+│  │  ├─ targetSpacing = clamp(targetSpacing * factor^notches, MinBarSpacing=0.5, MaxBarSpacing=50)
+│  │  ├─ ANCHOR=the bar coordinate u under the cursor stays under the cursor:
+│  │  │  └─ u0 = U(cursorX) before; after BarSpacing' the new RightOffset' = u0 - (N-1) - 0.5 + (plotLeft + plotWidth - cursorX) / BarSpacing'
+│  │  ├─ SmoothZoom
+│  │  │  ├─ each frame: spacing += (targetSpacing - spacing) * (1 - exp(-dt / 0.050 s)); snap to target when |diff| < 0.01
+│  │  │  ├─ anchor is recomputed every frame with the CURRENT spacing
+│  │  │  └─ Ctrl+Wheel uses the same smoothing
+│  │  ├─ Wheel over the price axis = vertical price zoom (T2.07); factor 1.10; anchored at the cursor price; switches Fit to Manual
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.Zoom
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.05
+│  ├─ T2.05 PanEngineAndScrollLimits
+│  │  ├─ DEPENDS=T2.03
+│  │  ├─ MiddleDrag (and Space+LeftDrag = TemporaryPan)
+│  │  │  ├─ dx pixels -> RightOffset += dx / BarSpacing (drag right = older bars appear)
+│  │  │  ├─ dy pixels -> price range shifts by dy * (max' - min') / plotHeight; Fit becomes Manual
+│  │  │  └─ drag starts after 3 DIP of movement; no inertia in v1.1
+│  │  ├─ ScrollLimits
+│  │  │  ├─ RightOffset <= plotWidth / BarSpacing - 2 (at least 2 bars stay visible when scrolling toward the future)
+│  │  │  └─ RightOffset >= 2 - N (at least 2 bars stay visible when scrolling to the oldest bar)
+│  │  ├─ PREPEND_RULE=when older bars are prepended to the series RightOffset is unchanged (indices and N shift together)
+│  │  ├─ APPEND_RULE=when a new closed bar is appended: if Following then RightOffset unchanged (view moves with the latest bar) else RightOffset = RightOffset - 1 (bars stay where they are)
+│  │  ├─ Following = (-0.5 <= RightOffset <= plotWidth / BarSpacing - 0.5) i.e. the latest bar centre is inside the plot
+│  │  ├─ chart.autoscroll=false -> Following is always false (bars stay where they are)
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.Pan
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.06
+│  ├─ T2.06 LatestCandleLockGoToLatestInfiniteScroll
+│  │  ├─ DEPENDS=T2.05
+│  │  ├─ GoToLatest (Home) = RightOffset := plotWidth / (2 * BarSpacing) - 0.5 (latest bar centred; same as startup); BarSpacing and price scale unchanged
+│  │  ├─ Ctrl+Home (LatestMarketPosition) = GoToLatest AND Fit := Auto
+│  │  ├─ LatestCandleLock (optional; default OFF)
+│  │  │  └─ when ON: RightOffset is pinned to the value it had when lock was enabled; after every CandleUpdated or CandleClosed the view is forced back to that value; horizontal pan and scroll are ignored
+│  │  ├─ InfiniteScroll
+│  │  │  ├─ when renderFrom <= 200 and reachedStart is false and no request is in flight: ask HistoryManager for older data covering 2000 bars of the current timeframe (converted to M1 count, at most 200000 M1 bars per request)
+│  │  │  └─ when the provider returns 0 bars: reachedStart := true and stop requesting
+│  │  ├─ VERIFY=GoToLatest gives X(N-1) == plotLeft + plotWidth/2; lock keeps RightOffset after 100 appended bars; no duplicate history requests
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.07
+│  ├─ T2.07 PriceScaleEngine
+│  │  ├─ DEPENDS=T2.03
+│  │  ├─ PriceScaleState={Fit: Auto|Manual, Transform: Linear|Log|Percentage, ManualMin, ManualMax, IsManualLocked, LogUnavailable}
+│  │  ├─ SPEC_NAME_MAPPING=Auto and Manual are values of Fit; Log and Percentage are values of Transform; Log and Percentage are mutually exclusive
+│  │  ├─ Transform
+│  │  │  ├─ Linear p' = p
+│  │  │  ├─ Log p' = ln(p) (available only when every visible Low > 0; otherwise Transform falls back to Linear and LogUnavailable=true)
+│  │  │  └─ Percentage p' = (p / base - 1) * 100 where base = Close of bar index `from`
+│  │  ├─ Auto
+│  │  │  ├─ hi = max High and lo = min Low over bars [from..to] (plus main-pane indicator outputs flagged IncludeInAutoScale)
+│  │  │  ├─ span' = hi' - lo' ; if span (in price space) < 20 * PointSize expand equally about the centre to 20 * PointSize
+│  │  │  ├─ pad top and bottom by 10 percent of span' each
+│  │  │  └─ if no bar is visible keep the previous range
+│  │  ├─ Manual
+│  │  │  ├─ range is stored (ManualMin, ManualMax) in transform space and persists across horizontal pan and zoom
+│  │  │  ├─ entered by: left-drag on the price axis; wheel over the price axis; MiddleDrag vertical; context menu ScaleMode=Manual
+│  │  │  ├─ price-axis drag: factor = clamp(1 + (-dy) * 0.005, 0.5, 2.0) anchored at the price where the drag started
+│  │  │  ├─ minimum span = 5 * PointSize (Linear), 1e-5 (Log), 0.01 (Percentage)
+│  │  │  └─ IsManualLocked=true while Fit=Manual (feeds ManualScaleLockIndicator)
+│  │  ├─ FIXED_SCALE=chart.scale.fix=true -> Fit=Manual with range [chart.scale.fixed.minimum, chart.scale.fixed.maximum] in Linear price space (ignored when minimum >= maximum); false -> Fit=Auto
+│  │  ├─ Back to Auto: double-click on the price axis, or context menu Reset / ScaleMode=Auto, or Ctrl+Home
+│  │  ├─ Reset rules: symbol or timeframe change -> Fit=Auto; Transform is kept per chart
+│  │  ├─ FrozenAxisDuringPan: while a MiddleDrag or Space-drag pan is active Auto does NOT refit on each mouse move; the range is frozen at drag start and refits once on release with a 100 ms ease-out; wheel and keyboard navigation refit every step
+│  │  ├─ Log badge value = (Transform == Log)
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.PriceScale
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.08
+│  ├─ T2.08 NiceTicksAndAxisLabelPlanning
+│  │  ├─ DEPENDS=T2.07,T2.02
+│  │  ├─ PRICE TICKS (work in transform space)
+│  │  │  ├─ target spacing 50 DIP; hard minimum spacing 40 DIP
+│  │  │  ├─ rawStep = span' / (plotHeight / 50) ; mag = 10^floor(log10(rawStep))
+│  │  │  ├─ step = smallest of {1,2,2.5,5,10} * mag that is >= rawStep ; step >= PointSize
+│  │  │  ├─ ticks = every multiple of step inside the visible range
+│  │  │  ├─ Log transform: when max/min >= 2 ticks are {1,2,5} * 10^k in price space (positions at ln); otherwise the linear rule above
+│  │  │  └─ Percentage: linear rule in percent space
+│  │  ├─ MINOR GRID (optional, unlabelled): mantissa 1 -> step/5 ; 2 -> step/4 ; 2.5 -> step/5 ; 5 -> step/5 ; 10 -> step/5
+│  │  ├─ MAJOR GRID=one horizontal line per labelled price tick (MajorPriceLabelsConnectToGrid)
+│  │  ├─ PRICE LABEL TEXT
+│  │  │  ├─ decimals = min(Digits, decimals needed to show step) ; invariant culture ; no thousands separator ; monospaced 11 px
+│  │  │  └─ Percentage = sign + 2 decimals + "%" (e.g. +1.25%)
+│  │  ├─ TIME LABELS
+│  │  │  ├─ each visible bar gets a weight from the local display time of its Open: year change 70 ; month change 60 ; day change 50 ; hour change (intraday only) 20 ; otherwise 0 (no label)
+│  │  │  ├─ choose labels from the highest weight downward; accept a label only if its centre is >= 80 DIP from every accepted label
+│  │  │  ├─ text: 70 -> yyyy ; 60 -> MMM ; 50 -> d ; 20 -> HH:mm ; for D1 and higher: day-change bars use d, month-change MMM, year-change yyyy
+│  │  │  ├─ future slots (beyond the last bar) use TimeAtIndex extrapolation
+│  │  │  └─ vertical grid lines sit at accepted label positions
+│  │  ├─ DISPLAY_TIME_ZONE=UTC by default; user option ProviderServerTime or Local; display only, never used in calculation
+│  │  ├─ COLLISION (price axis)
+│  │  │  ├─ sort labels by y; drop a label whose 14 DIP box overlaps a kept label by less than 4 DIP gap
+│  │  │  └─ current-price marker and crosshair marker always win over grid labels: grid labels within 9 DIP of either are hidden
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.NiceTicks; label count never exceeds plotHeight/40 and plotWidth/80
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.09
+│  ├─ T2.09 CandleGeometry
+│  │  ├─ DEPENDS=T2.03,T2.07,CANDLE_LAYER_SEPARATION
+│  │  ├─ OWNER=CandleGeometryCalculator (L4); pure; no Skia
+│  │  ├─ INPUT=candle, bar index i, ViewState, price scale, DpiScale d
+│  │  ├─ spacingDev = BarSpacing * d
+│  │  ├─ MODE
+│  │  │  ├─ spacingDev >= 3 -> FullCandle
+│  │  │  ├─ 2 <= spacingDev < 3 -> WickOnly (1 device px vertical High-Low line per bar)
+│  │  │  └─ spacingDev < 2 -> PixelColumn (bars are grouped per device pixel column: High = max High, Low = min Low, direction = the LAST bar of the group)
+│  │  ├─ FullCandle
+│  │  │  ├─ cx = floor(X(i) * d)  (device pixel column of the wick; wick is candles.wick.thickness device px wide, default 1; wick left = cx - floor((thickness - 1) / 2))
+│  │  │  ├─ gapDev = candles.spacing * d (default 2 DIP); bodyWidth = floor(spacingDev - gapDev); if even then bodyWidth - 1; minimum 1; must be <= floor(spacingDev) - 1 (always leave at least 1 px gap) but never below 1
+│  │  │  ├─ bodyLeft = cx - (bodyWidth - 1) / 2
+│  │  │  ├─ yOpen,yClose,yHigh,yLow = round(Y(price) * d)
+│  │  │  ├─ bodyTop = min(yOpen,yClose) ; bodyBottom = max(yOpen,yClose) ; bodyHeight = max(1, bodyBottom - bodyTop)
+│  │  │  ├─ doji (Open==Close after rounding to Digits) -> IsDoji=true and bodyHeight = 1
+│  │  │  └─ wick spans yHigh..yLow (yLow >= yHigh guaranteed)
+│  │  ├─ OHLC style: wick as above; open tick to the LEFT of the wick and close tick to the RIGHT, each max(1, floor(spacingDev * 0.36)) px long
+│  │  ├─ IsBull = Close >= Open
+│  │  ├─ SETTINGS_LINK=candles.show.body=false -> every bar uses WickOnly ; candles.show.wicks=false -> no wicks are produced ; candles.body.thickness = hollow border thickness in device px (default 1)
+│  │  ├─ HOLLOW: bull candles hollow (1 px border inside the body, no fill) when bodyWidth >= 3, bear filled; if bodyWidth < 3 filled
+│  │  ├─ RULES: no anti-aliasing for candle geometry; all outputs are integers; only bars in [renderFrom..renderTo] are processed
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.CandleGeometry
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.10
+│  ├─ T2.10 CurrentPriceAndDualMarkerValues
+│  │  ├─ DEPENDS=T2.07,T1.11
+│  │  ├─ CurrentPrice = last accepted tick Bid; if no tick yet = Close of the last candle
+│  │  ├─ Direction = bull when CurrentPrice >= Open of the forming candle else bear (color chosen by renderer)
+│  │  ├─ AlwaysVisible: if the price is outside the plot, the marker Y is clamped to plotTop or plotBottom and IsClamped=true
+│  │  ├─ Countdown = Next(forming.Timestamp) - ServerNow ; ServerNow = IClock.UtcNow + ClockSkew ; ClockSkew = EMA(alpha 0.2) of (tick.Timestamp - local receive time); kept when no ticks arrive
+│  │  ├─ Countdown format: < 1h m:ss ; < 24h h:mm:ss ; otherwise Nd hh:mm ; hidden when no forming candle
+│  │  ├─ Line style: 1 px dashed [4,4], 40 percent opacity, full plot width
+│  │  ├─ DualMarker: MarketMarker = CurrentPrice ; AnalysisMarker = crosshair price (magnet price if magnet is on); both drawn; AnalysisMarker on top
+│  │  ├─ VERIFY=clamping; countdown at bucket boundary equals 0:00 then restarts
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T2.11
+│  └─ T2.11 StartupView
+│     ├─ DEPENDS=T2.06,T2.07
+│     ├─ BarSpacing = clamp(plotWidth * (chart.shift ? 0.5 : 1) / chart.visible.candles, 0.5, 50) (the same formula is used by Reset View) ; RightOffset = chart.shift ? plotWidth / (2 * BarSpacing) - 0.5 (current candle centred) : 0 ; Fit=Auto ; Transform=Linear ; DefaultBarSpacing 8 is used only when no settings value exists
+│     ├─ Crosshair=enabled ; Navigator=hidden ; HUD=Minimal (Symbol, Timeframe, Spread) and visible
+│     ├─ Symbol = last used, else first favorite, else first symbol alphabetically ; Timeframe = last used, else H1
+│     ├─ VERIFY=X(N-1) == plotLeft + plotWidth / 2 at startup; with N >= 51 and plotWidth 800: from = N-51, to = N-1, VisibleBarCount = 51
+│     ├─ GATE=AUTOMATED
+│     └─ NEXT=T3.01
+│
+├─ T3_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ T3.01 CrosshairCalculations
+│  │  ├─ DEPENDS=T2.02,T2.03,T2.07,T1.04
+│  │  ├─ FLAGS=Cursor is always on; Analysis, DataInspector and Magnet are independent on/off flags (toggled from the Left toolbar Crosshair menu or the context menu)
+│  │  ├─ CURSOR
+│  │  │  ├─ X snaps to the centre of the nearest bar: iSnap = SnapIndex(U(mouseX)); crosshair X = X(iSnap)
+│  │  │  ├─ time = TimeAtIndex(iSnap) shown in the display time zone; future slots use extrapolation
+│  │  │  ├─ price = Price(mouseY) mapped back to real price space (Log and Percentage aware)
+│  │  │  ├─ time label format: intraday "ddd d MMM 'yy HH:mm" ; D1,W1 "ddd d MMM 'yy" ; MN1 "MMM yyyy"
+│  │  │  └─ price label decimals = Digits
+│  │  ├─ ANALYSIS
+│  │  │  ├─ anchor A is set by the first LeftClick while Analysis is on (aIndex = SnapIndex, aPrice = price); the cursor is B; a second LeftClick or Esc clears the anchor
+│  │  │  ├─ PriceDifference = priceB - priceA (signed)
+│  │  │  ├─ PointDifference = round(PriceDifference / PointSize) (integer, signed)
+│  │  │  ├─ PipDifference = PriceDifference / PipSize with 1 decimal (Forex group only; hidden otherwise)
+│  │  │  ├─ TimeDifference = TimeAtIndex(iB) - TimeAtIndex(iA) (real elapsed time, signed, shown as d h m)
+│  │  │  ├─ CandleCount = abs(iB - iA) (distance, not inclusive)
+│  │  │  └─ PercentageChange = (priceB - priceA) / priceA * 100 with 2 decimals (base is A in every scale mode)
+│  │  ├─ DATA_INSPECTOR
+│  │  │  └─ shows the candle at iSnap when 0 <= iSnap <= N-1: Date, Time, Open, High, Low, Close, Volume; hidden in future slots
+│  │  ├─ MAGNET
+│  │  │  └─ when on and the pointer is within 24 DIP (vertical) of the Open, High, Low or Close of the candle at iSnap, price snaps to the NEAREST of the four; otherwise price is free
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.Crosshair
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T3.02
+│  ├─ T3.02 HudData
+│  │  ├─ DEPENDS=T3.01,T1.11
+│  │  ├─ Symbol, Timeframe = from the chart session
+│  │  ├─ OHLCUnderMouse = data-inspector candle; when the pointer is outside the plot or in a future slot = the latest candle (forming included)
+│  │  ├─ Spread = last accepted tick (Ask - Bid) / PointSize, integer points; "-" when no tick yet
+│  │  ├─ MarketStatus = Replay when the replay provider is active; Offline when the provider is disconnected; Live when the last tick is <= 30 s old; Stale otherwise
+│  │  ├─ VisibleBars = VisibleBarCount ; Start = display-time Open of bar `from` ; End = display-time Open of bar `to`
+│  │  ├─ ZoomLevel = round(BarSpacing / 6 * 100) percent (6 DIP = 100 percent)
+│  │  ├─ LoadedCandles = series Count ; ProviderName ; CacheStatus = Memory|Disk|Empty ; FPS = frames per second averaged over 1 s
+│  │  ├─ ADAPTIVE by chart plot width: >= 900 DIP Full ; 500..899 Compact ; < 500 Minimal
+│  │  ├─ Full = INFORMATION list + ADVANCED_OPTIONAL fields the user enabled ; Compact = Symbol, Timeframe, OHLCUnderMouse, Spread ; Minimal = Symbol, Timeframe, Spread
+│  │  ├─ REFRESH=only on CandleUpdated (coalesced), hovered-bar change (not every pixel), range change, MarketStatus change; FPS field at 2 Hz
+│  │  ├─ VERIFY=each field against a fake session; refresh count over 1000 mouse moves inside one bar = 0
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T3.03
+│  ├─ T3.03 NavigatorCalculations
+│  │  ├─ DEPENDS=T2.06,T2.01
+│  │  ├─ CenterOn(u): RightOffset = u - (N-1) - 0.5 + plotWidth / (2 * BarSpacing) then ScrollLimits
+│  │  ├─ GoToDate(date) = local 00:00 of that date in the display time zone -> UTC -> u=IndexOfTime -> CenterOn(SnapIndex(u))
+│  │  ├─ GoToTime(dateTime) = same with the given time
+│  │  ├─ GoToCandle(n) = n bars back from the latest (0 = latest) -> u = N-1-n, clamped to [0,N-1]
+│  │  ├─ GoToLatest = T2.06
+│  │  ├─ date before the first bar: if reachedStart is false request history once and retry once; else go to bar 0
+│  │  ├─ date after the last bar: GoToLatest
+│  │  ├─ Ctrl+G opens the navigation dialog: fields Date, Time (optional), Candle number; OK applies
+│  │  ├─ VisibleRangeBox: left = from / N ; right = (to + 1) / N of the panel width; dragging it sets CenterOn from the box centre
+│  │  ├─ RangeStatistics = visible High, Low, change percent (Close[to]/Close[from]-1), bar count, Start, End
+│  │  ├─ CurrentPosition = (to + 1) / N in percent
+│  │  ├─ PANEL: height 10 percent of chart height clamped to [48,120] DIP; overview = min/max of Close per pixel column (simplified); independent cache; default hidden; AutoHide 5 s after the last interaction once invoked
+│  │  ├─ VERIFY=GoToCandle(0) equals GoToLatest; CenterOn puts X(u) at plotLeft + plotWidth/2
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T3.04
+│  ├─ T3.04 DrawingGeometryAndHitTest
+│  │  ├─ DEPENDS=T2.01,T2.02
+│  │  ├─ ANCHOR=(TimeUtc, Price); stored per symbol; visible on all timeframes
+│  │  ├─ OBJECT_MODEL=DrawingObject record (PLUGIN_ARCHITECTURE_DECISIONS AD12); paint and hit-test dispatch by TypeId (PG4.01); this node keeps only the generic rules below
+│  │  ├─ SCREEN POSITION=(X(IndexOfTime(t)), Y(price))
+│  │  ├─ TYPES (first-party DataTools, anchors per component manifest, see PG5): TrendLine 2 ; Rectangle 2 (opposite corners) ; Arrow 2 (tail, head) ; Text 1 ; Fibonacci 2 ; Measure 2
+│  │  ├─ HIT TEST tolerance 6 DIP (all in screen space)
+│  │  │  ├─ per-shape hit rules = TOOL_DEFINITION_VOCABULARY AUTOMATIC HIT TEST (same 6 DIP tolerance, same vectors)
+│  │  │  ├─ handles: 8x8 DIP squares at anchors; handle hit radius 6 DIP; handles win over the body
+│  │  │  └─ topmost object wins; order = creation order (last created on top); hidden objects are never hit
+│  │  ├─ MOVE: anchors shift by (delta bars, delta price): newTime = TimeAtIndex(IndexOfTime(t) + deltaU); newPrice = price + deltaPrice
+│  │  ├─ RESIZE: only the dragged anchor changes
+│  │  ├─ CLONE: offset +12 DIP right and +12 DIP down converted to (bars, price)
+│  │  ├─ LOCK: selectable and shows properties; move, resize and delete are blocked
+│  │  ├─ HIDE: not rendered and not hit; still serialized
+│  │  ├─ SHAPE_SPECIFIC_RULES=moved unchanged into the first-party DataTool definitions PG5.03 to PG5.08 (Fibonacci levels and price formula, Measure formulas, Arrow head 10 DIP and 25 degrees)
+│  │  ├─ DEFAULT STYLE: color = AccentColor; width 1; opacity 100 percent; line style solid; selectable widths 1,2,3,4; styles solid, dashed [6,4], dotted [2,3]
+│  │  ├─ VERIFY=GOLDEN_TEST_VECTORS.DrawingHit (segment and rectangle geometry against DrawingMath here; the shape vectors run again through the DataTools at PG2.03 and PG5) (segment distance, rectangle inside, fibonacci prices)
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T3.05
+│  ├─ T3.05 IndicatorFramework
+│  │  ├─ DEPENDS=T1.11,T2.07
+│  │  ├─ IndicatorBase = { Name, Inputs (typed parameters with defaults and ranges), Outputs (named double series aligned 1:1 with candle indices; NaN during warm-up), Pane (Main | Separate), IncludeInAutoScale (default true for Main) }
+│  │  ├─ Calculate(ISeriesView series, int fromIndex) returns values for [fromIndex..N-1]
+│  │  ├─ RULE=causal only: value at index i may use candles 0..i only
+│  │  ├─ UPDATE: on CandleClosed compute the new index; on CandleUpdated recompute only the last index
+│  │  ├─ Separate pane: own auto scale (min/max of visible outputs, 10 percent padding); height 25 percent of chart height; at most 4 separate panes
+│  │  ├─ Cache key = (Symbol, Timeframe, IndicatorName, ParameterHash); stored in IndicatorsCache table (T5.01)
+│  │  ├─ RESPECT DataRenderingContracts: indicators output numbers only; colors and styles come from the indicator settings and Theme
+│  │  ├─ VERIFY=Tests contain a test-only SMA(period) indicator; SMA(3) of the FoldM5 closes matches hand values; update of the last index equals full recompute
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T3.06
+│  ├─ T3.06 Commands
+│  │  ├─ DEPENDS=T3.04
+│  │  ├─ CommandBus.Execute(cmd); Undo(); Redo(); History (list); CommandStack depth 200
+│  │  ├─ COMMANDS: AddDrawing, RemoveDrawings, MoveDrawing, EditDrawing (color,width,opacity,style,text,lock,hide), CloneDrawing, AddIndicator, RemoveIndicator, EditIndicator
+│  │  ├─ A continuous drag (move or resize) becomes ONE command created on mouse-up
+│  │  ├─ NOT COMMANDS (transient view state; never on the undo stack; saved in Workspace): zoom, pan, price scale mode, crosshair flags, symbol, timeframe, chart type, layout, theme
+│  │  ├─ Undo stack is cleared when a workspace is loaded
+│  │  ├─ Ctrl+Z = Undo ; Ctrl+Y and Ctrl+Shift+Z = Redo
+│  │  ├─ VERIFY=execute 5, undo 5, redo 5 restores identical drawing lists; drag of 30 mouse moves = 1 history entry
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T3.07
+│  ├─ T3.07 Serialization
+│  │  ├─ DEPENDS=T3.04,T3.05,T3.06
+│  │  ├─ FORMAT=JSON (System.Text.Json), UTF-8, indented, every category has {"schema": "...", "version": 1}
+│  │  ├─ CATEGORIES (independent, each with its own serializer and version): MarketData (never inside a workspace; lives in SQLite), IndicatorData, DrawingData, LayoutData, SettingsData, ThemeData
+│  │  ├─ time = ISO-8601 UTC string ; numbers use the round-trip "R" format with invariant culture
+│  │  ├─ Workspace document = sections LayoutData + DrawingData + IndicatorData + per-chart view state (BarSpacing, RightOffset, PriceScaleState, ChartType, Symbol, Timeframe)
+│  │  ├─ UNKNOWN fields are ignored on load; a newer major version aborts with SerializationException naming the version
+│  │  ├─ PATHS: %AppData%/MyChart/ Workspaces/, Templates/, Data/mychart.db
+│  │  ├─ DRAWING_RECORD=serialized drawing = {id, typeId, typeVersion, anchors[{timeUtc, price}], style, locked, hidden, extra}; unknown typeId or newer typeVersion is kept as UnknownDrawingObject and written back byte-identical (PG1.05)
+│  │  ├─ SettingsData=owned by the Settings project (settings/chart.json beside the executable); the chart never reads, writes or serializes it
+│  │  ├─ VERIFY=round trip of a workspace with 3 drawings and 1 indicator is byte-stable on the second save
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T3.08
+│  ├─ T3.08 PluginHost
+│  │  ├─ DEPENDS=T3.07
+│  │  ├─ CONTRACTS=see the PG child nodes
+│  │  ├─ REQUIRES=execute PG1.01 to PG1.07 in order (children below)
+│  │  ├─ OUTPUT=MyChart.PluginHost content and the component test kit
+│  │  ├─ VERIFY=VERIFY of every PG1 node
+│  │  ├─ GATE=AUTOMATED
+│  │  ├─ NEXT=T3.09
+│  │  ├─ PG1.01 Registries
+│  │  │  ├─ DEPENDS=PG0.02
+│  │  │  ├─ CONTRACTS=implements IToolRegistry, IDrawingTypeRegistry, IIconRegistry, IContributionRegistry
+│  │  │  ├─ REQUIRES=entries kept in registration order with a read-only sorted view (Order, then ComponentId ordinal); lookups by ToolId, TypeId, IconKey in O(1); a duplicate key throws DuplicateRegistrationException (the host turns it into a component failure); single-threaded (chart thread)
+│  │  │  ├─ OUTPUT=PluginHost/Registries/*.cs
+│  │  │  ├─ VERIFY=register, lookup, duplicate, ordering tests for each registry
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG1.02
+│  │  ├─ PG1.02 DescriptorValidation
+│  │  │  ├─ DEPENDS=PG1.01
+│  │  │  ├─ CONTRACTS=uses ToolDescriptor, DrawingTypeDescriptor, IconDescriptor, SlotContribution and the Core validators (IdRules, HotkeyRules, GeometryPathGrammar, SemVer, ManifestValidator)
+│  │  │  ├─ REQUIRES=the host validates every descriptor with the SAME Core code the Generator uses (no second implementation): ComponentId, ToolId, TypeId, contract version compatibility (VERSIONING_POLICY), icon key exists when a tool registers (icons register first), hotkey not reserved and not already used (first wins, later ignored and logged), Order 0..999, Slot valid, AnchorCount 1..8, PathData passes the grammar
+│  │  │  ├─ OUTPUT=PluginHost/Loading/DescriptorValidator.cs ; Core/Plugins/Identity/*.cs ; Core/Plugins/Manifest/ErrorCodes.cs
+│  │  │  ├─ VERIFY=PLUGIN_ACCEPTANCE_TESTS AT5
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG1.03
+│  │  ├─ PG1.03 PluginHost
+│  │  │  ├─ DEPENDS=PG1.02
+│  │  │  ├─ CONTRACTS=implements IPluginHost; defines IComponentSource { IEnumerable<ComponentSet> Load(PluginLoadReport report) } ; CatalogSource consumes PluginCatalog.Create() and IconCatalog.All
+│  │  │  ├─ REQUIRES=startup: 1 collect from all sources (CatalogSource now; UserFolderSource is added by PG2.06) 2 register all icons 3 register all components in source order then ComponentId order, each Register inside try/catch 4 validate descriptors 5 build PluginLoadReport {Loaded[], Failed[{ComponentId, Code, Message}]}; a failure disables only that component, is logged and never stops startup; read-only views for UI and chart (tools, contributions sorted by (Slot, Order, ComponentId), icons)
+│  │  │  ├─ OUTPUT=PluginHost/Loading/PluginHost.cs ; PluginLoadReport.cs ; IComponentSource.cs ; CatalogSource.cs
+│  │  │  ├─ VERIFY=harness: good plugin loads; plugin throwing in Register is isolated; missing icon disables the tool; duplicate ToolId disables the second; report content
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG1.04
+│  │  ├─ PG1.04 FaultIsolation
+│  │  │  ├─ DEPENDS=PG1.03
+│  │  │  ├─ CONTRACTS=GuardedPainter, GuardedHitTester, GuardedTool, GuardedMigrator, CircuitBreaker, FaultLog
+│  │  │  ├─ REQUIRES=exactly TRUST_AND_FAULTS: every registered contract object is wrapped; timing with Stopwatch; breaker opens after 3 faults in 60 s or 5 consecutive frames above 8 ms per component; open = not painted, not hit, tool not activatable, objects preserved; one Overlay notice per component per session; FaultLog ring buffer 200; time comes from IClock (testable)
+│  │  │  ├─ OUTPUT=PluginHost/Guard/*.cs
+│  │  │  ├─ VERIFY=AT12: a component throwing 3 times within 60 s is disabled while a second component keeps working; 4 faults spread over 61 s do not open it; 5 slow frames open it, 4 do not; saved workspace keeps the objects of a disabled component byte-identical
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG1.05
+│  │  ├─ PG1.05 UnknownDrawingObjectAndCodec
+│  │  │  ├─ DEPENDS=PG1.03,T3.07
+│  │  │  ├─ CONTRACTS=uses DrawingObject, IDrawingObjectMigrator, DrawingTypeRegistry
+│  │  │  ├─ REQUIRES=serialized drawing = {id, typeId, typeVersion, anchors[{timeUtc, price}], style, locked, hidden, extra}; load: known typeId with typeVersion <= registered -> migrate older versions through the migrator; unknown typeId or newer typeVersion -> UnknownDrawingObject holding the raw JSON; UnknownDrawingObject is not painted, not hit, not selectable, and is written back byte-identical; removing a component never deletes user drawings
+│  │  │  ├─ OUTPUT=Core/Models/Drawing/UnknownDrawingObject.cs ; codec dispatch inside the DrawingData serializer of T3.07
+│  │  │  ├─ VERIFY=AT6 round trip of a workspace with 2 known and 1 unknown drawing is byte-stable; older typeVersion migrated; newer becomes Unknown
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG1.06
+│  │  ├─ PG1.06 CoreBuiltInContributions
+│  │  │  ├─ DEPENDS=PG1.03
+│  │  │  ├─ CONTRACTS=uses IContributionRegistry
+│  │  │  ├─ REQUIRES=the core registers only its own generic items through the same registry: Cursor (LeftToolbar 0, core:cursor, Icon.Cursor), Crosshair (LeftToolbar 10, core:crosshair, Icon.Crosshair), ContextToolbar items Color, Width, Opacity, Style, Template, Lock, Clone, Delete (orders 0..70), DrawingContextMenu items of T6.02, top toolbar items of T6.03; the core references icons only by key
+│  │  │  ├─ OUTPUT=PluginHost/Loading/CoreBuiltIns.cs
+│  │  │  ├─ VERIFY=the sorted LeftToolbar list equals [Cursor, Crosshair] when no component is loaded
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG1.07
+│  │  └─ PG1.07 ComponentTestKit
+│  │     ├─ DEPENDS=PG1.04,PG1.05,PG1.06
+│  │     ├─ CONTRACTS=HostHarness, RecordingRenderContext, FakeChartMapper, FakeToolContext, FakePlugin (a CodeTool used only in tests), ConformanceSuite
+│  │     ├─ REQUIRES=FakeChartMapper takes (N, plotWidth, barSpacing, rightOffset, price range) and defaults to the standard vector view (N 100, plotWidth 800, spacing 8, rightOffset 5, range 1.09400..1.10600, plotHeight 500); ConformanceSuite runs against ANY component source and checks C1 descriptor valid; C2 Paint never throws for 100 random valid objects (anchors finite, including identical anchors and anchors outside the plot); C3 Paint is deterministic (recorded calls equal on repeat); C4 HitTest is None for points farther than tolerance + 1000 DIP; C5 HitTest returns Handle(i) at anchor i; C6 serialization round trip; C7 migrator accepts every version from 1 to current; C8 paint of one object under 2 ms (p95 over 200 runs); C9 N clicks commit an object with N anchors and Esc cancels; C10 Preview is not null after the first click when N > 1
+│  │     ├─ OUTPUT=Tests/Support/*.cs ; Tests/PluginTests/FakePlugin.cs
+│  │     ├─ VERIFY=FakePlugin passes C1..C10; a deliberately broken fake (throws in Paint) fails C2; with FakePlugin the tool, contribution and icon appear, without it they are absent, and no other file changed (proof of PRINCIPLE_1)
+│  │     ├─ GATE=AUTOMATED
+│  │     └─ NEXT=PG2.01
+│  ├─ T3.09 DeclarativeEngine
+│  │  ├─ DEPENDS=T3.08
+│  │  ├─ CONTRACTS=see the PG child nodes
+│  │  ├─ REQUIRES=execute PG2.01 to PG2.06 in order (children below)
+│  │  ├─ OUTPUT=tool definition schema, expression engine, shape geometry, DataTool painter and runtime, user component loader
+│  │  ├─ VERIFY=VERIFY of every PG2 node
+│  │  ├─ GATE=AUTOMATED
+│  │  ├─ NEXT=T3.10
+│  │  ├─ PG2.01 ToolDefinitionSchema
+│  │  │  ├─ DEPENDS=PG1.07
+│  │  │  ├─ CONTRACTS=ToolDefinition model; DefinitionValidator; VocabularyVersion 1.0
+│  │  │  ├─ REQUIRES=parse Definition.json exactly as TOOL_DEFINITION_VOCABULARY (shapes, Point/XSpec/YSpec, parameters, named, workflow); unknown property = E019; unknown shape or function or newer vocabulary = E021; limits (16 shapes, 64 levels, 8 anchors, 256 chars, 400 nodes) = E022; anchor index out of range = E019; a named value using a later name = E019; ClickThenText with anchors != 1 = E019
+│  │  │  ├─ OUTPUT=Core/Plugins/Vocabulary/*.cs
+│  │  │  ├─ VERIFY=AT14 vocabulary vectors (valid definitions for the six first-party tools pass; each invalid case gives its code)
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG2.02
+│  │  ├─ PG2.02 ExpressionEngine
+│  │  │  ├─ DEPENDS=PG2.01
+│  │  │  ├─ CONTRACTS=ExpressionParser, ExpressionEvaluator, BuiltInFunctions
+│  │  │  ├─ REQUIRES=the language of TOOL_DEFINITION_VOCABULARY; parse once at definition load (syntax errors E020 with position), evaluate per paint without allocation beyond the result; operation budget 10000 per object per paint (exceeded = evaluation error); division by zero = NaN; functions exactly as listed
+│  │  │  ├─ OUTPUT=Core/Plugins/Expressions/*.cs
+│  │  │  ├─ VERIFY=AT13 expression vectors
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG2.03
+│  │  ├─ PG2.03 ShapeGeometryAndHitTest
+│  │  │  ├─ DEPENDS=PG2.02
+│  │  │  ├─ CONTRACTS=ShapeGeometry (definition + DrawingObject + IChartMapper -> screen-space primitives); DrawingMath
+│  │  │  ├─ REQUIRES=resolve Point specs to screen coordinates (DIP); Line extend right or both clipped to the plot rectangle; ellipse outline approximated by 48 segments for drawing and exact distance for hit; hit rules exactly as AUTOMATIC HIT TEST; handles = anchors; results are pure functions of (definition, object, mapper, parameters)
+│  │  │  ├─ OUTPUT=PluginHost/DataTools/ShapeGeometry.cs ; Core/Analysis/DrawingMath.cs additions
+│  │  │  ├─ VERIFY=AT15 data-tool hit vectors (the DrawingHit vectors of this spec through definitions)
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG2.04
+│  │  ├─ PG2.04 DataToolPainter
+│  │  │  ├─ DEPENDS=PG2.03,T0.04
+│  │  │  ├─ CONTRACTS=implements IDrawingObjectPainter and IDrawingHitTester for any DataTool definition
+│  │  │  ├─ REQUIRES=works only in device pixels through DrawContext.Render (multiply DIP by DpiScale); line width = max(1 device px, width * DpiScale); dash arrays solid none, dashed [6,4], dotted [2,3] scaled by DpiScale; colours from DrawingStyle with theme fallbacks; Preview state draws at 60 percent of the object opacity; Text and InfoBox use IRenderContext.MeasureText (amendment A5); antialiasing on for lines, text and polygons
+│  │  │  ├─ OUTPUT=PluginHost/DataTools/DataToolPainter.cs ; DataToolHitTester.cs
+│  │  │  ├─ VERIFY=recorded draw-call files for the canonical objects of the six first-party definitions match Fixtures/Expected byte for byte (created once and approved at PG5)
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG2.05
+│  │  ├─ PG2.05 DataToolRuntime
+│  │  │  ├─ DEPENDS=PG2.04
+│  │  │  ├─ CONTRACTS=DataToolPlugin (IChartPlugin built from manifest + definition text); DataToolFactory (IDrawingTool); ClickToolBase
+│  │  │  ├─ REQUIRES=workflow Click and ClickThenText as in the vocabulary; parameter defaults may be "@settings-key" resolved through IChartSettings at tool creation; created object = DrawingObject{TypeId, TypeVersion, Anchors, Style from defaults, Extra {text and parameter values}}; migrator = identity for typeVersion 1
+│  │  │  ├─ OUTPUT=PluginHost/DataTools/DataToolPlugin.cs ; DataToolFactory.cs
+│  │  │  ├─ VERIFY=C9 and C10 of the conformance suite for a definition with N = 1, 2 and 3; ClickThenText cancel creates nothing
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG2.06
+│  │  └─ PG2.06 UserComponentLoader
+│  │     ├─ DEPENDS=PG2.05,PG1.03
+│  │     ├─ CONTRACTS=implements IComponentSource for UserRoot
+│  │     ├─ REQUIRES=at start scan %AppData%/MyChart/UserComponents/*/Manifest.json; accept kinds DataTool and Icon only (CodeTool = E023); validate manifest, definition and geometry with the Core validators; a broken component is skipped with its code and message in PluginLoadReport; a missing folder is not an error; duplicate ids against RepoRoot components = E002 (the user component is skipped)
+│  │     ├─ OUTPUT=PluginHost/Loading/UserComponentLoader.cs
+│  │     ├─ VERIFY=temp UserRoot with one good DataTool, one broken definition, one CodeTool, one duplicate id: exactly the good one loads and the report lists the three failures with codes
+│  │     ├─ GATE=AUTOMATED
+│  │     └─ NEXT=PG3.01
+│  ├─ T3.10 GeneratorEngine
+│  │  ├─ DEPENDS=T3.09
+│  │  ├─ CONTRACTS=see the PG child nodes
+│  │  ├─ REQUIRES=execute PG3.01 to PG3.08 in order (children below)
+│  │  ├─ OUTPUT=MyChart.Generator.Engine and MyChart.Generator.Cli
+│  │  ├─ VERIFY=VERIFY of every PG3 node
+│  │  ├─ GATE=AUTOMATED
+│  │  ├─ NEXT=T3.11
+│  │  ├─ PG3.01 IdentityAndValidationRules
+│  │  │  ├─ DEPENDS=PG2.06
+│  │  │  ├─ CONTRACTS=uses Core validators; adds PathScope and ErrorCodes E013, E014, E024, E025
+│  │  │  ├─ REQUIRES=no rule is implemented twice: identity, hotkey, geometry, manifest, definition and expression validation come from Core; the Engine adds only PathScope (every resolved path must lie under RepoRoot, UserRoot, the two catalog files; no "..", no symlink), version-bump rules and placement collision warnings
+│  │  │  ├─ ERROR_CODES=E001 InvalidId ; E002 DuplicateId ; E003 DuplicateTypeId ; E004 DuplicateToolId ; E005 MissingIcon ; E006 HotkeyReserved ; E007 HotkeyConflict ; E008 ContractIncompatible ; E009 InvalidGeometry ; E010 DependencyMissing ; E011 DependencyCycle ; E012 HasDependents ; E013 PathOutOfScope ; E014 UserFileWouldBeOverwritten ; E015 ManifestSchemaError ; E016 SlotInvalid ; E017 OrderOutOfRange ; E018 VersionInvalid ; E019 DefinitionSchemaError ; E020 ExpressionError ; E021 VocabularyUnsupported ; E022 LimitExceeded ; E023 CodeToolInUserRoot ; E024 GitNotClean ; E025 GitUnavailable
+│  │  │  ├─ OUTPUT=Engine/Operations/PathScope.cs ; Engine constants
+│  │  │  ├─ VERIFY=AT5 (generator column) and PathScope vectors
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG3.02
+│  │  ├─ PG3.02 ManifestIO
+│  │  │  ├─ DEPENDS=PG3.01
+│  │  │  ├─ CONTRACTS=ComponentManifest read and write
+│  │  │  ├─ REQUIRES=deterministic write (fixed property order, indented, LF, trailing newline); sha256 of generated files over bytes with LF normalisation; unknown property = E015
+│  │  │  ├─ OUTPUT=Engine/Operations/ManifestIO.cs
+│  │  │  ├─ VERIFY=write then read equals original; writing twice gives identical bytes
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG3.03
+│  │  ├─ PG3.03 ScaffoldTemplates
+│  │  │  ├─ DEPENDS=PG3.02
+│  │  │  ├─ CONTRACTS=produces file contents for PLUGIN_COMPONENT_FOLDER_STANDARD
+│  │  │  ├─ REQUIRES=four templates: DataTool.Click, DataTool.ClickThenText, CodeTool.Click, Icon.Vector; embedded text with placeholders {{ComponentId}} {{Name}} {{TypeId}} {{IconKey}} {{Anchors}}; DataTool templates contain a valid minimal Definition.json (one Line for N=2, one Text for ClickThenText); CodeTool skeletons compile and derive from ClickToolBase; namespaces MyChart.Plugins.Components.<ComponentId>
+│  │  │  ├─ OUTPUT=Engine/Templates/*.txt ; Engine/Operations/Scaffolder.cs
+│  │  │  ├─ VERIFY=scaffold output equals golden files byte for byte; a scaffolded DataTool passes the conformance suite; a scaffolded CodeTool compiles inside MyChart.Plugins
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG3.04
+│  │  ├─ PG3.04 FilePlanAndTransaction
+│  │  │  ├─ DEPENDS=PG3.03
+│  │  │  ├─ CONTRACTS=FilePlan {ops create|overwrite|delete with path, beforeSha, afterSha}; GitGateway
+│  │  │  ├─ REQUIRES=every mutating operation: PLAN -> VALIDATE (PathScope; E014) -> GIT CHECK (RepoRoot operations: clean tree for allowed paths unless --allow-dirty = E024; git missing = E025; UserRoot operations skip git) -> WRITE to <path>.tmp -> VERIFY (manifests, definitions, catalogs consistent; with --build also dotnet build of MyChart.Plugins) -> COMMIT (atomic rename, deletions last) -> optional git commit (--commit) ; any exception before COMMIT deletes temp files and leaves the tree unchanged (exit 3); --dry-run stops after VALIDATE and writes nothing; `gen undo` = git revert of the last commit whose message starts with "gen:"
+│  │  │  ├─ OUTPUT=Engine/Operations/FilePlan.cs ; Transaction.cs ; GitGateway.cs
+│  │  │  ├─ VERIFY=AT7 dry-run; AT8 failure injection at file 3 of 6; AT4 add with --commit then undo gives a byte-identical tree; dirty tree gives E024
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG3.05
+│  │  ├─ PG3.05 CatalogGenerator
+│  │  │  ├─ DEPENDS=PG3.02
+│  │  │  ├─ CONTRACTS=produces PluginCatalog.g.cs and IconCatalog.g.cs
+│  │  │  ├─ REQUIRES=deterministic: Active RepoRoot components only, ordinal sort, LF, fixed header with manifest-hash line; DataTools embed manifest and definition text as string constants; regenerated by every add, update, remove, enable, disable and regenerate
+│  │  │  ├─ OUTPUT=Engine/Operations/CatalogGenerator.cs
+│  │  │  ├─ VERIFY=AT3 determinism; disabling removes from the catalog; generated catalogs compile
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG3.06
+│  │  ├─ PG3.06 DependencyAndValidate
+│  │  │  ├─ DEPENDS=PG3.02,PG3.05
+│  │  │  ├─ CONTRACTS=DependencyGraph; ValidateReport {missingFiles[], orphanFiles[], handEditedGenerated[], brokenReferences[], duplicates[], catalogStale}
+│  │  │  ├─ REQUIRES=edges: a tool depends on its icon component; missing target E010; cycle E011 (depth-first, reports the path); remove or disable with dependents E012 listing them; `validate` scans both roots (read only): missing files, orphan files (report only), generated files whose sha256 differs, broken icon or dependency references, duplicate ComponentId, ToolId, TypeId, IconKey or hotkey, stale catalog header; writes nothing
+│  │  │  ├─ OUTPUT=Engine/Operations/DependencyGraph.cs ; Validate.cs
+│  │  │  ├─ VERIFY=missing, cycle, has-dependents vectors; validate vectors (delete a listed file, edit a generated file, duplicate hotkey are each reported)
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG3.07
+│  │  ├─ PG3.07 Operations
+│  │  │  ├─ DEPENDS=PG3.04,PG3.06
+│  │  │  ├─ CONTRACTS=ToolOperations and IconOperations
+│  │  │  ├─ REQUIRES=verbs: icon add (name; geometry from file or string), icon remove, tool add (id, name, kind DataTool|CodeTool, category, anchors, icon key, placements, optional hotkey, parameters; target repo|user, default repo for CLI), tool update (metadata and version bump only; regenerates manifest, registration and catalog; never touches user-owned files), tool remove (deletes the whole component folder), enable, disable, list, validate, regenerate (rebuilds generated files and catalogs from manifests), undo; every mutating verb is one transaction of PG3.04; target user is refused for kind CodeTool (E023)
+│  │  │  ├─ OUTPUT=Engine/Operations/ToolOperations.cs ; IconOperations.cs
+│  │  │  ├─ VERIFY=AT1 write scope; AT2 add then remove leaves the tree byte-identical; update changes only generated files
+│  │  │  ├─ GATE=AUTOMATED
+│  │  │  └─ NEXT=PG3.08
+│  │  └─ PG3.08 CommandLine
+│  │     ├─ DEPENDS=PG3.07
+│  │     ├─ CONTRACTS=CLI surface
+│  │     ├─ REQUIRES=executable mychart-gen; verbs of PG3.07; global options --dry-run, --json, --yes (required for remove; without it remove runs as dry-run), --commit, --allow-dirty, --build, --repo <path> (default current directory), --target repo|user; JSON output {ok, operation, plan[{op,path}], errors[{code,message,path}], warnings[]}; exit codes 0 ok, 1 validation, 2 dependency, 3 transaction rolled back, 4 IO or scope, 5 unexpected; stdout carries only the result, logs go to stderr; help lists every verb; running the same add twice fails the second time with E002
+│  │     ├─ OUTPUT=Cli/Program.cs ; Cli/Commands/*.cs ; Cli/JsonOutput.cs
+│  │     ├─ VERIFY=CliTests: every verb with --json returns valid JSON; exit codes match
+│  │     ├─ GATE=AUTOMATED
+│  │     └─ NEXT=PG4.01
+│  └─ T3.11 PluginIntegration
+│     ├─ DEPENDS=T3.10
+│     ├─ CONTRACTS=see the PG child nodes
+│     ├─ REQUIRES=execute PG4.01 and PG4.02 (children below); PG4.02 is the gate for every first-party component
+│     ├─ OUTPUT=host wiring in the composition root and the acceptance suite
+│     ├─ VERIFY=VERIFY of PG4.01 and PG4.02
+│     ├─ GATE=AUTOMATED
+│     ├─ NEXT=T4.01
+│     ├─ PG4.01 HostWiring
+│     │  ├─ DEPENDS=PG3.08,T3.04,T3.06
+│     │  ├─ CONTRACTS=uses IPluginHost, registries, ICommandBus
+│     │  ├─ REQUIRES=CompositionRoot creates PluginHost with CatalogSource and UserFolderSource, loads, and passes registries to the chart; layer 5 dispatches Paint by TypeId through the guarded painters; layer 6 draws handles from DrawingObject.Anchors (core); hit testing dispatches by TypeId then applies the topmost-first rule of T3.04; tool activation calls the factory of the ToolId; Commit runs AddDrawingCommand; Move, Resize, Clone, Lock, Hide stay generic core commands on DrawingObject
+│     │  ├─ OUTPUT=App/CompositionRoot.cs additions ; Core/Rendering/DrawingRenderer dispatch ; Core/Analysis hit-test dispatch
+│     │  ├─ VERIFY=with FakePlugin: activate tool, pointer events commit an object, it is painted through the recording context, hit-tested, undone; grep test: the chart code contains no string naming a concrete tool
+│     │  ├─ GATE=AUTOMATED
+│     │  └─ NEXT=PG4.02
+│     └─ PG4.02 AcceptanceSuite
+│        ├─ DEPENDS=PG4.01
+│        ├─ CONTRACTS=none (tests)
+│        ├─ REQUIRES=AT1 to AT15 of PLUGIN_ACCEPTANCE_TESTS exist and pass (AT9 and AT11 become complete after PG5 and are run again there)
+│        ├─ OUTPUT=Generator.Tests and MyChart.Tests additions
+│        ├─ VERIFY=full suite green; this node is the gate for PG5
+│        ├─ GATE=AUTOMATED
+│        └─ NEXT=T4.01
+│
+├─ T4_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ T4.01 RenderContextAndPipeline
+│  │  ├─ DEPENDS=T3 (all)
+│  │  ├─ IRenderContext works ONLY in device pixels; callers multiply DIP by DpiScale
+│  │  ├─ IRenderContext = { Width, Height, DpiScale; Clear(RgbaColor); FillRect(int x,int y,int w,int h,RgbaColor); StrokeRect(int x,int y,int w,int h,int thickness,RgbaColor); DrawLine(double x1,double y1,double x2,double y2,RgbaColor,double width,double[] dash); DrawText(string,double x,double y,TextStyle,RgbaColor,TextAlign); DrawPath(points,RgbaColor,double width,bool closed,bool fill); MeasureText(string text, TextStyle style) -> SizeD; PushClip(RectD); PopClip() }
+│  │  ├─ RgbaColor = uint ARGB; hex strings are parsed once when a theme loads
+│  │  ├─ LAYER_ORDER (FINAL) 1 Background 2 Grid 3 Candle 4 Indicator 5 Drawing 6 Selection 7 Crosshair 8 HUD 9 Tooltip 10 Overlay
+│  │  ├─ CACHE: layers 1-5 are drawn into an offscreen surface (SkiaLayerCache); layers 6-10 are drawn every frame on top of it
+│  │  ├─ INVALIDATION: SizeChanged, ThemeChanged, RangeChanged, DataChanged, SeriesChanged -> rebuild layers 1-5 ; CrosshairMoved, HudChanged, SelectionChanged, OverlayChanged -> redraw layers 6-10 only
+│  │  ├─ SCHEDULING: one render per display frame from CompositionTarget.Rendering; nothing is drawn when no dirty flag is set
+│  │  ├─ OVERLAY (layer 10) shows transient messages: "Loading history...", "Offline"
+│  │  ├─ TOOLTIP (layer 9) shows drawing and indicator hover tooltips
+│  │  ├─ RENDERER RULES: no IO, no DB, no network, no allocation per candle in the hot loop (reuse buffers, cached SKPaint)
+│  │  ├─ VISUAL_PROOF=SkiaPngRenderContext (an IRenderContext that draws into an SKBitmap, headless, in MyChart.Rendering/Skia) and the test helper VisualProof.Render(scene) which writes PNG files to artifacts/visual/<NodeId>/ (gitignored); output is deterministic (byte-identical on rerun); every VISUAL gate of the renderer nodes uses it
+│  │  ├─ VERIFY=RecordingRenderContext test: layer call order is 1..10 and only dirty layers are re-issued; VisualProof renders a tiny scene twice with byte-identical PNGs; MeasureText is implemented by the recording context and by Skia
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T4.02
+│  ├─ T4.02 ColorTokensMinimal
+│  │  ├─ DEPENDS=T4.01
+│  │  ├─ SINGLE color system: tokens BullColor, BearColor, GridColor, GridMajorColor, GridMinorColor, AxisColor, HudColor, AccentColor, BackgroundColor, SelectionColor, WarningColor, ErrorColor, SuccessColor
+│  │  ├─ extension: IndicatorPalette = [#2962FF, #FF9800, #E040FB, #00BCD4, #FFEB3B, #8BC34A]
+│  │  ├─ Tier 4 ships ONLY the Dark profile values from T7.02; Light, ProDark and Custom come in T7.02
+│  │  ├─ RULE=renderers read colors only through IThemeService; no hex literal inside any renderer
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T4.03
+│  ├─ T4.03 BackgroundGridAxisRenderers
+│  │  ├─ DEPENDS=T4.02,T2.08
+│  │  ├─ Background=fill BackgroundColor
+│  │  ├─ Grid=horizontal lines at major price ticks (GridMajorColor) ; vertical lines at accepted time labels (GridMajorColor); minor lines optional (default OFF)
+│  │  ├─ PriceAxis=fixed 64 DIP wide, separate area, right side default (left optional), labels right-aligned, monospaced 11 px, AxisColor, quiet and low contrast
+│  │  ├─ TimeAxis=24 DIP high at the bottom
+│  │  ├─ Axis lines: 1 device px in GridMajorColor
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T4.04
+│  ├─ T4.04 CandleRenderer
+│  │  ├─ DEPENDS=T4.03,T2.09
+│  │  ├─ ChartType=Candles | HollowCandles | OHLC (the three FINAL CANDLE_RENDERER styles)
+│  │  ├─ BullBearStyle=body fill = BullColor for IsBull else BearColor ; wick = WickColor and border = BorderColor (settings defaults #CCCCCC and #1A1A1A; conflict C4) ; when a colour is unset the direction colour is used
+│  │  ├─ SelectionState=HighlightedIndex (int?) set by the crosshair snap; the highlighted bar gets a 1 px SelectionColor outline around its High-Low box, 1 px larger than the body on each side
+│  │  ├─ AppearanceSource=Theme via IThemeService (never Candle)
+│  │  ├─ Renderer body: geometry = CandleGeometryCalculator; colors = theme; calls FillRect only; no math
+│  │  ├─ VERIFY=RecordingRenderContext test for GOLDEN_TEST_VECTORS.CandleGeometry draws exactly the FillRect rectangles listed
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T4.05
+│  ├─ T4.05 CurrentPriceAndDualMarkerRenderers
+│  │  ├─ DEPENDS=T4.04,T2.10
+│  │  ├─ Line=dashed [4,4] 1 px, 40 percent opacity, bull/bear color from T2.10 direction
+│  │  ├─ AxisMarker=rounded rectangle attached to the price axis containing price and (optional) countdown; text color contrasts with the fill
+│  │  ├─ AnalysisMarker (crosshair price) drawn above the market marker
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T4.06
+│  ├─ T4.06 CrosshairRenderer
+│  │  ├─ DEPENDS=T4.05,T3.01
+│  │  ├─ lines 1 px dashed [4,4] in AxisColor at 60 percent opacity; vertical line at X(iSnap); horizontal line at the cursor Y (or magnet price)
+│  │  ├─ labels on both axes (price on price axis, time on time axis); Analysis flags add a translucent box with the T3.01 values near the cursor
+│  │  ├─ visible only when the pointer is inside the plot
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T4.07
+│  ├─ T4.07 InputBindings
+│  │  ├─ DEPENDS=T4.06,T2.04,T2.05
+│  │  ├─ Wheel on plot or time axis = Zoom (T2.04) ; Wheel on price axis = PriceZoom ; Ctrl+Wheel = PrecisionZoom
+│  │  ├─ wheel notch = delta / 120; fractional deltas accumulate
+│  │  ├─ MiddleDrag = Pan ; Space+LeftDrag = TemporaryPan ; LeftClick = Select ; Shift+Click = MultiSelect
+│  │  ├─ LeftDrag on the price axis = manual price scale (T2.07) ; DoubleClick on the price axis = Fit Auto
+│  │  ├─ LeftDrag on empty plot with the Cursor tool = no action (reserved)
+│  │  ├─ DoubleClick on a drawing object = Properties/ToolSettings ; RightClick = ContextMenu (drawing menu when a drawing is hit, chart menu otherwise)
+│  │  ├─ Esc = CancelTool (if no tool is active: clears selection and the analysis anchor) ; Enter = FinishDrawing ; Home = GoToLatest ; Ctrl+Home = LatestMarketPosition ; Ctrl+G = NavigationDialog
+│  │  ├─ HIT PRIORITY = popups and dialogs > context toolbar > price axis > time axis > selection handles > drawing objects > plot
+│  │  ├─ CONSISTENCY=Wheel always zooms; middle button always pans; right click always opens a context menu; Esc always cancels
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T4.08
+│  ├─ T4.08 ChartHostAndThinAppShell
+│  │  ├─ DEPENDS=T4.07
+│  │  ├─ ChartHost = WPF UserControl hosting SKElement; DPI from VisualTreeHelper.GetDpi; forwards pointer and key events to MyChart.Interaction only
+│  │  ├─ Startup = async in Window.Loaded (no blocking calls); shows the Loading overlay until history is ready
+│  │  ├─ MainWindow code-behind <= 150 lines; CompositionRoot.cs builds providers, bus, services and passes them to the window
+│  │  ├─ VERIFY=app starts, shows a chart from Fixtures data, Wheel zooms around the cursor, MiddleDrag pans, Home centres the latest bar
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T4.09
+│  └─ T4.09 FirstPartyComponents
+│     ├─ DEPENDS=T4.08,T3.11
+│     ├─ CONTRACTS=see the PG child nodes
+│     ├─ REQUIRES=execute PG5.01 to PG5.08 in order (children below); every component is created only with the generator CLI
+│     ├─ OUTPUT=23 icon components and six DataTool components in MyChart.Plugins/Components, regenerated catalogs
+│     ├─ VERIFY=VERIFY of every PG5 node; AT9 and AT11 complete
+│     ├─ GATE=VISUAL (see the child nodes)
+│     ├─ NEXT=T5.01
+│     ├─ PG5.01 ComponentScenes
+│     │  ├─ DEPENDS=PG4.02,T4.08
+│     │  ├─ CONTRACTS=ComponentScenes (uses SkiaPngRenderContext and VisualProof of T4.01)
+│     │  ├─ REQUIRES=command `mychart-visual <ComponentId|all>` renders component scenes through VisualProof: standard vector view 800x500 at DpiScale 1 and 2; states Normal, Selected (handles), Preview; canonical anchors = N points evenly spaced on a rising diagonal from (index 20, price 1.1000) to (index 40, price 1.1050) (N=1: the centre); icons as a contact sheet (each icon at 16 DIP actual size and at 8x); output is deterministic
+│     │  ├─ OUTPUT=Tests/Support/ComponentScenes.cs
+│     │  ├─ VERIFY=rendering a known tiny definition twice gives byte-identical PNGs; a line definition produces at least one non-background pixel
+│     │  ├─ GATE=AUTOMATED
+│     │  └─ NEXT=PG5.02
+│     ├─ PG5.02 IconComponents
+│     │  ├─ DEPENDS=PG5.01
+│     │  ├─ CONTRACTS=Icon components via IconOperations
+│     │  ├─ REQUIRES=create 23 icons: Cursor, Crosshair, TrendLine, Rectangle, Arrow, Text, Fibonacci, Measure, Symbol, Timeframe, ChartType, Indicators, Templates, Layout, Settings, Color, Width, Opacity, Style, Template, Lock, Clone, Delete; geometry = Fluent System Icons 16 regular (MIT) reduced to ONE path string, or supplied by the owner; each passes the geometry grammar
+│     │  ├─ OUTPUT=23 folders Components/Icon<Name>/ ; regenerated IconCatalog.g.cs
+│     │  ├─ VERIFY=23 icons in IconCatalog; every icon key used by CoreBuiltIns exists; `validate` clean
+│     │  ├─ GATE=VISUAL (contact sheet PNG; owner approves legibility at 16 DIP)
+│     │  └─ NEXT=PG5.03
+│     ├─ PG5.03 TrendLineTool
+│     │  ├─ DEPENDS=PG5.02
+│     │  ├─ CONTRACTS=DataTool definition only
+│     │  ├─ REQUIRES=anchors 2; workflow Click; shapes [Line from anchor 0 to anchor 1, extend none]; placements LeftToolbar 100 and ChartContextMenu 100, group Lines; icon Icon.TrendLine
+│     │  ├─ OUTPUT=Components/TrendLine/*
+│     │  ├─ VERIFY=DrawingHit segment vectors through the definition; conformance C1..C10; AT1 after `tool add`
+│     │  ├─ GATE=VISUAL (PNG of canonical rendering)
+│     │  └─ NEXT=PG5.04
+│     ├─ PG5.04 RectangleTool
+│     │  ├─ DEPENDS=PG5.03
+│     │  ├─ CONTRACTS=DataTool definition only
+│     │  ├─ REQUIRES=anchors 2; shapes [Rect p1 anchor 0, p2 anchor 1, fillAlpha 0.15]; placements order 110, group Shapes; icon Icon.Rectangle
+│     │  ├─ OUTPUT=Components/Rectangle/*
+│     │  ├─ VERIFY=inside hit, edge hit, outside miss; conformance
+│     │  ├─ GATE=VISUAL
+│     │  └─ NEXT=PG5.05
+│     ├─ PG5.05 ArrowTool
+│     │  ├─ DEPENDS=PG5.04
+│     │  ├─ CONTRACTS=DataTool definition only
+│     │  ├─ REQUIRES=anchors 2; shapes [Line anchor 0 to anchor 1, ArrowHead tip anchor 1 from anchor 0 length 10 halfAngle 25 (hit false)]; placements order 120, group Lines; icon Icon.Arrow
+│     │  ├─ OUTPUT=Components/Arrow/*
+│     │  ├─ VERIFY=arrow head vertices for a horizontal arrow equal the computed vectors; shaft hit vectors; conformance
+│     │  ├─ GATE=VISUAL
+│     │  └─ NEXT=PG5.06
+│     ├─ PG5.06 TextTool
+│     │  ├─ DEPENDS=PG5.05
+│     │  ├─ CONTRACTS=DataTool definition only; IToolContext.PromptText
+│     │  ├─ REQUIRES=anchors 1; workflow ClickThenText; shapes [Text at anchor 0, text "text", size 12, align left]; placements order 130, group Annotation; icon Icon.Text
+│     │  ├─ OUTPUT=Components/Text/*
+│     │  ├─ VERIFY=cancel creates nothing; bounding-box hit vectors with a fake MeasureText; conformance
+│     │  ├─ GATE=VISUAL
+│     │  └─ NEXT=PG5.07
+│     ├─ PG5.07 FibonacciTool
+│     │  ├─ DEPENDS=PG5.06
+│     │  ├─ CONTRACTS=DataTool definition only
+│     │  ├─ REQUIRES=anchors 2; shapes [LevelLines levels 0,0.236,0.382,0.5,0.618,0.786,1; x1 anchor 0; x2 anchor 1; price "anchor[1].price - (anchor[1].price - anchor[0].price) * level"; label concat(fmt(level,3)," (",fmt(price,symbol.digits),")")]; placements order 140, group Fibonacci; icon Icon.Fibonacci
+│     │  ├─ OUTPUT=Components/Fibonacci/*
+│     │  ├─ VERIFY=prices 1.11000, 1.10764, 1.10618, 1.10500, 1.10382, 1.10214, 1.10000 for P1 1.1000 and P2 1.1100 (vector DrawingHit); conformance
+│     │  ├─ GATE=VISUAL
+│     │  └─ NEXT=PG5.08
+│     └─ PG5.08 MeasureTool
+│        ├─ DEPENDS=PG5.07,T3.01
+│        ├─ CONTRACTS=DataTool definition only
+│        ├─ REQUIRES=anchors 2; shapes [Line anchor 0 to anchor 1; InfoBox at anchor 1 lines: concat("d ",fmtSigned(priceDiff(0,1),symbol.digits)) ; concat(fmtSigned(pointDiff(0,1),0)," pts") ; if(hasPip(),concat(fmtSigned(pipDiff(0,1),1)," pips"),"") ; concat(fmtSigned(pctChange(0,1),2),"%") ; concat(barCount(0,1)," bars") ; timeText(0,1)]; placements order 150, group Measure; icon Icon.Measure
+│        ├─ OUTPUT=Components/Measure/*
+│        ├─ VERIFY=the Crosshair/Analysis vectors of this spec (EURUSD +0.00250, +250 pts, +25.0 pips, +0.23%, 15 bars, 3h 45m; USDJPY +0.500, +500, +50.0, +0.33%; XAUUSD without pips) reproduced through the InfoBox lines; AT9 and AT11 complete and re-run
+│        ├─ GATE=VISUAL
+│        └─ NEXT=T5.01
+│
+├─ T5_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ T5.01 SqliteStorage
+│  │  ├─ DEPENDS=T4 (all)
+│  │  ├─ Microsoft.Data.Sqlite; WAL mode; file Data/mychart.db
+│  │  ├─ Symbols(symbol TEXT PK, provider_name TEXT, grp TEXT, digits INTEGER)
+│  │  ├─ Candles(symbol TEXT, tf TEXT, ts_ms INTEGER, o REAL, h REAL, l REAL, c REAL, v REAL, PRIMARY KEY(symbol,tf,ts_ms)) ; only M1 plus native D1,W1,MN1 are stored
+│  │  ├─ Ticks(symbol TEXT, ts_ms INTEGER, bid REAL, ask REAL, vol REAL) ; rows older than 7 days are purged at startup
+│  │  ├─ IndicatorsCache(key TEXT PK, payload BLOB, updated_ms INTEGER)
+│  │  ├─ Layouts(name TEXT PK, json TEXT)
+│  │  ├─ timestamps = INTEGER Unix milliseconds UTC ; writes are batched (transaction per 5000 rows)
+│  │  ├─ VERIFY=write 100000 candles, read back identical; purge works
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T5.02
+│  ├─ T5.02 ProviderManager
+│  │  ├─ DEPENDS=T5.01,T1.10
+│  │  ├─ Load=providers registered by name ; Switch=disconnect old, connect new, publish ProviderChanged, reload history
+│  │  ├─ HealthMonitor=heartbeat every 5 s ; 15 s without answer = Disconnected
+│  │  ├─ Reconnect=backoff 1,2,4,8,16,30 s then 30 s forever
+│  │  ├─ Failover=only when a secondary provider is configured; switch after 3 failed reconnects; on switch run GapDetection and Repair for the outage window
+│  │  ├─ VERIFY=fake provider dropping connection: state sequence and backoff timings
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T5.03
+│  ├─ T5.03 MetaTraderProviderAndEA
+│  │  ├─ DEPENDS=T5.02
+│  │  ├─ TRANSPORT=Windows named pipe \\.\pipe\MyChart.MT4 (primary); TCP 127.0.0.1:9099 (alternate)
+│  │  ├─ ENCODING=UTF-8 text lines; fields separated by '|'; one message per line
+│  │  ├─ MESSAGES
+│  │  │  ├─ EA->App HELLO|eaVersion|serverUtcOffsetMinutes
+│  │  │  ├─ EA->App SYM|name|digits|groupHint
+│  │  │  ├─ EA->App T|symbol|serverTimeMs|bid|ask|volume
+│  │  │  ├─ App->EA GETH|symbol|M1|fromUtcSeconds|toUtcSeconds|maxBars
+│  │  │  ├─ EA->App H|symbol|M1|serverTimeSec|o|h|l|c|vol (one line per bar) then HEND|symbol|count
+│  │  │  └─ both PING / PONG every 5 s
+│  │  ├─ TIME=the provider converts server time to UTC using the offset from HELLO and sets ServerTimeRule=Fixed(offset) unless the user selects EET_US_DST for the account
+│  │  ├─ RULE=MyChart.1 never depends on MetaTrader (provider is replaceable); EA file lives in an MQL4 folder outside the .NET solution
+│  │  ├─ VERIFY=MessageCodec round trip; fake pipe server delivers ticks and history
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T5.04
+│  ├─ T5.04 SymbolGroupsFavoritesSearch
+│  │  ├─ DEPENDS=T1.04
+│  │  ├─ Groups=Forex, Crypto, Indices, Stocks, Commodities (FINAL)
+│  │  ├─ Favorites=list of canonical names stored in the workspace LayoutData (T3.07); not in the Settings project (its schema has no favorites key)
+│  │  ├─ Search=case-insensitive; prefix matches first, then contains; matches Name then ProviderName; maximum 50 results
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T5.05
+│  ├─ T5.05 ReplayEngine
+│  │  ├─ DEPENDS=T5.02
+│  │  ├─ Modes: Backtest (as fast as possible, no wall clock) ; MarketReplay (wall clock scaled by 1,2,5,10,50) ; Training (like MarketReplay but bars after the replay cursor are hidden and Step Forward is available)
+│  │  ├─ Sources: CSV, Database, Provider
+│  │  ├─ Replay drives the SAME TickPump and AggregationEngine path using a ReplayClock (IClock implementation)
+│  │  ├─ VERIFY=replaying Fixtures/ticks_sample.csv gives the same candles as live processing
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T5.06
+│  └─ T5.06 OfflineMode
+│     ├─ DEPENDS=T5.02,T5.01
+│     ├─ ProviderDisconnected -> HUD MarketStatus=Offline; series come from cache then database; no ticks; reconnect follows T5.02
+│     ├─ VERIFY=disconnect while chart open: chart stays navigable; reconnect resumes ticks and runs gap repair
+│     ├─ GATE=AUTOMATED
+│     └─ NEXT=T6.01
+│
+├─ T6_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ RULE=Toolbars never change calculation code; they only call existing commands and services
+│  ├─ T6.01 HudRenderer
+│  │  ├─ DEPENDS=T3.02,T4
+│  │  ├─ layer 8 ; inside the chart ; mouse transparent ; non-interactive ; no selection ; text color HudColor ; opacity = 1 - hud.overlay.hud.transparency / 100 (schema default 100 percent) ; position = hud.overlay.hud.position (default TopLeft)
+│  │  ├─ IDLE: after 5 s without pointer movement over the chart the HUD dims to 40 percent of its normal opacity (never removed); movement restores it
+│  │  ├─ STARTUP: Minimal presentation, visible (Minimal is not hiding)
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.02
+│  ├─ T6.02 ContextMenus
+│  │  ├─ DEPENDS=T4.07,T3.06
+│  │  ├─ CHART MENU
+│  │  │  ├─ Navigation: Go To Latest, Go To Date..., Reset View
+│  │  │  ├─ Crosshair: Analysis, Data Inspector, Magnet (toggles)
+│  │  │  ├─ Drawing: Cursor (core) and every ChartContextMenu contribution of the loaded components (tools), built from the registry; the UI contains no tool name
+│  │  │  ├─ Indicator: Add..., Manage...
+│  │  │  ├─ ChartOptions: Chart Type (Candles, Hollow Candles, OHLC), Scale (Auto, Manual, Log, Percentage), Price Axis (Right, Left), Grid (Major, Minor), Navigator, HUD
+│  │  │  └─ Reset: Reset View, Reset Scale to Auto
+│  │  ├─ DRAWING MENU: Edit, Lock/Unlock, Clone, Hide, Delete, Object Settings
+│  │  ├─ every menu item maps to one command or one state setter; INVENTORY_V1_1 is exactly this list
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.03
+│  ├─ T6.03 TopToolbar
+│  │  ├─ DEPENDS=T6.02
+│  │  ├─ height 32 DIP ; compact ; order: Symbol, Timeframe, ChartType, Indicators, Templates, Layout, Settings
+│  │  ├─ each item opens ONE popup with one click and applies with the second click (<= 2 clicks)
+│  │  ├─ Symbol = search box + grouped list ; Timeframe = quick buttons M1 M5 M15 H1 H4 D1 plus dropdown with M30, W1, MN1 ; ChartType = 3 items ; Indicators = dialog (T6.06) ; Templates = save/load drawing+indicator templates ; Layout = 1,2,4,6,8 ; Settings = opens the existing Settings window (T6.08); no settings UI is built in the top toolbar; the button is disabled until T6.08 is done
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.04
+│  ├─ T6.04 LeftToolbarAndDrawingTools
+│  │  ├─ DEPENDS=T6.03,T3.04,T3.06,PG5.08
+│  │  ├─ width 36 DIP ; buttons 32x32 ; items = LeftToolbar contributions sorted by (Order, ComponentId): Cursor 0 and Crosshair 10 from the core, then the tool components (TrendLine 100, Rectangle 110, Arrow 120, Text 130, Fibonacci 140, Measure 150); the UI contains no tool name and no icon
+│  │  ├─ Crosshair button: click toggles crosshair; flyout holds Analysis, Data Inspector, Magnet
+│  │  ├─ Tool workflow = the workflow of the component (Click or ClickThenText, PG2.05); Esc cancels; after commit the tool returns to Cursor
+│  │  ├─ DrawingRenderer draws layer 5; SelectionRenderer draws handles on layer 6
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.05
+│  ├─ T6.05 ContextToolbar
+│  │  ├─ DEPENDS=T6.04
+│  │  ├─ appears only while the selection is not empty; floats 8 DIP above the selection bounding box, below it when there is no room; items: Color, Width, Opacity, Style, Template, Lock, Clone, Delete
+│  │  ├─ every change is an EditDrawing command
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.06
+│  ├─ T6.06 IndicatorLayerAndDialog
+│  │  ├─ DEPENDS=T3.05,T4
+│  │  ├─ layer 4: polyline through visible outputs; NaN breaks the line; default colors from IndicatorPalette in order
+│  │  ├─ dialog: list, add, edit parameters, remove
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.07
+│  ├─ T6.07 NavigatorPanel
+│  │  ├─ DEPENDS=T3.03,T4
+│  │  ├─ implements the PANEL of T3.03; default hidden; opens from context menu or Ctrl+G; auto-hides 5 s after the last interaction
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.08
+│  ├─ T6.08 SettingsIntegration
+│  │  ├─ DEPENDS=T6.07,T0.07
+│  │  ├─ RULE=follow SETTINGS_INTEGRATION (rules R1..R12 and conflict decisions C1..C9) and SETTINGS_KEY_MAP
+│  │  ├─ OUTPUT=1 add MyChart.Settings to the solution with only the R1 mechanical changes ; 2 build ; 3 add Integration/SettingsBridge.cs ; 4 replace DefaultChartSettings by the bridge-backed IChartSettings in CompositionRoot ; 5 enable the Settings button
+│  │  ├─ VERIFY=every key of SETTINGS_KEY_MAP has a routing test (key,value -> observable chart state); NOT_IN_V1 keys route to nothing without error; seed pushes every non-Command key once; Cancel reverts Immediate keys; one OnApplied = one invalidation
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.09
+│  ├─ T6.09 Workspace
+│  │  ├─ DEPENDS=T3.07,T6.03,T6.08
+│  │  ├─ LAYOUTS 1 Chart = 1x1 ; 2 Charts = 1x2 (side by side) ; 4 Charts = 2x2 ; 6 Charts = 2x3 (2 rows, 3 columns) ; 8 Charts = 2x4
+│  │  ├─ each cell has independent Symbol, Timeframe, view state, drawings per symbol
+│  │  ├─ OPERATIONS Save, Load, Export, Import (file extension .mychart.json)
+│  │  ├─ REMEMBER open symbols, drawings, viewports
+│  │  ├─ AUTOSAVE on exit and every 60 s to Workspaces/_autosave.mychart.json ; startup loads the autosave when it exists, otherwise one default chart
+│  │  ├─ OUT_OF_SCOPE_V1=detached windows, floating windows, multi-monitor (no stubs, no partial code)
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T6.10
+│  └─ T6.10 ToolBuilder
+│     ├─ DEPENDS=T6.09,T4.09
+│     ├─ CONTRACTS=see the PG child nodes
+│     ├─ REQUIRES=execute PG6.01 to PG6.03 in order (children below); the Builder creates DataTools and icons only
+│     ├─ OUTPUT=MyChart.ToolBuilder (WPF)
+│     ├─ VERIFY=VERIFY of every PG6 node
+│     ├─ GATE=VISUAL (see the child nodes)
+│     ├─ NEXT=T7.01
+│     ├─ PG6.01 BuilderShellAndForm
+│     │  ├─ DEPENDS=PG5.08,T6.09
+│     │  ├─ CONTRACTS=uses Generator.Engine operations, Core DefinitionValidator and ExpressionParser, PluginHost
+│     │  ├─ REQUIRES=WPF application; form generated from the vocabulary: name, category, anchors, workflow, placements, hotkey, parameters; shape list editor (add, remove, reorder) with a property editor per shape (Point pickers for anchor and offset, numeric fields, expression fields with inline validation showing the E020 message and position); nothing requires typing JSON; invalid input never reaches disk
+│     │  ├─ OUTPUT=ToolBuilder/Views/*.xaml ; ViewModels/*.cs
+│     │  ├─ VERIFY=view-model tests: every invalid vector of AT14 and AT13 shows its message and blocks Save; a valid form produces the same Definition.json as the CLI for the same input
+│     │  ├─ GATE=VISUAL (screenshots of the form with valid and invalid input)
+│     │  └─ NEXT=PG6.02
+│     ├─ PG6.02 LivePreview
+│     │  ├─ DEPENDS=PG6.01
+│     │  ├─ CONTRACTS=uses MyChart.Rendering, DataToolPainter, FakeChartMapper-equivalent view
+│     │  ├─ REQUIRES=preview panel renders the tool on a sample chart; updates 250 ms after the last valid change; the user drags the N sample anchors; shows states Normal, Selected, Preview; a per-shape expression error is shown next to that shape; the preview uses its own PluginHost instance so no restart is needed
+│     │  ├─ OUTPUT=ToolBuilder/Preview/*.cs
+│     │  ├─ VERIFY=preview output for the six first-party definitions equals the recorded draw-call files; an invalid expression shows the error and keeps the last valid preview
+│     │  ├─ GATE=VISUAL (screenshots)
+│     │  └─ NEXT=PG6.03
+│     └─ PG6.03 IconPickerAndSave
+│        ├─ DEPENDS=PG6.02
+│        ├─ CONTRACTS=Generator.Engine IconOperations and ToolOperations (target user)
+│        ├─ REQUIRES=icon picker lists all icon components (catalog and UserRoot) and lets the user paste SVG path data (validated by GeometryPathGrammar) to create a user icon; Save writes to UserRoot (Definition.json.bak keeps the previous version), runs conformance C1..C10 on the result and blocks the save when C1, C2 or C9 fail; the dialog states that the tool appears at the next start and offers a restart
+│        ├─ OUTPUT=ToolBuilder/Views/IconPicker.xaml ; Save pipeline
+│        ├─ VERIFY=saving a valid tool creates exactly its folder in UserRoot; the next host start loads it (UserComponentLoader test); a definition failing C2 is not saved
+│        ├─ GATE=VISUAL (screenshots and a short recorded walk-through checklist approved by the owner)
+│        └─ NEXT=T7.01
+│
+├─ T7_SPEC
+│  ├─ STATUS=DECIDED_V1_1
+│  ├─ T7.01 IconSystem
+│  │  ├─ DEPENDS=T6,PG5.02
+│  │  ├─ Icons are icon components (PG5.02: Fluent System Icons, outline, 16 DIP, monochrome, one SVG path per icon); this node only converts IconDescriptor.PathData to StreamGeometry in MyChart.UI at load and applies the colour rules; MyChart.UI/Icons/IconGeometry.xaml is not created
+│  │  ├─ color: normal = AxisColor ; hover and active = AccentColor ; disabled = AxisColor at 40 percent
+│  │  ├─ NAMES (created in PG5.02)=Cursor, Crosshair, TrendLine, Rectangle, Arrow, Text, Fibonacci, Measure, Symbol, Timeframe, ChartType, Indicators, Templates, Layout, Settings, Color, Width, Opacity, Style, Template, Lock, Clone, Delete
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T7.02
+│  ├─ T7.02 ThemeProfiles
+│  │  ├─ DEPENDS=T4.02
+│  │  ├─ PROFILES Dark, Light, ProDark, Custom ; Custom = user overrides per token on top of a chosen base ; hex format #RRGGBB or #AARRGGBB
+│  │  ├─ Dark    Background #131722 Grid #1E222D GridMajor #2A2E39 GridMinor #1E222D Axis #787B86 Hud #B2B5BE Accent #2962FF Selection #2962FF Bull #26A69A Bear #EF5350 Warning #FF9800 Error #F23645 Success #089981
+│  │  ├─ ProDark Background #0B0E14 Grid #161A23 GridMajor #1F2430 GridMinor #161A23 Axis #6B6F7B Hud #A9ACB8 Accent #2962FF Selection #2962FF Bull #26A69A Bear #EF5350 Warning #FF9800 Error #F23645 Success #089981
+│  │  ├─ Light   Background #FFFFFF Grid #F0F3FA GridMajor #E0E3EB GridMinor #F0F3FA Axis #6A6D78 Hud #434651 Accent #2962FF Selection #2962FF Bull #089981 Bear #F23645 Warning #FF9800 Error #F23645 Success #089981
+│  │  ├─ SCOPE=one theme applies to Chart, Toolbar, Panels, HUD, Drawings, Axis, Controls (the Settings window included)
+│  │  ├─ CUSTOM_PROFILE_SOURCE=colour values from the Settings window (colour keys of SETTINGS_KEY_MAP) override the chosen base profile token by token
+│  │  ├─ PANEL_THEME=the Settings window keeps its own Themes/Dark.xaml until this node; here its brushes are mapped to MyChart theme tokens (the list of x:Key names in Themes/Dark.xaml is needed at that time)
+│  │  ├─ GATE=VISUAL (PNG or screenshot proof; the owner approves)
+│  │  └─ NEXT=T7.03
+│  ├─ T7.03 PerformanceTuning
+│  │  ├─ DEPENDS=T4,T6
+│  │  ├─ TARGET=60 FPS; p95 frame time <= 16.7 ms while panning with 2000 visible bars on the reference machine
+│  │  ├─ VirtualRendering=RenderWindow only; ObjectPooling=paint and path cache; DrawingCache=layers 1-5 cache; DirtyRegionUpdates=layers 6-10 redraw; IncrementalRefresh=indicators recompute last index only; HUDRefreshOnlyWhenRequired
+│  │  ├─ NavigatorSimplifiedRendering=min/max per pixel column
+│  │  ├─ SETTINGS=performance.fps.limit and performance.anti.aliasing come from the Settings keys ; performance.gpu.acceleration stays NOT_IN_V1 (software rendering)
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T7.04
+│  ├─ T7.04 TestingSweep
+│  │  ├─ DEPENDS=T7.03
+│  │  ├─ Suites: DataTests, CandleTests, ViewportTests, RendererTests, DrawingTests ; all GOLDEN_TEST_VECTORS present as tests ; Rule=TestsFollowCorrespondingStages (every node already carries its own tests; this sweep only checks coverage and runs everything together)
+│  │  ├─ GATE=AUTOMATED
+│  │  └─ NEXT=T7.05
+│  └─ T7.05 ReleaseChecklist
+│     ├─ DEPENDS=T7.04
+│     ├─ Build=Release x64 no warnings ; Startup to first chart <= 2 s from cache ; Memory = one symbol with 500000 M1 bars <= 300 MB ; StressTest = 8 charts with 100 ticks/s per chart for 30 min, memory growth <= 5 percent, no unhandled exception ; FinalReview = walk through OPEN_ITEM_PROTOCOL and FORBIDDEN lists
+│     └─ GATE=AUTOMATED
+│
+├─ EXECUTION_ORDER (PHASE_GROUPING_ONLY; ORDER_AUTHORITY=PRIORITY_EXECUTION_ORDER; where the two differ PRIORITY_EXECUTION_ORDER wins)
+│  ├─ PHASE_1_FOUNDATION
+│  │  ├─ SolutionStructure
+│  │  ├─ CoreFoundation
+│  │  ├─ DataLayer
+│  │  └─ DataValidation
+│  │
+│  ├─ PHASE_2_CHART_ENGINE
+│  │  ├─ Viewport
+│  │  ├─ Rendering
+│  │  ├─ CandleRenderer
+│  │  └─ Axis
+│  │
+│  ├─ PHASE_3_INTERACTION_UI
+│  │  ├─ Crosshair
+│  │  ├─ Interaction
+│  │  ├─ Toolbar
+│  │  └─ HUD
+│  │
+│  ├─ PHASE_4_TOOLS
+│  │  ├─ DrawingFramework
+│  │  ├─ DrawingTools
+│  │  └─ ContextToolbar
+│  │
+│  ├─ PHASE_5_ANALYSIS_WORKSPACE
+│  │  ├─ IndicatorFramework
+│  │  ├─ Navigator
+│  │  └─ Workspace
+│  │
+│  └─ PHASE_6_COMPLETION
+│     ├─ Theme
+│     ├─ Performance
+│     ├─ Testing
+│     └─ ReleaseChecklist
+│
+├─ EXECUTION_DEPENDENCY_RULE
+│  └─ DoNotImplementDownstreamModuleBeforeDependenciesAreStable
+│
+├─ TESTING
+│  ├─ STATUS=PLAN
+│  ├─ DataTests
+│  ├─ ViewportTests
+│  ├─ RendererTests
+│  ├─ DrawingTests
+│  └─ Rule=TestsFollowCorrespondingStages
+│
+└─ RELEASE
+│  ├─ STATUS=PLAN
+│  ├─ Build
+│  ├─ Performance
+│  ├─ Memory
+│  ├─ StressTest
+│  └─ FinalReview
+│

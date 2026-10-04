@@ -21,5 +21,4 @@ T1.08 | 2026-10-04 | PASS | HistoryMerge
 T1.09 | 2026-10-04 | PASS | MemoryCache
 T1.10 | 2026-10-04 | PASS | CsvProvider + IDataProvider
 T1.11 | 2026-10-04 | PASS | AggregationEngine / ISeriesView
-
-# NEXT = T2.01 TimeIndexMapper (Chart Scale Engine)
+T2.01 | 2026-10-04 | PENDING | TimeIndexMapper — await local VERIFY

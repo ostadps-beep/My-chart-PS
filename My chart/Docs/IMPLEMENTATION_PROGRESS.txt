@@ -4,7 +4,7 @@
 
 T0.01 | 2026-10-04 | PASS | SolutionAndBuildConfig
 T0.02 | 2026-10-04 | PASS | ProjectReferenceGraph
-T0.03 | 2026-10-04 | PASS | FolderAndFileSkeleton - Core Models + folders
+T0.03 | 2026-10-04 | PASS | FolderAndFileSkeleton
 T0.04 | 2026-10-04 | PASS | ContractsSkeleton
 T0.05 | 2026-10-04 | PARTIAL | TestProject
 T0.06 | 2026-10-04 | PASS | ProgressLog
@@ -17,4 +17,5 @@ T1.04 | 2026-10-04 | PASS | SymbolRegistry + SymbolMath
 T1.05 | 2026-10-04 | PASS | TickFilter + TickBuffer
 T1.06 | 2026-10-04 | PASS | CandleCalculation
 T1.07 | 2026-10-04 | PASS | MarketDataBus
-T1.08 | 2026-10-04 | PENDING | HistoryMerge - await local VERIFY
+T1.08 | 2026-10-04 | PASS | HistoryMerge
+T1.09 | 2026-10-04 | PENDING | MemoryCache - await local VERIFY

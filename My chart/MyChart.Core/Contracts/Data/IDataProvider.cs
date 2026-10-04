@@ -2,6 +2,7 @@ using MyChart.Core.Models.Market;
 
 namespace MyChart.Core.Contracts.Data;
 
+/// <summary>T1.10 IDataProvider contract (final signature).</summary>
 public interface IDataProvider
 {
     Task ConnectAsync(CancellationToken cancellationToken);
@@ -20,4 +21,5 @@ public interface IDataProvider
     bool IsConnected { get; }
     string Name { get; }
     bool SupportsNativeHigherTimeframes { get; }
+    ServerTimeRule ServerTimeRule { get; }
 }

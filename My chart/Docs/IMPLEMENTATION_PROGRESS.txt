@@ -34,5 +34,6 @@ T2.10 | 2026-10-04 | PASS | CurrentPriceValues (local VERIFY: 83/83 tests passed
 T2.11 | 2026-10-04 | PASS | StartupView (local VERIFY: 83/83 tests passed)
 T3.01 | 2026-10-04 | PASS | CrosshairCalculations (local VERIFY: 109/109 tests passed)
 T3.02 | 2026-10-04 | PENDING | HudData — await local VERIFY (dotnet test)
+T3.03 | 2026-10-04 | PENDING | NavigatorCalculations — await local VERIFY (dotnet test)
 
-# NEXT after T3.02 = T3.03 NavigatorCalculations
+# NEXT after T3.03 = T3.04 DrawingGeometryAndHitTest

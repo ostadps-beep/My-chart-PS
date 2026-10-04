@@ -29,4 +29,8 @@ T2.05 | 2026-10-04 | PASS | PanEngine
 T2.06 | 2026-10-04 | PASS | GoToLatest / LatestCandleLock
 T2.07 | 2026-10-04 | PASS | PriceScaleEngine
 T2.08 | 2026-10-04 | PASS | NiceTicks
-T2.09 | 2026-10-04 | PENDING | CandleGeometry — await local VERIFY
+T2.09 | 2026-10-04 | PASS | CandleGeometry
+T2.10 | 2026-10-04 | PENDING | CurrentPriceValues — await local VERIFY
+T2.11 | 2026-10-04 | PENDING | StartupView — await local VERIFY
+
+# NEXT after T2 = T3.01 CrosshairCalculations

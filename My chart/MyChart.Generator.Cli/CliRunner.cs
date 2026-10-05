@@ -1,3 +1,4 @@
+using MyChart.Core.Plugins.Manifest;
 using MyChart.Generator.Engine.Operations;
 
 namespace MyChart.Generator.Cli;
@@ -152,8 +153,6 @@ public static class CliRunner
 
     private static int RunValidate(PathScope scope, CliOptions opt, TextWriter stdout, TextWriter stderr)
     {
-        var report = new ValidateReport { };
-        // lightweight: scan both roots for manifests
         var components = new List<Validate.ComponentRecord>();
         void Scan(string root)
         {
@@ -183,7 +182,7 @@ public static class CliRunner
         Scan(Path.Combine(scope.RepoRoot, "MyChart.Plugins", "Components"));
         Scan(scope.UserRoot);
 
-        report = Validate.Run(components);
+        var report = Validate.Run(components);
         var r = new CliResult
         {
             Ok = report.Ok,

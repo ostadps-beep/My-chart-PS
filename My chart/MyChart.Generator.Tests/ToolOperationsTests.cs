@@ -16,7 +16,6 @@ public class ToolOperationsTests
         var plugins = Path.Combine(repo, "MyChart.Plugins");
         Directory.CreateDirectory(plugins);
         Directory.CreateDirectory(Path.Combine(plugins, "Components"));
-        // seed empty catalogs so paths exist
         File.WriteAllText(Path.Combine(plugins, "PluginCatalog.g.cs"), "// seed\n");
         File.WriteAllText(Path.Combine(plugins, "IconCatalog.g.cs"), "// seed\n");
 
@@ -28,33 +27,31 @@ public class ToolOperationsTests
     [Fact]
     public void AddThenRemove_LeavesTreeByteIdentical()
     {
+        // UserRoot ops skip git (PG3.04); verifies add then remove restores empty component tree.
         var (_, repo, user, tools) = Setup();
         try
         {
-            var before = Snapshot(repo);
+            var before = Snapshot(user);
 
             var add = tools.Add(new ToolAddRequest
             {
                 ComponentId = "TrendLine",
                 Name = "Trend Line",
                 Kind = ToolKind.DataTool,
-                Target = ComponentTarget.Repo,
-                AllowDirty = true // temp folder is not a git repo
+                Target = ComponentTarget.User
             });
             Assert.True(add.Ok, add.ErrorCode + " " + add.ErrorMessage);
 
-            var folder = Path.Combine(repo, "MyChart.Plugins", "Components", "TrendLine");
+            var folder = Path.Combine(user, "TrendLine");
             Assert.True(Directory.Exists(folder));
             Assert.True(File.Exists(Path.Combine(folder, "Manifest.json")));
             Assert.True(File.Exists(Path.Combine(folder, "Definition.json")));
 
-            var remove = tools.Remove("TrendLine", ComponentTarget.Repo, allowDirty: true);
+            var remove = tools.Remove("TrendLine", ComponentTarget.User);
             Assert.True(remove.Ok, remove.ErrorCode + " " + remove.ErrorMessage);
             Assert.False(Directory.Exists(folder));
 
-            // catalogs regenerated — may differ from seed; compare components folder empty
-            var components = Path.Combine(repo, "MyChart.Plugins", "Components");
-            Assert.Empty(Directory.EnumerateDirectories(components));
+            Assert.Equal(before, Snapshot(user));
         }
         finally
         {
@@ -73,8 +70,7 @@ public class ToolOperationsTests
             {
                 ComponentId = "TrendLine",
                 Name = "Trend Line",
-                Target = ComponentTarget.User,
-                AllowDirty = true
+                Target = ComponentTarget.User
             };
             Assert.True(tools.Add(req).Ok);
             var second = tools.Add(req);
@@ -137,6 +133,7 @@ public class ToolOperationsTests
 
     private static string Snapshot(string root)
     {
+        if (!Directory.Exists(root)) return "";
         return string.Join("|",
             Directory.EnumerateFiles(root, "*", SearchOption.AllDirectories)
                 .OrderBy(p => p, StringComparer.Ordinal)

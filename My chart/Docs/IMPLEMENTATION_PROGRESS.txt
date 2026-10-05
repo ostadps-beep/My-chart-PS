@@ -45,8 +45,9 @@ T3.10.PG3.01 | 2026-10-05 | PASS | PathScope
 T3.10.PG3.02 | 2026-10-05 | PASS | ManifestIO
 T3.10.PG3.03 | 2026-10-05 | PASS | ScaffoldTemplates
 T3.10.PG3.04 | 2026-10-05 | PASS | FilePlanAndTransaction
-T3.10.PG3.05 | 2026-10-05 | PASS | CatalogGenerator (19 tests)
-T3.10.PG3.06 | 2026-10-05 | PASS | DependencyAndValidate (25 tests)
-T3.10.PG3.07 | 2026-10-05 | PENDING | ToolOperations + IconOperations — await local VERIFY
+T3.10.PG3.05 | 2026-10-05 | PASS | CatalogGenerator
+T3.10.PG3.06 | 2026-10-05 | PASS | DependencyAndValidate
+T3.10.PG3.07 | 2026-10-05 | PASS | ToolOperations + IconOperations (29 tests)
+T3.10.PG3.08 | 2026-10-05 | PENDING | CommandLine mychart-gen — await local VERIFY
 
-# NEXT after VERIFY = PG3.08 CommandLine
+# NEXT after VERIFY = T3.11 PluginIntegration (PG4.01 HostWiring)

@@ -304,7 +304,7 @@ public sealed class ExpressionEvaluator
             "pipDiff" => (PriceAt((int)Num(args[1])) - PriceAt((int)Num(args[0]))) / _ctx.SymbolPip,
             "pctChange" => (PriceAt((int)Num(args[1])) / PriceAt((int)Num(args[0])) - 1.0) * 100.0,
             "barCount" => (int)(IndexAt((int)Num(args[1])) - IndexAt((int)Num(args[0]))),
-            "timeText" => TimeText((int)Num(args[0]), (int)Num(args[1])),
+            "timeText" => TimeTextFromAnchors((int)Num(args[0]), (int)Num(args[1])),
             "hasPip" => _ctx.HasPip,
             _ => throw new ExpressionException(ErrorCodes.VocabularyUnsupported, pos, $"Unknown function '{name}'")
         };
@@ -330,10 +330,10 @@ public sealed class ExpressionEvaluator
         return (v < 0 ? "-" : "+") + abs;
     }
 
-    private static string TimeText(int i0, int i1)
+    private string TimeTextFromAnchors(int a0, int a1)
     {
         // AT13: anchors index 10 and 25 on M15 => 15 bars * 15 min = 225 min = 3h 45m
-        int bars = Math.Abs(i1 - i0);
+        int bars = (int)Math.Abs(IndexAt(a1) - IndexAt(a0));
         int minutes = bars * 15; // M15 assumption for AT13
         if (minutes == 0) return "0m";
         int d = minutes / (60 * 24);

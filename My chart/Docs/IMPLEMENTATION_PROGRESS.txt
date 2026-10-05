@@ -44,8 +44,9 @@ T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.06
 T3.10.PG3.01 | 2026-10-05 | PASS | PathScope
 T3.10.PG3.02 | 2026-10-05 | PASS | ManifestIO
 T3.10.PG3.03 | 2026-10-05 | PASS | ScaffoldTemplates
-T3.10.PG3.04 | 2026-10-05 | PASS | FilePlanAndTransaction (16 tests)
+T3.10.PG3.04 | 2026-10-05 | PASS | FilePlanAndTransaction
 T3.10.PG3.05 | 2026-10-05 | PASS | CatalogGenerator (19 tests)
-T3.10.PG3.06 | 2026-10-05 | PENDING | DependencyAndValidate — await local VERIFY
+T3.10.PG3.06 | 2026-10-05 | PASS | DependencyAndValidate (25 tests)
+T3.10.PG3.07 | 2026-10-05 | PENDING | ToolOperations + IconOperations — await local VERIFY
 
-# NEXT after VERIFY = PG3.07 Operations
+# NEXT after VERIFY = PG3.08 CommandLine

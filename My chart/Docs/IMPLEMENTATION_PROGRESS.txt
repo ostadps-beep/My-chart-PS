@@ -40,3 +40,5 @@ T3.04 | 2026-10-05 | PASS | DrawingGeometryAndHitTest (generic rules; DrawingAnc
 T3.05 | 2026-10-05 | PASS | IndicatorFramework (SMA VERIFY + Host; local VERIFY 198/198); MarketDataBus coalescing fix
 
 # NEXT after T3.05 = T3.06 Commands
+
+# NEXT after T3.06 = T3.07 Serialization

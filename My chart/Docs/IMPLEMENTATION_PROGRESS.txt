@@ -30,23 +30,16 @@ T2.06 | 2026-10-04 | PASS | GoToLatest / LatestCandleLock
 T2.07 | 2026-10-04 | PASS | PriceScaleEngine
 T2.08 | 2026-10-04 | PASS | NiceTicks
 T2.09 | 2026-10-04 | PASS | CandleGeometry
-T2.10 | 2026-10-04 | PASS | CurrentPriceValues (local VERIFY: 83/83 tests passed)
-T2.11 | 2026-10-04 | PASS | StartupView (local VERIFY: 83/83 tests passed)
-T3.01 | 2026-10-04 | PASS | CrosshairCalculations (local VERIFY: 109/109 tests passed)
-T3.02 | 2026-10-04 | PASS | HudData (local VERIFY: 132/132 tests passed)
-T3.03 | 2026-10-04 | PASS | NavigatorCalculations (local VERIFY: 132/132 tests passed)
-T3.04 | 2026-10-05 | PASS | DrawingGeometryAndHitTest (generic rules; DrawingAnchor=(TimeUtc,Price); local VERIFY 191/191)
-
-T3.05 | 2026-10-05 | PASS | IndicatorFramework (SMA VERIFY + Host; local VERIFY 198/198); MarketDataBus coalescing fix
-
-T3.06 | 2026-10-05 | PASS | Commands (CommandBus depth 200, drag=1 entry; local VERIFY 206/206)
-
-# NEXT after T3.06 = T3.07 Serialization
-T3.07 | 2026-10-05 | PASS | Serialization (local VERIFY 210/210)
-
-# NEXT after T3.07 = T3.08 PluginHost
-T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04 (local VERIFY 223/223)
-
-# NEXT after T3.08 = T3.09 DeclarativeEngine
-T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.02 (local VERIFY 242/242)
-T3.09.PG2.03 | 2026-10-05 | PENDING | ShapeGeometryAndHitTest (AT15)
+T2.10 | 2026-10-04 | PASS | CurrentPriceValues
+T2.11 | 2026-10-04 | PASS | StartupView
+T3.01 | 2026-10-04 | PASS | CrosshairCalculations
+T3.02 | 2026-10-04 | PASS | HudData
+T3.03 | 2026-10-04 | PASS | NavigatorCalculations
+T3.04 | 2026-10-05 | PASS | DrawingGeometryAndHitTest
+T3.05 | 2026-10-05 | PASS | IndicatorFramework
+T3.06 | 2026-10-05 | PASS | Commands
+T3.07 | 2026-10-05 | PASS | Serialization
+T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04
+T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.06 (local VERIFY 254/254)
+T3.10.PG3.01 | 2026-10-05 | PENDING | PathScope + ErrorCodes E013-E025 — await local VERIFY
+T3.10.PG3.02 | 2026-10-05 | PENDING | ManifestIO — await local VERIFY

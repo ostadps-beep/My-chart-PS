@@ -9,9 +9,6 @@ namespace MyChart.Generator.Engine.Operations;
 /// </summary>
 public static class Scaffolder
 {
-    /// <summary>
-    /// Returns map of relativePath → file content (LF, no BOM).
-    /// </summary>
     public static IReadOnlyDictionary<string, string> Build(ScaffoldRequest req)
     {
         ArgumentNullException.ThrowIfNull(req);
@@ -86,8 +83,8 @@ public static class Scaffolder
         files["Manifest.json"] = ManifestIO.Write(manifest);
         files["Documentation.txt"] = $"# {name}\n\nScaffolded CodeTool. Owner-edited sources: {id}Tool.cs, Painter, HitTester.\n";
         files[$"{id}Tool.cs"] = CodeToolCs(id, toolId, anchors);
-        files[$"{id}Painter.cs"] = CodePainterCs(id, typeId);
-        files[$"{id}HitTester.cs"] = CodeHitTesterCs(id, typeId);
+        files[$"{id}Painter.cs"] = CodePainterCs(id);
+        files[$"{id}HitTester.cs"] = CodeHitTesterCs(id);
         files[$"{id}Registration.g.cs"] = CodeRegistrationCs(id);
         return files;
     }
@@ -113,7 +110,6 @@ public static class Scaffolder
         return files;
     }
 
-    /// <summary>Minimal valid Definition: one Line across anchors 0..N-1 (N=2 uses 0-1).</summary>
     public static string DefinitionClickLine(int anchors)
     {
         if (anchors < 2) anchors = 2;
@@ -158,85 +154,78 @@ public static class Scaffolder
 
     private static string CodeToolCs(string id, string toolId, int anchors)
     {
-        return $$"""
-            using MyChart.Core.Contracts.Plugins;
-            using MyChart.Core.Models.Drawing;
-            using MyChart.Core.Plugins.Base;
-
-            namespace MyChart.Plugins.Components.{{id}};
-
-            /// <summary>Scaffolded CodeTool — owner may edit.</summary>
-            public sealed class {{id}}Tool : ClickToolBase
-            {
-                public override string ToolId => "{{toolId}}";
-                public override int RequiredClicks => {{anchors}};
-
-                public override ToolResult OnPointer(PointerEvent e) => ToolResult.None;
-                public override ToolResult OnKey(KeyEvent e) => ToolResult.None;
-            }
-
-            """.Replace("\r\n", "\n");
+        return (
+            "using MyChart.Core.Contracts.Plugins;\n" +
+            "using MyChart.Core.Models.Drawing;\n" +
+            "using MyChart.Core.Plugins.Base;\n" +
+            "\n" +
+            $"namespace MyChart.Plugins.Components.{id};\n" +
+            "\n" +
+            "/// <summary>Scaffolded CodeTool — owner may edit.</summary>\n" +
+            $"public sealed class {id}Tool : ClickToolBase\n" +
+            "{\n" +
+            $"    public override string ToolId => \"{toolId}\";\n" +
+            $"    public override int RequiredClicks => {anchors};\n" +
+            "\n" +
+            "    public override ToolResult OnPointer(PointerEvent e) => new ToolResult.None();\n" +
+            "    public override ToolResult OnKey(KeyEvent e) => new ToolResult.None();\n" +
+            "}\n"
+        ).Replace("\r\n", "\n");
     }
 
-    private static string CodePainterCs(string id, string typeId)
+    private static string CodePainterCs(string id)
     {
-        return $$"""
-            using MyChart.Core.Contracts.Plugins;
-            using MyChart.Core.Models.Drawing;
-
-            namespace MyChart.Plugins.Components.{{id}};
-
-            /// <summary>Scaffolded painter — owner may edit.</summary>
-            public sealed class {{id}}Painter : IDrawingPainter
-            {
-                public string TypeId => "{{typeId}}";
-
-                public void Paint(DrawingObject obj, IRenderContext ctx)
-                {
-                    // Owner implements paint.
-                }
-            }
-
-            """.Replace("\r\n", "\n");
+        return (
+            "using MyChart.Core.Contracts.Plugins;\n" +
+            "using MyChart.Core.Models.Drawing;\n" +
+            "\n" +
+            $"namespace MyChart.Plugins.Components.{id};\n" +
+            "\n" +
+            "/// <summary>Scaffolded painter — owner may edit.</summary>\n" +
+            $"public sealed class {id}Painter : IDrawingObjectPainter\n" +
+            "{\n" +
+            "    public void Paint(DrawContext ctx, DrawingObject obj)\n" +
+            "    {\n" +
+            "        // Owner implements paint.\n" +
+            "    }\n" +
+            "}\n"
+        ).Replace("\r\n", "\n");
     }
 
-    private static string CodeHitTesterCs(string id, string typeId)
+    private static string CodeHitTesterCs(string id)
     {
-        return $$"""
-            using MyChart.Core.Contracts.Plugins;
-            using MyChart.Core.Models.Drawing;
-
-            namespace MyChart.Plugins.Components.{{id}};
-
-            /// <summary>Scaffolded hit tester — owner may edit.</summary>
-            public sealed class {{id}}HitTester : IDrawingHitTester
-            {
-                public string TypeId => "{{typeId}}";
-
-                public HitResult HitTest(DrawingObject obj, double x, double y, IChartMapper mapper)
-                    => HitResult.None;
-            }
-
-            """.Replace("\r\n", "\n");
+        return (
+            "using MyChart.Core.Contracts.Plugins;\n" +
+            "using MyChart.Core.Models.Drawing;\n" +
+            "using MyChart.Core.Models.Geometry;\n" +
+            "\n" +
+            $"namespace MyChart.Plugins.Components.{id};\n" +
+            "\n" +
+            "/// <summary>Scaffolded hit tester — owner may edit.</summary>\n" +
+            $"public sealed class {id}HitTester : IDrawingHitTester\n" +
+            "{\n" +
+            "    public HitResult HitTest(DrawingObject obj, PointD p, IChartMapper map, double toleranceDip)\n" +
+            "        => new HitResult(HitKind.None);\n" +
+            "}\n"
+        ).Replace("\r\n", "\n");
     }
 
     private static string CodeRegistrationCs(string id)
     {
-        return $$"""
-            // <auto-generated> DO NOT EDIT
-            using MyChart.Core.Contracts.Plugins;
-
-            namespace MyChart.Plugins.Components.{{id}};
-
-            /// <summary>Generated registration for {{id}}.</summary>
-            public static class {{id}}Registration
-            {
-                public static void Register(IPluginHost host)
-                {
-                    // Wired by catalog generator (PG3.05).
-                }
-            }
-
-            """.Replace("\r\n", "\n");
+        return (
+            "// <auto-generated> DO NOT EDIT\n" +
+            "using MyChart.Core.Contracts.Plugins;\n" +
+            "\n" +
+            $"namespace MyChart.Plugins.Components.{id};\n" +
+            "\n" +
+            $"/// <summary>Generated registration for {id}.</summary>\n" +
+            $"public static class {id}Registration\n" +
+            "{\n" +
+            "    public static void Register(IPluginHost host)\n" +
+            "    {\n" +
+            "        // Wired by catalog generator (PG3.05).\n" +
+            "    }\n" +
+            "}\n"
+        ).Replace("\r\n", "\n");
     }
 }

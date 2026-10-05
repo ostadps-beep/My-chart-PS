@@ -19,6 +19,7 @@
     <ProjectReference Include="..\MyChart.PluginHost\MyChart.PluginHost.csproj" />
     <ProjectReference Include="..\MyChart.Plugins\MyChart.Plugins.csproj" />
     <ProjectReference Include="..\MyChart.Generator.Engine\MyChart.Generator.Engine.csproj" />
+    <ProjectReference Include="..\MyChart.Rendering\MyChart.Rendering.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fixtures\**\*" CopyToOutputDirectory="PreserveNewest" LinkBase="Fixtures" />

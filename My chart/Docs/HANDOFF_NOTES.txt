@@ -1,0 +1,77 @@
+MyChart - HANDOFF NOTES (for the next model / session)
+Last updated: 2026-10-05 by Claude (session with PS)
+Repo: https://github.com/ostadps-beep/My-chart-PS (public). Solution folder: "My chart/".
+Owner: PS (writes Persian/Farsi; wants concise, technically precise answers; limited programming ability, so give exact commands).
+
+READ THIS FIRST (30 seconds)
+1. The source of truth is Docs/MyChart_1_Engineering_Specification_Canonical_v1.4.txt (the older spec files and the
+   Implementation_Master_Sequence are superseded for ORDER; node T-numbers are what counts).
+2. Progress is Docs/IMPLEMENTATION_PROGRESS.txt: one line per node. The last PASS line is where you continue.
+   The first line saying PENDING is a node written but not yet verified on PS's machine.
+3. Run `git pull` on main before you start. Other models also push to main. Never overwrite their log lines.
+
+STATE AT THE TIME OF WRITING
+- main contains T0.01..T3.03 all PASS (T0.05 TestProject is PARTIAL: MyChart.Generator.Tests has no tests yet, expected until PG3).
+- Local VERIFY on PS's machine: dotnet test -> 132 passed, 0 failed (MyChart.Tests).
+- See the end of this file for the live "NEXT" pointer and the node that was in progress.
+
+RULES OF THE PROJECT (from the spec, PRIORITY_EXECUTION_ORDER)
+- One node at a time. A node starts only when every node in its DEPENDS is verified. No skipping ahead.
+- GOLDEN_TEST_VECTORS are normative: if code disagrees with a vector, the code is wrong.
+- A missing requirement is OPEN: stop and ask PS, never guess. A conflict between two lines of the spec: pick the node text, say so, and tell PS.
+- Every number in code comes from the constants of the spec (CONSTANTS_TABLE); no magic numbers (named consts next to the code are accepted so far).
+- After each node: run its VERIFY tests, then append ONE line to Docs/IMPLEMENTATION_PROGRESS.txt.
+- GATE=AUTOMATED nodes are decided by tests. GATE=VISUAL nodes (T4.03..T4.09, T6.xx, T7.01, T7.02) also need PNG/screenshot proof and PS's approval.
+- Nothing about toolbars, icons or themes before T1..T3 are verified. No tool/icon component before T3.11 is verified.
+- The string "ChartMy" must not appear outside Docs/. The Settings panel is NEVER recreated here; it is integrated at T6.08 (see Docs/SETTINGS_PREREQUISITE.txt).
+- Candle layers are never mixed: Core/Candles = calculation only; Core/Scale = pixels only.
+
+HOW WE WORK WITH PS (workflow that worked)
+- The cloud sandbox has NO dotnet. You write code and tests, hand-check expected numbers against the spec formulas, then PS runs on Windows:
+      cd "...\My chart"
+      git fetch ; git checkout <branch> ; dotnet test
+  PS pastes the output. "Passed! Failed: 0" => change the log line from PENDING to PASS and merge.
+  The warning "No test is available in ...Generator.Tests.dll" is harmless (that project has no tests yet).
+- Write the node on a branch named claude/t<node>-<name>, log it as PENDING, push, ask PS to run dotnet test.
+  After PS's PASS: set the log line to PASS (include the test count), commit, `git checkout main`, `git merge --ff-only <branch>`, push main.
+  Only verified code goes to main.
+- Build settings: net8.0, Nullable enabled, ImplicitUsings, TreatWarningsAsErrors=true. One compiler warning breaks the build,
+  so avoid unused variables, unused usings are fine, nullable mistakes are not.
+- Tests: xUnit. Beware Assert.Equal(double, double?, int) does not compile: use .GetValueOrDefault() for nullable doubles.
+  Tests of a calculator go in MyChart.Tests/<Area>/ (Analysis, Scale, Market, Smoke). Use the golden-vector fixture view
+  (N 100, plotLeft 0, plotWidth 800, BarSpacing 8, RightOffset 5, range 1.09400..1.10600, plotHeight 500) where the spec uses it.
+- Calculators are pure static classes in MyChart.Core (Analysis/, Scale/, Candles/). No UI, no IO, time passed in (no DateTime.Now).
+  Display time zone is a nullable TimeZoneInfo parameter (UTC when null) because Core has no display-zone setting yet.
+
+REPO ACCESS NOTES (cloud session)
+- Push works through the session's git proxy after add_repo with access "push". Clone is shallow: `git fetch --depth 50 origin <branch>` to connect histories.
+- Branch DELETE does not work from the sandbox (proxy refuses). PS must delete stale branches in GitHub (Branches page) or run
+  `git push origin --delete <branch>`. Stale now: claude-access-test, claude/t3-01-crosshair, claude/t3-02-hud (+ later branches once merged).
+- The stop hook may warn "unpushed commits / no remote branch" even after a successful push. It is a false alarm caused by a missing
+  tracking ref in the shallow clone. Check `git ls-remote --heads origin <branch>` equals `git rev-parse HEAD`, then run
+  `git fetch --depth 50 origin +<branch>:refs/remotes/origin/<branch>` and
+  `git config branch.<branch>.remote origin ; git config branch.<branch>.merge refs/heads/<branch>`.
+
+DECISIONS ALREADY MADE (do not re-ask PS)
+- T3.01 time label for D1/W1 uses the node text "ddd d MMM 'yy" although SETTINGS_KEY_MAP line ~718 says yyyy-MM-dd for the crosshair label of D1+. The node text wins (documented conflict). Change only if PS asks.
+- Time difference text: "3h 45m", "1d 2h 30m", "45m", "0m"; negative gets a leading "-".
+- T3.02 HUD: settings-driven items (C6/C7: Change, Volume, Bid/Ask, Position, chart.show.ohlc) are deferred to the settings integration T6.08 / HudRenderer T6.01. T3.02 provides the data of the INFORMATION and ADVANCED_OPTIONAL lists only.
+- T3.03 Navigator: GoTo before the first bar returns NeedsOlderHistory once, then bar 0; after the end of the last bar => GoToLatest; a time inside the last bar centres the last bar. Ctrl+G dialog and the panel UI come later (T6.07).
+- Plugin architecture (Docs spec revision 1.3, nodes PG*): the chart core knows no tool names or icons; tools are DataTool components. T3.04 is split (A4): generic rules in Core, shape-specific geometry in the DataTool engine (PG2).
+
+KNOWN DISCREPANCIES / TODO FOR THE OWNER
+- DrawingAnchor in Core/Models/Drawing was (U, Price) from the T0.04 skeleton; the spec says ANCHOR=(TimeUtc, Price) (T3.04, DRAWING_RECORD in T3.07, PG1.05). It is being corrected in T3.04 (no other code used it).
+- DrawingStyle lacks opacity and line style required by T3.04 DEFAULT STYLE; extended in T3.04 with defaults (source compatible).
+- Interaction project (MyChart.Interaction/Input) is still empty; it is T4.07.
+- The Settings panel project (local folder ChartMy on PS's machine, no repo) is integrated at T6.08, not before.
+
+NODE ORDER AHEAD (T3 then T4...)  - see spec lines ~1690-1780 for the full tree
+T3.04 DrawingGeometryAndHitTest (DEPENDS T2.01,T2.02)
+T3.05 IndicatorFramework        (DEPENDS T1.11,T2.07)  - needs ISeriesView from T1.11; test-only SMA indicator
+T3.06 Commands                  (DEPENDS T3.04)        - CommandBus, undo/redo depth 200, a drag = ONE command
+T3.07 Serialization             (DEPENDS T3.04,T3.05,T3.06) - JSON, round trip byte-stable, UnknownDrawingObject (PG1.05)
+T3.08 PluginHost (PG1.01..PG1.07) -> T3.09 DeclarativeEngine (PG2.01..) -> T3.10 GeneratorEngine (PG3.01..) -> T3.11 PluginIntegration (PG4.01, PG4.02)
+T4 starts only when every VERIFY of T3 passes (first visual tier, GATE=VISUAL: PNG proofs + PS approval).
+
+LIVE STATUS (update this block at the end of every session)
+- 2026-10-05: main = T0..T3.03 PASS. Working on T3.04 on branch claude/t3-04-drawing-geometry (not yet on main).

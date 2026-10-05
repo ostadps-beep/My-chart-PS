@@ -42,3 +42,6 @@ T3.05 | 2026-10-05 | PASS | IndicatorFramework (SMA VERIFY + Host; local VERIFY 
 T3.06 | 2026-10-05 | PASS | Commands (CommandBus depth 200, drag=1 entry; local VERIFY 206/206)
 
 # NEXT after T3.06 = T3.07 Serialization
+T3.07 | 2026-10-05 | PASS | Serialization (local VERIFY 210/210)
+
+# NEXT after T3.07 = T3.08 PluginHost

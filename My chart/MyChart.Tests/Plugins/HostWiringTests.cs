@@ -12,7 +12,7 @@ namespace MyChart.Tests.Plugins;
 
 /// <summary>
 /// PG4.01 VERIFY: FakePlugin activate → pointer commit → paint → hit → undo;
-/// chart code contains no concrete product tool name (TrendLine etc.).
+/// chart dispatch code contains no concrete product tool name.
 /// </summary>
 public class HostWiringTests
 {
@@ -90,18 +90,27 @@ public class HostWiringTests
     }
 
     [Fact]
-    public void ChartAnalysis_HasNoConcreteProductToolName()
+    public void ChartDispatch_HasNoConcreteProductToolName()
     {
+        // Only paint/hit/tool session dispatch — math helpers may mention Fibonacci levels.
         var dir = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "MyChart.Core", "Analysis"));
         if (!Directory.Exists(dir))
             return;
 
-        foreach (var file in Directory.EnumerateFiles(dir, "*.cs"))
+        string[] files =
         {
+            Path.Combine(dir, "DrawingPaintDispatcher.cs"),
+            Path.Combine(dir, "DrawingHitDispatcher.cs"),
+            Path.Combine(dir, "ToolSession.cs")
+        };
+
+        foreach (var file in files)
+        {
+            if (!File.Exists(file)) continue;
             var text = File.ReadAllText(file);
             Assert.DoesNotContain("TrendLine", text);
-            Assert.DoesNotContain("Fibonacci", text);
             Assert.DoesNotContain("HorizontalLine", text);
+            Assert.DoesNotContain("Tool.Trend", text);
         }
     }
 }

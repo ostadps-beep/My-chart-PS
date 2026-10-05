@@ -24,12 +24,14 @@ public class HostWiringTests
         }
     }
 
+    private static SymbolInfo EurUsd() => new("EURUSD", "test", SymbolGroup.Forex, 5);
+
     private sealed class StubToolContext : IToolContext
     {
         public IChartMapper Map { get; } = new IdentityMapper();
         public Core.Contracts.Services.IChartSettings Settings => null!;
         public Core.Contracts.Services.IThemeService Theme => null!;
-        public SymbolInfo Symbol { get; } = new("EURUSD", 5, 0.00001, 0.0001, "forex");
+        public SymbolInfo Symbol { get; } = EurUsd();
         public PointD Snap(PointD p) => p;
         public void PromptText(Action<string?> onDone) => onDone(null);
         public void Invalidate() { }
@@ -61,7 +63,7 @@ public class HostWiringTests
             Render = render,
             Map = map,
             Theme = new ThemeTokens(),
-            Symbol = new SymbolInfo("EURUSD", 5, 0.00001, 0.0001, "forex")
+            Symbol = EurUsd()
         };
 
         DrawingPaintDispatcher.PaintAll(
@@ -73,7 +75,7 @@ public class HostWiringTests
 
         var (hitObj, hit) = DrawingHitDispatcher.HitTest(
             composition.Drawings,
-            new PointD(0, 110), // Y = price*100 = 1.10*100
+            new PointD(0, 110),
             map,
             toleranceDip: 8,
             composition.ResolveHitTester);
@@ -88,13 +90,9 @@ public class HostWiringTests
     [Fact]
     public void ChartAnalysis_HasNoConcreteProductToolName()
     {
-        // Grep-style: production analysis dispatch must stay tool-agnostic.
         var dir = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..", "..", "..", "..", "MyChart.Core", "Analysis"));
         if (!Directory.Exists(dir))
-        {
-            // bin layout may differ; skip soft
             return;
-        }
 
         foreach (var file in Directory.EnumerateFiles(dir, "*.cs"))
         {

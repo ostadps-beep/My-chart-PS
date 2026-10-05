@@ -1,5 +1,7 @@
 using MyChart.Core.Analysis;
 using MyChart.Core.Contracts.Plugins;
+using MyChart.Core.Contracts.Services;
+using MyChart.Core.Contracts.UI;
 using MyChart.Core.Models.Geometry;
 using MyChart.Core.Models.Market;
 using MyChart.Core.Models.Rendering;
@@ -29,8 +31,8 @@ public class HostWiringTests
     private sealed class StubToolContext : IToolContext
     {
         public IChartMapper Map { get; } = new IdentityMapper();
-        public Core.Contracts.Services.IChartSettings Settings => null!;
-        public Core.Contracts.Services.IThemeService Theme => null!;
+        public IChartSettings Settings => null!;
+        public IThemeService Theme => null!;
         public SymbolInfo Symbol { get; } = EurUsd();
         public PointD Snap(PointD p) => p;
         public void PromptText(Action<string?> onDone) => onDone(null);

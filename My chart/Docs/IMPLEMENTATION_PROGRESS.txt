@@ -46,7 +46,6 @@ T3.11.PG4.01 | 2026-10-05 | PASS | HostWiring
 T3.11.PG4.02 | 2026-10-05 | PASS | AcceptanceSuite (AT9/AT11 full after PG5; suite 273+32 green)
 T3.11 | 2026-10-05 | PASS | PluginIntegration complete
 T3 | 2026-10-05 | PASS | Entire T3 phase complete
+T4.01 | 2026-10-05 | PASS | RenderContextAndPipeline (295+32 tests)
 
-T4.01 | 2026-10-05 | PENDING | RenderContextAndPipeline (awaiting local VERIFY)
-
-# NEXT = T4.01 RenderContextAndPipeline (first VISUAL tier / GATE=VISUAL starts T4.03+)
+# NEXT = T4.02 ColorTokensMinimal

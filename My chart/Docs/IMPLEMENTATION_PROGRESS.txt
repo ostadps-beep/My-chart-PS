@@ -41,5 +41,7 @@ T3.06 | 2026-10-05 | PASS | Commands
 T3.07 | 2026-10-05 | PASS | Serialization
 T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04
 T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.06 (local VERIFY 254/254)
-T3.10.PG3.01 | 2026-10-05 | PENDING | PathScope + ErrorCodes E013-E025 — await local VERIFY
-T3.10.PG3.02 | 2026-10-05 | PENDING | ManifestIO — await local VERIFY
+T3.10.PG3.01 | 2026-10-05 | PASS | PathScope + ErrorCodes E013-E025 (Generator.Tests 6/6)
+T3.10.PG3.02 | 2026-10-05 | PASS | ManifestIO (Generator.Tests 6/6)
+
+# NEXT = T3.10.PG3.03 ScaffoldTemplates

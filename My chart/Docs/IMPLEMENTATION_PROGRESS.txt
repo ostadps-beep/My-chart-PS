@@ -47,4 +47,6 @@ T3.11.PG4.02 | 2026-10-05 | PASS | AcceptanceSuite (AT9/AT11 full after PG5; sui
 T3.11 | 2026-10-05 | PASS | PluginIntegration complete
 T3 | 2026-10-05 | PASS | Entire T3 phase complete
 
+T4.01 | 2026-10-05 | PENDING | RenderContextAndPipeline (awaiting local VERIFY)
+
 # NEXT = T4.01 RenderContextAndPipeline (first VISUAL tier / GATE=VISUAL starts T4.03+)

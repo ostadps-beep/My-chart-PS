@@ -15,6 +15,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
     <ProjectReference Include="..\MyChart.Data\MyChart.Data.csproj" />
+    <ProjectReference Include="..\MyChart.Indicators\MyChart.Indicators.csproj" />
     <ProjectReference Include="..\MyChart.PluginHost\MyChart.PluginHost.csproj" />
     <ProjectReference Include="..\MyChart.Plugins\MyChart.Plugins.csproj" />
     <ProjectReference Include="..\MyChart.Generator.Engine\MyChart.Generator.Engine.csproj" />

@@ -45,3 +45,6 @@ T3.06 | 2026-10-05 | PASS | Commands (CommandBus depth 200, drag=1 entry; local 
 T3.07 | 2026-10-05 | PASS | Serialization (local VERIFY 210/210)
 
 # NEXT after T3.07 = T3.08 PluginHost
+T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04 (local VERIFY 223/223)
+
+# NEXT after T3.08 = T3.09 DeclarativeEngine

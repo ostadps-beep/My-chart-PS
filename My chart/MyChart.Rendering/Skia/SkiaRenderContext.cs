@@ -8,6 +8,7 @@ namespace MyChart.Rendering.Skia;
 /// <summary>
 /// IRenderContext backed by an SKCanvas. All coordinates are device pixels.
 /// Callers multiply DIP by DpiScale before calling.
+/// Text uses SKPaint string APIs (SkiaSharp 2.88.9 compatible).
 /// </summary>
 public sealed class SkiaRenderContext : IRenderContext, IDisposable
 {
@@ -64,7 +65,6 @@ public sealed class SkiaRenderContext : IRenderContext, IDisposable
     {
         if (dash is { Length: > 0 })
         {
-            // Temporary paint so PathEffect does not pollute the cache.
             using var paint = new SKPaint
             {
                 Style = SKPaintStyle.Stroke,
@@ -86,19 +86,19 @@ public sealed class SkiaRenderContext : IRenderContext, IDisposable
     {
         ArgumentNullException.ThrowIfNull(text);
         ArgumentNullException.ThrowIfNull(style);
-        var font = _paints.GetFont(style, DpiScale);
-        var paint = _paints.GetFill(color, AntiAlias);
+        var paint = _paints.GetTextPaint(style, DpiScale, color, AntiAlias);
 
-        var width = font.MeasureText(text);
+        var width = paint.MeasureText(text);
         var drawX = align switch
         {
             TextAlign.Center => (float)x - width / 2f,
             TextAlign.Right => (float)x - width,
             _ => (float)x
         };
-        font.GetFontMetrics(out var metrics);
+        // y is top of text box in our API; Skia DrawText uses baseline.
+        var metrics = paint.FontMetrics;
         var baseline = (float)y - metrics.Ascent;
-        _canvas.DrawText(text, drawX, baseline, font, paint);
+        _canvas.DrawText(text, drawX, baseline, paint);
     }
 
     public void DrawPath(IReadOnlyList<PointD> points, RgbaColor color, double width, bool closed, bool fill)
@@ -130,9 +130,10 @@ public sealed class SkiaRenderContext : IRenderContext, IDisposable
     {
         ArgumentNullException.ThrowIfNull(text);
         ArgumentNullException.ThrowIfNull(style);
-        var font = _paints.GetFont(style, DpiScale);
-        var width = font.MeasureText(text);
-        font.GetFontMetrics(out var metrics);
+        // Colour does not affect metrics; use opaque black.
+        var paint = _paints.GetTextPaint(style, DpiScale, RgbaColor.FromRgb(0, 0, 0), AntiAlias);
+        var width = paint.MeasureText(text);
+        var metrics = paint.FontMetrics;
         var height = metrics.Descent - metrics.Ascent;
         return new SizeD(width, height);
     }

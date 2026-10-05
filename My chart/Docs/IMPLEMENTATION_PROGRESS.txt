@@ -49,3 +49,4 @@ T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04 (local VERIFY 223/223)
 
 # NEXT after T3.08 = T3.09 DeclarativeEngine
 T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.02 (local VERIFY 242/242)
+T3.09.PG2.03 | 2026-10-05 | PENDING | ShapeGeometryAndHitTest (AT15)

@@ -1,4 +1,5 @@
 using MyChart.Core.Candles;
+using MyChart.Core.Contracts.Data;
 using MyChart.Core.Models.Market;
 
 namespace MyChart.Data.Aggregation;

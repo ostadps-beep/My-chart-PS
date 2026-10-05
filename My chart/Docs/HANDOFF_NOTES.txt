@@ -89,3 +89,6 @@ LIVE STATUS (update this block at the end of every session)
   (expect more than 132 tests, 0 failed). If PASS: set the T3.04 log line to PASS with the count, commit, git checkout main, git merge --ff-only claude/t3-04-drawing-geometry, push.
   If a compile error or failure appears: fix it first (the code was hand-checked only, no dotnet in the sandbox).
 - After T3.04: T3.05 IndicatorFramework (needs ISeriesView from T1.11; see MyChart.Core.Contracts.Data and MyChart.Data/Aggregation).
+
+LIVE STATUS (update this block at the end of every session)
+- 2026-10-05: T3.04 PASS (local VERIFY 191/191) on branch claude/t3-04-drawing-geometry. T3.05 IndicatorFramework implemented (PENDING local VERIFY). Merge T3.04+T3.05 to main after VERIFY.

@@ -35,6 +35,8 @@ T2.11 | 2026-10-04 | PASS | StartupView (local VERIFY: 83/83 tests passed)
 T3.01 | 2026-10-04 | PASS | CrosshairCalculations (local VERIFY: 109/109 tests passed)
 T3.02 | 2026-10-04 | PASS | HudData (local VERIFY: 132/132 tests passed)
 T3.03 | 2026-10-04 | PASS | NavigatorCalculations (local VERIFY: 132/132 tests passed)
-T3.04 | 2026-10-05 | PENDING | DrawingGeometryAndHitTest (generic rules; DrawingAnchor now (TimeUtc, Price)) — await local VERIFY (dotnet test)
+T3.04 | 2026-10-05 | PASS | DrawingGeometryAndHitTest (generic rules; DrawingAnchor=(TimeUtc,Price); local VERIFY 191/191)
 
-# NEXT after T3.04 = T3.05 IndicatorFramework
+T3.05 | 2026-10-05 | PENDING | IndicatorFramework — in progress
+
+# NEXT after T3.05 = T3.06 Commands

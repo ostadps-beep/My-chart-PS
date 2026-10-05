@@ -1,12 +1,2 @@
-using MyChart.Core.Models.Market;
-
-namespace MyChart.Data.Aggregation;
-
-/// <summary>T1.11 ISeriesView — forming candle is LAST element when HasForming.</summary>
-public interface ISeriesView
-{
-    int Count { get; }
-    Candle this[int index] { get; }
-    bool HasForming { get; }
-    DateTimeOffset OpenTime(int index);
-}
+// Canonical ISeriesView is MyChart.Core.Contracts.Data.ISeriesView (moved in T3.05).
+// This file intentionally left as a pointer; do not redefine the interface here.

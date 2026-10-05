@@ -30,11 +30,12 @@ public class PluginHostLoadTests
 
     private sealed class DupPlugin : IChartPlugin
     {
-        public string ComponentId => "DupTool";
+        // ComponentId sorts after GoodTool so GoodTool registers first; this is the "second" duplicate ToolId.
+        public string ComponentId => "ZDupTool";
         public void Register(IPluginHost host)
         {
             host.Tools.Register(
-                new ToolDescriptor("DupTool", "GoodTool", "Dup", "Draw", "Icon.Good", null, "drawing.dup", 2, Array.Empty<ParameterDescriptor>()),
+                new ToolDescriptor("ZDupTool", "GoodTool", "Dup", "Draw", "Icon.Good", null, "drawing.dup", 2, Array.Empty<ParameterDescriptor>()),
                 _ => null!);
         }
     }
@@ -89,11 +90,11 @@ public class PluginHostLoadTests
                 Plugin = new GoodPlugin(),
                 Icons = new[] { new IconDescriptor("Icon.Good", "M0 0 L1 1") }
             },
-            new ComponentSet { ComponentId = "DupTool", Plugin = new DupPlugin() }
+            new ComponentSet { ComponentId = "ZDupTool", Plugin = new DupPlugin() }
         });
         var report = host.Load(new[] { source });
         Assert.Contains("GoodTool", report.Loaded);
-        Assert.Contains(report.Failed, f => f.ComponentId == "DupTool" && f.Code == ErrorCodes.DuplicateToolId);
+        Assert.Contains(report.Failed, f => f.ComponentId == "ZDupTool" && f.Code == ErrorCodes.DuplicateToolId);
     }
 
     [Fact]

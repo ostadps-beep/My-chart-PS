@@ -2,6 +2,7 @@ using MyChart.Core.Contracts.Rendering;
 using MyChart.Core.Models.Rendering;
 using MyChart.Core.Rendering;
 using MyChart.Tests.Plugins;
+using Xunit;
 
 namespace MyChart.Tests.Rendering;
 

@@ -1,6 +1,7 @@
 using MyChart.Core.Models.Rendering;
 using MyChart.Rendering.Skia;
 using MyChart.Tests.Support;
+using Xunit;
 
 namespace MyChart.Tests.Rendering;
 

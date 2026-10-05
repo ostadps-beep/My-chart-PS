@@ -67,28 +67,15 @@ public sealed class MarketDataBus : IMarketDataBus
 
     private void CoalesceCandleUpdated(CandleUpdated cu)
     {
-        var now = DateTimeOffset.UtcNow;
-        List<CandleUpdated>? flush = null;
-
         lock (_gate)
         {
             if (_frameStart == DateTimeOffset.MinValue)
-                _frameStart = now;
+                _frameStart = DateTimeOffset.UtcNow;
 
-            if (now - _frameStart >= FrameDuration && _pendingUpdates.Count > 0)
-            {
-                flush = _pendingUpdates.Values.ToList();
-                _pendingUpdates.Clear();
-                _frameStart = now;
-            }
-
+            // Always coalesce into the pending slot for this (symbol, timeframe).
+            // Do NOT auto-flush here — wall-clock gaps between publishes must not
+            // emit intermediate updates; FlushFrame / other events own the frame boundary.
             _pendingUpdates[(cu.Symbol, cu.Timeframe)] = cu;
-        }
-
-        if (flush != null)
-        {
-            foreach (var e in flush)
-                Dispatch(e);
         }
     }
 

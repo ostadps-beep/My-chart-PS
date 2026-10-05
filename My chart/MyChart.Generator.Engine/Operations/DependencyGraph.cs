@@ -1,9 +1,8 @@
-using MyChart.Core.Plugins.Manifest;
-
 namespace MyChart.Generator.Engine.Operations;
 
 /// <summary>
 /// PG3.06 DependencyGraph — tool depends on its icon; E010 missing, E011 cycle, E012 has-dependents.
+/// Known nodes are only those registered via AddNode (or as edge sources).
 /// </summary>
 public sealed class DependencyGraph
 {
@@ -12,10 +11,13 @@ public sealed class DependencyGraph
 
     public void AddNode(string id) => _nodes.Add(id);
 
+    /// <summary>
+    /// Adds edge from → to. Only <paramref name="from"/> is registered as a known node;
+    /// <paramref name="to"/> must already be an AddNode target or it is reported by MissingTargets (E010).
+    /// </summary>
     public void AddEdge(string from, string to)
     {
         _nodes.Add(from);
-        _nodes.Add(to);
         if (!_edges.TryGetValue(from, out var set))
         {
             set = new HashSet<string>(StringComparer.Ordinal);
@@ -79,6 +81,8 @@ public sealed class DependencyGraph
         {
             foreach (var t in targets.OrderBy(x => x, StringComparer.Ordinal))
             {
+                // only walk into known nodes; missing targets are E010, not cycles
+                if (!_nodes.Contains(t)) continue;
                 var cycle = Dfs(t, visiting, visited, stack);
                 if (cycle is not null) return cycle;
             }

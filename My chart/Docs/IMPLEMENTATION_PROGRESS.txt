@@ -47,7 +47,9 @@ T3.10.PG3.03 | 2026-10-05 | PASS | ScaffoldTemplates
 T3.10.PG3.04 | 2026-10-05 | PASS | FilePlanAndTransaction
 T3.10.PG3.05 | 2026-10-05 | PASS | CatalogGenerator
 T3.10.PG3.06 | 2026-10-05 | PASS | DependencyAndValidate
-T3.10.PG3.07 | 2026-10-05 | PASS | ToolOperations + IconOperations (29 tests)
-T3.10.PG3.08 | 2026-10-05 | PENDING | CommandLine mychart-gen — await local VERIFY
+T3.10.PG3.07 | 2026-10-05 | PASS | ToolOperations + IconOperations
+T3.10.PG3.08 | 2026-10-05 | PASS | CommandLine mychart-gen (Generator.Tests 32/32; MyChart.Tests 254/254)
+T3.10 | 2026-10-05 | PASS | GeneratorEngine complete
 
-# NEXT after VERIFY = T3.11 PluginIntegration (PG4.01 HostWiring)
+# NEXT = T3.11 PluginIntegration (PG4.01 HostWiring → PG4.02 FirstPartyComponents)
+# After T3.11: T4.01 RenderContextAndPipeline (first VISUAL tier)

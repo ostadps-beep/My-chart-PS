@@ -41,7 +41,8 @@ T3.06 | 2026-10-05 | PASS | Commands
 T3.07 | 2026-10-05 | PASS | Serialization
 T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04
 T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.06
-T3.10 | 2026-10-05 | PASS | GeneratorEngine PG3.01-PG3.08 (32 gen + 254 core)
-T3.11.PG4.01 | 2026-10-05 | PENDING | HostWiring — await local VERIFY
+T3.10 | 2026-10-05 | PASS | GeneratorEngine PG3.01-PG3.08
+T3.11.PG4.01 | 2026-10-05 | PASS | HostWiring (MyChart.Tests 256/256; Generator 32/32)
+T3.11.PG4.02 | 2026-10-05 | PENDING | AcceptanceSuite AT1-AT15 — in progress
 
-# NEXT after VERIFY = PG4.02 AcceptanceSuite
+# NEXT after PG4.02 = T4.01 RenderContextAndPipeline (first VISUAL tier)

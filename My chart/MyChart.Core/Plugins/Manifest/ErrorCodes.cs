@@ -1,6 +1,6 @@
 namespace MyChart.Core.Plugins.Manifest;
 
-/// <summary>PG1.02 / PG3.01 error codes.</summary>
+/// <summary>PG1.02 / PG2 / PG3 error codes.</summary>
 public static class ErrorCodes
 {
     public const string InvalidId = "E001";
@@ -15,4 +15,9 @@ public static class ErrorCodes
     public const string SlotInvalid = "E016";
     public const string OrderOutOfRange = "E017";
     public const string VersionInvalid = "E018";
+    public const string DefinitionSchemaError = "E019";
+    public const string ExpressionError = "E020";
+    public const string VocabularyUnsupported = "E021";
+    public const string LimitExceeded = "E022";
+    public const string CodeToolInUserRoot = "E023";
 }

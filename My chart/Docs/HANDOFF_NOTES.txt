@@ -59,9 +59,19 @@ DECISIONS ALREADY MADE (do not re-ask PS)
 - T3.03 Navigator: GoTo before the first bar returns NeedsOlderHistory once, then bar 0; after the end of the last bar => GoToLatest; a time inside the last bar centres the last bar. Ctrl+G dialog and the panel UI come later (T6.07).
 - Plugin architecture (Docs spec revision 1.3, nodes PG*): the chart core knows no tool names or icons; tools are DataTool components. T3.04 is split (A4): generic rules in Core, shape-specific geometry in the DataTool engine (PG2).
 
+T3.04 DECISIONS (branch claude/t3-04-drawing-geometry)
+- DrawingGeometry (Core/Analysis) holds only the GENERIC rules: ScreenPosition, AnchorAt, handles (8x8 DIP squares, hit radius 6 DIP inclusive, nearest wins, lowest index on a tie),
+  HitTest over a list in creation order (topmost wins; hidden never hit; locked still hit; handles checked before the shape tester per object; an object whose TypeId has no tester is skipped),
+  Move (TimeAtIndex(IndexOfTime(t)+deltaU), price+deltaPrice), Resize (only the dragged anchor), Clone (+12 DIP right/down converted back), Lock/Hide predicates.
+- Dispatch by TypeId is a Func<string, IDrawingHitTester?> parameter; the real registry-based dispatch belongs to PG4.01 (T3.11).
+- Clone keeps Locked/Hidden/style of the source (the spec only says lock blocks move/resize/delete) and deep-copies Extra; the caller supplies the new id (Core stays pure).
+- Resize takes an already resolved DrawingAnchor; snapping (IToolContext.Snap, PG2.05) is the caller's job.
+- Tests use MyChart.Tests/Support/ViewChartMapper (IChartMapper over ViewState + TimeIndexMapper, Standard() = golden-vector view). PG1.07 FakeChartMapper can build on it.
+- DrawingMath.DistancePointToEllipseEdge is an APPROXIMATION (|d-1|*min(rx,ry)); PG2.03 requires the EXACT distance for hit tests. Replace it when PG2.03 is done (add golden tests then).
+
 KNOWN DISCREPANCIES / TODO FOR THE OWNER
-- DrawingAnchor in Core/Models/Drawing was (U, Price) from the T0.04 skeleton; the spec says ANCHOR=(TimeUtc, Price) (T3.04, DRAWING_RECORD in T3.07, PG1.05). It is being corrected in T3.04 (no other code used it).
-- DrawingStyle lacks opacity and line style required by T3.04 DEFAULT STYLE; extended in T3.04 with defaults (source compatible).
+- DrawingAnchor in Core/Models/Drawing was (U, Price) from the T0.04 skeleton; the spec says ANCHOR=(TimeUtc, Price) (T3.04, DRAWING_RECORD in T3.07, PG1.05). CORRECTED in T3.04 (no other code used it).
+- DrawingStyle lacked opacity and line style required by T3.04 DEFAULT STYLE; EXTENDED in T3.04 with defaults (source compatible): Opacity=1.0, LineStyle=Solid. AccentColor is passed into DrawingStyleRules.Default because the theme is not in Core yet (T4.02).
 - Interaction project (MyChart.Interaction/Input) is still empty; it is T4.07.
 - The Settings panel project (local folder ChartMy on PS's machine, no repo) is integrated at T6.08, not before.
 
@@ -74,4 +84,8 @@ T3.08 PluginHost (PG1.01..PG1.07) -> T3.09 DeclarativeEngine (PG2.01..) -> T3.10
 T4 starts only when every VERIFY of T3 passes (first visual tier, GATE=VISUAL: PNG proofs + PS approval).
 
 LIVE STATUS (update this block at the end of every session)
-- 2026-10-05: main = T0..T3.03 PASS. Working on T3.04 on branch claude/t3-04-drawing-geometry (not yet on main).
+- 2026-10-05: main = T0..T3.03 PASS (+ this handoff file).
+- T3.04 is WRITTEN, logged PENDING, on branch claude/t3-04-drawing-geometry. NEXT ACTION for PS: git fetch ; git checkout claude/t3-04-drawing-geometry ; dotnet test
+  (expect more than 132 tests, 0 failed). If PASS: set the T3.04 log line to PASS with the count, commit, git checkout main, git merge --ff-only claude/t3-04-drawing-geometry, push.
+  If a compile error or failure appears: fix it first (the code was hand-checked only, no dotnet in the sandbox).
+- After T3.04: T3.05 IndicatorFramework (needs ISeriesView from T1.11; see MyChart.Core.Contracts.Data and MyChart.Data/Aggregation).

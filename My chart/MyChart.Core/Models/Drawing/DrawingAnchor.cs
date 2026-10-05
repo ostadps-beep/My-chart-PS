@@ -1,5 +1,7 @@
-using MyChart.Core.Models.Geometry;
-
 namespace MyChart.Core.Models.Drawing;
 
-public readonly record struct DrawingAnchor(double U, double Price);
+/// <summary>
+/// T3.04 ANCHOR = (TimeUtc, Price). Stored per symbol and visible on all timeframes, so an anchor never holds a bar index.
+/// The screen position is (X(IndexOfTime(TimeUtc)), Y(Price)).
+/// </summary>
+public readonly record struct DrawingAnchor(DateTimeOffset TimeUtc, double Price);

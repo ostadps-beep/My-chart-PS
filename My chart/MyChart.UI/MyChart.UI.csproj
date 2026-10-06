@@ -8,5 +8,8 @@
   <ItemGroup>
     <PackageReference Include="SkiaSharp.Views.WPF" Version="2.88.9" />
     <ProjectReference Include="..\MyChart.Core\MyChart.Core.csproj" />
+    <ProjectReference Include="..\MyChart.Rendering\MyChart.Rendering.csproj" />
+    <ProjectReference Include="..\MyChart.Interaction\MyChart.Interaction.csproj" />
+    <ProjectReference Include="..\MyChart.Data\MyChart.Data.csproj" />
   </ItemGroup>
 </Project>

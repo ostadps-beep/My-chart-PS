@@ -1,8 +1,13 @@
 <Window x:Class="MyChart.App.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:chart="clr-namespace:MyChart.UI.Chart;assembly=MyChart.UI"
         Title="MyChart"
         Height="720"
-        Width="1280">
-    <Grid />
+        Width="1280"
+        Background="#131722"
+        Loaded="OnLoaded">
+  <Grid>
+    <chart:ChartHost x:Name="Chart" />
+  </Grid>
 </Window>

@@ -1,0 +1,10 @@
+{
+  "componentId": "IconOpacity",
+  "kind": "Icon",
+  "name": "Opacity",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Opacity",
+  "active": true,
+  "order": 0
+}

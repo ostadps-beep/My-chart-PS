@@ -5,7 +5,7 @@
 
 namespace MyChart.Plugins;
 
-/// <summary>Auto-generated catalog of first-party DataTool components (T4.09).</summary>
+/// <summary>Auto-generated catalog of first-party components (T4.09).</summary>
 public static class PluginCatalog
 {
     public static readonly string[] DataToolIds =
@@ -16,6 +16,10 @@ public static class PluginCatalog
     public static readonly string[] IconIds =
     {
         "IconCursor", "IconCrosshair", "IconTrendLine", "IconRectangle",
-        "IconArrow", "IconText", "IconFibonacci", "IconMeasure"
+        "IconArrow", "IconText", "IconFibonacci", "IconMeasure",
+        "IconSymbol", "IconTimeframe", "IconChartType", "IconIndicators",
+        "IconTemplates", "IconLayout", "IconSettings", "IconColor",
+        "IconWidth", "IconOpacity", "IconStyle", "IconTemplate",
+        "IconLock", "IconClone", "IconDelete"
     };
 }

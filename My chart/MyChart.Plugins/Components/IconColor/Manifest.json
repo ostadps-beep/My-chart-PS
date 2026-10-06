@@ -1,0 +1,10 @@
+{
+  "componentId": "IconColor",
+  "kind": "Icon",
+  "name": "Color",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Color",
+  "active": true,
+  "order": 0
+}

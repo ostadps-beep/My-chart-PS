@@ -30,7 +30,7 @@ public class FirstPartyComponentTests
     [Fact]
     public void Icons_GeometryValid()
     {
-        Assert.True(IconCatalog.All.Count >= 8);
+        Assert.Equal(23, IconCatalog.All.Count);
         foreach (var icon in IconCatalog.All)
             Assert.True(GeometryPathGrammar.IsValid(icon.PathData), icon.IconKey);
     }

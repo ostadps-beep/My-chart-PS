@@ -1,0 +1,10 @@
+{
+  "componentId": "IconDelete",
+  "kind": "Icon",
+  "name": "Delete",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Delete",
+  "active": true,
+  "order": 0
+}

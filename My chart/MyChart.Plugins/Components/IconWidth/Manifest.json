@@ -1,0 +1,10 @@
+{
+  "componentId": "IconWidth",
+  "kind": "Icon",
+  "name": "Width",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Width",
+  "active": true,
+  "order": 0
+}

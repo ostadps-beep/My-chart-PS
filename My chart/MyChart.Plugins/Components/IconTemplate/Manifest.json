@@ -1,0 +1,10 @@
+{
+  "componentId": "IconTemplate",
+  "kind": "Icon",
+  "name": "Template",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Template",
+  "active": true,
+  "order": 0
+}

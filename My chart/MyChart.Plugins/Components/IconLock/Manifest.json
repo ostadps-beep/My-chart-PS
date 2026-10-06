@@ -1,0 +1,10 @@
+{
+  "componentId": "IconLock",
+  "kind": "Icon",
+  "name": "Lock",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Lock",
+  "active": true,
+  "order": 0
+}

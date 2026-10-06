@@ -1,0 +1,10 @@
+{
+  "componentId": "IconSettings",
+  "kind": "Icon",
+  "name": "Settings",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Settings",
+  "active": true,
+  "order": 0
+}

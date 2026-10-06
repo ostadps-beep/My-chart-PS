@@ -1,0 +1,10 @@
+{
+  "componentId": "IconChartType",
+  "kind": "Icon",
+  "name": "ChartType",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.ChartType",
+  "active": true,
+  "order": 0
+}

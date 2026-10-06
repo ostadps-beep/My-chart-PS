@@ -1,0 +1,10 @@
+{
+  "componentId": "IconTimeframe",
+  "kind": "Icon",
+  "name": "Timeframe",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Timeframe",
+  "active": true,
+  "order": 0
+}

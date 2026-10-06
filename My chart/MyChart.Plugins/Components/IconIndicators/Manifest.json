@@ -1,0 +1,10 @@
+{
+  "componentId": "IconIndicators",
+  "kind": "Icon",
+  "name": "Indicators",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Indicators",
+  "active": true,
+  "order": 0
+}

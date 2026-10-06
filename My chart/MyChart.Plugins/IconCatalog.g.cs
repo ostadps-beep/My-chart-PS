@@ -7,7 +7,7 @@ using MyChart.Core.Models.Plugins;
 
 namespace MyChart.Plugins;
 
-/// <summary>Auto-generated catalog of icon descriptors (T4.09 PG5.02 partial set).</summary>
+/// <summary>Auto-generated catalog of icon descriptors (T4.09 PG5.02 — 23 icons).</summary>
 public static class IconCatalog
 {
     public static IReadOnlyList<IconDescriptor> All { get; } = new IconDescriptor[]
@@ -20,5 +20,20 @@ public static class IconCatalog
         new("Icon.Text", "M4 4 L12 4 M8 4 L8 13"),
         new("Icon.Fibonacci", "M2 3 L14 3 M2 7 L14 7 M2 11 L14 11 M2 14 L14 14"),
         new("Icon.Measure", "M3 13 L13 3 M3 13 L6 13 M13 3 L13 6"),
+        new("Icon.Symbol", "M8 2 L14 8 L8 14 L2 8 Z"),
+        new("Icon.Timeframe", "M3 3 L13 3 L13 13 L3 13 Z M5 6 L11 6 M5 9 L9 9"),
+        new("Icon.ChartType", "M3 12 L3 8 L6 8 L6 12 M7 12 L7 5 L10 5 L10 12 M11 12 L11 3 L14 3 L14 12"),
+        new("Icon.Indicators", "M2 12 L5 8 L8 10 L12 4 L14 6"),
+        new("Icon.Templates", "M3 3 L10 3 L10 10 L3 10 Z M6 6 L13 6 L13 13 L6 13 Z"),
+        new("Icon.Layout", "M2 2 L14 2 L14 14 L2 14 Z M8 2 L8 14 M2 8 L14 8"),
+        new("Icon.Settings", "M6 2 L10 2 L11 5 L14 6 L14 10 L11 11 L10 14 L6 14 L5 11 L2 10 L2 6 L5 5 Z"),
+        new("Icon.Color", "M8 2 L14 8 L8 14 L2 8 Z"),
+        new("Icon.Width", "M2 8 L14 8 M2 5 L2 11 M14 5 L14 11"),
+        new("Icon.Opacity", "M3 3 L13 3 L13 13 L3 13 Z M8 3 L8 13"),
+        new("Icon.Style", "M2 5 L6 5 M8 5 L14 5 M2 8 L4 8 M6 8 L14 8 M2 11 L8 11 M10 11 L14 11"),
+        new("Icon.Template", "M4 2 L12 2 L12 14 L4 14 Z M6 5 L10 5 M6 8 L10 8 M6 11 L9 11"),
+        new("Icon.Lock", "M5 7 L5 5 L11 5 L11 7 M4 7 L12 7 L12 14 L4 14 Z"),
+        new("Icon.Clone", "M4 4 L11 4 L11 11 L4 11 Z M6 6 L13 6 L13 13 L6 13 Z"),
+        new("Icon.Delete", "M4 5 L12 5 M6 5 L6 4 L10 4 L10 5 M5 5 L5 13 L11 13 L11 5"),
     };
 }

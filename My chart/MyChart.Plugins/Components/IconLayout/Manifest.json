@@ -1,0 +1,10 @@
+{
+  "componentId": "IconLayout",
+  "kind": "Icon",
+  "name": "Layout",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Layout",
+  "active": true,
+  "order": 0
+}

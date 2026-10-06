@@ -1,0 +1,10 @@
+{
+  "componentId": "IconStyle",
+  "kind": "Icon",
+  "name": "Style",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Style",
+  "active": true,
+  "order": 0
+}

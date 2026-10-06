@@ -43,10 +43,10 @@ T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04
 T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.06
 T3.10 | 2026-10-05 | PASS | GeneratorEngine PG3.01-PG3.08
 T3.11.PG4.01 | 2026-10-05 | PASS | HostWiring
-T3.11.PG4.02 | 2026-10-05 | PASS | AcceptanceSuite (AT9/AT11 full after PG5; suite 273+32 green)
+T3.11.PG4.02 | 2026-10-05 | PASS | AcceptanceSuite
 T3.11 | 2026-10-05 | PASS | PluginIntegration complete
 T3 | 2026-10-05 | PASS | Entire T3 phase complete
-T4.01 | 2026-10-05 | PASS | RenderContextAndPipeline (295+32 tests)
+T4.01 | 2026-10-05 | PASS | RenderContextAndPipeline
 T4.02 | 2026-10-06 | PASS | ColorTokensMinimal
 T4.03 | 2026-10-06 | PARTIAL | BackgroundGridAxisRenderers (GATE=VISUAL pending)
 T4.04 | 2026-10-06 | PASS | CandleRenderer
@@ -55,9 +55,10 @@ T4.06 | 2026-10-06 | PASS | CrosshairRenderer
 T4.07 | 2026-10-06 | PASS | InputBindings
 T4.08 | 2026-10-06 | PASS | ChartHostAndThinAppShell
 T4.09 | 2026-10-06 | PASS | FirstPartyComponents
-T5.01 | 2026-10-06 | PASS | SqliteStorage (352 tests)
+T5.01 | 2026-10-06 | PASS | SqliteStorage
 T5.02 | 2026-10-06 | PASS | ProviderManager
-T5.03 | 2026-10-06 | PASS | MetaTraderProviderAndEA (363 tests)
-T5.04 | 2026-10-06 | PASS | SymbolGroupsFavoritesSearch (373 tests)
+T5.03 | 2026-10-06 | PASS | MetaTraderProviderAndEA (363)
+T5.04 | 2026-10-06 | PASS | SymbolGroupsFavoritesSearch (373)
+T5.05 | 2026-10-06 | PASS | ReplayEngine (380 tests)
 
-# NEXT = T5.05 ReplayEngine
+# NEXT = T5.06 OfflineMode

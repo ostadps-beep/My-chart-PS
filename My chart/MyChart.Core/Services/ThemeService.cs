@@ -9,18 +9,16 @@ namespace MyChart.Core.Services;
 /// </summary>
 public sealed class ThemeService : IThemeService
 {
-    public ThemeService(string profileName = "Dark")
+    // Must be initialized BEFORE Dark/ProDark static properties (declaration order).
+    private static readonly RgbaColor[] IndicatorPaletteColors =
     {
-        ProfileName = profileName;
-        Current = profileName switch
-        {
-            "ProDark" => ProDark,
-            _ => Dark
-        };
-    }
-
-    public string ProfileName { get; }
-    public ThemeTokens Current { get; }
+        RgbaColor.ParseHex("#2962FF"),
+        RgbaColor.ParseHex("#FF9800"),
+        RgbaColor.ParseHex("#E040FB"),
+        RgbaColor.ParseHex("#00BCD4"),
+        RgbaColor.ParseHex("#FFEB3B"),
+        RgbaColor.ParseHex("#8BC34A"),
+    };
 
     public static ThemeTokens Dark { get; } = Build(
         background: "#131722",
@@ -52,15 +50,18 @@ public sealed class ThemeService : IThemeService
         error: "#F23645",
         success: "#089981");
 
-    private static readonly RgbaColor[] IndicatorPaletteColors =
+    public ThemeService(string profileName = "Dark")
     {
-        RgbaColor.ParseHex("#2962FF"),
-        RgbaColor.ParseHex("#FF9800"),
-        RgbaColor.ParseHex("#E040FB"),
-        RgbaColor.ParseHex("#00BCD4"),
-        RgbaColor.ParseHex("#FFEB3B"),
-        RgbaColor.ParseHex("#8BC34A"),
-    };
+        ProfileName = profileName;
+        Current = profileName switch
+        {
+            "ProDark" => ProDark,
+            _ => Dark
+        };
+    }
+
+    public string ProfileName { get; }
+    public ThemeTokens Current { get; }
 
     private static ThemeTokens Build(
         string background, string grid, string gridMajor, string gridMinor,

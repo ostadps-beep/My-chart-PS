@@ -10,6 +10,7 @@ using MyChart.PluginHost.DataTools;
 using MyChart.PluginHost.Loading;
 using MyChart.Tests.Support;
 using Xunit;
+using MyChart.Core.Services;
 
 namespace MyChart.Tests.Plugins;
 
@@ -124,7 +125,7 @@ public class DataToolRuntimeTests
         {
             Render = render,
             Map = map,
-            Theme = new ThemeTokens(),
+            Theme = ThemeService.Dark,
             Symbol = new SymbolInfo("EURUSD", "EURUSD", SymbolGroup.Forex, 5),
             DpiScale = 1,
             State = DrawState.Normal

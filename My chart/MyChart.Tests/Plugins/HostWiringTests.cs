@@ -7,6 +7,7 @@ using MyChart.Core.Models.Market;
 using MyChart.Core.Models.Rendering;
 using MyChart.PluginHost.Loading;
 using Xunit;
+using MyChart.Core.Services;
 
 namespace MyChart.Tests.Plugins;
 
@@ -64,7 +65,7 @@ public class HostWiringTests
         {
             Render = render,
             Map = map,
-            Theme = new ThemeTokens(),
+            Theme = ThemeService.Dark,
             Symbol = EurUsd()
         };
 

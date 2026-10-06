@@ -60,6 +60,7 @@ T5.04 | 2026-10-06 | PASS | SymbolGroupsFavoritesSearch
 T5.05 | 2026-10-06 | PASS | ReplayEngine
 T5.06 | 2026-10-06 | PASS | OfflineMode
 T5 | 2026-10-06 | PASS | Entire T5 complete
-T6.01 | 2026-10-06 | PARTIAL | HudRenderer (automated 393 PASS; GATE=VISUAL pending owner PNG approval)
+T6.01 | 2026-10-06 | PARTIAL | HudRenderer (automated 393; GATE=VISUAL pending)
+T6.02 | 2026-10-06 | PARTIAL | ContextMenus (automated 403; GATE=VISUAL pending)
 
-# NEXT = T6.02 ContextMenus
+# NEXT = T6.03 TopToolbar

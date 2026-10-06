@@ -1,4 +1,5 @@
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Nodes;
 using MyChart.Core.Commands;
 using MyChart.Core.Models.Drawing;
@@ -26,7 +27,6 @@ public sealed class WorkspaceDocument
 
     public string Save()
     {
-        // Nested category payloads (without outer schema when embedded — include schema for independence)
         var drawingJson = DrawingDataSerializer.Serialize(Drawings, UnknownDrawings);
         var indicatorJson = IndicatorDataSerializer.Serialize(Indicators);
 
@@ -43,9 +43,8 @@ public sealed class WorkspaceDocument
             ["timeframe"] = View.Timeframe.ToString()
         };
 
-        var favorites = new JsonArray();
-        foreach (var name in Favorites)
-            favorites.Add(name);
+        // Build favorites via Parse so ToJsonString(WriteIndented) does not hit TypeInfoResolver issues.
+        var favoritesNode = JsonNode.Parse(JsonSerializer.Serialize(Favorites)) ?? new JsonArray();
 
         var root = new JsonObject
         {
@@ -54,10 +53,10 @@ public sealed class WorkspaceDocument
             ["view"] = view,
             ["drawingData"] = JsonNode.Parse(drawingJson),
             ["indicatorData"] = JsonNode.Parse(indicatorJson),
-            ["favorites"] = favorites
+            ["favorites"] = favoritesNode
         };
 
-        return root.ToJsonString(new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
+        return root.ToJsonString(new JsonSerializerOptions { WriteIndented = true });
     }
 
     public static WorkspaceDocument Load(string json, Func<string, int, bool>? isKnownDrawingType = null)

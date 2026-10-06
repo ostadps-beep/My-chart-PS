@@ -61,6 +61,9 @@ T4.04 | 2026-10-06 | PASS | CandleRenderer (local VERIFY 311/311)
 T4.05 | 2026-10-06 | PASS | CurrentPriceAndDualMarkerRenderers (local VERIFY 315/315)
 
 # NEXT after T4.05 = T4.06 CrosshairRenderer
-T4.06 | 2026-10-06 | PENDING | CrosshairRenderer
+T4.06 | 2026-10-06 | PASS | CrosshairRenderer (local VERIFY 318/318)
 
 # NEXT after T4.06 = T4.07 InputBindings
+T4.07 | 2026-10-06 | PENDING | InputBindings (wheel zoom, pan, keys)
+
+# NEXT after T4.07 = T4.08 ChartHostAndThinAppShell

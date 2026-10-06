@@ -31,4 +31,33 @@ public sealed class ThemeTokens
         if (IndicatorPalette.Count == 0) return AccentColor;
         return IndicatorPalette[Math.Abs(index) % IndicatorPalette.Count];
     }
+
+    /// <summary>T4.02 / T7.02 Dark profile defaults used until a theme service is wired.</summary>
+    public static ThemeTokens Dark { get; } = new()
+    {
+        BackgroundColor = RgbaColor.ParseHex("#131722"),
+        BullColor = RgbaColor.ParseHex("#26A69A"),
+        BearColor = RgbaColor.ParseHex("#EF5350"),
+        GridColor = RgbaColor.ParseHex("#2A2E39"),
+        GridMajorColor = RgbaColor.ParseHex("#2A2E39"),
+        GridMinorColor = RgbaColor.FromArgb(128, 0x2A, 0x2E, 0x39),
+        AxisColor = RgbaColor.ParseHex("#B2B5BE"),
+        HudColor = RgbaColor.ParseHex("#D1D4DC"),
+        AccentColor = RgbaColor.ParseHex("#2962FF"),
+        SelectionColor = RgbaColor.ParseHex("#2962FF"),
+        WarningColor = RgbaColor.ParseHex("#FF9800"),
+        ErrorColor = RgbaColor.ParseHex("#EF5350"),
+        SuccessColor = RgbaColor.ParseHex("#26A69A"),
+        WickColor = RgbaColor.ParseHex("#CCCCCC"),
+        BorderColor = RgbaColor.ParseHex("#1A1A1A"),
+        IndicatorPalette = new[]
+        {
+            RgbaColor.ParseHex("#2962FF"),
+            RgbaColor.ParseHex("#FF9800"),
+            RgbaColor.ParseHex("#E040FB"),
+            RgbaColor.ParseHex("#00BCD4"),
+            RgbaColor.ParseHex("#FFEB3B"),
+            RgbaColor.ParseHex("#8BC34A"),
+        }
+    };
 }

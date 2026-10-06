@@ -58,6 +58,9 @@ T4.03 | 2026-10-06 | PARTIAL | BackgroundGridAxisRenderers (automated PASS; GATE
 T4.04 | 2026-10-06 | PASS | CandleRenderer (local VERIFY 311/311)
 
 # NEXT after T4.04 = T4.05 CurrentPriceAndDualMarkerRenderers
-T4.05 | 2026-10-06 | PENDING | CurrentPriceAndDualMarkerRenderers
+T4.05 | 2026-10-06 | PASS | CurrentPriceAndDualMarkerRenderers (local VERIFY 315/315)
 
 # NEXT after T4.05 = T4.06 CrosshairRenderer
+T4.06 | 2026-10-06 | PENDING | CrosshairRenderer
+
+# NEXT after T4.06 = T4.07 InputBindings

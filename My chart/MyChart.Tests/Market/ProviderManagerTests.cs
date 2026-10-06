@@ -71,13 +71,13 @@ public class ProviderManagerTests
     }
 
     [Fact]
-    public void Health_Timeout_MarksDisconnected_AndBackoffSequence()
+    public async Task Health_Timeout_MarksDisconnected_AndBackoffSequence()
     {
         var now = new DateTimeOffset(2024, 1, 1, 0, 0, 0, TimeSpan.Zero);
         var mgr = new ProviderManager { UtcNow = () => now };
         var p = new FakeProvider("P");
         mgr.Register(p);
-        mgr.SwitchAsync("P").GetAwaiter().GetResult();
+        await mgr.SwitchAsync("P");
         mgr.NoteHeartbeat();
 
         // still healthy

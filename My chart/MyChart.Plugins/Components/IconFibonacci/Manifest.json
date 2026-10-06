@@ -1,0 +1,10 @@
+{
+  "componentId": "IconFibonacci",
+  "kind": "Icon",
+  "name": "Fibonacci",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Fibonacci",
+  "active": true,
+  "order": 0
+}

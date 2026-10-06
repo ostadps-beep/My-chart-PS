@@ -1,0 +1,14 @@
+{
+  "componentId": "Fibonacci",
+  "kind": "DataTool",
+  "name": "Fibonacci",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "toolId": "Tool.Fibonacci",
+  "typeId": "drawing.fibonacci",
+  "iconKey": "Icon.Fibonacci",
+  "category": "Drawing",
+  "anchors": 2,
+  "active": true,
+  "order": 140
+}

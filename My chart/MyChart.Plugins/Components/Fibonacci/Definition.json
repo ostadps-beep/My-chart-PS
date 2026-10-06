@@ -1,0 +1,28 @@
+{
+  "schema": "mychart.tooldef",
+  "vocabularyVersion": "1.0",
+  "anchors": 2,
+  "workflow": "Click",
+  "shapes": [
+    {
+      "kind": "LevelLines",
+      "levels": [
+        0,
+        0.236,
+        0.382,
+        0.5,
+        0.618,
+        0.786,
+        1
+      ],
+      "x1": {
+        "anchor": 0
+      },
+      "x2": {
+        "anchor": 1
+      },
+      "price": "anchor[0].price + (anchor[1].price - anchor[0].price) * level",
+      "label": "fmt(price, symbol.digits)"
+    }
+  ]
+}

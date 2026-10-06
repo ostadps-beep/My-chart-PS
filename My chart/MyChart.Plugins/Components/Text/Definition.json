@@ -1,0 +1,22 @@
+{
+  "schema": "mychart.tooldef",
+  "vocabularyVersion": "1.0",
+  "anchors": 1,
+  "workflow": "ClickThenText",
+  "shapes": [
+    {
+      "kind": "Text",
+      "at": {
+        "x": {
+          "anchor": 0
+        },
+        "y": {
+          "anchor": 0
+        }
+      },
+      "text": "text",
+      "size": 12,
+      "align": "left"
+    }
+  ]
+}

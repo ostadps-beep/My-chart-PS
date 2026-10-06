@@ -67,6 +67,9 @@ T4.06 | 2026-10-06 | PASS | CrosshairRenderer (local VERIFY 318/318)
 T4.07 | 2026-10-06 | PASS | InputBindings (local VERIFY 326/326)
 
 # NEXT after T4.07 = T4.08 ChartHostAndThinAppShell
-T4.08 | 2026-10-06 | PENDING | ChartHostAndThinAppShell (WPF SKElement + fixtures)
+T4.08 | 2026-10-06 | PASS | ChartHostAndThinAppShell (owner visual approval; 200-bar fixtures)
 
 # NEXT after T4.08 = T4.09 FirstPartyComponents
+T4.09 | 2026-10-06 | PENDING | FirstPartyComponents PG5 partial (6 DataTools + 8 icons + ComponentScenes)
+
+# NEXT after T4.09 = T5.01 SqliteStorage

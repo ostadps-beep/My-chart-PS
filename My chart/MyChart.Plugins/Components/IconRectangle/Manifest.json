@@ -1,0 +1,10 @@
+{
+  "componentId": "IconRectangle",
+  "kind": "Icon",
+  "name": "Rectangle",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Rectangle",
+  "active": true,
+  "order": 0
+}

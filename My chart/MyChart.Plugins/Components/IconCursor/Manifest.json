@@ -1,0 +1,10 @@
+{
+  "componentId": "IconCursor",
+  "kind": "Icon",
+  "name": "Cursor",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Cursor",
+  "active": true,
+  "order": 0
+}

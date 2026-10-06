@@ -3,10 +3,22 @@
 // Do not edit manually.
 // </auto-generated>
 
+using MyChart.Core.Models.Plugins;
+
 namespace MyChart.Plugins;
 
-/// <summary>Auto-generated catalog of icon descriptors.</summary>
+/// <summary>Auto-generated catalog of icon descriptors (T4.09 PG5.02 partial set).</summary>
 public static class IconCatalog
 {
-    // Populated by generator when icons are added
+    public static IReadOnlyList<IconDescriptor> All { get; } = new IconDescriptor[]
+    {
+        new("Icon.Cursor", "M3 3 L3 13 L7 9 L10 14 L12 13 L9 8 L13 8 Z"),
+        new("Icon.Crosshair", "M8 2 L8 14 M2 8 L14 8"),
+        new("Icon.TrendLine", "M2 14 L14 2"),
+        new("Icon.Rectangle", "M3 4 L13 4 L13 12 L3 12 Z"),
+        new("Icon.Arrow", "M2 8 L12 8 M9 5 L12 8 L9 11"),
+        new("Icon.Text", "M4 4 L12 4 M8 4 L8 13"),
+        new("Icon.Fibonacci", "M2 3 L14 3 M2 7 L14 7 M2 11 L14 11 M2 14 L14 14"),
+        new("Icon.Measure", "M3 13 L13 3 M3 13 L6 13 M13 3 L13 6"),
+    };
 }

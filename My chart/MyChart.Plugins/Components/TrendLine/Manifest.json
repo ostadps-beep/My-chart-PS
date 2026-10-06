@@ -1,0 +1,14 @@
+{
+  "componentId": "TrendLine",
+  "kind": "DataTool",
+  "name": "Trend Line",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "toolId": "Tool.TrendLine",
+  "typeId": "drawing.trendline",
+  "iconKey": "Icon.TrendLine",
+  "category": "Drawing",
+  "anchors": 2,
+  "active": true,
+  "order": 100
+}

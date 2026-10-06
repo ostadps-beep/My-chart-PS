@@ -1,0 +1,14 @@
+{
+  "componentId": "Text",
+  "kind": "DataTool",
+  "name": "Text",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "toolId": "Tool.Text",
+  "typeId": "drawing.text",
+  "iconKey": "Icon.Text",
+  "category": "Drawing",
+  "anchors": 1,
+  "active": true,
+  "order": 130
+}

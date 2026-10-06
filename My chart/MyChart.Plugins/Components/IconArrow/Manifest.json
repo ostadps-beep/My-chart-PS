@@ -1,0 +1,10 @@
+{
+  "componentId": "IconArrow",
+  "kind": "Icon",
+  "name": "Arrow",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Arrow",
+  "active": true,
+  "order": 0
+}

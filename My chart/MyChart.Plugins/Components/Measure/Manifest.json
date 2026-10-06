@@ -1,0 +1,14 @@
+{
+  "componentId": "Measure",
+  "kind": "DataTool",
+  "name": "Measure",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "toolId": "Tool.Measure",
+  "typeId": "drawing.measure",
+  "iconKey": "Icon.Measure",
+  "category": "Drawing",
+  "anchors": 2,
+  "active": true,
+  "order": 150
+}

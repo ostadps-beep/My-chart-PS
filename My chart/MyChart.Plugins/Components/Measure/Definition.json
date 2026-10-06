@@ -1,0 +1,50 @@
+{
+  "schema": "mychart.tooldef",
+  "vocabularyVersion": "1.0",
+  "anchors": 2,
+  "workflow": "Click",
+  "shapes": [
+    {
+      "kind": "Line",
+      "from": {
+        "x": {
+          "anchor": 0
+        },
+        "y": {
+          "anchor": 0
+        }
+      },
+      "to": {
+        "x": {
+          "anchor": 1
+        },
+        "y": {
+          "anchor": 1
+        }
+      },
+      "extend": "none"
+    },
+    {
+      "kind": "InfoBox",
+      "at": {
+        "x": {
+          "anchor": 1
+        },
+        "y": {
+          "anchor": 1
+        }
+      },
+      "lines": [
+        "concat(\"d \", fmtSigned(priceDiff(0,1), symbol.digits))",
+        "concat(fmtSigned(pointDiff(0,1), 0), \" pts\")",
+        "if(hasPip(), concat(fmtSigned(pipDiff(0,1), 1), \" pips\"), \"\")",
+        "concat(fmtSigned(pctChange(0,1), 2), \"%\")",
+        "concat(barCount(0,1), \" bars\")",
+        "timeText(0,1)"
+      ],
+      "size": 11,
+      "padding": 4,
+      "fillAlpha": 0.85
+    }
+  ]
+}

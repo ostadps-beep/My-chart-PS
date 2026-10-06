@@ -5,8 +5,17 @@
 
 namespace MyChart.Plugins;
 
-/// <summary>Auto-generated catalog of first-party plugin components.</summary>
+/// <summary>Auto-generated catalog of first-party DataTool components (T4.09).</summary>
 public static class PluginCatalog
 {
-    // Populated by generator when components are added (PG later nodes)
+    public static readonly string[] DataToolIds =
+    {
+        "TrendLine", "Rectangle", "Arrow", "Text", "Fibonacci", "Measure"
+    };
+
+    public static readonly string[] IconIds =
+    {
+        "IconCursor", "IconCrosshair", "IconTrendLine", "IconRectangle",
+        "IconArrow", "IconText", "IconFibonacci", "IconMeasure"
+    };
 }

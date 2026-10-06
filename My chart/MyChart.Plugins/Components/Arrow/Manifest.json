@@ -1,0 +1,14 @@
+{
+  "componentId": "Arrow",
+  "kind": "DataTool",
+  "name": "Arrow",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "toolId": "Tool.Arrow",
+  "typeId": "drawing.arrow",
+  "iconKey": "Icon.Arrow",
+  "category": "Drawing",
+  "anchors": 2,
+  "active": true,
+  "order": 120
+}

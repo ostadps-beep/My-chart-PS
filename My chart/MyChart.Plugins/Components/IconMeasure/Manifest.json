@@ -1,0 +1,10 @@
+{
+  "componentId": "IconMeasure",
+  "kind": "Icon",
+  "name": "Measure",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Measure",
+  "active": true,
+  "order": 0
+}

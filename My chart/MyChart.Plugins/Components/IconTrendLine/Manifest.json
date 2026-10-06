@@ -1,0 +1,10 @@
+{
+  "componentId": "IconTrendLine",
+  "kind": "Icon",
+  "name": "TrendLine",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.TrendLine",
+  "active": true,
+  "order": 0
+}

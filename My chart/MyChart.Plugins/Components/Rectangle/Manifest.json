@@ -1,0 +1,14 @@
+{
+  "componentId": "Rectangle",
+  "kind": "DataTool",
+  "name": "Rectangle",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "toolId": "Tool.Rectangle",
+  "typeId": "drawing.rectangle",
+  "iconKey": "Icon.Rectangle",
+  "category": "Drawing",
+  "anchors": 2,
+  "active": true,
+  "order": 110
+}

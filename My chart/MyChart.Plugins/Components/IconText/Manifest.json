@@ -1,0 +1,10 @@
+{
+  "componentId": "IconText",
+  "kind": "Icon",
+  "name": "Text",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Text",
+  "active": true,
+  "order": 0
+}

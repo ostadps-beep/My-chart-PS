@@ -1,0 +1,10 @@
+{
+  "componentId": "IconCrosshair",
+  "kind": "Icon",
+  "name": "Crosshair",
+  "version": "1.0.0",
+  "contractVersion": "1.0",
+  "iconKey": "Icon.Crosshair",
+  "active": true,
+  "order": 0
+}

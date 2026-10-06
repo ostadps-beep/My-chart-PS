@@ -110,10 +110,10 @@ public sealed class MetaTraderProvider : IDataProvider
 
     public IReadOnlyList<Timeframe> GetTimeframes() => new[] { Timeframe.M1 };
 
-    public Task WriteAsync(MtMessage message, CancellationToken ct = default)
+    public async Task WriteAsync(MtMessage message, CancellationToken ct = default)
     {
         var line = MessageCodec.Encode(message);
-        return _writer.WriteLineAsync(line.AsMemory(), ct).AsTask();
+        await _writer.WriteLineAsync(line.AsMemory(), ct).ConfigureAwait(false);
     }
 
     /// <summary>Inject a line as if received from the EA (tests / alternate transports).</summary>

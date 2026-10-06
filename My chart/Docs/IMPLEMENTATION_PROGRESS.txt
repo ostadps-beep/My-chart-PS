@@ -39,11 +39,11 @@ T3.04 | 2026-10-05 | PASS | DrawingGeometryAndHitTest
 T3.05 | 2026-10-05 | PASS | IndicatorFramework
 T3.06 | 2026-10-05 | PASS | Commands
 T3.07 | 2026-10-05 | PASS | Serialization
-T3.08 | 2026-10-05 | PASS | PluginHost PG1.01-PG1.04
-T3.09 | 2026-10-05 | PASS | DeclarativeEngine PG2.01-PG2.06
-T3.10 | 2026-10-05 | PASS | GeneratorEngine PG3.01-PG3.08
-T3.11 | 2026-10-05 | PASS | PluginIntegration complete
-T3 | 2026-10-05 | PASS | Entire T3 phase complete
+T3.08 | 2026-10-05 | PASS | PluginHost
+T3.09 | 2026-10-05 | PASS | DeclarativeEngine
+T3.10 | 2026-10-05 | PASS | GeneratorEngine
+T3.11 | 2026-10-05 | PASS | PluginIntegration
+T3 | 2026-10-05 | PASS | Entire T3 complete
 T4.01 | 2026-10-05 | PASS | RenderContextAndPipeline
 T4.02 | 2026-10-06 | PASS | ColorTokensMinimal
 T4.03 | 2026-10-06 | PARTIAL | BackgroundGridAxisRenderers (GATE=VISUAL pending)
@@ -57,8 +57,9 @@ T5.01 | 2026-10-06 | PASS | SqliteStorage
 T5.02 | 2026-10-06 | PASS | ProviderManager
 T5.03 | 2026-10-06 | PASS | MetaTraderProviderAndEA
 T5.04 | 2026-10-06 | PASS | SymbolGroupsFavoritesSearch
-T5.05 | 2026-10-06 | PASS | ReplayEngine (380)
-T5.06 | 2026-10-06 | PASS | OfflineMode (386 tests)
-T5 | 2026-10-06 | PASS | Entire T5 DATA_INFRASTRUCTURE complete
+T5.05 | 2026-10-06 | PASS | ReplayEngine
+T5.06 | 2026-10-06 | PASS | OfflineMode
+T5 | 2026-10-06 | PASS | Entire T5 complete
+T6.01 | 2026-10-06 | PARTIAL | HudRenderer (automated 393 PASS; GATE=VISUAL pending owner PNG approval)
 
-# NEXT = T6.01 HudRenderer
+# NEXT = T6.02 ContextMenus

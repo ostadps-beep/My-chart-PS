@@ -8,6 +8,7 @@ namespace MyChart.Core.Serialization;
 /// <summary>
 /// T3.07 Workspace = LayoutData + DrawingData + IndicatorData + per-chart view state.
 /// SettingsData is never included. MarketData is never inside a workspace.
+/// T5.04 Favorites = list of canonical names in LayoutData (not Settings).
 /// VERIFY: round trip with 3 drawings and 1 indicator is byte-stable on the second save.
 /// </summary>
 public sealed class WorkspaceDocument
@@ -19,6 +20,9 @@ public sealed class WorkspaceDocument
     public List<DrawingObject> Drawings { get; set; } = new();
     public List<UnknownDrawingObject> UnknownDrawings { get; set; } = new();
     public List<IndicatorInstance> Indicators { get; set; } = new();
+
+    /// <summary>T5.04 — canonical symbol names; LayoutData only (not Settings).</summary>
+    public List<string> Favorites { get; set; } = new();
 
     public string Save()
     {
@@ -39,13 +43,18 @@ public sealed class WorkspaceDocument
             ["timeframe"] = View.Timeframe.ToString()
         };
 
+        var favorites = new JsonArray();
+        foreach (var name in Favorites)
+            favorites.Add(name);
+
         var root = new JsonObject
         {
             ["schema"] = Schema,
             ["version"] = Version,
             ["view"] = view,
             ["drawingData"] = JsonNode.Parse(drawingJson),
-            ["indicatorData"] = JsonNode.Parse(indicatorJson)
+            ["indicatorData"] = JsonNode.Parse(indicatorJson),
+            ["favorites"] = favorites
         };
 
         return root.ToJsonString(new System.Text.Json.JsonSerializerOptions { WriteIndented = true });
@@ -89,6 +98,16 @@ public sealed class WorkspaceDocument
         if (root["indicatorData"] is JsonNode ind)
         {
             doc.Indicators = IndicatorDataSerializer.Deserialize(ind.ToJsonString());
+        }
+
+        if (root["favorites"] is JsonArray favArr)
+        {
+            foreach (var item in favArr)
+            {
+                var name = item?.GetValue<string>();
+                if (!string.IsNullOrWhiteSpace(name))
+                    doc.Favorites.Add(Candles.SymbolRegistry.Normalize(name));
+            }
         }
 
         return doc;

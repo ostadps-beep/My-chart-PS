@@ -76,6 +76,9 @@ T4.09 | 2026-10-06 | PASS | FirstPartyComponents (6 DataTools + 23 icons; local 
 T5.01 | 2026-10-06 | PASS | SqliteStorage (local VERIFY 334/334)
 
 # NEXT after T5.01 = T5.02 ProviderManager
-T5.02 | 2026-10-06 | PENDING | ProviderManager (switch, health, backoff, failover)
+T5.02 | 2026-10-06 | PASS | ProviderManager (local VERIFY 338/338)
 
 # NEXT after T5.02 = T5.03 MetaTraderProviderAndEA
+T5.03 | 2026-10-06 | PENDING | MetaTraderProvider + MessageCodec
+
+# NEXT after T5.03 = T5.04 SymbolGroupsFavoritesSearch

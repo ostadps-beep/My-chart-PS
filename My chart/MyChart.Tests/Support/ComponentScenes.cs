@@ -1,3 +1,4 @@
+using MyChart.Core.Analysis;
 using MyChart.Core.Contracts.Rendering;
 using MyChart.Core.Models.Drawing;
 using MyChart.Core.Models.Geometry;

@@ -54,7 +54,7 @@ public static class MessageCodec
 
             case "SYM" when parts.Length >= 4
                 && int.TryParse(parts[2], NumberStyles.Integer, CultureInfo.InvariantCulture, out var digits):
-                message = new MtMessage.Symbol(parts[1], digits, parts[3]);
+                message = new MtMessage.SymbolMsg(parts[1], digits, parts[3]);
                 return true;
 
             case "T" when parts.Length >= 6
@@ -128,7 +128,7 @@ public static class MessageCodec
 public abstract record MtMessage
 {
     public sealed record Hello(string EaVersion, int ServerUtcOffsetMinutes) : MtMessage;
-    public sealed record Symbol(string Name, int Digits, string GroupHint) : MtMessage;
+    public sealed record SymbolMsg(string Name, int Digits, string GroupHint) : MtMessage;
     public sealed record TickMsg(string Symbol, long ServerTimeMs, double Bid, double Ask, double Volume) : MtMessage;
     public sealed record HistoryBar(string Symbol, string Tf, long ServerTimeSec, double O, double H, double L, double C, double Vol) : MtMessage;
     public sealed record HistoryEnd(string Symbol, int Count) : MtMessage;

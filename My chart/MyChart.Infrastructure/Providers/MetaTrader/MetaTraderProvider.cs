@@ -133,7 +133,7 @@ public sealed class MetaTraderProvider : IDataProvider, IAsyncDisposable
                     : new ServerTimeRule.Fixed(_serverOffset);
                 break;
 
-            case MtMessage.Symbol sym:
+            case MtMessage.SymbolMsg sym:
                 var info = new SymbolInfo(
                     sym.Name,
                     Name,

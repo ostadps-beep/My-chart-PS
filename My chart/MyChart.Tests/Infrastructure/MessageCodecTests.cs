@@ -21,7 +21,7 @@ public class MessageCodecTests
     {
         var line = MessageCodec.EncodeSymbol("EURUSD", 5, "Forex");
         Assert.True(MessageCodec.TryParse(line, out var msg));
-        var sym = Assert.IsType<MtMessage.Symbol>(msg);
+        var sym = Assert.IsType<MtMessage.SymbolMsg>(msg);
         Assert.Equal("EURUSD", sym.Name);
         Assert.Equal(5, sym.Digits);
         Assert.Equal("Forex", sym.GroupHint);

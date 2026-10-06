@@ -21,6 +21,7 @@
     <ProjectReference Include="..\MyChart.Generator.Engine\MyChart.Generator.Engine.csproj" />
     <ProjectReference Include="..\MyChart.Rendering\MyChart.Rendering.csproj" />
     <ProjectReference Include="..\MyChart.Interaction\MyChart.Interaction.csproj" />
+    <ProjectReference Include="..\MyChart.Infrastructure\MyChart.Infrastructure.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Fixtures\**\*" CopyToOutputDirectory="PreserveNewest" LinkBase="Fixtures" />

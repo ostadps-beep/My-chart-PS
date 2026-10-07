@@ -93,7 +93,7 @@ public class IndicatorLayerDialogTests
     {
         var list = new IndicatorList();
         var dlg = new IndicatorDialogModel(list);
-        var sma = new SmaIndicator();
+        var sma = new SmaIndicator(14);
         dlg.AddFromDefinition("sma1", sma);
         Assert.Equal(sma.Name, dlg.Rows[0].IndicatorName);
         Assert.Equal(sma.Inputs[0].DefaultValue, dlg.Rows[0].Parameters[sma.Inputs[0].Key]);

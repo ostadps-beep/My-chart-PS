@@ -54,4 +54,8 @@ LIVE STATUS (update every session end)
 
 OPTIONAL HANDOFF HELPER (manual run by PS or model)
 - Keep Progress authoritative.
-- After dotnet test PASS, append/replace only the LIVE STATUS block; do not rewrite history of PASS lines.
+- After dotnet test PASS, append/replace only the LIVE STATUS (update every session end)
+- 2026-10-07: T6.05 ContextToolbar PASS (424+32).
+  Files: MyChart.Core/UI/Toolbar/ContextToolbarModel.cs, MyChart.Tests/UI/ContextToolbarTests.cs
+  NEXT = T6.06 IndicatorLayerAndDialog
+- Visual still candle-shell only; toolbars/context bar are model+controller (GATE=VISUAL).

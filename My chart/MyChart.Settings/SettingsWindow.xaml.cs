@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Windows;
 using MyChart.Settings.Services;
 using MyChart.Settings.ViewModels;
@@ -22,7 +22,12 @@ public partial class SettingsWindow : Window
         }
         catch (Exception ex)
         {
-            App.ShowException("SettingsWindow constructor", ex);
+            // R1: panel is a library — no App.xaml; surface error without depending on a host App class.
+            MessageBox.Show(
+                $"SettingsWindow failed to initialize:\n{ex.Message}",
+                "MyChart Settings",
+                MessageBoxButton.OK,
+                MessageBoxImage.Error);
             throw;
         }
     }
@@ -33,4 +38,3 @@ public partial class SettingsWindow : Window
         base.OnClosing(e);
     }
 }
-

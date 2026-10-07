@@ -7,7 +7,11 @@
         Width="1280"
         Background="#131722"
         Loaded="OnLoaded">
-  <Grid>
+  <DockPanel>
+    <!-- T6.08 temporary entry until full TopToolbar chrome is hosted in UI -->
+    <Menu DockPanel.Dock="Top" Background="#1E222D" Foreground="#D1D4DC">
+      <MenuItem Header="_Settings" Click="OnSettingsClick" />
+    </Menu>
     <chart:ChartHost x:Name="Chart" />
-  </Grid>
+  </DockPanel>
 </Window>

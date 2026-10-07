@@ -12,9 +12,14 @@ public partial class MainWindow : Window
         CompositionRoot.CreatePluginHost();
     }
 
+    private void OnSettingsClick(object sender, RoutedEventArgs e)
+    {
+        // T6.08 — open integrated Settings panel (R9).
+        CompositionRoot.SettingsHost?.ShowSettingsWindow(this);
+    }
+
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // Prefer fixtures copied next to the exe; fall back to repo Tests/Fixtures.
         var baseDir = AppContext.BaseDirectory;
         var candidates = new[]
         {

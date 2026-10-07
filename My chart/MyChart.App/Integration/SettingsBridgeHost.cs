@@ -1,15 +1,17 @@
+using System.Windows;
 using MyChart.Core.Models.Settings;
+using MyChart.Settings;
 
 namespace MyChart.App.Integration;
 
 /// <summary>
-/// T6.08 App host — only App file that will reference MyChart.Settings panel (R2).
-/// Forwards protocol messages to Core SettingsBridge. Real SettingsWindow attach is owner step
-/// when MyChart.Settings project is available on the machine.
+/// T6.08 App host — only App file that references MyChart.Settings panel (R2).
+/// Forwards protocol messages to Core SettingsBridge and opens SettingsWindow.
 /// </summary>
 public sealed class SettingsBridgeHost : ISettingsProtocolListener
 {
     private readonly SettingsBridge _bridge;
+    private SettingsWindow? _openWindow;
 
     public SettingsBridgeHost(SettingsBridge bridge) => _bridge = bridge;
 
@@ -24,11 +26,26 @@ public sealed class SettingsBridgeHost : ISettingsProtocolListener
     public void OnSave(SettingsSaveMessage message)
         => _bridge.OnSave(message.Path);
 
-    /// <summary>R9 — opens Settings window when MyChart.Settings is linked; otherwise no-op.</summary>
-    public void ShowSettingsWindow(System.Windows.Window? owner)
+    /// <summary>R9 — open the integrated SettingsWindow (single instance).</summary>
+    public void ShowSettingsWindow(Window? owner)
     {
-        // Placeholder: when MyChart.Settings is added to the solution, resolve SettingsWindow here.
-        // Owner attaches panel per SETTINGS_INTEGRATION R1 mechanical rename.
-        System.Diagnostics.Debug.WriteLine("[Settings] ShowSettingsWindow — panel project not linked yet.");
+        if (_openWindow is { IsLoaded: true })
+        {
+            _openWindow.Activate();
+            return;
+        }
+
+        var window = new SettingsWindow();
+        if (owner is not null)
+            window.Owner = owner;
+
+        window.Closed += (_, _) =>
+        {
+            if (ReferenceEquals(_openWindow, window))
+                _openWindow = null;
+        };
+
+        _openWindow = window;
+        window.Show();
     }
 }

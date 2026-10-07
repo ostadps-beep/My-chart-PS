@@ -60,20 +60,13 @@ T5.04 | 2026-10-06 | PASS | SymbolGroupsFavoritesSearch
 T5.05 | 2026-10-06 | PASS | ReplayEngine
 T5.06 | 2026-10-06 | PASS | OfflineMode
 T5 | 2026-10-06 | PASS | Entire T5 complete
-T6.01 | 2026-10-06 | PARTIAL | HudRenderer (automated 393; GATE=VISUAL pending)
-T6.02 | 2026-10-06 | PARTIAL | ContextMenus (automated 403; GATE=VISUAL pending)
+T6.01 | 2026-10-06 | PARTIAL | HudRenderer (GATE=VISUAL pending)
+T6.02 | 2026-10-06 | PARTIAL | ContextMenus (GATE=VISUAL pending)
+T6.03 | 2026-10-06 | PASS | TopToolbar
+T6.04 | 2026-10-07 | PASS | LeftToolbarAndDrawingTools
+T6.05 | 2026-10-07 | PASS | ContextToolbar
+T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog
+T6.07 | 2026-10-07 | PASS | NavigatorPanel
+T6.08 | 2026-10-07 | PENDING_VERIFY | SettingsIntegration wired: solution+App ref+ShowSettingsWindow; R1 App.ShowException removed
 
-T6.03 | 2026-10-06 | PASS | TopToolbar (403 tests)
-T6.04 | 2026-10-07 | PASS | LeftToolbarAndDrawingTools (414+32 tests)
-
-T6.05 | 2026-10-07 | PASS | ContextToolbar (424+32 tests)
-
-T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog (local VERIFY 434/434)
-
-# NEXT after T6.06 = T6.07 NavigatorPanel
-T6.07 | 2026-10-07 | PASS | NavigatorPanel (local VERIFY 441/441)
-
-# NEXT after T6.07 = T6.08 SettingsIntegration
-T6.08 | 2026-10-07 | PENDING | SettingsIntegration (SettingsBridge + key routing; real panel attach by owner)
-
-# NEXT after T6.08 = T6.09 Workspace
+# NEXT after T6.08 VERIFY = T6.09 Workspace

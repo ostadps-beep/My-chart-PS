@@ -32,6 +32,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyChart.Generator.Tests", "
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyChart.Tests", "MyChart.Tests\MyChart.Tests.csproj", "{A1000001-0000-4000-8000-00000000000F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyChart.Settings", "MyChart.Settings\MyChart.Settings.csproj", "{A1000001-0000-4000-8000-000000000010}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,5 +100,9 @@ Global
 		{A1000001-0000-4000-8000-00000000000F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A1000001-0000-4000-8000-00000000000F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A1000001-0000-4000-8000-00000000000F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A1000001-0000-4000-8000-000000000010}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1000001-0000-4000-8000-000000000010}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1000001-0000-4000-8000-000000000010}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1000001-0000-4000-8000-000000000010}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

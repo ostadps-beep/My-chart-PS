@@ -1,94 +1,57 @@
 MyChart - HANDOFF NOTES (for the next model / session)
-Last updated: 2026-10-05 by Claude (session with PS)
-Repo: https://github.com/ostadps-beep/My-chart-PS (public). Solution folder: "My chart/".
-Owner: PS (writes Persian/Farsi; wants concise, technically precise answers; limited programming ability, so give exact commands).
+Last updated: 2026-10-07 by Grok (session with PS)
+Repo: https://github.com/ostadps-beep/My-chart-PS (private; use token).
+Solution folder: "My chart/".
+Owner: PS (Persian/Farsi; concise, exact commands; limited programming ability).
 
 READ THIS FIRST (30 seconds)
-1. The source of truth is Docs/MyChart_1_Engineering_Specification_Canonical_v1.4.txt (the older spec files and the
-   Implementation_Master_Sequence are superseded for ORDER; node T-numbers are what counts).
-2. Progress is Docs/IMPLEMENTATION_PROGRESS.txt: one line per node. The last PASS line is where you continue.
-   The first line saying PENDING is a node written but not yet verified on PS's machine.
-3. Run `git pull` on main before you start. Other models also push to main. Never overwrite their log lines.
+1. Source of truth: Docs/MyChart_1_Engineering_Specification_Canonical_v1.4.txt
+   (node T-numbers + DEPENDS; PRIORITY_EXECUTION_ORDER wins).
+2. Progress: Docs/IMPLEMENTATION_PROGRESS.txt — one line per node.
+   Last PASS line = done. First PENDING = written, not verified on PS machine.
+   Line starting with # NEXT = what to do now.
+3. git pull on main before starting. Never overwrite other models' log lines.
+4. One node at a time. No skipping DEPENDS. No magic numbers. Golden vectors win.
 
-STATE AT THE TIME OF WRITING
-- main contains T0.01..T3.03 all PASS (T0.05 TestProject is PARTIAL: MyChart.Generator.Tests has no tests yet, expected until PG3).
-- Local VERIFY on PS's machine: dotnet test -> 132 passed, 0 failed (MyChart.Tests).
-- See the end of this file for the live "NEXT" pointer and the node that was in progress.
+STATE (2026-10-07)
+- main tip includes through T6.03 TopToolbar after merge; T6.04 on branch grok/t6-04-left-toolbar PASS locally.
+- Local VERIFY (PS): MyChart.Tests 414 passed, Generator.Tests 32 passed, Failed 0.
+- Visual appearance: candles + dark shell only. Toolbars are MODEL+CONTROLLER only
+  (GATE=VISUAL). Grid/Axis T4.03, HUD T6.01, ContextMenus T6.02 still PARTIAL (VISUAL).
+- This is EXPECTED: CalculationBeforeVisual; UI chrome not fully wired to WPF yet.
 
-RULES OF THE PROJECT (from the spec, PRIORITY_EXECUTION_ORDER)
-- One node at a time. A node starts only when every node in its DEPENDS is verified. No skipping ahead.
-- GOLDEN_TEST_VECTORS are normative: if code disagrees with a vector, the code is wrong.
-- A missing requirement is OPEN: stop and ask PS, never guess. A conflict between two lines of the spec: pick the node text, say so, and tell PS.
-- Every number in code comes from the constants of the spec (CONSTANTS_TABLE); no magic numbers (named consts next to the code are accepted so far).
-- After each node: run its VERIFY tests, then append ONE line to Docs/IMPLEMENTATION_PROGRESS.txt.
-- GATE=AUTOMATED nodes are decided by tests. GATE=VISUAL nodes (T4.03..T4.09, T6.xx, T7.01, T7.02) also need PNG/screenshot proof and PS's approval.
-- Nothing about toolbars, icons or themes before T1..T3 are verified. No tool/icon component before T3.11 is verified.
-- The string "ChartMy" must not appear outside Docs/. The Settings panel is NEVER recreated here; it is integrated at T6.08 (see Docs/SETTINGS_PREREQUISITE.txt).
-- Candle layers are never mixed: Core/Candles = calculation only; Core/Scale = pixels only.
+PARTIAL / OPEN VISUAL GATES (do not treat as full product UI)
+- T4.03 BackgroundGridAxisRenderers — GATE=VISUAL pending
+- T6.01 HudRenderer — automated ok; GATE=VISUAL pending
+- T6.02 ContextMenus — automated ok; GATE=VISUAL pending
+- T6.03 / T6.04 — automated PASS; GATE=VISUAL (PNG/screenshot + PS approve) still open for full chrome
 
-HOW WE WORK WITH PS (workflow that worked)
-- The cloud sandbox has NO dotnet. You write code and tests, hand-check expected numbers against the spec formulas, then PS runs on Windows:
-      cd "...\My chart"
-      git fetch ; git checkout <branch> ; dotnet test
-  PS pastes the output. "Passed! Failed: 0" => change the log line from PENDING to PASS and merge.
-  The warning "No test is available in ...Generator.Tests.dll" is harmless (that project has no tests yet).
-- Write the node on a branch named claude/t<node>-<name>, log it as PENDING, push, ask PS to run dotnet test.
-  After PS's PASS: set the log line to PASS (include the test count), commit, `git checkout main`, `git merge --ff-only <branch>`, push main.
-  Only verified code goes to main.
-- Build settings: net8.0, Nullable enabled, ImplicitUsings, TreatWarningsAsErrors=true. One compiler warning breaks the build,
-  so avoid unused variables, unused usings are fine, nullable mistakes are not.
-- Tests: xUnit. Beware Assert.Equal(double, double?, int) does not compile: use .GetValueOrDefault() for nullable doubles.
-  Tests of a calculator go in MyChart.Tests/<Area>/ (Analysis, Scale, Market, Smoke). Use the golden-vector fixture view
-  (N 100, plotLeft 0, plotWidth 800, BarSpacing 8, RightOffset 5, range 1.09400..1.10600, plotHeight 500) where the spec uses it.
-- Calculators are pure static classes in MyChart.Core (Analysis/, Scale/, Candles/). No UI, no IO, time passed in (no DateTime.Now).
-  Display time zone is a nullable TimeZoneInfo parameter (UTC when null) because Core has no display-zone setting yet.
+RULES (short)
+- Missing requirement = OPEN: stop and ask PS. Never guess.
+- Conflict: node text wins; tell PS.
+- Settings panel is external; integrate only at T6.08. No "ChartMy" outside Docs/.
+- Renderers read colors only via IThemeService (T4.02).
+- Left/Top toolbar: slot-driven; UI must not hardcode tool names/icons (A2).
 
-REPO ACCESS NOTES (cloud session)
-- Push works through the session's git proxy after add_repo with access "push". Clone is shallow: `git fetch --depth 50 origin <branch>` to connect histories.
-- Branch DELETE does not work from the sandbox (proxy refuses). PS must delete stale branches in GitHub (Branches page) or run
-  `git push origin --delete <branch>`. Stale now: claude-access-test, claude/t3-01-crosshair, claude/t3-02-hud (+ later branches once merged).
-- The stop hook may warn "unpushed commits / no remote branch" even after a successful push. It is a false alarm caused by a missing
-  tracking ref in the shallow clone. Check `git ls-remote --heads origin <branch>` equals `git rev-parse HEAD`, then run
-  `git fetch --depth 50 origin +<branch>:refs/remotes/origin/<branch>` and
-  `git config branch.<branch>.remote origin ; git config branch.<branch>.merge refs/heads/<branch>`.
+HOW WE WORK WITH PS
+- Cloud may have no dotnet. Write code+tests, push branch, PS runs:
+    cd "...\My chart"
+    git fetch
+    git checkout <branch>
+    dotnet test
+- PS pastes output. Failed:0 -> set log PENDING to PASS, merge to main, push.
+- Branch naming: grok/t<node>-<short-name> or claude/...
+- After each node: update IMPLEMENTATION_PROGRESS.txt AND this LIVE STATUS block.
 
-DECISIONS ALREADY MADE (do not re-ask PS)
-- T3.01 time label for D1/W1 uses the node text "ddd d MMM 'yy" although SETTINGS_KEY_MAP line ~718 says yyyy-MM-dd for the crosshair label of D1+. The node text wins (documented conflict). Change only if PS asks.
-- Time difference text: "3h 45m", "1d 2h 30m", "45m", "0m"; negative gets a leading "-".
-- T3.02 HUD: settings-driven items (C6/C7: Change, Volume, Bid/Ask, Position, chart.show.ohlc) are deferred to the settings integration T6.08 / HudRenderer T6.01. T3.02 provides the data of the INFORMATION and ADVANCED_OPTIONAL lists only.
-- T3.03 Navigator: GoTo before the first bar returns NeedsOlderHistory once, then bar 0; after the end of the last bar => GoToLatest; a time inside the last bar centres the last bar. Ctrl+G dialog and the panel UI come later (T6.07).
-- Plugin architecture (Docs spec revision 1.3, nodes PG*): the chart core knows no tool names or icons; tools are DataTool components. T3.04 is split (A4): generic rules in Core, shape-specific geometry in the DataTool engine (PG2).
+LIVE STATUS (update every session end)
+- 2026-10-07: T6.04 LeftToolbarAndDrawingTools PASS (414+32).
+  Files: MyChart.Core/UI/Toolbar/LeftToolbarModel.cs, MyChart.Tests/UI/LeftToolbarTests.cs
+  NEXT = T6.05 ContextToolbar (DEPENDS T6.04 path; check Spec node T6.05).
+- Merge T6.04 to main after PS confirms, then start T6.05 on new branch.
+- Handoff automation: no full auto-log in repo. Minimum contract =
+  (1) Progress one-liner (2) this LIVE STATUS (3) clear commit message.
+  Optional: scripts/update-handoff.ps1 can regenerate LIVE STATUS from Progress (see below note).
 
-T3.04 DECISIONS (branch claude/t3-04-drawing-geometry)
-- DrawingGeometry (Core/Analysis) holds only the GENERIC rules: ScreenPosition, AnchorAt, handles (8x8 DIP squares, hit radius 6 DIP inclusive, nearest wins, lowest index on a tie),
-  HitTest over a list in creation order (topmost wins; hidden never hit; locked still hit; handles checked before the shape tester per object; an object whose TypeId has no tester is skipped),
-  Move (TimeAtIndex(IndexOfTime(t)+deltaU), price+deltaPrice), Resize (only the dragged anchor), Clone (+12 DIP right/down converted back), Lock/Hide predicates.
-- Dispatch by TypeId is a Func<string, IDrawingHitTester?> parameter; the real registry-based dispatch belongs to PG4.01 (T3.11).
-- Clone keeps Locked/Hidden/style of the source (the spec only says lock blocks move/resize/delete) and deep-copies Extra; the caller supplies the new id (Core stays pure).
-- Resize takes an already resolved DrawingAnchor; snapping (IToolContext.Snap, PG2.05) is the caller's job.
-- Tests use MyChart.Tests/Support/ViewChartMapper (IChartMapper over ViewState + TimeIndexMapper, Standard() = golden-vector view). PG1.07 FakeChartMapper can build on it.
-- DrawingMath.DistancePointToEllipseEdge is an APPROXIMATION (|d-1|*min(rx,ry)); PG2.03 requires the EXACT distance for hit tests. Replace it when PG2.03 is done (add golden tests then).
-
-KNOWN DISCREPANCIES / TODO FOR THE OWNER
-- DrawingAnchor in Core/Models/Drawing was (U, Price) from the T0.04 skeleton; the spec says ANCHOR=(TimeUtc, Price) (T3.04, DRAWING_RECORD in T3.07, PG1.05). CORRECTED in T3.04 (no other code used it).
-- DrawingStyle lacked opacity and line style required by T3.04 DEFAULT STYLE; EXTENDED in T3.04 with defaults (source compatible): Opacity=1.0, LineStyle=Solid. AccentColor is passed into DrawingStyleRules.Default because the theme is not in Core yet (T4.02).
-- Interaction project (MyChart.Interaction/Input) is still empty; it is T4.07.
-- The Settings panel project (local folder ChartMy on PS's machine, no repo) is integrated at T6.08, not before.
-
-NODE ORDER AHEAD (T3 then T4...)  - see spec lines ~1690-1780 for the full tree
-T3.04 DrawingGeometryAndHitTest (DEPENDS T2.01,T2.02)
-T3.05 IndicatorFramework        (DEPENDS T1.11,T2.07)  - needs ISeriesView from T1.11; test-only SMA indicator
-T3.06 Commands                  (DEPENDS T3.04)        - CommandBus, undo/redo depth 200, a drag = ONE command
-T3.07 Serialization             (DEPENDS T3.04,T3.05,T3.06) - JSON, round trip byte-stable, UnknownDrawingObject (PG1.05)
-T3.08 PluginHost (PG1.01..PG1.07) -> T3.09 DeclarativeEngine (PG2.01..) -> T3.10 GeneratorEngine (PG3.01..) -> T3.11 PluginIntegration (PG4.01, PG4.02)
-T4 starts only when every VERIFY of T3 passes (first visual tier, GATE=VISUAL: PNG proofs + PS approval).
-
-LIVE STATUS (update this block at the end of every session)
-- 2026-10-05: main = T0..T3.03 PASS (+ this handoff file).
-- T3.04 is WRITTEN, logged PENDING, on branch claude/t3-04-drawing-geometry. NEXT ACTION for PS: git fetch ; git checkout claude/t3-04-drawing-geometry ; dotnet test
-  (expect more than 132 tests, 0 failed). If PASS: set the T3.04 log line to PASS with the count, commit, git checkout main, git merge --ff-only claude/t3-04-drawing-geometry, push.
-  If a compile error or failure appears: fix it first (the code was hand-checked only, no dotnet in the sandbox).
-- After T3.04: T3.05 IndicatorFramework (needs ISeriesView from T1.11; see MyChart.Core.Contracts.Data and MyChart.Data/Aggregation).
-
-LIVE STATUS (update this block at the end of every session)
-- 2026-10-05: T3.04 PASS (local VERIFY 191/191) on branch claude/t3-04-drawing-geometry. T3.05 IndicatorFramework implemented (PENDING local VERIFY). Merge T3.04+T3.05 to main after VERIFY.
+OPTIONAL HANDOFF HELPER (manual run by PS or model)
+- Keep Progress authoritative.
+- After dotnet test PASS, append/replace only the LIVE STATUS block; do not rewrite history of PASS lines.

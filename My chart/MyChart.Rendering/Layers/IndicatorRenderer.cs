@@ -34,7 +34,7 @@ public sealed class IndicatorRenderer
         if (outputs is null || outputs.Count == 0) return;
         double dpi = dpiScale <= 0 ? 1 : dpiScale;
         var palette = _theme.Current.IndicatorPalette;
-        if (palette is null || palette.Length == 0) return;
+        if (palette is null || palette.Count == 0) return;
 
         double width = LineWidthDip * dpi;
 
@@ -42,7 +42,7 @@ public sealed class IndicatorRenderer
         {
             var series = outputs[o].Values;
             if (series.Length == 0) continue;
-            var color = palette[(paletteOffset + o) % palette.Length];
+            var color = palette[(paletteOffset + o) % palette.Count];
             DrawBrokenPolyline(ctx, converter, series, firstIndex, color, width, dpi);
         }
     }

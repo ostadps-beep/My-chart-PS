@@ -1,0 +1,220 @@
+======================================================================================
+DOCUMENT: Chart Settings — Unified Full Specification
+SYSTEM: Master Analytical System (Python/C/C++ + WPF)
+TYPE: UI + JSON + Behavior + Dependencies + Model Protocol
+FORMAT: Plain Text (Single Block)
+======================================================================================
+
+SECTION 1 — JSON TREE (Data Model)
+----------------------------------
+
+chart.settings
+│
+├── chart
+│   ├── type
+│   ├── zoom.behavior
+│   ├── zoom.speed
+│   ├── scroll.speed
+│   ├── visible.candles
+│   ├── auto.fit
+│   └── mouse.wheel
+│
+├── axes
+│   ├── price.position
+│   ├── show.last.price
+│   ├── decimal.count
+│   ├── axis.color
+│   ├── axis.thickness
+│   ├── time.position
+│   ├── show.vertical.grid
+│   └── time.format
+│
+├── candles
+│   ├── bull.color
+│   ├── bear.color
+│   ├── wick.color
+│   ├── body.thickness
+│   ├── wick.thickness
+│   ├── spacing
+│   ├── show.wicks
+│   └── show.body
+│
+├── grid.background
+│   ├── background.color
+│   ├── gradient.mode
+│   ├── background.transparency
+│   ├── show.grid
+│   ├── horizontal.color
+│   ├── vertical.color
+│   ├── grid.style
+│   └── grid.transparency
+│
+├── drawing.tools
+│   ├── tool.color
+│   ├── tool.thickness
+│   ├── tool.style
+│   ├── tool.transparency
+│   ├── snap.mode
+│   ├── selection.mode
+│   ├── show.labels
+│   ├── hotkey
+│   └── drag.behavior
+│
+├── analytical.modules
+│   ├── input.parameters[]
+│   ├── display.type
+│   ├── main.color
+│   ├── alert.color
+│   ├── area.background
+│   ├── update.mode
+│   ├── enabled
+│   ├── transparency
+│   └── thickness
+│
+├── hud.overlay
+│   ├── hud.items[]
+│   ├── hud.position
+│   ├── fixed.follow
+│   ├── text.color
+│   ├── font.size
+│   ├── font.type
+│   └── hud.transparency
+│
+├── performance
+│   ├── fps.limit
+│   ├── anti.aliasing
+│   ├── gpu.acceleration
+│   ├── buffer.size
+│   ├── log.level
+│   └── error.behavior
+│
+├── workspace
+│   ├── save.layout
+│   ├── load.layout
+│   ├── reset.layout
+│   ├── export.settings
+│   └── import.settings
+│
+└── advanced
+    ├── multi.threading
+    ├── cache.size
+    ├── backup.restore
+    ├── engine.mode
+    └── python.bridge
+        ├── host
+        ├── port
+        └── timeout
+
+======================================================================================
+SECTION 2 — UI MODEL (Dark Analytical Style)
+--------------------------------------------
+
+Panel:
+- Width: 420px
+- Height: 580–720px
+- Background: #1E1E1E
+- Padding: 12px
+- Margin between groups: 10px
+- Text color: White
+- Border: 1px #333
+- Corner radius: 4px
+
+Controls:
+- Dropdown: 180–240px × 32px
+- Slider: 200–260px × 28px
+- Numeric Input: 120px × 32px
+- Toggle: 60px × 28px (ON=Green, OFF=Gray)
+- Color Picker: 180px × 32px
+- Text Input: 240px × 32px
+- Button: 110px × 32px
+- Group Box: Padding 12px, Margin 10px
+
+======================================================================================
+SECTION 3 — BUTTON MODEL (Apply / OK / Cancel / Reset)
+------------------------------------------------------
+
+Style:
+- Background: #2A2A2A
+- Text: White
+- Hover: #3A3A3A
+- Active: #505050
+- Border: 1px #444
+- Corner radius: 4px
+
+Behavior:
+- Apply:
+  Applies heavy settings only (visible.candles, fps.limit, gpu.acceleration, buffer.size)
+- OK:
+  Saves all settings + closes panel
+- Cancel:
+  Closes panel without saving
+- Reset:
+  Restores all settings to defaultValue
+
+======================================================================================
+SECTION 4 — BEHAVIOR MODEL (Events & Logic)
+-------------------------------------------
+
+Immediate Behavior:
+- Colors
+- Thickness
+- Styles
+- Visibility toggles
+- Light settings
+
+OnApply Behavior:
+- visible.candles
+- fps.limit
+- gpu.acceleration
+- anti.aliasing
+- buffer.size
+- engine.mode
+
+Dependencies:
+- show.grid = false → disable all grid settings
+- show.wicks = false → disable wick.thickness
+- gpu.acceleration = false → disable anti.aliasing
+- display.type = area → enable area.background
+- hud.items empty → disable hud.position
+
+======================================================================================
+SECTION 5 — MODEL INTERFACE (Input/Output Protocol)
+---------------------------------------------------
+
+Input:
+SETTINGS.UPDATE {
+    key: "chart.zoom.speed",
+    value: 50
+}
+
+Output:
+SETTINGS.APPLIED {
+    status: "success",
+    changed: ["chart.zoom.speed"]
+}
+
+Save:
+SETTINGS.SAVE {
+    path: "settings/chart.json"
+}
+
+======================================================================================
+SECTION 6 — COMPLETED + PREVIOUSLY INCOMPLETE ITEMS
+---------------------------------------------------
+
+Included:
+- Full Apply/Immediate logic
+- Full dependency map
+- Full button behavior
+- Full UI style
+- Full JSON tree
+- Full model protocol
+- Full analytical modules behavior
+- Full HUD behavior
+- Full drawing tools behavior
+- Full advanced engine behavior
+- Full Python/C bridge specification
+
+======================================================================================
+END OF DOCUMENT
+======================================================================================

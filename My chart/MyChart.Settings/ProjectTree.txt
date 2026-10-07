@@ -1,0 +1,178 @@
+﻿Folder PATH listing
+Volume serial number is 60B3-867F
+C:.
+│   App.xaml
+│   App.xaml.cs
+│   AssemblyInfo.cs
+│   MyChart.Settings.csproj
+│   MainWindow.xaml
+│   MainWindow.xaml.cs
+│   ProjectTree.txt
+│   
+├───.cursor
+├───bin
+│   └───Debug
+│       └───net10.0-windows
+│           │   MyChart.Settings.deps.json
+│           │   MyChart.Settings.dll
+│           │   MyChart.Settings.exe
+│           │   MyChart.Settings.pdb
+│           │   MyChart.Settings.runtimeconfig.json
+│           │   
+│           └───settings
+│                   chart.json
+│                   
+├───Controls
+│       ColorField.xaml
+│       ColorField.xaml.cs
+│       NumericField.xaml
+│       NumericField.xaml.cs
+│       ToggleSwitch.xaml
+│       ToggleSwitch.xaml.cs
+│       
+├───Docs
+│       01-MyChart.Settings_Specification.txt
+│       02-MyChart.Settings_UI_Mockup.txt
+│       
+├───Model
+│       DependencyEvaluator.cs
+│       FieldDefinition.cs
+│       SettingsDocument.cs
+│       SettingsJson.cs
+│       SettingsSchema.cs
+│       SettingTypes.cs
+│       
+├───obj
+│   │   MyChart.Settings.csproj.nuget.dgspec.json
+│   │   MyChart.Settings.csproj.nuget.g.props
+│   │   MyChart.Settings.csproj.nuget.g.targets
+│   │   MyChart.Settings_hvh2ip4g_wpftmp.csproj.nuget.dgspec.json
+│   │   MyChart.Settings_hvh2ip4g_wpftmp.csproj.nuget.g.props
+│   │   MyChart.Settings_hvh2ip4g_wpftmp.csproj.nuget.g.targets
+│   │   project.assets.json
+│   │   project.nuget.cache
+│   │   
+│   └───Debug
+│       └───net10.0-windows
+│           │   .NETCoreApp,Version=v10.0.AssemblyAttributes.cs
+│           │   App.baml
+│           │   App.g.cs
+│           │   apphost.exe
+│           │   MyChart.Settings.AssemblyInfo.cs
+│           │   MyChart.Settings.AssemblyInfoInputs.cache
+│           │   MyChart.Settings.assets.cache
+│           │   MyChart.Settings.csproj.CoreCompileInputs.cache
+│           │   MyChart.Settings.csproj.FileListAbsolute.txt
+│           │   MyChart.Settings.dll
+│           │   MyChart.Settings.g.resources
+│           │   MyChart.Settings.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings.genruntimeconfig.cache
+│           │   MyChart.Settings.GlobalUsings.g.cs
+│           │   MyChart.Settings.pdb
+│           │   MyChart.Settings_0a554qxi_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_0a554qxi_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_0a554qxi_wpftmp.assets.cache
+│           │   MyChart.Settings_0a554qxi_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_0a554qxi_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_4uvoqytb_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_4uvoqytb_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_4uvoqytb_wpftmp.assets.cache
+│           │   MyChart.Settings_4uvoqytb_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_4uvoqytb_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_4vsofonl_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_4vsofonl_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_4vsofonl_wpftmp.assets.cache
+│           │   MyChart.Settings_4vsofonl_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_4vsofonl_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_azvfffz4_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_azvfffz4_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_azvfffz4_wpftmp.assets.cache
+│           │   MyChart.Settings_azvfffz4_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_azvfffz4_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_cohhxl2g_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_cohhxl2g_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_cohhxl2g_wpftmp.assets.cache
+│           │   MyChart.Settings_cohhxl2g_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_cohhxl2g_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_fkbh253y_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_fkbh253y_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_fkbh253y_wpftmp.assets.cache
+│           │   MyChart.Settings_fkbh253y_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_fkbh253y_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_hvh2ip4g_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_hvh2ip4g_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_hvh2ip4g_wpftmp.assets.cache
+│           │   MyChart.Settings_hvh2ip4g_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_hvh2ip4g_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_l3m4mszs_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_l3m4mszs_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_l3m4mszs_wpftmp.assets.cache
+│           │   MyChart.Settings_l3m4mszs_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_l3m4mszs_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_MarkupCompile.cache
+│           │   MyChart.Settings_MarkupCompile.lref
+│           │   MyChart.Settings_neyph05c_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_neyph05c_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_neyph05c_wpftmp.assets.cache
+│           │   MyChart.Settings_neyph05c_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_neyph05c_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_pp2vn1yb_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_pp2vn1yb_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_pp2vn1yb_wpftmp.assets.cache
+│           │   MyChart.Settings_pp2vn1yb_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_pp2vn1yb_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_qgbuzxow_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_qgbuzxow_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_qgbuzxow_wpftmp.assets.cache
+│           │   MyChart.Settings_qgbuzxow_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_qgbuzxow_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_rmzy2b1z_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_rmzy2b1z_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_rmzy2b1z_wpftmp.assets.cache
+│           │   MyChart.Settings_rmzy2b1z_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_rmzy2b1z_wpftmp.GlobalUsings.g.cs
+│           │   MyChart.Settings_sruzoplw_wpftmp.AssemblyInfo.cs
+│           │   MyChart.Settings_sruzoplw_wpftmp.AssemblyInfoInputs.cache
+│           │   MyChart.Settings_sruzoplw_wpftmp.assets.cache
+│           │   MyChart.Settings_sruzoplw_wpftmp.GeneratedMSBuildEditorConfig.editorconfig
+│           │   MyChart.Settings_sruzoplw_wpftmp.GlobalUsings.g.cs
+│           │   GeneratedInternalTypeHelper.g.cs
+│           │   MainWindow.baml
+│           │   MainWindow.g.cs
+│           │   
+│           ├───Controls
+│           │       ColorField.baml
+│           │       ColorField.g.cs
+│           │       NumericField.baml
+│           │       NumericField.g.cs
+│           │       ToggleSwitch.baml
+│           │       ToggleSwitch.g.cs
+│           │       
+│           ├───ref
+│           │       MyChart.Settings.dll
+│           │       
+│           ├───refint
+│           │       MyChart.Settings.dll
+│           │       
+│           └───Themes
+│                   Dark.baml
+│                   
+├───Services
+│       ISettingsUi.cs
+│       SettingsController.cs
+│       SettingsProtocol.cs
+│       WpfSettingsUi.cs
+│       
+├───Themes
+│       Dark.xaml
+│       
+├───ViewModels
+│       FieldViewModel.cs
+│       RelayCommand.cs
+│       SettingsViewModel.cs
+│       ViewModelBase.cs
+│       
+└───Views
+        FieldTemplateSelector.cs
+        
+

@@ -1,0 +1,62 @@
+WINDOW: Settings
+
++--------------------------------------------------------------------------------------+
+| TITLE BAR                                                                            |
+|   [Settings]                                                                          |
++--------------------------------------------------------------------------------------+
+
+| LEFT SIDEBAR (Categories)        | RIGHT PANEL (Header + Content)                    |
+|----------------------------------|---------------------------------------------------|
+|  Chart (selected)                |  HEADER                                           |
+|  Axes                            |    Title: Chart Settings                          |
+|  Candles                         |    Description: Configure chart appearance &      |
+|  Grid & Background               |                 behavior.                         |
+|  Drawing Tools                   |---------------------------------------------------|
+|  Analytical Modules              |  CONTENT AREA                                     |
+|  HUD & Overlay                   |                                                   |
+|  Performance                     |  ┌──────────────────────────────────────────────┐ |
+|  Workspace                       |  │ GROUP: General                               │ |
+|  Advanced                        |  │----------------------------------------------│ |
+|                                  |  │ Label: Chart Type                            │ |
+|                                  |  │ Control: Dropdown [Candlestick | Line | ...] │ |
+|                                  |  │                                              │ |
+|                                  |  │ Label: Visible Candles                       │ |
+|                                  |  │ Control: Numeric Input [ 500 ]               │ |
+|                                  |  │                                              │ |
+|                                  |  │ Label: Auto Fit                              │ |
+|                                  |  │ Control: Toggle [ ON / OFF ]                 │ |
+|                                  |  └──────────────────────────────────────────────┘ |
+|                                  |                                                   |
+|                                  |  ┌──────────────────────────────────────────────┐ |
+|                                  |  │ GROUP: Display                               │ |
+|                                  |  │----------------------------------------------│ |
+|                                  |  │ Label: Background Color                      │ |
+|                                  |  │ Control: Color Picker                        │ |
+|                                  |  │                                              │ |
+|                                  |  │ Label: Grid Style                            │ |
+|                                  |  │ Control: Dropdown [ None | Solid | Dash ]    │ |
+|                                  |  └──────────────────────────────────────────────┘ |
+|                                  |                                                   |
+|                                  |  ┌──────────────────────────────────────────────┐ |
+|                                  |  │ GROUP: Behavior                              │ |
+|                                  |  │----------------------------------------------│ |
+|                                  |  │ Label: Zoom Behavior                         │ |
+|                                  |  │ Control: Dropdown [ Time | Price | Both ]    │ |
+|                                  |  │                                              │ |
+|                                  |  │ Label: Scroll Speed                          │ |
+|                                  |  │ Control: Slider [ 0 … 100 ]                  │ |
+|                                  |  │                                              │ |
+|                                  |  │ Label: Mouse Wheel                           │ |
+|                                  |  │ Control: Dropdown [ Zoom | Scroll ]          │ |
+|                                  |  └──────────────────────────────────────────────┘ |
++--------------------------------------------------------------------------------------+
+
+| FOOTER BUTTONS                                                                        |
+|   [Apply]   [OK]   [Cancel]   [Reset to Default]                                      |
+|                                                                                       |
+| BUTTON BEHAVIOR:                                                                      |
+|   Apply: Save changes without closing window.                                         |
+|   OK: Save changes and close window.                                                  |
+|   Cancel: Close window without saving.                                                |
+|   Reset: Restore all settings in current category to default values.                  |
++--------------------------------------------------------------------------------------+

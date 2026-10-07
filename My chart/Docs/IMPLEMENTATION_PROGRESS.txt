@@ -68,6 +68,9 @@ T6.04 | 2026-10-07 | PASS | LeftToolbarAndDrawingTools (414+32 tests)
 
 T6.05 | 2026-10-07 | PASS | ContextToolbar (424+32 tests)
 
-T6.06 | 2026-10-07 | PENDING | IndicatorLayerAndDialog (renderer + dialog model)
+T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog (local VERIFY 434/434)
 
 # NEXT after T6.06 = T6.07 NavigatorPanel
+T6.07 | 2026-10-07 | PENDING | NavigatorPanel (visibility 5s, overview, GoTo)
+
+# NEXT after T6.07 = T6.08 SettingsIntegration

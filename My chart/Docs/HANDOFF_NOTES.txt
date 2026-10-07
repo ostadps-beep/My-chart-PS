@@ -63,3 +63,7 @@ OPTIONAL HANDOFF HELPER (manual run by PS or model)
 - 2026-10-07: T6.06 IndicatorLayerAndDialog written (PENDING VERIFY).
   Files: IndicatorRenderer.cs, IndicatorDialogModel.cs, IndicatorRendererTests, IndicatorDialogTests
   After PASS -> NEXT = T6.07 NavigatorPanel
+
+- 2026-10-07: T6.07 NavigatorPanel written (PENDING VERIFY).
+  Files: NavigatorPanelModel.cs, NavigatorPanelTests.cs
+  After PASS -> NEXT = T6.08 SettingsIntegration

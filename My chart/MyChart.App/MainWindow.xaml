@@ -8,10 +8,23 @@
         Background="#131722"
         Loaded="OnLoaded">
   <DockPanel>
-    <!-- T6.08 temporary entry until full TopToolbar chrome is hosted in UI -->
-    <Menu DockPanel.Dock="Top" Background="#1E222D" Foreground="#D1D4DC">
-      <MenuItem Header="_Settings" Click="OnSettingsClick" />
-    </Menu>
+    <Border DockPanel.Dock="Top" Background="#1E222D" Padding="8,4">
+      <StackPanel Orientation="Horizontal">
+        <Button Content="Settings"
+                Width="100"
+                Height="28"
+                Margin="0,0,8,0"
+                Click="OnSettingsClick"
+                Background="#2962FF"
+                Foreground="White"
+                BorderThickness="0"
+                Cursor="Hand"/>
+        <TextBlock Text="MyChart"
+                   VerticalAlignment="Center"
+                   Foreground="#D1D4DC"
+                   FontSize="14"/>
+      </StackPanel>
+    </Border>
     <chart:ChartHost x:Name="Chart" />
   </DockPanel>
 </Window>

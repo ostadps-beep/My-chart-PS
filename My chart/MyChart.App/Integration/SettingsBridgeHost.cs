@@ -26,12 +26,13 @@ public sealed class SettingsBridgeHost : ISettingsProtocolListener
     public void OnSave(SettingsSaveMessage message)
         => _bridge.OnSave(message.Path);
 
-    /// <summary>R9 — open the integrated SettingsWindow (single instance).</summary>
+    /// <summary>R9 — open the integrated SettingsWindow.</summary>
     public void ShowSettingsWindow(Window? owner)
     {
         if (_openWindow is { IsLoaded: true })
         {
             _openWindow.Activate();
+            _openWindow.Focus();
             return;
         }
 
@@ -46,6 +47,7 @@ public sealed class SettingsBridgeHost : ISettingsProtocolListener
         };
 
         _openWindow = window;
-        window.Show();
+        // Modal so it is obvious the panel opened (visual VERIFY).
+        window.ShowDialog();
     }
 }

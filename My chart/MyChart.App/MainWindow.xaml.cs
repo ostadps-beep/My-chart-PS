@@ -14,8 +14,23 @@ public partial class MainWindow : Window
 
     private void OnSettingsClick(object sender, RoutedEventArgs e)
     {
-        // T6.08 — open integrated Settings panel (R9).
-        CompositionRoot.SettingsHost?.ShowSettingsWindow(this);
+        var host = CompositionRoot.SettingsHost;
+        if (host is null)
+        {
+            MessageBox.Show(
+                "SettingsHost is not initialized.\nMake sure you are on branch grok/t6-08-settings-wire and rebuilt.",
+                "MyChart");
+            return;
+        }
+
+        try
+        {
+            host.ShowSettingsWindow(this);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Failed to open Settings:\n" + ex.Message, "MyChart");
+        }
     }
 
     private async void OnLoaded(object sender, RoutedEventArgs e)

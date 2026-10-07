@@ -71,6 +71,9 @@ T6.05 | 2026-10-07 | PASS | ContextToolbar (424+32 tests)
 T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog (local VERIFY 434/434)
 
 # NEXT after T6.06 = T6.07 NavigatorPanel
-T6.07 | 2026-10-07 | PENDING | NavigatorPanel (visibility 5s, overview, GoTo)
+T6.07 | 2026-10-07 | PASS | NavigatorPanel (local VERIFY 441/441)
 
 # NEXT after T6.07 = T6.08 SettingsIntegration
+T6.08 | 2026-10-07 | PENDING | SettingsIntegration (SettingsBridge + key routing; real panel attach by owner)
+
+# NEXT after T6.08 = T6.09 Workspace

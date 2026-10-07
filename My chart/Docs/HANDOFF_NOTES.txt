@@ -57,5 +57,9 @@ OPTIONAL HANDOFF HELPER (manual run by PS or model)
 - After dotnet test PASS, append/replace only the LIVE STATUS (update every session end)
 - 2026-10-07: T6.05 ContextToolbar PASS (424+32).
   Files: MyChart.Core/UI/Toolbar/ContextToolbarModel.cs, MyChart.Tests/UI/ContextToolbarTests.cs
-  NEXT = T6.06 IndicatorLayerAndDialog
+  NEXT = T6.06 IndicatorLayerAndDialog (PENDING VERIFY on PS machine)
 - Visual still candle-shell only; toolbars/context bar are model+controller (GATE=VISUAL).
+
+- 2026-10-07: T6.06 IndicatorLayerAndDialog written (PENDING VERIFY).
+  Files: IndicatorRenderer.cs, IndicatorDialogModel.cs, IndicatorRendererTests, IndicatorDialogTests
+  After PASS -> NEXT = T6.07 NavigatorPanel

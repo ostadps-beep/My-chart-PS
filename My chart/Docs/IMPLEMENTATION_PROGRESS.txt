@@ -64,6 +64,6 @@ T6.01 | 2026-10-06 | PARTIAL | HudRenderer (automated 393; GATE=VISUAL pending)
 T6.02 | 2026-10-06 | PARTIAL | ContextMenus (automated 403; GATE=VISUAL pending)
 
 T6.03 | 2026-10-06 | PASS | TopToolbar (403 tests)
-T6.04 | 2026-10-07 | PENDING | LeftToolbarAndDrawingTools
+T6.04 | 2026-10-07 | PASS | LeftToolbarAndDrawingTools (414+32 tests)
 
-# NEXT = T6.04 LeftToolbarAndDrawingTools
+# NEXT = T6.05 ContextToolbar

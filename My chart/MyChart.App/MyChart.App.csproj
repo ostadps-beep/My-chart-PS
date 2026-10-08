@@ -17,9 +17,9 @@
     <ProjectReference Include="..\MyChart.UI\MyChart.UI.csproj" />
     <ProjectReference Include="..\MyChart.PluginHost\MyChart.PluginHost.csproj" />
     <ProjectReference Include="..\MyChart.Plugins\MyChart.Plugins.csproj" />
+    <ProjectReference Include="..\MyChart.Settings\MyChart.Settings.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\MyChart.Tests\Fixtures\**\*" Link="Fixtures\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>
-

@@ -12,9 +12,29 @@ public partial class MainWindow : Window
         CompositionRoot.CreatePluginHost();
     }
 
+    private void OnSettingsClick(object sender, RoutedEventArgs e)
+    {
+        var host = CompositionRoot.SettingsHost;
+        if (host is null)
+        {
+            MessageBox.Show(
+                "SettingsHost is not initialized.\nMake sure you are on branch grok/t6-08-settings-wire and rebuilt.",
+                "MyChart");
+            return;
+        }
+
+        try
+        {
+            host.ShowSettingsWindow(this);
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show("Failed to open Settings:\n" + ex.Message, "MyChart");
+        }
+    }
+
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
-        // Prefer fixtures copied next to the exe; fall back to repo Tests/Fixtures.
         var baseDir = AppContext.BaseDirectory;
         var candidates = new[]
         {

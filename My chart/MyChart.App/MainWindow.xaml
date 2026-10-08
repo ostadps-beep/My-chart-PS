@@ -7,7 +7,24 @@
         Width="1280"
         Background="#131722"
         Loaded="OnLoaded">
-  <Grid>
+  <DockPanel>
+    <Border DockPanel.Dock="Top" Background="#1E222D" Padding="8,4">
+      <StackPanel Orientation="Horizontal">
+        <Button Content="Settings"
+                Width="100"
+                Height="28"
+                Margin="0,0,8,0"
+                Click="OnSettingsClick"
+                Background="#2962FF"
+                Foreground="White"
+                BorderThickness="0"
+                Cursor="Hand"/>
+        <TextBlock Text="MyChart"
+                   VerticalAlignment="Center"
+                   Foreground="#D1D4DC"
+                   FontSize="14"/>
+      </StackPanel>
+    </Border>
     <chart:ChartHost x:Name="Chart" />
-  </Grid>
+  </DockPanel>
 </Window>

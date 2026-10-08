@@ -69,4 +69,6 @@ T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog
 T6.07 | 2026-10-07 | PASS | NavigatorPanel
 T6.08 | 2026-10-07 | PASS | SettingsIntegration (R1 panel in solution; App ref; ShowSettingsWindow; Dark.xaml merge only; owner visual OK)
 
+T6.09 | 2026-10-08 | PENDING | Workspace
+
 # NEXT = T6.09 Workspace

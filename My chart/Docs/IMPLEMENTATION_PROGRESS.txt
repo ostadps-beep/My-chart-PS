@@ -71,4 +71,6 @@ T6.08 | 2026-10-07 | PASS | SettingsIntegration (R1 panel in solution; App ref; 
 
 T6.09 | 2026-10-08 | PASS | Workspace (477+32 tests)
 
-# NEXT = T6.10 ToolBuilder
+T6.10.PG6.01 | 2026-10-08 | PASS | BuilderShellAndForm (484+32 tests)
+
+# NEXT = T6.10.PG6.02 LivePreview

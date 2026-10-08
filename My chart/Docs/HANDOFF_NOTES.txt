@@ -41,3 +41,7 @@ LIVE STATUS
 - 2026-10-08: T6.09 Workspace PASS (477+32).
   Files: MyChart.Core/UI/Workspace/WorkspaceModel.cs, MyChart.Tests/UI/WorkspaceTests.cs
   NEXT = T6.10 ToolBuilder
+
+LIVE STATUS
+- 2026-10-08: T6.10.PG6.01 BuilderShellAndForm PASS (484+32).
+  NEXT = T6.10.PG6.02 LivePreview

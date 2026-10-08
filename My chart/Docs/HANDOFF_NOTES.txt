@@ -1,69 +1,38 @@
 MyChart - HANDOFF NOTES (for the next model / session)
-Last updated: 2026-10-07 by Grok (session with PS)
+Last updated: 2026-10-08 by Grok (session with PS)
 Repo: https://github.com/ostadps-beep/My-chart-PS (private; use token).
 Solution folder: "My chart/".
 Owner: PS (Persian/Farsi; concise, exact commands; limited programming ability).
 
 READ THIS FIRST (30 seconds)
 1. Source of truth: Docs/MyChart_1_Engineering_Specification_Canonical_v1.4.txt
-   (node T-numbers + DEPENDS; PRIORITY_EXECUTION_ORDER wins).
-2. Progress: Docs/IMPLEMENTATION_PROGRESS.txt — one line per node.
-   Last PASS line = done. First PENDING = written, not verified on PS machine.
-   Line starting with # NEXT = what to do now.
-3. git pull on main before starting. Never overwrite other models' log lines.
-4. One node at a time. No skipping DEPENDS. No magic numbers. Golden vectors win.
+2. Progress: Docs/IMPLEMENTATION_PROGRESS.txt — last PASS + line # NEXT
+3. git pull origin main before starting. One node at a time. No magic numbers.
+4. After VERIFY: update Progress + this LIVE STATUS; model merges to main when possible.
 
-STATE (2026-10-07)
-- main tip includes through T6.03 TopToolbar after merge; T6.04 on branch grok/t6-04-left-toolbar PASS locally.
-- Local VERIFY (PS): MyChart.Tests 414 passed, Generator.Tests 32 passed, Failed 0.
-- Visual appearance: candles + dark shell only. Toolbars are MODEL+CONTROLLER only
-  (GATE=VISUAL). Grid/Axis T4.03, HUD T6.01, ContextMenus T6.02 still PARTIAL (VISUAL).
-- This is EXPECTED: CalculationBeforeVisual; UI chrome not fully wired to WPF yet.
+STATE (2026-10-08) — REPO UNIFIED ON main
+- main includes T0..T6.08. MyChart.Settings is ON main (not only on a feature branch).
+- T6.08 PASS: Settings panel in solution; App can open SettingsWindow; Dark.xaml unchanged (theme mapping = T7.02).
+- NEXT = T6.09 Workspace
+- Local tip after unify merge: see git log -1 on main.
 
-PARTIAL / OPEN VISUAL GATES (do not treat as full product UI)
-- T4.03 BackgroundGridAxisRenderers — GATE=VISUAL pending
-- T6.01 HudRenderer — automated ok; GATE=VISUAL pending
-- T6.02 ContextMenus — automated ok; GATE=VISUAL pending
-- T6.03 / T6.04 — automated PASS; GATE=VISUAL (PNG/screenshot + PS approve) still open for full chrome
+PARTIAL / VISUAL GATES still open
+- T4.03 BackgroundGridAxisRenderers
+- T6.01 HudRenderer
+- T6.02 ContextMenus
+- Many T6 nodes are model/wire PASS with GATE=VISUAL still open for full chrome
 
 RULES (short)
-- Missing requirement = OPEN: stop and ask PS. Never guess.
-- Conflict: node text wins; tell PS.
-- Settings panel is external; integrate only at T6.08. No "ChartMy" outside Docs/.
-- Renderers read colors only via IThemeService (T4.02).
-- Left/Top toolbar: slot-driven; UI must not hardcode tool names/icons (A2).
+- Missing requirement = OPEN: ask PS. Conflict: node text wins.
+- Settings is external panel integrated at T6.08; do not redesign. No "ChartMy" outside Docs/.
+- Colors via IThemeService only. Toolbars slot-driven (no hardcoded tool names in UI).
 
 HOW WE WORK WITH PS
-- Cloud may have no dotnet. Write code+tests, push branch, PS runs:
-    cd "...\My chart"
-    git fetch
-    git checkout <branch>
-    dotnet test
-- PS pastes output. Failed:0 -> set log PENDING to PASS, merge to main, push.
-- Branch naming: grok/t<node>-<short-name> or claude/...
-- After each node: update IMPLEMENTATION_PROGRESS.txt AND this LIVE STATUS block.
+- PS runs: git fetch; git checkout <branch or main>; Stop-Process MyChart.App if needed; dotnet test
+- Close MyChart.App before every build (DLL lock).
+- Failed:0 -> PASS line in Progress, merge to main.
 
-LIVE STATUS (update every session end)
-- 2026-10-07: T6.04 LeftToolbarAndDrawingTools PASS (414+32).
-  Files: MyChart.Core/UI/Toolbar/LeftToolbarModel.cs, MyChart.Tests/UI/LeftToolbarTests.cs
-  NEXT = T6.05 ContextToolbar (DEPENDS T6.04 path; check Spec node T6.05).
-- Merge T6.04 to main after PS confirms, then start T6.05 on new branch.
-- Handoff automation: no full auto-log in repo. Minimum contract =
-  (1) Progress one-liner (2) this LIVE STATUS (3) clear commit message.
-  Optional: scripts/update-handoff.ps1 can regenerate LIVE STATUS from Progress (see below note).
-
-OPTIONAL HANDOFF HELPER (manual run by PS or model)
-- Keep Progress authoritative.
-- After dotnet test PASS, append/replace only the LIVE STATUS (update every session end)
-- 2026-10-07: T6.05 ContextToolbar PASS (424+32).
-  Files: MyChart.Core/UI/Toolbar/ContextToolbarModel.cs, MyChart.Tests/UI/ContextToolbarTests.cs
-  NEXT = T6.06 IndicatorLayerAndDialog (PENDING VERIFY on PS machine)
-- Visual still candle-shell only; toolbars/context bar are model+controller (GATE=VISUAL).
-
-- 2026-10-07: T6.06 IndicatorLayerAndDialog written (PENDING VERIFY).
-  Files: IndicatorRenderer.cs, IndicatorDialogModel.cs, IndicatorRendererTests, IndicatorDialogTests
-  After PASS -> NEXT = T6.07 NavigatorPanel
-
-- 2026-10-07: T6.07 NavigatorPanel written (PENDING VERIFY).
-  Files: NavigatorPanelModel.cs, NavigatorPanelTests.cs
-  After PASS -> NEXT = T6.08 SettingsIntegration
+LIVE STATUS
+- 2026-10-08: Repo unified. main = through T6.08 SettingsIntegration PASS.
+  NEXT = T6.09 Workspace
+- Feature branch grok/t6-08-settings-wire merged into main (commit message: Merge T6.08 SettingsIntegration to main).

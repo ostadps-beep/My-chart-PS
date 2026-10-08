@@ -36,3 +36,8 @@ LIVE STATUS
 - 2026-10-08: Repo unified. main = through T6.08 SettingsIntegration PASS.
   NEXT = T6.09 Workspace
 - Feature branch grok/t6-08-settings-wire merged into main (commit message: Merge T6.08 SettingsIntegration to main).
+
+LIVE STATUS
+- 2026-10-08: T6.09 Workspace PASS (477+32).
+  Files: MyChart.Core/UI/Workspace/WorkspaceModel.cs, MyChart.Tests/UI/WorkspaceTests.cs
+  NEXT = T6.10 ToolBuilder

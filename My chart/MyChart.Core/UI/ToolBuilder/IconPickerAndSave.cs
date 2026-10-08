@@ -88,7 +88,7 @@ public sealed class ToolSavePipeline
         var id = form.Name.Trim();
         var idErr = IdRules.Validate(id);
         if (idErr is not null)
-            return new ToolSaveResult(false, null, idErr, "C2: invalid ComponentId", false);
+            return new ToolSaveResult(false, null, "C2", "C2: invalid ComponentId (" + idErr + ")", false);
 
         // C1 — definition must validate
         var json = form.TryGetSaveableDefinition();

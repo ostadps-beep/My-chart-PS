@@ -73,11 +73,12 @@ public class IconPickerSaveTests : IDisposable
     public void Save_Blocked_When_C1_Invalid()
     {
         var pipe = new ToolSavePipeline(_userRoot);
-        var form = new ToolDefinitionFormModel { Name = "X", Anchors = 0 };
+        // Valid ComponentId (passes C2); Anchors=0 fails definition (C1)
+        var form = new ToolDefinitionFormModel { Name = "BadTool", Anchors = 0 };
         var result = pipe.Save(form);
         Assert.False(result.Ok);
         Assert.Equal("C1", result.ErrorCode);
-        Assert.False(Directory.Exists(Path.Combine(_userRoot, "X")));
+        Assert.False(Directory.Exists(Path.Combine(_userRoot, "BadTool")));
     }
 
     [Fact]
@@ -88,8 +89,7 @@ public class IconPickerSaveTests : IDisposable
         form.Name = "bad id!"; // invalid id chars
         var result = pipe.Save(form);
         Assert.False(result.Ok);
-        // C2 or id error code
-        Assert.False(string.IsNullOrEmpty(result.ErrorCode));
+        Assert.Equal("C2", result.ErrorCode);
         Assert.DoesNotContain(Directory.GetDirectories(_userRoot), d => Path.GetFileName(d) == "bad id!");
     }
 

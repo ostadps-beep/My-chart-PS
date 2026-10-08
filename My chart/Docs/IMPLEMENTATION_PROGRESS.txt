@@ -75,6 +75,8 @@ T6.10.PG6.01 | 2026-10-08 | PASS | BuilderShellAndForm (484+32 tests)
 
 T6.10.PG6.02 | 2026-10-08 | PASS | LivePreview (493+32 tests)
 
-T6.10.PG6.03 | 2026-10-08 | PENDING | IconPickerAndSave
+T6.10.PG6.03 | 2026-10-08 | PASS | IconPickerAndSave (500+32 tests)
 
-# NEXT = T6.10.PG6.03 IconPickerAndSave
+T6.10 | 2026-10-08 | PASS | ToolBuilder complete (PG6.01–PG6.03)
+
+# NEXT = T7.01 IconSystem

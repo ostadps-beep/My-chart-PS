@@ -75,4 +75,6 @@ T6.10.PG6.01 | 2026-10-08 | PASS | BuilderShellAndForm (484+32 tests)
 
 T6.10.PG6.02 | 2026-10-08 | PASS | LivePreview (493+32 tests)
 
+T6.10.PG6.03 | 2026-10-08 | PENDING | IconPickerAndSave
+
 # NEXT = T6.10.PG6.03 IconPickerAndSave

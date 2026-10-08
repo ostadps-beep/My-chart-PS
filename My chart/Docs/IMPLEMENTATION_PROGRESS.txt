@@ -73,4 +73,6 @@ T6.09 | 2026-10-08 | PASS | Workspace (477+32 tests)
 
 T6.10.PG6.01 | 2026-10-08 | PASS | BuilderShellAndForm (484+32 tests)
 
+T6.10.PG6.02 | 2026-10-08 | PENDING | LivePreview
+
 # NEXT = T6.10.PG6.02 LivePreview

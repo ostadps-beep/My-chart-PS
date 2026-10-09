@@ -5,23 +5,25 @@
         Title="MyChart"
         Height="720"
         Width="1280"
-        Background="#131722"
+        Background="#1E1E1E"
         Loaded="OnLoaded">
   <DockPanel>
-    <Border DockPanel.Dock="Top" Background="#1E222D" Padding="8,4">
+    <!-- ChartMy palette: Panel #252525, Control #2A2A2A, Accent #4CAF50, Text #FFFFFF, Muted #AAAAAA -->
+    <Border DockPanel.Dock="Top" Background="#252525" BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="8,6">
       <StackPanel Orientation="Horizontal">
         <Button Content="Settings"
                 Width="100"
                 Height="28"
-                Margin="0,0,8,0"
+                Margin="0,0,12,0"
                 Click="OnSettingsClick"
-                Background="#2962FF"
-                Foreground="White"
-                BorderThickness="0"
+                Background="#2A2A2A"
+                Foreground="#FFFFFF"
+                BorderBrush="#444444"
+                BorderThickness="1"
                 Cursor="Hand"/>
         <TextBlock Text="MyChart"
                    VerticalAlignment="Center"
-                   Foreground="#D1D4DC"
+                   Foreground="#AAAAAA"
                    FontSize="14"/>
       </StackPanel>
     </Border>

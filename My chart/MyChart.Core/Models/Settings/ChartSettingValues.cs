@@ -1,8 +1,7 @@
 namespace MyChart.Core.Models.Settings;
 
 /// <summary>
-/// Typed chart settings. Defaults match SETTINGS_KEY_MAP.
-/// Until T6.08 the chart uses DefaultChartSettings; the real panel is not in the solution yet.
+/// Typed chart settings. Defaults match SETTINGS_KEY_MAP + ChartMy panel palette (T7.02).
 /// </summary>
 public sealed class ChartSettingValues
 {
@@ -21,25 +20,25 @@ public sealed class ChartSettingValues
     public string DisplayMode { get; set; } = "Candlesticks";
     public bool ShowOhlc { get; set; } = true;
 
-    // --- grid / axes (subset with chart consumers) ---
+    // --- grid / axes ---
     public bool ShowGrid { get; set; } = true;
-    public string GridHorizontalColor { get; set; } = "#2A2E39";
+    public string GridHorizontalColor { get; set; } = "#2A2A2A";
     public string GridStyle { get; set; } = "Solid";
     public bool ShowHorizontalGrid { get; set; } = true;
     public bool ShowVerticalGrid { get; set; } = true;
     public int GridTransparency { get; set; } = 40;
     public string PriceAxisPosition { get; set; } = "Right";
     public bool ShowLastPrice { get; set; } = true;
-    public string AxisColor { get; set; } = "#787B86";
+    public string AxisColor { get; set; } = "#AAAAAA";
 
-    // --- candles / theme colour keys (T7.02 Custom overrides) ---
-    public double CandlesSpacing { get; set; } = 1.0; // body width follows candles.spacing
-    public string BackgroundColor { get; set; } = "#131722";
+    // --- candles / theme (ChartMy global palette) ---
+    public double CandlesSpacing { get; set; } = 1.0;
+    public string BackgroundColor { get; set; } = "#1E1E1E";
     public string BullColor { get; set; } = "#26A69A";
     public string BearColor { get; set; } = "#EF5350";
     public string WickColor { get; set; } = "#CCCCCC";
-    public string BorderColor { get; set; } = "#1A1A1A";
-    public string AccentColor { get; set; } = "#2962FF";
+    public string BorderColor { get; set; } = "#333333";
+    public string AccentColor { get; set; } = "#4CAF50";
     public string ThemeProfileName { get; set; } = "Dark";
 
     // --- hud ---
@@ -56,6 +55,6 @@ public sealed class ChartSettingValues
     public string LogLevel { get; set; } = "Info";
     public string ErrorBehavior { get; set; } = "Continue";
 
-    // --- drawing tools (subset) ---
+    // --- drawing tools ---
     public bool DrawingShowLabels { get; set; } = true;
 }

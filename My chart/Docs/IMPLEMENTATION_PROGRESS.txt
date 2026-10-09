@@ -81,4 +81,7 @@ T6.10 | 2026-10-08 | PASS | ToolBuilder complete (PG6.01–PG6.03)
 
 T7.01 | 2026-10-09 | PASS | IconSystem (507+32); PathData→StreamGeometry in UI; colour rules; no IconGeometry.xaml; GATE=VISUAL pending owner PNG
 
-# NEXT = T7.02 ThemeProfiles
+T7.02 | 2026-10-09 | PASS | ThemeProfiles (Dark/Light/ProDark/Custom + PanelThemeMap; owner VERIFY 522 tests)
+T7.03 | 2026-10-09 | PASS | PerformanceTuning (FPS limit, AA, p95 16.7ms budget; owner VERIFY 522 tests)
+
+# NEXT = T7.04 TestingSweep

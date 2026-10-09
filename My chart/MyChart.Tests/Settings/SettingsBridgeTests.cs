@@ -78,9 +78,19 @@ public class SettingsBridgeTests
         var b = new SettingsBridge();
         var seen = new List<string>();
         b.Changed += k => seen.AddRange(k);
+        // workspace.* commands are NOT_IN_V1 for chart consumers (R7 / R10)
         b.OnUpdate("workspace.reset", true);
-        b.OnUpdate("theme.profile", "Light");
+        b.OnUpdate("workspace.import", true);
+        b.OnUpdate("workspace.export", true);
         Assert.Empty(seen);
+    }
+
+    [Fact]
+    public void ThemeProfile_Routes_After_T702()
+    {
+        var b = new SettingsBridge();
+        b.OnUpdate("theme.profile", "Light");
+        Assert.Equal("Light", b.Values.ThemeProfileName);
     }
 
     [Fact]

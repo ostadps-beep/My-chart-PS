@@ -18,12 +18,15 @@ public static class SettingsKeyRouter
         "hud.overlay.hud.font.size", "hud.overlay.hud.font.type", "hud.overlay.hud.transparency",
         "performance.fps.limit", "performance.anti.aliasing", "performance.log.level",
         "performance.error.behavior", "drawing.tools.show.labels",
+        "grid.background.background.color", "axes.axis.color",
+        "candles.bull.color", "candles.bear.color", "candles.wick.color", "candles.border.color",
+        "drawing.tools.tool.color", "hud.overlay.text.color", "theme.profile",
     };
 
     public static readonly HashSet<string> NotInV1 = new(StringComparer.Ordinal)
     {
         "workspace.reset", "workspace.import", "workspace.export",
-        "candles.type", "theme.profile",
+        "candles.type",
     };
 
     public static bool TryApply(ChartSettingValues v, string key, object? value)
@@ -55,10 +58,19 @@ public static class SettingsKeyRouter
                 "grid.transparency" => SetInt(() => v.GridTransparency, x => v.GridTransparency = x, value),
                 "axes.price.position" => SetString(() => v.PriceAxisPosition, x => v.PriceAxisPosition = x, value, "Right", "Left"),
                 "axes.show.last.price" => SetBool(() => v.ShowLastPrice, x => v.ShowLastPrice = x, value),
+                "axes.axis.color" => SetString(() => v.AxisColor, x => v.AxisColor = x, value),
                 "candles.spacing" => SetDouble(() => v.CandlesSpacing, x => v.CandlesSpacing = x, value),
+                "candles.bull.color" => SetString(() => v.BullColor, x => v.BullColor = x, value),
+                "candles.bear.color" => SetString(() => v.BearColor, x => v.BearColor = x, value),
+                "candles.wick.color" => SetString(() => v.WickColor, x => v.WickColor = x, value),
+                "candles.border.color" => SetString(() => v.BorderColor, x => v.BorderColor = x, value),
+                "grid.background.background.color" => SetString(() => v.BackgroundColor, x => v.BackgroundColor = x, value),
+                "drawing.tools.tool.color" => SetString(() => v.AccentColor, x => v.AccentColor = x, value),
+                "theme.profile" => SetString(() => v.ThemeProfileName, x => v.ThemeProfileName = x, value, "Dark", "Light", "ProDark", "Custom"),
                 "hud.overlay.hud.items" => SetString(() => v.HudItems, x => v.HudItems = x, value),
                 "hud.overlay.hud.position" => SetString(() => v.HudPosition, x => v.HudPosition = x, value, "TopLeft", "TopRight", "BottomLeft", "BottomRight"),
                 "hud.overlay.hud.text.color" => SetString(() => v.HudTextColor, x => v.HudTextColor = x, value),
+                "hud.overlay.text.color" => SetString(() => v.HudTextColor, x => v.HudTextColor = x, value),
                 "hud.overlay.hud.font.size" => SetInt(() => v.HudFontSize, x => v.HudFontSize = x, value),
                 "hud.overlay.hud.font.type" => SetString(() => v.HudFontType, x => v.HudFontType = x, value),
                 "hud.overlay.hud.transparency" => SetInt(() => v.HudTransparency, x => v.HudTransparency = x, value),

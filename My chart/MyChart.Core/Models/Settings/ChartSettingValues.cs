@@ -30,9 +30,17 @@ public sealed class ChartSettingValues
     public int GridTransparency { get; set; } = 40;
     public string PriceAxisPosition { get; set; } = "Right";
     public bool ShowLastPrice { get; set; } = true;
+    public string AxisColor { get; set; } = "#787B86";
 
-    // --- candles ---
+    // --- candles / theme colour keys (T7.02 Custom overrides) ---
     public double CandlesSpacing { get; set; } = 1.0; // body width follows candles.spacing
+    public string BackgroundColor { get; set; } = "#131722";
+    public string BullColor { get; set; } = "#26A69A";
+    public string BearColor { get; set; } = "#EF5350";
+    public string WickColor { get; set; } = "#CCCCCC";
+    public string BorderColor { get; set; } = "#1A1A1A";
+    public string AccentColor { get; set; } = "#2962FF";
+    public string ThemeProfileName { get; set; } = "Dark";
 
     // --- hud ---
     public string HudItems { get; set; } = "OHLC, Change, Volume";

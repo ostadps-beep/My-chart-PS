@@ -10,6 +10,7 @@
         ResizeMode="CanResize"
         Loaded="OnLoaded">
   <Window.Resources>
+    <!-- ChartMy palette -->
     <Style x:Key="ThemeChromeButton" TargetType="Button">
       <Setter Property="Background" Value="#2A2A2A"/>
       <Setter Property="Foreground" Value="#FFFFFF"/>
@@ -39,9 +40,10 @@
         </Setter.Value>
       </Setter>
     </Style>
+
     <Style x:Key="CaptionButton" TargetType="Button">
       <Setter Property="Width" Value="46"/>
-      <Setter Property="Height" Value="32"/>
+      <Setter Property="Height" Value="30"/>
       <Setter Property="Background" Value="Transparent"/>
       <Setter Property="Foreground" Value="#AAAAAA"/>
       <Setter Property="BorderThickness" Value="0"/>
@@ -63,6 +65,7 @@
         </Setter.Value>
       </Setter>
     </Style>
+
     <Style x:Key="CaptionCloseButton" TargetType="Button" BasedOn="{StaticResource CaptionButton}">
       <Setter Property="Template">
         <Setter.Value>
@@ -80,42 +83,101 @@
         </Setter.Value>
       </Setter>
     </Style>
+
+    <Style TargetType="Menu">
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Foreground" Value="#FFFFFF"/>
+      <Setter Property="BorderThickness" Value="0"/>
+      <Setter Property="Padding" Value="0"/>
+    </Style>
+
+    <Style TargetType="MenuItem">
+      <Setter Property="Foreground" Value="#FFFFFF"/>
+      <Setter Property="Background" Value="Transparent"/>
+      <Setter Property="Padding" Value="10,4"/>
+      <Style.Triggers>
+        <Trigger Property="IsHighlighted" Value="True">
+          <Setter Property="Background" Value="#3A3A3A"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
   </Window.Resources>
 
   <Border BorderBrush="#333333" BorderThickness="1" Background="#1E1E1E">
     <DockPanel>
-      <!-- Unified title + toolbar chrome (ChartMy Panel #252525) -->
+
+      <!-- ===== Title bar (app name + window controls) ===== -->
       <Border DockPanel.Dock="Top"
-              Background="#252525"
+              Background="#1E1E1E"
               BorderBrush="#333333"
               BorderThickness="0,0,0,1"
               MouseLeftButtonDown="OnTitleBarDrag">
-        <Grid Height="36">
+        <Grid Height="30">
           <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
 
-          <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0,0,0">
-            <Button Content="Settings"
-                    Style="{StaticResource ThemeChromeButton}"
-                    Width="100"
-                    Height="26"
-                    Margin="0,0,12,0"
-                    Click="OnSettingsClick"/>
+          <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center" Margin="12,0,0,0">
             <TextBlock Text="MyChart"
-                       VerticalAlignment="Center"
+                       Foreground="#FFFFFF"
+                       FontSize="12"
+                       FontWeight="SemiBold"
+                       VerticalAlignment="Center"/>
+            <TextBlock Text="  ·  Chart"
                        Foreground="#AAAAAA"
-                       FontSize="13"
-                       FontWeight="SemiBold"/>
+                       FontSize="11"
+                       VerticalAlignment="Center"/>
           </StackPanel>
 
-          <StackPanel Grid.Column="2" Orientation="Horizontal">
+          <StackPanel Grid.Column="1" Orientation="Horizontal">
             <Button Content="─" Style="{StaticResource CaptionButton}" Click="OnMinimize"/>
             <Button Content="☐" Style="{StaticResource CaptionButton}" Click="OnMaximize"/>
             <Button Content="✕" Style="{StaticResource CaptionCloseButton}" Click="OnClose"/>
           </StackPanel>
+        </Grid>
+      </Border>
+
+      <!-- ===== Menu bar (modules / future projects) ===== -->
+      <Border DockPanel.Dock="Top"
+              Background="#252525"
+              BorderBrush="#333333"
+              BorderThickness="0,0,0,1">
+        <Grid Height="32">
+          <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+          </Grid.ColumnDefinitions>
+
+          <Menu Grid.Column="0" VerticalAlignment="Center" Margin="4,0,0,0">
+            <MenuItem Header="_File">
+              <MenuItem Header="_Settings..." Click="OnSettingsClick"/>
+              <Separator/>
+              <MenuItem Header="E_xit" Click="OnClose"/>
+            </MenuItem>
+            <MenuItem Header="_View">
+              <MenuItem Header="Chart" IsEnabled="True"/>
+            </MenuItem>
+            <MenuItem Header="_Tools">
+              <MenuItem Header="Settings..." Click="OnSettingsClick"/>
+            </MenuItem>
+            <!-- Placeholder for future projects/modules -->
+            <MenuItem Header="_Modules">
+              <MenuItem Header="(coming soon)" IsEnabled="False"/>
+            </MenuItem>
+            <MenuItem Header="_Help">
+              <MenuItem Header="About MyChart" IsEnabled="False"/>
+            </MenuItem>
+          </Menu>
+
+          <Button Grid.Column="1"
+                  Content="Settings"
+                  Style="{StaticResource ThemeChromeButton}"
+                  Width="90"
+                  Height="24"
+                  Margin="0,0,8,0"
+                  VerticalAlignment="Center"
+                  Click="OnSettingsClick"/>
         </Grid>
       </Border>
 

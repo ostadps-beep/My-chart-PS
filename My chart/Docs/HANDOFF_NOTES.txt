@@ -74,3 +74,8 @@ LIVE STATUS
 - 2026-10-09: T7.04 TestingSweep PASS (owner: 522 + 32 Failed 0).
   NEXT = T7.05 ReleaseChecklist
 
+LIVE STATUS
+- 2026-10-09: T7.05 ReleaseChecklist written (PENDING VERIFY).
+  Files: ReleaseChecklistTests.cs, Docs/RELEASE_CHECKLIST.txt
+  Owner runs: dotnet test MyChart.Tests (automated parts).
+

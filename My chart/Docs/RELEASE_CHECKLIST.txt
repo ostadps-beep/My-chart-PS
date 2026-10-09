@@ -1,0 +1,20 @@
+MyChart T7.05 ReleaseChecklist
+Authority: Engineering Spec Canonical v1.4 — node T7.05
+Date: 2026-10-09
+
+AUTOMATED (in MyChart.Tests/Smoke/ReleaseChecklistTests.cs)
+[x] Project graph: Core references nothing; Core does not ref PluginHost/Plugins/Generator/ToolBuilder
+[x] Rendering references only Core
+[x] Settings references nothing (when present)
+[x] Candle model has no Color/Brush/Theme fields (FORBIDDEN)
+[x] Memory proxy: 500_000 Candle instances under 300 MB managed growth
+[x] Stress smoke: 100k candle constructions without throw
+
+OWNER / MACHINE (run once before shipping)
+[ ] dotnet build MyChart.sln -c Release -p:Platform=x64  (0 errors; TreatWarningsAsErrors already on)
+[ ] Startup to first chart from cache <= 2 s (stopwatch from process start to first paint)
+[ ] Optional long StressTest: 8 charts, 100 ticks/s each, 30 min; memory growth <= 5%; no unhandled exception
+[ ] FinalReview: OPEN_ITEM_PROTOCOL (no OPEN requirements left guessed)
+[ ] FinalReview: FORBIDDEN list still respected
+
+NEXT after T7.05 PASS: end of T7 phase / product readiness for visual gates still open

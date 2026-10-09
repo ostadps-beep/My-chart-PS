@@ -86,4 +86,6 @@ T7.03 | 2026-10-09 | PASS | PerformanceTuning (FPS limit, AA, p95 16.7ms budget;
 
 T7.04 | 2026-10-09 | PASS | TestingSweep (owner VERIFY: MyChart.Tests 522 + Generator.Tests 32, Failed 0)
 
-# NEXT = T7.05 ReleaseChecklist
+T7.05 | 2026-10-09 | PENDING | ReleaseChecklist (graph, memory proxy, stress smoke)
+
+# NEXT after T7.05 = T7 phase complete (visual gates still open)

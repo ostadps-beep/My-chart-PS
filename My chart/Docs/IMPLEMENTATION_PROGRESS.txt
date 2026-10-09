@@ -67,18 +67,10 @@ T6.04 | 2026-10-07 | PASS | LeftToolbarAndDrawingTools
 T6.05 | 2026-10-07 | PASS | ContextToolbar
 T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog
 T6.07 | 2026-10-07 | PASS | NavigatorPanel
-T6.08 | 2026-10-07 | PASS | SettingsIntegration (R1 panel in solution; App ref; ShowSettingsWindow; Dark.xaml merge only; owner visual OK)
+T6.08 | 2026-10-07 | PASS | SettingsIntegration
+T6.09 | 2026-10-08 | PASS | Workspace
+T6.10 | 2026-10-08 | PASS | ToolBuilder complete
+T7.01 | 2026-10-09 | PASS | IconSystem (GATE=VISUAL pending)
+T7.02 | 2026-10-09 | PASS | ThemeProfiles — ChartMy panel palette global; Dark/Light/ProDark/Custom; PanelThemeMap; title+menu chrome; tests 514
 
-T6.09 | 2026-10-08 | PASS | Workspace (477+32 tests)
-
-T6.10.PG6.01 | 2026-10-08 | PASS | BuilderShellAndForm (484+32 tests)
-
-T6.10.PG6.02 | 2026-10-08 | PASS | LivePreview (493+32 tests)
-
-T6.10.PG6.03 | 2026-10-08 | PASS | IconPickerAndSave (500+32 tests)
-
-T6.10 | 2026-10-08 | PASS | ToolBuilder complete (PG6.01–PG6.03)
-
-T7.01 | 2026-10-09 | PASS | IconSystem (507+32); PathData→StreamGeometry in UI; colour rules; no IconGeometry.xaml; GATE=VISUAL pending owner PNG
-
-# NEXT = T7.02 ThemeProfiles
+# NEXT = T7.03 PerformanceTuning

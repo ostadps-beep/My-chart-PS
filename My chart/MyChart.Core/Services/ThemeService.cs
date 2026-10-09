@@ -10,6 +10,13 @@ public sealed class ThemeService : IThemeService
     private ThemeProfileKind _kind;
     private IReadOnlyDictionary<string, string>? _customOverrides;
 
+    /// <summary>Convenience: official Dark tokens (ChartMy panel palette).</summary>
+    public static ThemeTokens Dark => ThemeTokens.Dark;
+
+    public static ThemeTokens Light => ThemeTokens.Light;
+
+    public static ThemeTokens ProDark => ThemeTokens.ProDark;
+
     public ThemeService(ThemeProfileKind initial = ThemeProfileKind.Dark)
     {
         _kind = initial;

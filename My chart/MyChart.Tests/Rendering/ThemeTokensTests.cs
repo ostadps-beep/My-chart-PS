@@ -4,25 +4,26 @@ using Xunit;
 
 namespace MyChart.Tests.Rendering;
 
+/// <summary>T7.02 — Dark = ChartMy panel palette (owner single global theme).</summary>
 public class ThemeTokensTests
 {
     [Fact]
-    public void DarkProfile_MatchesSpecHex()
+    public void DarkProfile_MatchesChartMyPanel()
     {
         var t = ThemeService.Dark;
-        Assert.Equal(RgbaColor.ParseHex("#131722"), t.BackgroundColor);
-        Assert.Equal(RgbaColor.ParseHex("#1E222D"), t.GridColor);
-        Assert.Equal(RgbaColor.ParseHex("#2A2E39"), t.GridMajorColor);
-        Assert.Equal(RgbaColor.ParseHex("#1E222D"), t.GridMinorColor);
-        Assert.Equal(RgbaColor.ParseHex("#787B86"), t.AxisColor);
-        Assert.Equal(RgbaColor.ParseHex("#B2B5BE"), t.HudColor);
-        Assert.Equal(RgbaColor.ParseHex("#2962FF"), t.AccentColor);
-        Assert.Equal(RgbaColor.ParseHex("#2962FF"), t.SelectionColor);
+        Assert.Equal(RgbaColor.ParseHex("#1E1E1E"), t.BackgroundColor);
+        Assert.Equal(RgbaColor.ParseHex("#252525"), t.GridColor);
+        Assert.Equal(RgbaColor.ParseHex("#2A2A2A"), t.GridMajorColor);
+        Assert.Equal(RgbaColor.ParseHex("#252525"), t.GridMinorColor);
+        Assert.Equal(RgbaColor.ParseHex("#AAAAAA"), t.AxisColor);
+        Assert.Equal(RgbaColor.ParseHex("#FFFFFF"), t.HudColor);
+        Assert.Equal(RgbaColor.ParseHex("#4CAF50"), t.AccentColor);
+        Assert.Equal(RgbaColor.ParseHex("#4CAF50"), t.SelectionColor);
         Assert.Equal(RgbaColor.ParseHex("#26A69A"), t.BullColor);
         Assert.Equal(RgbaColor.ParseHex("#EF5350"), t.BearColor);
         Assert.Equal(RgbaColor.ParseHex("#FF9800"), t.WarningColor);
-        Assert.Equal(RgbaColor.ParseHex("#F23645"), t.ErrorColor);
-        Assert.Equal(RgbaColor.ParseHex("#089981"), t.SuccessColor);
+        Assert.Equal(RgbaColor.ParseHex("#EF5350"), t.ErrorColor);
+        Assert.Equal(RgbaColor.ParseHex("#4CAF50"), t.SuccessColor);
     }
 
     [Fact]
@@ -30,7 +31,7 @@ public class ThemeTokensTests
     {
         var t = ThemeService.Dark;
         Assert.Equal(6, t.IndicatorPalette.Count);
-        Assert.Equal(RgbaColor.ParseHex("#2962FF"), t.IndicatorPalette[0]);
+        Assert.Equal(RgbaColor.ParseHex("#4CAF50"), t.IndicatorPalette[0]);
         Assert.Equal(RgbaColor.ParseHex("#8BC34A"), t.IndicatorPalette[5]);
         Assert.Equal(t.IndicatorPalette[1], t.IndicatorColor(7));
     }
@@ -57,6 +58,6 @@ public class ThemeTokensTests
     public void WickAndBorder_Defaults()
     {
         Assert.Equal(RgbaColor.ParseHex("#CCCCCC"), ThemeService.Dark.WickColor);
-        Assert.Equal(RgbaColor.ParseHex("#1A1A1A"), ThemeService.Dark.BorderColor);
+        Assert.Equal(RgbaColor.ParseHex("#333333"), ThemeService.Dark.BorderColor);
     }
 }

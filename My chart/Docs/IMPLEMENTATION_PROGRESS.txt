@@ -71,6 +71,7 @@ T6.08 | 2026-10-07 | PASS | SettingsIntegration
 T6.09 | 2026-10-08 | PASS | Workspace
 T6.10 | 2026-10-08 | PASS | ToolBuilder complete
 T7.01 | 2026-10-09 | PASS | IconSystem (GATE=VISUAL pending)
-T7.02 | 2026-10-09 | PASS | ThemeProfiles — ChartMy panel palette global; Dark/Light/ProDark/Custom; PanelThemeMap; title+menu chrome; tests 514
+T7.02 | 2026-10-09 | PASS | ThemeProfiles — ChartMy panel palette global
+T7.03 | 2026-10-09 | PENDING | PerformanceTuning — FrameBudget, LayerCache, DirtyRegion, PaintPathPool, NavigatorColumnAggregator, PerformanceController
 
-# NEXT = T7.03 PerformanceTuning
+# NEXT = verify T7.03 tests then T7.04

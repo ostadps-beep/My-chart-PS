@@ -86,6 +86,8 @@ T7.03 | 2026-10-09 | PASS | PerformanceTuning (FPS limit, AA, p95 16.7ms budget;
 
 T7.04 | 2026-10-09 | PASS | TestingSweep (owner VERIFY: MyChart.Tests 522 + Generator.Tests 32, Failed 0)
 
-T7.05 | 2026-10-09 | PENDING | ReleaseChecklist (graph, memory proxy, stress smoke)
+T7.05 | 2026-10-09 | PASS | ReleaseChecklist (owner VERIFY: ReleaseChecklist 7/7 + full suite Failed 0)
 
-# NEXT after T7.05 = T7 phase complete (visual gates still open)
+T7 | 2026-10-09 | PASS | Phase T7 complete (automated gates)
+
+# NEXT = visual gates still open (T4.03, T6.01, T6.02, …) or product polish; no further T-node in v1 order

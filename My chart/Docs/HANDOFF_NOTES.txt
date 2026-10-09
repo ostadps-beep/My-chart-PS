@@ -79,3 +79,9 @@ LIVE STATUS
   Files: ReleaseChecklistTests.cs, Docs/RELEASE_CHECKLIST.txt
   Owner runs: dotnet test MyChart.Tests (automated parts).
 
+LIVE STATUS
+- 2026-10-09: T7.05 ReleaseChecklist PASS (owner: filter ReleaseChecklist 7/7 Failed 0; main eaeb1e3+).
+  T7 phase automated complete (T7.01–T7.05).
+  Still open: GATE=VISUAL items (T4.03, T6.01, T6.02, toolbars chrome, etc.).
+  Owner long stress (8 charts / 30 min) and Release x64 build remain optional machine checks in Docs/RELEASE_CHECKLIST.txt.
+

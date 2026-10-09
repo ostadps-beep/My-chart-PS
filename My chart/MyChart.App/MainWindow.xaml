@@ -7,24 +7,61 @@
         Width="1280"
         Background="#1E1E1E"
         Loaded="OnLoaded">
+  <Window.Resources>
+    <!-- ChartMy: Control #2A2A2A, Hover #3A3A3A, Active #505050, Border #444444, Text #AAAAAA / #FFFFFF -->
+    <Style x:Key="ThemeChromeButton" TargetType="Button">
+      <Setter Property="Background" Value="#2A2A2A"/>
+      <Setter Property="Foreground" Value="#FFFFFF"/>
+      <Setter Property="BorderBrush" Value="#444444"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Template">
+        <Setter.Value>
+          <ControlTemplate TargetType="Button">
+            <Border x:Name="Bd"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="4"
+                    Padding="8,0">
+              <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </Border>
+            <ControlTemplate.Triggers>
+              <Trigger Property="IsMouseOver" Value="True">
+                <Setter TargetName="Bd" Property="Background" Value="#3A3A3A"/>
+              </Trigger>
+              <Trigger Property="IsPressed" Value="True">
+                <Setter TargetName="Bd" Property="Background" Value="#505050"/>
+              </Trigger>
+              <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Opacity" Value="0.5"/>
+              </Trigger>
+            </ControlTemplate.Triggers>
+          </ControlTemplate>
+        </Setter.Value>
+      </Setter>
+    </Style>
+  </Window.Resources>
+
   <DockPanel>
-    <!-- ChartMy palette: Panel #252525, Control #2A2A2A, Accent #4CAF50, Text #FFFFFF, Muted #AAAAAA -->
-    <Border DockPanel.Dock="Top" Background="#252525" BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="8,6">
+    <Border DockPanel.Dock="Top"
+            Background="#252525"
+            BorderBrush="#333333"
+            BorderThickness="0,0,0,1"
+            Padding="8,6">
       <StackPanel Orientation="Horizontal">
         <Button Content="Settings"
+                Style="{StaticResource ThemeChromeButton}"
                 Width="100"
                 Height="28"
                 Margin="0,0,12,0"
-                Click="OnSettingsClick"
-                Background="#2A2A2A"
-                Foreground="#FFFFFF"
-                BorderBrush="#444444"
-                BorderThickness="1"
-                Cursor="Hand"/>
+                Click="OnSettingsClick"/>
+        <!-- Title uses Muted #AAAAAA (same as panel muted text), not pure white -->
         <TextBlock Text="MyChart"
                    VerticalAlignment="Center"
                    Foreground="#AAAAAA"
-                   FontSize="14"/>
+                   FontSize="14"
+                   FontWeight="SemiBold"/>
       </StackPanel>
     </Border>
     <chart:ChartHost x:Name="Chart" />

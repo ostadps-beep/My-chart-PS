@@ -3,7 +3,7 @@ using Xunit;
 
 namespace MyChart.Tests.Settings;
 
-/// <summary>T6.08 VERIFY — key routing, NOT_IN_V1, seed, one invalidation per OnApplied.</summary>
+/// <summary>T6.08 / T7.02 VERIFY — key routing, NOT_IN_V1, seed, theme.profile.</summary>
 public class SettingsBridgeTests
 {
     [Theory]
@@ -79,8 +79,17 @@ public class SettingsBridgeTests
         var seen = new List<string>();
         b.Changed += k => seen.AddRange(k);
         b.OnUpdate("workspace.reset", true);
-        b.OnUpdate("theme.profile", "Light");
+        b.OnUpdate("workspace.import", "x");
+        b.OnUpdate("candles.type", "Line");
         Assert.Empty(seen);
+    }
+
+    [Fact]
+    public void ThemeProfile_Routes_To_Values()
+    {
+        var b = new SettingsBridge();
+        b.OnUpdate("theme.profile", "Light");
+        Assert.Equal("Light", b.Values.ThemeProfileName);
     }
 
     [Fact]
@@ -121,7 +130,6 @@ public class SettingsBridgeTests
         var v = new ChartSettingValues();
         foreach (var key in SettingsKeyRouter.KnownKeys)
         {
-            // Applying current-compatible value should not throw
             object sample = key switch
             {
                 _ when key.Contains("speed") || key.Contains("size") || key.Contains("limit")
@@ -132,6 +140,7 @@ public class SettingsBridgeTests
                 _ when key.Contains("color") || key.Contains("items") || key.Contains("type")
                     || key.Contains("level") || key.Contains("behavior") || key.Contains("mode")
                     || key.Contains("position") || key.Contains("style") || key.Contains("wheel")
+                    || key == "theme.profile"
                     => key switch
                     {
                         "chart.zoom.behavior" => "Both",
@@ -142,15 +151,15 @@ public class SettingsBridgeTests
                         "hud.overlay.hud.position" => "TopLeft",
                         "performance.log.level" => "Info",
                         "performance.error.behavior" => "Continue",
-                        "grid.horizontal.color" => "#2A2E39",
+                        "theme.profile" => "Dark",
+                        "grid.horizontal.color" => "#2A2A2A",
                         "hud.overlay.hud.text.color" => "#FFFFFF",
                         "hud.overlay.hud.font.type" => "Segoe UI",
                         "hud.overlay.hud.items" => "OHLC",
-                        _ => "x"
+                        _ => "#1E1E1E"
                     },
                 _ => true
             };
-            // Must not throw
             SettingsKeyRouter.TryApply(v, key, sample);
         }
     }

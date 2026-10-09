@@ -79,4 +79,6 @@ T6.10.PG6.03 | 2026-10-08 | PASS | IconPickerAndSave (500+32 tests)
 
 T6.10 | 2026-10-08 | PASS | ToolBuilder complete (PG6.01–PG6.03)
 
-# NEXT = T7.01 IconSystem
+T7.01 | 2026-10-09 | PASS | IconSystem (507+32); PathData→StreamGeometry in UI; colour rules; no IconGeometry.xaml; GATE=VISUAL pending owner PNG
+
+# NEXT = T7.02 ThemeProfiles

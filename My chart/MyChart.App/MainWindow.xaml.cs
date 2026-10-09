@@ -1,9 +1,10 @@
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MyChart.App;
 
-/// <summary>T4.08 thin shell — code-behind kept small; wiring in CompositionRoot.</summary>
+/// <summary>T4.08 / T7.02 thin shell — ChartMy chrome; wiring in CompositionRoot.</summary>
 public partial class MainWindow : Window
 {
     public MainWindow()
@@ -12,14 +13,34 @@ public partial class MainWindow : Window
         CompositionRoot.CreatePluginHost();
     }
 
+    private void OnTitleBarDrag(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ClickCount == 2)
+        {
+            OnMaximize(sender, e);
+            return;
+        }
+
+        if (e.LeftButton == MouseButtonState.Pressed)
+            DragMove();
+    }
+
+    private void OnMinimize(object sender, RoutedEventArgs e) =>
+        WindowState = WindowState.Minimized;
+
+    private void OnMaximize(object sender, RoutedEventArgs e) =>
+        WindowState = WindowState == WindowState.Maximized
+            ? WindowState.Normal
+            : WindowState.Maximized;
+
+    private void OnClose(object sender, RoutedEventArgs e) => Close();
+
     private void OnSettingsClick(object sender, RoutedEventArgs e)
     {
         var host = CompositionRoot.SettingsHost;
         if (host is null)
         {
-            MessageBox.Show(
-                "SettingsHost is not initialized.\nMake sure you are on branch grok/t6-08-settings-wire and rebuilt.",
-                "MyChart");
+            MessageBox.Show("SettingsHost is not initialized.", "MyChart");
             return;
         }
 

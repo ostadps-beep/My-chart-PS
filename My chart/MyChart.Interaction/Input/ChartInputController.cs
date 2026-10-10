@@ -5,9 +5,8 @@ namespace MyChart.Interaction.Input;
 
 /// <summary>
 /// T4.07 + C2 owner UX:
-/// Zoom around CENTER of visible range (uniform from any mouse position).
-/// Wheel direction: inverted per owner (up/down as they requested).
-/// Plot drag = 4-direction pan.
+/// Price zoom around vertical center; time zoom anchored to RIGHT edge of plot
+/// (candles grow → expand left; shrink → release toward right).
 /// </summary>
 public sealed class ChartInputController
 {
@@ -151,7 +150,6 @@ public sealed class ChartInputController
 
     private ChartInputAction HandleWheel(ViewState vs, PointerInput input, HitRegion region)
     {
-        // Owner: invert both price-axis and plot wheel directions vs previous build.
         _wheelAccum += -input.WheelDelta / 120.0;
         int notches = (int)Math.Truncate(_wheelAccum);
         if (notches == 0)
@@ -161,7 +159,6 @@ public sealed class ChartInputController
         if (region == HitRegion.PriceAxis)
         {
             double midPrice = (vs.PriceScale.MinPrice + vs.PriceScale.MaxPrice) * 0.5;
-            // notches > 0 → expand; notches < 0 → compress (after invert above)
             double factor = notches > 0
                 ? Math.Pow(ZoomEngine.ZoomFactor(), notches)
                 : Math.Pow(1.0 / ZoomEngine.ZoomFactor(), -notches);
@@ -172,9 +169,11 @@ public sealed class ChartInputController
         double zoomFactor = input.Ctrl
             ? ZoomEngine.PrecisionZoomFactor()
             : ZoomEngine.ZoomFactor();
-        double centerX = vs.PlotLeft + vs.PlotWidth * 0.5;
-        // Same invert: -notches so plot wheel matches owner expectation with inverted accum
-        ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -notches);
+
+        // Anchor at RIGHT edge of plot: zoom-in grows bars toward the left;
+        // zoom-out releases space toward the right (owner C2).
+        double rightEdgeX = vs.PlotLeft + vs.PlotWidth;
+        ZoomEngine.ZoomAt(vs, BarCount, rightEdgeX, zoomFactor, -notches);
         return input.Ctrl ? ChartInputAction.PrecisionZoom : ChartInputAction.Zoom;
     }
 }

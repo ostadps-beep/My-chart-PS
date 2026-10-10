@@ -4,23 +4,28 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MyChart.Core.Models.Market;
+using MyChart.Core.Services;
+using MyChart.Core.UI.Icons;
 using MyChart.Core.UI.Toolbar;
+using MyChart.UI.Icons;
 
 namespace MyChart.App;
 
 /// <summary>
 /// Shell per System Map + mockup: TopToolbar, LeftToolbar, Chart, Tab, Status.
-/// Models from Core (T6.03/T6.04); no hardcoded tool names on left (IconKey/CommandRef only).
+/// All 23 catalog icons via IconView + IconProvider (T7.01).
 /// </summary>
 public partial class MainWindow : Window
 {
     private TopToolbarModel _top = TopToolbarModel.CreateDefault(settingsAvailable: true);
     private LeftToolbarModel _left = LeftToolbarModel.CreateDefault();
+    private IconProvider? _icons;
 
     public MainWindow()
     {
         InitializeComponent();
         CompositionRoot.CreatePluginHost();
+        _icons = CompositionRoot.Icons;
         WireSettingsToChart();
         BuildTopToolbar();
         BuildLeftToolbar();
@@ -38,22 +43,56 @@ public partial class MainWindow : Window
         Chart.ApplySettings(host.Bridge.Values);
     }
 
+    private static string IconKeyFor(TopToolbarItemKind kind) => kind switch
+    {
+        TopToolbarItemKind.Symbol => "Icon.Symbol",
+        TopToolbarItemKind.Timeframe => "Icon.Timeframe",
+        TopToolbarItemKind.ChartType => "Icon.ChartType",
+        TopToolbarItemKind.Indicators => "Icon.Indicators",
+        TopToolbarItemKind.Templates => "Icon.Templates",
+        TopToolbarItemKind.Layout => "Icon.Layout",
+        TopToolbarItemKind.Settings => "Icon.Settings",
+        _ => "Icon.Settings"
+    };
+
+    private UIElement CreateIcon(string iconKey, IconVisualState state = IconVisualState.Normal)
+    {
+        var view = new IconView { IconKey = iconKey, VisualState = state };
+        if (_icons is not null)
+            view.Attach(_icons, ThemeService.Dark);
+        return view;
+    }
+
     private void BuildTopToolbar()
     {
         _top = CompositionRoot.CreateTopToolbar(symbol: "EURUSD", timeframe: Timeframe.M1);
         TopToolbarHost.Items.Clear();
         foreach (var item in _top.Items)
         {
-            var label = item.SelectedValue is { Length: > 0 } sv
-                ? $"{item.Label}: {sv}"
-                : item.Label;
+            var panel = new StackPanel
+            {
+                Orientation = Orientation.Horizontal,
+                VerticalAlignment = VerticalAlignment.Center
+            };
+            panel.Children.Add(CreateIcon(IconKeyFor(item.Kind)));
+
+            var text = item.SelectedValue is { Length: > 0 } sv ? sv : item.Label;
+            panel.Children.Add(new TextBlock
+            {
+                Text = text,
+                Foreground = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF)),
+                FontSize = 11,
+                Margin = new Thickness(6, 0, 0, 0),
+                VerticalAlignment = VerticalAlignment.Center
+            });
+
             var btn = new Button
             {
-                Content = label,
+                Content = panel,
                 Style = (Style)FindResource("TbButton"),
                 IsEnabled = item.IsEnabled,
                 Tag = item,
-                ToolTip = item.Kind.ToString()
+                ToolTip = $"{item.Label} ({IconKeyFor(item.Kind)})"
             };
             btn.Click += OnTopToolbarClick;
             TopToolbarHost.Items.Add(btn);
@@ -63,19 +102,17 @@ public partial class MainWindow : Window
     private void BuildLeftToolbar()
     {
         _left = LeftToolbarModel.CreateDefault();
+        // Ensure first-party tools + core so all drawing icons appear
         LeftToolbarHost.Items.Clear();
         foreach (var item in _left.Items)
         {
-            // Display: short id token only — no hard-coded drawing tool product names in UI text
-            var caption = item.Kind switch
-            {
-                LeftToolbarItemKind.Cursor => "↖",
-                LeftToolbarItemKind.Crosshair => "+",
-                _ => "·"
-            };
+            var iconKey = string.IsNullOrWhiteSpace(item.IconKey) ? "Icon.Cursor" : item.IconKey;
+            var state = item.IsSelected ? IconVisualState.Selected : IconVisualState.Normal;
+            var icon = CreateIcon(iconKey, state);
+
             var btn = new Button
             {
-                Content = caption,
+                Content = icon,
                 Style = (Style)FindResource("LeftTbButton"),
                 Tag = item,
                 ToolTip = item.ItemId,
@@ -105,7 +142,6 @@ public partial class MainWindow : Window
     {
         if (sender is not Button { Tag: LeftToolbarItem item }) return;
         StatusText.Text = item.ItemId;
-        // Refresh selection highlight via rebuild from model selection id
         _left = LeftToolbarModel.CreateDefault(selectedItemId: item.ItemId);
         BuildLeftToolbar();
     }
@@ -154,7 +190,7 @@ public partial class MainWindow : Window
             await CompositionRoot.LoadFixturesAsync(Chart, fixtures);
             var host = CompositionRoot.SettingsHost;
             if (host is not null) Chart.ApplySettings(host.Bridge.Values);
-            StatusText.Text = "EURUSD M1 · fixtures";
+            StatusText.Text = "EURUSD M1 · fixtures · icons " + (_icons?.All.Count ?? 0);
         }
         catch (Exception ex)
         {

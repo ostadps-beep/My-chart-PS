@@ -1,9 +1,10 @@
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 namespace MyChart.App;
 
-/// <summary>T4.08 thin shell — chrome #1E1E1E, menu row, Settings right; Settings live wiring.</summary>
+/// <summary>Chrome #1E1E1E, custom title bar, menu, Settings right; Settings live wiring.</summary>
 public partial class MainWindow : Window
 {
     public MainWindow()
@@ -24,6 +25,27 @@ public partial class MainWindow : Window
         };
         Chart.ApplySettings(host.Bridge.Values);
     }
+
+    private void OnTitleBarDrag(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ClickCount == 2)
+        {
+            OnMaximize(sender, e);
+            return;
+        }
+        if (e.LeftButton == MouseButtonState.Pressed)
+            DragMove();
+    }
+
+    private void OnMinimize(object sender, RoutedEventArgs e) =>
+        WindowState = WindowState.Minimized;
+
+    private void OnMaximize(object sender, RoutedEventArgs e) =>
+        WindowState = WindowState == WindowState.Maximized
+            ? WindowState.Normal
+            : WindowState.Maximized;
+
+    private void OnClose(object sender, RoutedEventArgs e) => Close();
 
     private void OnSettingsClick(object sender, RoutedEventArgs e)
     {

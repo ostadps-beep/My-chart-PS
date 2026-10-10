@@ -4,9 +4,9 @@ using MyChart.Core.Scale;
 namespace MyChart.Interaction.Input;
 
 /// <summary>
-/// T4.07 InputBindings + owner C2 UX:
-/// Wheel=Zoom; Middle or Left-drag on plot=Pan; Space+Left=TemporaryPan;
-/// Price-axis Left-drag=Manual price zoom (not time pan); Home=GoToLatest.
+/// T4.07 InputBindings + C2 UX.
+/// Engine math (PanEngine/ZoomEngine) keeps golden vectors;
+/// pointer-to-engine signs are chosen so screen motion feels natural.
 /// </summary>
 public sealed class ChartInputController
 {
@@ -50,7 +50,6 @@ public sealed class ChartInputController
             _lastX = input.X;
             _lastY = input.Y;
 
-            // Middle = pan (spec)
             if (input.Button == PointerButton.Middle)
             {
                 _panning = true;
@@ -58,7 +57,6 @@ public sealed class ChartInputController
                 return LastAction;
             }
 
-            // Space+Left = temporary pan (spec)
             if (input.Button == PointerButton.Left && input.Space)
             {
                 _panning = true;
@@ -66,7 +64,6 @@ public sealed class ChartInputController
                 return LastAction;
             }
 
-            // Price axis left = manual price scale (zoom via vertical drag)
             if (input.Button == PointerButton.Left && region == HitRegion.PriceAxis)
             {
                 _priceAxisDragging = true;
@@ -74,7 +71,6 @@ public sealed class ChartInputController
                 return LastAction;
             }
 
-            // Plot left-drag = pan (owner request C2; click without move can still select later)
             if (input.Button == PointerButton.Left && region == HitRegion.Plot)
             {
                 _panning = true;
@@ -93,10 +89,11 @@ public sealed class ChartInputController
         {
             if (_panning)
             {
+                // Content follows the cursor: mouse right → bars move right → -dx into PanEngine
                 double dx = input.X - _lastX;
                 if (Math.Abs(dx) >= PanEngine.DragThresholdDip || Math.Abs(input.Y - _lastY) >= PanEngine.DragThresholdDip)
                 {
-                    PanEngine.PanHorizontal(vs, BarCount, dx);
+                    PanEngine.PanHorizontal(vs, BarCount, -dx);
                     LastAction = ChartInputAction.Pan;
                 }
                 _lastX = input.X;
@@ -106,14 +103,13 @@ public sealed class ChartInputController
 
             if (_priceAxisDragging)
             {
-                // Vertical drag on price axis: scale range around cursor (T2.07 ManualDragZoom)
-                // — keeps candles framed better than pure shift of the window
+                // Screen Y grows downward; invert so drag-up zooms in (shrink range)
                 double dy = input.Y - _lastY;
                 if (Math.Abs(dy) > 0.1)
                 {
                     var cc = new CoordinateConverter(vs, BarCount);
                     double anchor = cc.Price(input.Y);
-                    PriceScaleEngine.ManualDragZoom(vs.PriceScale, anchor, dy);
+                    PriceScaleEngine.ManualDragZoom(vs.PriceScale, anchor, -dy);
                     LastAction = ChartInputAction.ManualPriceScale;
                 }
                 _lastX = input.X;
@@ -133,7 +129,6 @@ public sealed class ChartInputController
 
     public ChartInputAction OnKey(ViewState vs, KeyInput key)
     {
-        // Home = GoToLatestCandle (spec); Ctrl+Home = LatestMarketPosition
         LastAction = key.Key switch
         {
             "Escape" => ChartInputAction.CancelTool,
@@ -148,7 +143,8 @@ public sealed class ChartInputController
 
     private ChartInputAction HandleWheel(ViewState vs, PointerInput input, HitRegion region)
     {
-        _wheelAccum += input.WheelDelta / 120.0;
+        // Invert wheel so scroll-up (positive WPF delta) feels like zoom-in on chart
+        _wheelAccum += -input.WheelDelta / 120.0;
         int notches = (int)Math.Truncate(_wheelAccum);
         if (notches == 0)
             return ChartInputAction.None;

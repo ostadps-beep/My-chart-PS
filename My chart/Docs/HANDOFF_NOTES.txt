@@ -112,3 +112,9 @@ NEXT for agents:
 Branch policy: main is the shared follow branch for all models after this registration.
 ═══════════════════════════════════════════════════════════
 
+LIVE STATUS — 2026-10-10 (VISUAL.c registered on main)
+- VISUAL.c PASS: TopToolbarController (open/apply), LeftToolbarController (tool + crosshair),
+  ContextToolbarController (commands only when selectionCount > 0; draw-tool arms provisional selection).
+- NEXT: AFTER T7 (d) real data in App — only with owner command.
+- Shared branch for all agents: origin/main
+

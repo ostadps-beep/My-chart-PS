@@ -107,3 +107,7 @@ VISUAL.icons | 2026-10-10 | PASS | All 23 IconCatalog keys on Top + Left + Conte
 
 # SOURCE OF TRUTH for agents: origin/main @ see HANDOFF_NOTES LIVE STATUS
 
+VISUAL.c | 2026-10-10 | PASS | Top/Left/Context toolbar controllers (2-click popup, selection gate for context)
+
+# c done: controllers wired; further polish optional
+# NEXT preferred: (d) real data Provider/SQLite/MT in App

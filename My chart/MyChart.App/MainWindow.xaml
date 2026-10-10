@@ -5,14 +5,20 @@
         Title="MyChart"
         Height="720"
         Width="1280"
-        Background="#1E1E1E"
+        Background="{StaticResource BgBrush}"
         WindowStyle="None"
         ResizeMode="CanResize"
         Loaded="OnLoaded">
+  <!--
+    C1 hex mapping (not in palette -> nearest brush):
+      #333333 -> BorderBrush (#1A1A1A)
+      #AAAAAA -> MutedBrush (#787B86)
+      #505050 -> ActiveBrush (#5A5E67)
+  -->
   <Window.Resources>
     <Style x:Key="TbButton" TargetType="Button">
       <Setter Property="Background" Value="Transparent"/>
-      <Setter Property="Foreground" Value="#FFFFFF"/>
+      <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
       <Setter Property="BorderThickness" Value="0"/>
       <Setter Property="Height" Value="28"/>
       <Setter Property="MinWidth" Value="36"/>
@@ -29,10 +35,10 @@
             </Border>
             <ControlTemplate.Triggers>
               <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="Bd" Property="Background" Value="#3A3A3A"/>
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource HoverBrush}"/>
               </Trigger>
               <Trigger Property="IsPressed" Value="True">
-                <Setter TargetName="Bd" Property="Background" Value="#505050"/>
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource ActiveBrush}"/>
               </Trigger>
             </ControlTemplate.Triggers>
           </ControlTemplate>
@@ -44,13 +50,12 @@
       <Setter Property="Height" Value="32"/>
       <Setter Property="Margin" Value="2"/>
       <Setter Property="Padding" Value="0"/>
-      <Setter Property="ToolTip" Value="{Binding ToolTip, RelativeSource={RelativeSource Self}}"/>
     </Style>
     <Style x:Key="CaptionButton" TargetType="Button">
       <Setter Property="Width" Value="42"/>
       <Setter Property="Height" Value="28"/>
       <Setter Property="Background" Value="Transparent"/>
-      <Setter Property="Foreground" Value="#AAAAAA"/>
+      <Setter Property="Foreground" Value="{StaticResource MutedBrush}"/>
       <Setter Property="BorderThickness" Value="0"/>
       <Setter Property="Cursor" Value="Hand"/>
       <Setter Property="Template">
@@ -61,8 +66,8 @@
             </Border>
             <ControlTemplate.Triggers>
               <Trigger Property="IsMouseOver" Value="True">
-                <Setter TargetName="Bd" Property="Background" Value="#3A3A3A"/>
-                <Setter Property="Foreground" Value="#FFFFFF"/>
+                <Setter TargetName="Bd" Property="Background" Value="{StaticResource HoverBrush}"/>
+                <Setter Property="Foreground" Value="{StaticResource TextBrush}"/>
               </Trigger>
             </ControlTemplate.Triggers>
           </ControlTemplate>
@@ -71,13 +76,12 @@
     </Style>
   </Window.Resources>
 
-  <Border BorderBrush="#333333" BorderThickness="1" Background="#1E1E1E">
-    <DockPanel Background="#1E1E1E">
-      <!-- Caption (window chrome only) -->
-      <Border DockPanel.Dock="Top" Background="#1E1E1E" Height="28"
+  <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="1" Background="{StaticResource BgBrush}">
+    <DockPanel Background="{StaticResource BgBrush}">
+      <Border DockPanel.Dock="Top" Background="{StaticResource BgBrush}" Height="28"
               MouseLeftButtonDown="OnTitleBarDrag">
         <Grid>
-          <TextBlock Text="MyChart" Foreground="#FFFFFF" FontSize="11" FontWeight="SemiBold"
+          <TextBlock Text="MyChart" Foreground="{StaticResource TextBrush}" FontSize="11" FontWeight="SemiBold"
                      VerticalAlignment="Center" Margin="10,0,0,0" IsHitTestVisible="False"/>
           <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
             <Button Content="─" Style="{StaticResource CaptionButton}" Click="OnMinimize"/>
@@ -87,9 +91,8 @@
         </Grid>
       </Border>
 
-      <!-- 1. TOP TOOLBAR (32 DIP) — from TopToolbarModel -->
-      <Border DockPanel.Dock="Top" Background="#1E1E1E" Height="32"
-              BorderBrush="#333333" BorderThickness="0,0,0,1">
+      <Border DockPanel.Dock="Top" Background="{StaticResource BgBrush}" Height="32"
+              BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1">
         <DockPanel>
           <ItemsControl x:Name="TopToolbarHost" Margin="4,0">
             <ItemsControl.ItemsPanel>
@@ -101,31 +104,27 @@
         </DockPanel>
       </Border>
 
-      <!-- 6+7 TAB + STATUS -->
-      <Border DockPanel.Dock="Bottom" Background="#1E1E1E" Height="28"
-              BorderBrush="#333333" BorderThickness="0,1,0,0">
+      <Border DockPanel.Dock="Bottom" Background="{StaticResource BgBrush}" Height="28"
+              BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0">
         <Grid>
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="Auto"/>
           </Grid.ColumnDefinitions>
-          <!-- 6. Tab bar -->
           <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
-            <Border Background="#2A2A2A" CornerRadius="3,3,0,0" Padding="12,4" Margin="0,0,4,0">
-              <TextBlock Text="EURUSD M1" Foreground="#FFFFFF" FontSize="11"/>
+            <Border Background="{StaticResource ControlBrush}" CornerRadius="3,3,0,0" Padding="12,4" Margin="0,0,4,0">
+              <TextBlock Text="EURUSD M1" Foreground="{StaticResource TextBrush}" FontSize="11"/>
             </Border>
           </StackPanel>
-          <!-- 7. Status bar -->
           <TextBlock x:Name="StatusText" Grid.Column="1" VerticalAlignment="Center"
-                     Margin="0,0,12,0" Foreground="#AAAAAA" FontSize="11"
+                     Margin="0,0,12,0" Foreground="{StaticResource MutedBrush}" FontSize="11"
                      Text="Ready"/>
         </Grid>
       </Border>
 
-      <!-- Body: 2. LEFT TOOLBAR + 3. CHART (axes inside ChartHost) -->
       <DockPanel>
-        <Border DockPanel.Dock="Left" Width="36" Background="#1E1E1E"
-                BorderBrush="#333333" BorderThickness="0,0,1,0">
+        <Border DockPanel.Dock="Left" Width="36" Background="{StaticResource BgBrush}"
+                BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,1,0">
           <ItemsControl x:Name="LeftToolbarHost" Margin="0,4">
             <ItemsControl.ItemsPanel>
               <ItemsPanelTemplate>
@@ -135,9 +134,8 @@
           </ItemsControl>
         </Border>
         <DockPanel>
-          <!-- Context toolbar icons (Color…Delete) — T6.05 slot; visible strip for catalog completeness -->
-          <Border DockPanel.Dock="Top" Background="#1E1E1E" Height="32"
-                  BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="6,0">
+          <Border DockPanel.Dock="Top" Background="{StaticResource BgBrush}" Height="32"
+                  BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1" Padding="6,0">
             <ItemsControl x:Name="ContextToolbarHost">
               <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>

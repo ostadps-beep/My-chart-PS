@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -19,9 +20,7 @@ using SkiaSharp.Views.Desktop;
 namespace MyChart.UI.Chart;
 
 /// <summary>
-/// T4.08 ChartHost — C2 per Docs/CORRECTIONS_2026-10-10.txt §3:
-/// Fit price only when Fit==Auto; never SetAuto from zoom/pan/paint;
-/// no fit inside UpdateSize; time zoom at cursor (C2.8).
+/// T4.08 ChartHost — C2 zoom/pan + C3 HUD placeholders (CORRECTIONS_2026-10-10 §4).
 /// </summary>
 public partial class ChartHost : UserControl
 {
@@ -46,8 +45,14 @@ public partial class ChartHost : UserControl
     private double _mouseY;
     private bool _mouseInSurface;
     private DateTimeOffset _lastPointerUtc = DateTimeOffset.UtcNow;
+
+    // PLACEHOLDER(d): replace with real provider/session state
     private readonly SymbolInfo _symbol = new("EURUSD", "csv", SymbolGroup.Forex, 5);
     private Timeframe _timeframe = Timeframe.M1;
+
+    // C3: measured FPS (never a hard-coded 0)
+    private long _lastPaintTimestamp;
+    private double _measuredFps;
 
     public ChartHost()
     {
@@ -98,7 +103,6 @@ public partial class ChartHost : UserControl
 
         if (_bars.Count > 0 && values.VisibleCandles > 0)
         {
-            // C2.5: no 300 clamp
             int vis = Math.Min(Math.Max(20, values.VisibleCandles), _bars.Count);
             StartupView.Apply(_view, vis, values.Shift);
             FitPriceToVisibleIfAuto();
@@ -117,9 +121,6 @@ public partial class ChartHost : UserControl
         _converter = new CoordinateConverter(_view, _bars.Count);
     }
 
-    /// <summary>
-    /// C2.1–C2.3: only when Fit == Auto; ComputeAuto; never SetAuto.
-    /// </summary>
     private void FitPriceToVisibleIfAuto()
     {
         if (_bars.Count == 0) return;
@@ -143,7 +144,6 @@ public partial class ChartHost : UserControl
         PriceScaleEngine.ComputeAuto(_view.PriceScale, _bars, from, to, pointSize);
     }
 
-    /// <summary>C2.4: size only — must not force price fit / SetAuto.</summary>
     private void UpdateSize()
     {
         var dpi = VisualTreeHelper.GetDpi(this);
@@ -153,14 +153,33 @@ public partial class ChartHost : UserControl
         _view.Width = w;
         _view.Height = h;
         _view.PriceAxisWidth = 64;
-        _view.TimeAxisHeight = 24; // C2.6
+        _view.TimeAxisHeight = 24;
         if (_bars.Count > 0)
             _converter = new CoordinateConverter(_view, _bars.Count);
+    }
+
+    /// <summary>C3: real frame rate from paint timestamps (EMA). Never hard-codes 0.</summary>
+    private double SampleFps()
+    {
+        long now = Stopwatch.GetTimestamp();
+        if (_lastPaintTimestamp > 0)
+        {
+            double dt = (now - _lastPaintTimestamp) / (double)Stopwatch.Frequency;
+            if (dt > 1e-6 && dt < 2.0)
+            {
+                double instant = 1.0 / dt;
+                _measuredFps = _measuredFps <= 0 ? instant : (_measuredFps * 0.85 + instant * 0.15);
+            }
+        }
+        _lastPaintTimestamp = now;
+        return _measuredFps;
     }
 
     private void OnPaintSurface(object? sender, SKPaintSurfaceEventArgs e)
     {
         UpdateSize();
+        double fps = SampleFps();
+
         var canvas = e.Surface.Canvas;
         int w = e.Info.Width;
         int h = e.Info.Height;
@@ -171,8 +190,6 @@ public partial class ChartHost : UserControl
         if (!_loaded || _converter is null || _bars.Count == 0)
             return;
 
-        // C2: do NOT re-fit price on every paint (that caused snap/jump with Auto).
-        // Fit only after explicit view changes (wheel/pan/startup/settings).
         _converter = new CoordinateConverter(_view, _bars.Count);
 
         var minT = _view.PriceScale.TransformPrice(_view.PriceScale.MinPrice);
@@ -209,6 +226,7 @@ public partial class ChartHost : UserControl
             _crosshair.Render(ctx, _view, crosshairState, _dpi);
         }
 
+        // PLACEHOLDER(d): replace Symbol/Provider/Connected with real provider/session state
         var hudInput = new HudInput(
             Symbol: _symbol,
             Timeframe: _timeframe,
@@ -217,13 +235,13 @@ public partial class ChartHost : UserControl
             BarSpacing: _view.BarSpacing,
             PlotWidth: _view.PlotWidth,
             Crosshair: crosshairState,
-            LastTick: null,
+            LastTick: null, // PLACEHOLDER(d): no live tick until item (d)
             ServerNow: DateTimeOffset.UtcNow,
             ReplayActive: false,
-            ProviderConnected: true,
-            ProviderName: "csv",
+            ProviderConnected: true, // PLACEHOLDER(d): wire real connection state
+            ProviderName: "csv", // PLACEHOLDER(d): wire real provider name
             CacheStatus: HudCacheStatus.Memory,
-            Fps: 0,
+            Fps: fps, // C3: measured, never hard-coded 0
             EnabledAdvanced: HudField.None);
         _hud.State = HudDataProvider.Compute(hudInput);
         _hud.Theme = _theme.Current;
@@ -276,10 +294,8 @@ public partial class ChartHost : UserControl
             Keyboard.IsKeyDown(Key.Space)));
         e.Handled = true;
 
-        // C2.1: Auto only — after time zoom, optional re-fit of price to new visible bars
         if (action == ChartInputAction.Zoom || action == ChartInputAction.PrecisionZoom)
             FitPriceToVisibleIfAuto();
-        // PriceZoom already Manual — never SetAuto (C2.2)
 
         SkiaSurface.InvalidateVisual();
     }
@@ -304,7 +320,6 @@ public partial class ChartHost : UserControl
             Keyboard.Modifiers.HasFlag(ModifierKeys.Shift),
             Keyboard.IsKeyDown(Key.Space)));
 
-        // Double-click price axis → SetAuto inside controller → fit once
         if (action == ChartInputAction.FitAuto)
             FitPriceToVisibleIfAuto();
 
@@ -343,7 +358,6 @@ public partial class ChartHost : UserControl
                 Keyboard.Modifiers.HasFlag(ModifierKeys.Control),
                 Keyboard.Modifiers.HasFlag(ModifierKeys.Shift),
                 space));
-            // C2.1: Auto only after pan (Manual left alone)
             FitPriceToVisibleIfAuto();
         }
 

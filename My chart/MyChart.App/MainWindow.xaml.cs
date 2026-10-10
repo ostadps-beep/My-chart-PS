@@ -107,7 +107,7 @@ public partial class MainWindow : Window
         foreach (var item in _left.Items)
         {
             var iconKey = string.IsNullOrWhiteSpace(item.IconKey) ? "Icon.Cursor" : item.IconKey;
-            var state = item.IsSelected ? IconVisualState.Selected : IconVisualState.Normal;
+            var state = item.IsSelected ? IconVisualState.Active : IconVisualState.Normal;
             var icon = CreateIcon(iconKey, state);
 
             var btn = new Button

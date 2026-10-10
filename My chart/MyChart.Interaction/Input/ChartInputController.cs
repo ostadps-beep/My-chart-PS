@@ -4,7 +4,7 @@ using MyChart.Core.Scale;
 namespace MyChart.Interaction.Input;
 
 /// <summary>
-/// T4.07 + C2: center price zoom; center time zoom; continuous smooth wheel.
+/// T4.07 + C2: center price/time zoom; softer per-wheel steps.
 /// </summary>
 public sealed class ChartInputController
 {
@@ -147,27 +147,31 @@ public sealed class ChartInputController
 
     private ChartInputAction HandleWheel(ViewState vs, PointerInput input, HitRegion region)
     {
-        // Continuous: apply every delta (no wait for full 120 notch → no step jump)
-        // Invert: negative delta sign matches owner-approved directions
-        double amount = -input.WheelDelta / 120.0;
-        if (Math.Abs(amount) < 1e-9)
+        // WPF usually sends ±120; map to smaller visual steps (was 10% → felt like a jump)
+        double notches = -input.WheelDelta / 120.0;
+        if (Math.Abs(notches) < 1e-9)
             return ChartInputAction.None;
+
+        // Soft step: ~3% per notch instead of 10%
+        const double SoftSpeed = 15; // ZoomFactor(15) = 1.03
+        double softFactor = ZoomEngine.ZoomFactor(SoftSpeed);
 
         if (region == HitRegion.PriceAxis)
         {
             double midPrice = (vs.PriceScale.MinPrice + vs.PriceScale.MaxPrice) * 0.5;
-            // amount > 0 → expand; amount < 0 → compress
-            double factor = Math.Pow(ZoomEngine.ZoomFactor(), amount);
+            double factor = Math.Pow(softFactor, notches);
             PriceScaleEngine.ZoomAroundPrice(vs.PriceScale, midPrice, factor);
             return ChartInputAction.PriceZoom;
         }
 
-        double zoomFactor = input.Ctrl
-            ? ZoomEngine.PrecisionZoomFactor()
-            : ZoomEngine.ZoomFactor();
+        if (vs.PlotWidth <= 1 || vs.BarSpacing <= 0 || BarCount <= 0)
+            return ChartInputAction.None;
+
         double centerX = vs.PlotLeft + vs.PlotWidth * 0.5;
-        // amount inverted again for plot so same wheel feel as before invert pair
-        ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -amount);
+        double zoomFactor = input.Ctrl
+            ? ZoomEngine.PrecisionZoomFactor(SoftSpeed)
+            : softFactor;
+        ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -notches);
         return input.Ctrl ? ChartInputAction.PrecisionZoom : ChartInputAction.Zoom;
     }
 }

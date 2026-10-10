@@ -19,7 +19,7 @@ using SkiaSharp.Views.Desktop;
 namespace MyChart.UI.Chart;
 
 /// <summary>
-/// T4.08 ChartHost — C2: Auto/Manual price fit; left-drag pan; Home=GoToLatest.
+/// T4.08 ChartHost — C2 zoom/pan; size must be current before wheel math.
 /// </summary>
 public partial class ChartHost : UserControl
 {
@@ -141,8 +141,10 @@ public partial class ChartHost : UserControl
     {
         var dpi = VisualTreeHelper.GetDpi(this);
         _dpi = dpi.PixelsPerDip;
-        _view.Width = ActualWidth > 0 ? ActualWidth : 800;
-        _view.Height = ActualHeight > 0 ? ActualHeight : 500;
+        double w = SkiaSurface.ActualWidth > 0 ? SkiaSurface.ActualWidth : (ActualWidth > 0 ? ActualWidth : 800);
+        double h = SkiaSurface.ActualHeight > 0 ? SkiaSurface.ActualHeight : (ActualHeight > 0 ? ActualHeight : 500);
+        _view.Width = w;
+        _view.Height = h;
         _view.PriceAxisWidth = 64;
         _view.TimeAxisHeight = 24;
         if (_bars.Count > 0)
@@ -252,22 +254,33 @@ public partial class ChartHost : UserControl
 
     private void OnMouseWheel(object sender, MouseWheelEventArgs e)
     {
+        // MUST sync DIP size before zoom math (wrong Width → RightOffset jump)
+        UpdateSize();
+        if (_converter is null && _bars.Count > 0)
+            _converter = new CoordinateConverter(_view, _bars.Count);
         if (_converter is null) return;
+
         var p = e.GetPosition(SkiaSurface);
         NotePointer(p.X, p.Y);
-        _input.OnPointer(_view, new PointerInput(
+        var action = _input.OnPointer(_view, new PointerInput(
             PointerPhase.Wheel, PointerButton.None, p.X, p.Y, e.Delta,
             Keyboard.Modifiers.HasFlag(ModifierKeys.Control),
             Keyboard.Modifiers.HasFlag(ModifierKeys.Shift),
             Keyboard.IsKeyDown(Key.Space)));
         e.Handled = true;
-        FitPriceToVisibleIfAuto();
+
+        // Time zoom: do not re-fit price here (vertical jump). Auto still fits on next paint only if needed.
+        // Price-axis zoom already set Manual — skip fit.
+        if (action != ChartInputAction.Zoom && action != ChartInputAction.PrecisionZoom)
+            FitPriceToVisibleIfAuto();
+
         SkiaSurface.InvalidateVisual();
     }
 
     private void OnMouseDown(object sender, MouseButtonEventArgs e)
     {
         Focus();
+        UpdateSize();
         SkiaSurface.CaptureMouse();
         var p = e.GetPosition(SkiaSurface);
         NotePointer(p.X, p.Y);
@@ -318,6 +331,7 @@ public partial class ChartHost : UserControl
                 Keyboard.Modifiers.HasFlag(ModifierKeys.Control),
                 Keyboard.Modifiers.HasFlag(ModifierKeys.Shift),
                 space));
+            // Only auto-fit when still Auto (horizontal pan of time)
             FitPriceToVisibleIfAuto();
         }
 
@@ -343,7 +357,6 @@ public partial class ChartHost : UserControl
         if (action == ChartInputAction.GoToLatest || action == ChartInputAction.LatestMarketPosition)
         {
             LatestViewController.GoToLatest(_view);
-            // After jump, Auto price fit to visible
             if (_view.PriceScale.Fit == ScaleFit.Auto)
                 FitPriceToVisibleIfAuto();
             e.Handled = true;

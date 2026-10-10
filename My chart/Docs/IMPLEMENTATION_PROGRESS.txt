@@ -67,47 +67,27 @@ T6.04 | 2026-10-07 | PASS | LeftToolbarAndDrawingTools
 T6.05 | 2026-10-07 | PASS | ContextToolbar
 T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog
 T6.07 | 2026-10-07 | PASS | NavigatorPanel
-T6.08 | 2026-10-07 | PASS | SettingsIntegration (R1 panel in solution; App ref; ShowSettingsWindow; Dark.xaml merge only; owner visual OK)
-
+T6.08 | 2026-10-07 | PASS | SettingsIntegration
 T6.09 | 2026-10-08 | PASS | Workspace (477+32 tests)
-
 T6.10.PG6.01 | 2026-10-08 | PASS | BuilderShellAndForm (484+32 tests)
-
 T6.10.PG6.02 | 2026-10-08 | PASS | LivePreview (493+32 tests)
-
 T6.10.PG6.03 | 2026-10-08 | PASS | IconPickerAndSave (500+32 tests)
-
-T6.10 | 2026-10-08 | PASS | ToolBuilder complete (PG6.01–PG6.03)
-
-T7.01 | 2026-10-09 | PASS | IconSystem (507+32); PathData→StreamGeometry in UI; colour rules; no IconGeometry.xaml; GATE=VISUAL pending owner PNG
-
-T7.02 | 2026-10-09 | PASS | ThemeProfiles (Dark/Light/ProDark/Custom + PanelThemeMap; owner VERIFY 522 tests)
-T7.03 | 2026-10-09 | PASS | PerformanceTuning (FPS limit, AA, p95 16.7ms budget; owner VERIFY 522 tests)
-
-T7.04 | 2026-10-09 | PASS | TestingSweep (owner VERIFY: MyChart.Tests 522 + Generator.Tests 32, Failed 0)
-
-T7.05 | 2026-10-09 | PASS | ReleaseChecklist (owner VERIFY: ReleaseChecklist 7/7 + full suite Failed 0)
-
+T6.10 | 2026-10-08 | PASS | ToolBuilder complete
+T7.01 | 2026-10-09 | PASS | IconSystem (507+32)
+T7.02 | 2026-10-09 | PASS | ThemeProfiles (owner VERIFY 522 tests)
+T7.03 | 2026-10-09 | PASS | PerformanceTuning (owner VERIFY 522 tests)
+T7.04 | 2026-10-09 | PASS | TestingSweep (522+32 Failed 0)
+T7.05 | 2026-10-09 | PASS | ReleaseChecklist (7/7 + full suite Failed 0)
 T7 | 2026-10-09 | PASS | Phase T7 complete (automated gates)
 
-# NEXT = visual gates still open (T4.03, T6.01, T6.02, …) or product polish; no further T-node in v1 order
+# --- AFTER T7 VISUAL ---
+VISUAL.a | 2026-10-10 | PARTIAL | awaiting owner after C2/C3
+VISUAL.b | 2026-10-10 | PARTIAL | colour path; C1 owner visual OK
+VISUAL.chrome | 2026-10-10 | PASS | owner A1/A2 + C1 palette
+VISUAL.shell | 2026-10-10 | PARTIAL | awaiting owner approval
+VISUAL.icons | 2026-10-10 | PARTIAL | awaiting owner approval
+VISUAL.c | 2026-10-10 | PARTIAL | awaiting owner approval
 
-# --- AFTER T7 VISUAL (owner-directed, 2026-10-10) ---
-VISUAL.a | 2026-10-10 | PASS | ChartHost: free-move crosshair, HUD, time labels, startup ~200 (owner assumed OK for continue)
-VISUAL.b | 2026-10-10 | PASS | Settings protocol → SettingsBridge → ThemeService/ChartHost.ApplySettings live
-VISUAL.chrome | 2026-10-10 | PASS | Global bg #1E1E1E only (other tokens deferred); Settings Dark.xaml bg aligned
-VISUAL.shell | 2026-10-10 | PASS | System Map layout: TopToolbar + LeftToolbar + Chart + Tab + Status; no classic File menu as primary chrome
-VISUAL.icons | 2026-10-10 | PASS | All 23 IconCatalog keys on Top + Left + Context strips via IconView
+C1 | 2026-10-10 | PASS | One colour system = Settings panel; schema bg #1E1E1E; ThemeService/Tokens aligned; MainWindow StaticResource; owner VERIFY MyChart.Tests 524 Failed 0 + visual OK
 
-# NEXT (AFTER T7 list)
-# c remaining: richer Top/Left/Context behavior (popups, controllers) — shell present
-# d Real data: ProviderManager / SQLite / MetaTrader in App
-# e Drawings, indicators, Navigator, Workspace on chart
-# f ToolBuilder in app, Replay, Offline, release checklist machine checks
-
-# SOURCE OF TRUTH for agents: origin/main @ see HANDOFF_NOTES LIVE STATUS
-
-VISUAL.c | 2026-10-10 | PASS | Top/Left/Context toolbar controllers (2-click popup, selection gate for context)
-
-# c done: controllers wired; further polish optional
-# NEXT preferred: (d) real data Provider/SQLite/MT in App
+# NEXT = C2 zoom/price-scale defect (fix/c2)

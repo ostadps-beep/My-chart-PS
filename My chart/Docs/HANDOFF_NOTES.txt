@@ -1,124 +1,19 @@
 MyChart - HANDOFF NOTES (for the next model / session)
-Last updated: 2026-10-08 by Grok (session with PS)
-Repo: https://github.com/ostadps-beep/My-chart-PS (private; use token).
+Repo: https://github.com/ostadps-beep/My-chart-PS
 Solution folder: "My chart/".
-Owner: PS (Persian/Farsi; concise, exact commands; limited programming ability).
 
-READ THIS FIRST (30 seconds)
+READ THIS FIRST
 1. Source of truth: Docs/MyChart_1_Engineering_Specification_Canonical_v1.4.txt
-1b. BINDING CORRECTIONS (override v1.4 and LIVE STATUS where they conflict): Docs/CORRECTIONS_2026-10-10.txt — read it before any work
-2. Progress: Docs/IMPLEMENTATION_PROGRESS.txt — last PASS + line # NEXT
-3. git pull origin main before starting. One node at a time. No magic numbers.
-4. After VERIFY: update Progress + this LIVE STATUS; model merges to main when possible.
+1b. BINDING: Docs/CORRECTIONS_2026-10-10.txt (overrides conflict)
+2. Progress: Docs/IMPLEMENTATION_PROGRESS.txt
+3. git pull origin main. One item at a time. No magic numbers.
+4. No commit/push/merge to main without owner explicit approval.
 
-STATE (2026-10-08) — REPO UNIFIED ON main
-- main includes T0..T6.08. MyChart.Settings is ON main (not only on a feature branch).
-- T6.08 PASS: Settings panel in solution; App can open SettingsWindow; Dark.xaml unchanged (theme mapping = T7.02).
-- NEXT = T6.09 Workspace
-- Local tip after unify merge: see git log -1 on main.
+LIVE STATUS — 2026-10-10
+- T0–T7 automated: COMPLETE
+- C1 PASS on main: one colour system (Settings Dark.xaml + schema); owner VERIFY 524 tests + visual chrome/settings OK
+- Branch fix/c1-one-colour-system merged conceptually into main (C1 files + this log)
+- NEXT = C2 zoom/price-scale (ChartHost FitPriceToVisible / SetAuto misuse per CORRECTIONS)
+- Then C3 HUD placeholders, C4 status lines, owner VISUAL of C1+C2, then (d) real data
 
-PARTIAL / VISUAL GATES still open
-- T4.03 BackgroundGridAxisRenderers
-- T6.01 HudRenderer
-- T6.02 ContextMenus
-- Many T6 nodes are model/wire PASS with GATE=VISUAL still open for full chrome
-
-RULES (short)
-- Missing requirement = OPEN: ask PS. Conflict: node text wins.
-- Settings is external panel integrated at T6.08; do not redesign. No "ChartMy" outside Docs/.
-- Colors via IThemeService only. Toolbars slot-driven (no hardcoded tool names in UI).
-
-HOW WE WORK WITH PS
-- PS runs: git fetch; git checkout <branch or main>; Stop-Process MyChart.App if needed; dotnet test
-- Close MyChart.App before every build (DLL lock).
-- Failed:0 -> PASS line in Progress, merge to main.
-
-LIVE STATUS
-- 2026-10-08: Repo unified. main = through T6.08 SettingsIntegration PASS.
-  NEXT = T6.09 Workspace
-- Feature branch grok/t6-08-settings-wire merged into main (commit message: Merge T6.08 SettingsIntegration to main).
-
-LIVE STATUS
-- 2026-10-08: T6.09 Workspace PASS (477+32).
-  Files: MyChart.Core/UI/Workspace/WorkspaceModel.cs, MyChart.Tests/UI/WorkspaceTests.cs
-  NEXT = T6.10 ToolBuilder
-
-LIVE STATUS
-- 2026-10-08: T6.10.PG6.01 BuilderShellAndForm PASS (484+32).
-  NEXT = T6.10.PG6.02 LivePreview
-
-LIVE STATUS
-- 2026-10-08: T6.10.PG6.02 LivePreview PASS (493+32).
-  NEXT = T6.10.PG6.03 IconPickerAndSave
-
-LIVE STATUS
-- 2026-10-08: T6.10.PG6.03 IconPickerAndSave PASS (500+32).
-  T6.10 ToolBuilder complete. NEXT = T7.01 IconSystem
-
-LIVE STATUS
-- 2026-10-09: T7.01 IconSystem PASS (507+32).
-  Files: MyChart.Core/UI/Icons/*; MyChart.UI/Icons/* (IconGeometryFactory, IconProvider, IconView);
-         MyChart.Tests/UI/IconSystemTests.cs; CompositionRoot.CreateIconProvider
-  Rules: normal=AxisColor; hover/active=AccentColor; disabled=AxisColor@40%; no IconGeometry.xaml
-  GATE=VISUAL still open (owner PNG/screenshot). NEXT = T7.02 ThemeProfiles
-
-LIVE STATUS
-- 2026-10-09: T7.02 ThemeProfiles PASS + T7.03 PerformanceTuning PASS (owner VERIFY: 522 tests, Failed 0).
-  NEXT = T7.04 TestingSweep
-
-LIVE STATUS
-- 2026-10-09: T7.04 TestingSweep written (PENDING VERIFY).
-  File: MyChart.Tests/Smoke/TestingSweepCoverageTests.cs
-  Owner: run full MyChart.Tests + Generator.Tests
-
-LIVE STATUS
-- 2026-10-09: T7.04 TestingSweep PASS (owner: 522 + 32 Failed 0).
-  NEXT = T7.05 ReleaseChecklist
-
-LIVE STATUS
-- 2026-10-09: T7.05 ReleaseChecklist written (PENDING VERIFY).
-  Files: ReleaseChecklistTests.cs, Docs/RELEASE_CHECKLIST.txt
-  Owner runs: dotnet test MyChart.Tests (automated parts).
-
-LIVE STATUS
-- 2026-10-09: T7.05 ReleaseChecklist PASS (owner: filter ReleaseChecklist 7/7 Failed 0; main eaeb1e3+).
-  T7 phase automated complete (T7.01–T7.05).
-  Still open: GATE=VISUAL items (T4.03, T6.01, T6.02, toolbars chrome, etc.).
-  Owner long stress (8 charts / 30 min) and Release x64 build remain optional machine checks in Docs/RELEASE_CHECKLIST.txt.
-
-═══════════════════════════════════════════════════════════
-LIVE STATUS — 2026-10-10 (registered on main for ALL agents)
-═══════════════════════════════════════════════════════════
-Commit tip: merge of grok/visual-shell-mockup (icons + shell).
-
-PHASE T0–T7 (automated nodes): COMPLETE (T7.05 PASS).
-
-AFTER T7 visual progress ON MAIN:
-  (a) ChartHost crosshair/HUD/time/startup — done
-  (b) Settings live → Theme/ChartHost — done
-  chrome: bg #1E1E1E global (other colors NOT mass-changed yet)
-  shell: TopToolbar + LeftToolbar + Tab + Status per System Map/mockup
-  icons: all 23 IconCatalog on Top/Left/Context strips (IconView)
-
-DO NOT:
-  - start from an old main without this merge
-  - replace TopToolbar with classic File menu as primary chrome
-  - invent new T-nodes; wire existing models only
-  - change remaining theme tokens until owner says so
-
-NEXT for agents:
-  Continue AFTER T7 list item (c) polish / (d) real data — only with owner command.
-  Owner VERIFY: pull origin/main, dotnet test, dotnet run MyChart.App.
-
-Branch policy: main is the shared follow branch for all models after this registration.
-═══════════════════════════════════════════════════════════
-
-LIVE STATUS — 2026-10-10 (VISUAL.c registered on main)
-- VISUAL.c PASS: TopToolbarController (open/apply), LeftToolbarController (tool + crosshair),
-  ContextToolbarController (commands only when selectionCount > 0; draw-tool arms provisional selection).
-- NEXT: AFTER T7 (d) real data in App — only with owner command.
-- Shared branch for all agents: origin/main
-
-LIVE STATUS — 2026-10-10 (CORRECTIONS registered)
-- Owner decisions + fixes (one colour system, zoom/price-scale defect, HUD placeholders, status downgrade): Docs/CORRECTIONS_2026-10-10.txt
-- NEXT = C1 (colours) -> C2 (zoom) -> C3 -> C4, one branch each; item (d) real data only after the owner approves the visual check.
+DO NOT start C5 polish or item (d) without owner word.

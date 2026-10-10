@@ -1,4 +1,4 @@
-﻿namespace MyChart.Settings.Model;
+namespace MyChart.Settings.Model;
 
 /// <summary>
 /// Single source of truth for chart.settings: keys, UI grouping, controls,
@@ -128,7 +128,6 @@ public static class SettingsSchema
 
     private static IReadOnlyList<FieldDefinition> BuildFields() =>
     [
-        // chart
         F("chart.offline", "chart", "Chart Behavior", "Offline Chart", ControlKind.Toggle, false),
         F("chart.on.foreground", "chart", "Chart Behavior", "Chart on Foreground", ControlKind.Toggle, false),
         F("chart.shift", "chart", "Chart Behavior", "Chart Shift", ControlKind.Toggle, true),
@@ -171,7 +170,6 @@ public static class SettingsSchema
         F("chart.show.volumes", "chart", "Chart Display", "Show Volumes", ControlKind.Toggle, true),
         F("chart.show.object.descriptions", "chart", "Chart Display", "Show Object Descriptions", ControlKind.Toggle, false),
 
-        // axes
         F("axes.price.position", "axes", "Price", "Price Position", ControlKind.Dropdown, "Right",
             options: ["Left", "Right", "Both", "Hidden"]),
         F("axes.show.last.price", "axes", "Price", "Show Last Price", ControlKind.Toggle, true),
@@ -183,7 +181,6 @@ public static class SettingsSchema
         F("axes.axis.color", "axes", "Appearance", "Axis Color", ControlKind.Color, "#888888"),
         F("axes.axis.thickness", "axes", "Appearance", "Axis Thickness", ControlKind.Numeric, 1, min: 1, max: 8),
 
-        // candles
         F("candles.type", "candles", "Candles", "Candle Type", ControlKind.Dropdown, "Candlestick",
             options: ["Candlestick", "Hollow Candlesticks", "OHLC", "Line", "Area", "Heikin Ashi"]),
         F("candles.bull.color", "candles", "Candles", "Bull Color", ControlKind.Color, "#26A69A"),
@@ -196,13 +193,13 @@ public static class SettingsSchema
         F("candles.show.wicks", "candles", "Candles", "Show Wicks", ControlKind.Toggle, true),
         F("candles.wick.thickness", "candles", "Candles", "Wick Thickness", ControlKind.Numeric, 1,
             min: 1, max: 10, enableWhen: "candles.show.wicks"),
-        F("grid.background.background.color", "candles", "Background", "Background Color", ControlKind.Color, "#131722"),
+        // C1.1: was #131722 — must match chart bg #1E1E1E so Apply does not push old colour
+        F("grid.background.background.color", "candles", "Background", "Background Color", ControlKind.Color, "#1E1E1E"),
         F("grid.background.gradient.mode", "candles", "Background", "Gradient Mode", ControlKind.Dropdown, "None",
             options: ["None", "Vertical", "Horizontal", "Radial"]),
         F("grid.background.background.transparency", "candles", "Background", "Background Transparency",
             ControlKind.Slider, 0, min: 0, max: 100),
 
-        // drawing.tools
         F("drawing.tools.tool.color", "drawing", "Style", "Tool Color", ControlKind.Color, "#2196F3"),
         F("drawing.tools.tool.thickness", "drawing", "Style", "Tool Thickness", ControlKind.Numeric, 1, min: 1, max: 12),
         F("drawing.tools.tool.style", "drawing", "Style", "Tool Style", ControlKind.Dropdown, "Solid",
@@ -218,7 +215,6 @@ public static class SettingsSchema
             options: ["Free", "AxisLock", "Copy"]),
         F("drawing.tools.hotkey", "drawing", "Behavior", "Hotkey", ControlKind.Text, "L"),
 
-        // analytical.modules
         F("analytical.modules.enabled", "modules", "Module", "Enabled", ControlKind.Toggle, true),
         F("analytical.modules.display.type", "modules", "Module", "Display Type", ControlKind.Dropdown, "Line",
             options: ["Line", "Histogram", "Area", "Dots", "Columns"]),
@@ -234,7 +230,6 @@ public static class SettingsSchema
             min: 0, max: 100),
         F("analytical.modules.thickness", "modules", "Appearance", "Thickness", ControlKind.Numeric, 1, min: 1, max: 10),
 
-        // hud.overlay
         F("hud.overlay.hud.items", "hud", "HUD Items", "HUD Items", ControlKind.CheckList,
             DefaultHudItems(),
             options: ["OHLC", "Change", "Volume", "Time", "Spread", "High/Low", "Bid/Ask", "Position"]),
@@ -250,7 +245,6 @@ public static class SettingsSchema
         F("hud.overlay.hud.transparency", "hud", "Typography", "HUD Transparency", ControlKind.Slider, 0,
             min: 0, max: 100),
 
-        // performance
         F("performance.fps.limit", "performance", "Rendering", "FPS Limit", ControlKind.Numeric, 60,
             apply: ApplyMode.OnApply, min: 15, max: 240),
         F("performance.gpu.acceleration", "performance", "Rendering", "GPU Acceleration", ControlKind.Toggle, true,
@@ -264,7 +258,6 @@ public static class SettingsSchema
         F("performance.error.behavior", "performance", "Diagnostics", "Error Behavior", ControlKind.Dropdown, "Continue",
             options: ["Continue", "Pause", "Dialog"]),
 
-        // workspace (actions; layout reset is independent of category Reset)
         F("workspace.save.layout", "workspace", "Layout", "Save Layout", ControlKind.Command, "",
             hint: "Save the current settings document."),
         F("workspace.load.layout", "workspace", "Layout", "Load Layout", ControlKind.Command, "",
@@ -276,7 +269,6 @@ public static class SettingsSchema
         F("workspace.import.settings", "workspace", "Files", "Import Settings", ControlKind.Command, "",
             hint: "Import settings from a JSON file."),
 
-        // advanced
         F("advanced.multi.threading", "advanced", "Engine", "Multi Threading", ControlKind.Toggle, true),
         F("advanced.engine.mode", "advanced", "Engine", "Engine Mode", ControlKind.Dropdown, "Balanced",
             apply: ApplyMode.OnApply, options: ["Performance", "Balanced", "Quality"]),
@@ -328,4 +320,3 @@ public static class SettingsSchema
             CommandHint = hint
         };
 }
-

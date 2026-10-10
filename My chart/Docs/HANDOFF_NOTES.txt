@@ -6,6 +6,7 @@ Owner: PS (Persian/Farsi; concise, exact commands; limited programming ability).
 
 READ THIS FIRST (30 seconds)
 1. Source of truth: Docs/MyChart_1_Engineering_Specification_Canonical_v1.4.txt
+1b. BINDING CORRECTIONS (override v1.4 and LIVE STATUS where they conflict): Docs/CORRECTIONS_2026-10-10.txt — read it before any work
 2. Progress: Docs/IMPLEMENTATION_PROGRESS.txt — last PASS + line # NEXT
 3. git pull origin main before starting. One node at a time. No magic numbers.
 4. After VERIFY: update Progress + this LIVE STATUS; model merges to main when possible.
@@ -118,3 +119,6 @@ LIVE STATUS — 2026-10-10 (VISUAL.c registered on main)
 - NEXT: AFTER T7 (d) real data in App — only with owner command.
 - Shared branch for all agents: origin/main
 
+LIVE STATUS — 2026-10-10 (CORRECTIONS registered)
+- Owner decisions + fixes (one colour system, zoom/price-scale defect, HUD placeholders, status downgrade): Docs/CORRECTIONS_2026-10-10.txt
+- NEXT = C1 (colours) -> C2 (zoom) -> C3 -> C4, one branch each; item (d) real data only after the owner approves the visual check.

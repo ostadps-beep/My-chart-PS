@@ -1,0 +1,125 @@
+MYCHART — CORRECTIONS AFTER T7 (owner decisions of 2026-10-10)
+STATUS=BINDING for every model. Written by the document author, approved by the owner (PS).
+PRECEDENCE=this file > HANDOFF_NOTES LIVE STATUS > Canonical_v1.4 wherever they conflict.
+SCOPE=guidance only. No new T-nodes. No redesign. Wire/fix EXISTING classes only.
+Anything not listed here is NOT approved; if you changed it, report it to the owner.
+
+══ 0. HOW TO WORK (applies to every item below) ══
+0.1 One item = one branch (fix/<id>). No commit/push/merge to main without the owner's
+    explicit word ("تایید" / "ثبت کن").
+0.2 Bug fix on a node that is already PASS: write a failing test first, then the smallest fix.
+0.3 Test count never decreases. Baseline = 522 (MyChart.Tests) + 32 (Generator.Tests) at
+    tag baseline-v1-T7. Every PASS line in IMPLEMENTATION_PROGRESS must show the counts and
+    "Failed 0". A PASS line without counts is not a PASS.
+0.4 Never edit an existing test only to make it green. A test may change only when the
+    owner-approved decision in this file changes its expected value (C1 only).
+0.5 A VISUAL gate is closed only by the owner's approval of a screenshot. Never write
+    "owner assumed OK".
+0.6 Missing requirement = STOP and ask. Never choose silently.
+
+══ 1. OWNER-APPROVED CHANGES (keep; do not revert) ══
+A1 Chart background #131722 -> #1E1E1E (same colour as the Settings panel; one theme for both).
+A2 Dark title bar / no white Windows system bar (uniform dark theme).
+A3 Minimal wiring edits in MyChart.Settings (SettingsWindow(ISettingsProtocolListener) ctor,
+   Dark.xaml colours) and the HostProtocolAdapter in App.Integration. Accepted as wiring only;
+   no further edits to MyChart.Settings internals.
+
+══ 2. C1 — ONE COLOUR SYSTEM (single source = the Settings panel) ══
+RULE: the project must contain exactly ONE palette. The Settings panel is the source of truth:
+  - chrome colours  = MyChart.Settings/Themes/Dark.xaml
+  - chart colours   = defaults in MyChart.Settings/Model/SettingsSchema.cs
+Every other place (Core defaults, ThemeService.Dark, ThemeTokens.Dark, ChartSettingValues,
+ChartHost.xaml, MainWindow.xaml, toolbar views) must EQUAL these values or read them.
+
+UNIFIED PALETTE (Dark):
+  Chrome (Dark.xaml):  Bg #1E1E1E  Panel #252525  Control #2A2A2A  Hover #3A3A3A
+                       Active #5A5E67  Border #1A1A1A  ButtonBorder #4A4E57
+                       Text #B2B5BE  Muted #787B86  Accent #2962FF
+  Chart (schema):      Background #1E1E1E (see C1.1)  Bull #26A69A  Bear #EF5350
+                       Wick #CCCCCC  CandleBorder #1A1A1A
+                       Grid = GridMajor #2A2E39 ; GridMinor = #2A2E39 at 50% alpha
+                       Axis #888888  Hud #FFFFFF
+  Unchanged (not defined by the panel): Selection #2962FF, Warning #FF9800, Error #F23645,
+                       Success #089981, IndicatorPalette of T4.02.
+  Light and ProDark profiles: unchanged until the owner asks.
+
+C1.1 BUG TO FIX NOW: SettingsSchema.cs still defaults grid.background.background.color to
+     #131722. The first Apply from the panel would push #131722 back to the chart.
+     Set the schema default to #1E1E1E (this is the only schema value change in C1 besides
+     the rows below).
+C1.2 Align differing values to the table above:
+     - axes.axis.color: schema #888888 is the truth -> ChartSettingValues.AxisColor and
+       ThemeService/ThemeTokens Dark Axis become #888888 (was #787B86).
+     - Hud text: schema #FFFFFF is the truth -> HudTextColor / Dark Hud token = #FFFFFF
+       (was #B2B5BE).
+     - Grid: Dark profile Grid/GridMajor/GridMinor become the schema values above
+       (old #1E222D was almost invisible on #1E1E1E).
+C1.3 MainWindow.xaml has 22 hex literals (#1E1E1E x8, #333333 x5, #FFFFFF x4, #AAAAAA x2,
+     #3A3A3A x2, #505050, #2A2A2A). Replace them with StaticResource brushes from Dark.xaml
+     (merge the dictionary in App.xaml). #333333, #AAAAAA, #505050 are not in the palette:
+     map each to the nearest palette brush (Border / Muted / ButtonBorder) and tell the owner
+     which mapping was used. Do the same for any toolbar/status view.
+C1.4 Rendering code reads colours only through IThemeService (rule of T4.02). No hex literal
+     in any renderer. Check: grep -rn '#[0-9A-Fa-f]\{6\}' MyChart.Rendering MyChart.UI -> only
+     Dark.xaml-derived values and ChartHost.xaml may appear, and ChartHost.xaml must use the
+     same #1E1E1E.
+C1.5 Tests: ThemeTokensTests.DarkProfile_MatchesSpecHex expects the C1 palette (this is the
+     ONE allowed test edit, rule 0.4). Add a test: every Dark token in ThemeService.Dark equals
+     the corresponding SettingsSchema default / Dark.xaml value (guards against a second
+     palette appearing again). Counts must not decrease.
+C1.6 Spec: Canonical_v1.4 T7.02 Dark line and the key-map line
+     grid.background.background.color still show the old values. THIS FILE overrides them.
+     The document author updates the spec text; models must not edit the spec.
+
+══ 3. C2 — ZOOM / PRICE-SCALE DEFECT (root cause found, revert to spec behaviour) ══
+SYMPTOM: zoom/pan feels wrong; zoom on the price axis and vertical drag do nothing or snap back.
+CAUSE (MyChart.UI/Chart/ChartHost.xaml.cs):
+  - FitPriceToVisible() is called after EVERY mouse wheel, after EVERY drag move and inside
+    UpdateSize() (so on every paint), and it calls PriceScaleEngine.SetAuto(). That throws away
+    the Manual price scale that ChartInputController sets (price-axis wheel zoom = SetManual,
+    T4.07/T2.07), so price zoom is overwritten the same instant it is made.
+FIX (spec T2.07: Auto/Manual price scale):
+  C2.1 Run the visible-range price fit ONLY when _view.PriceScale.Fit == ScaleFit.Auto.
+  C2.2 Never call SetAuto() from FitPriceToVisible/OnMouseWheel/OnMouseMove/UpdateSize.
+       SetAuto is called only by an explicit user action (reset to auto), never by zoom/pan.
+  C2.3 Prefer the existing PriceScaleEngine.ComputeAuto over a hand-written min/max loop.
+  C2.4 Remove the fit call from UpdateSize(); size changes must keep the current price range
+       (Auto mode re-fits on its own through C2.1).
+  C2.5 The 300-bar clamp in ApplySettings (vis = Math.Min(vis, 300)) is NOT in the spec:
+       remove it. VisibleCandles from Settings is applied as given (min 20, max = bar count).
+  C2.6 TimeAxisHeight 28 -> 24 (spec ViewState value). PriceAxisWidth stays 64.
+  C2.7 Tests (write first): (a) wheel on PriceAxis region then paint -> PriceScale.Fit stays
+       Manual and the range is the zoomed one; (b) wheel on plot zooms time only and keeps
+       the price range in Manual mode; (c) in Auto mode price follows the visible bars;
+       (d) resizing the control does not reset a Manual range.
+  C2.8 VISUAL gate: owner checks time zoom at cursor, price-axis zoom, drag pan, Ctrl precision
+       zoom, "go to latest". Owner approves by screenshot/recording.
+  If the owner still sees a defect after C2, STOP and report; do not patch around it.
+
+══ 4. C3 — HUD PLACEHOLDERS (until real data, item d) ══
+ChartHost builds HudInput with fixed values: symbol EURUSD, provider "csv",
+ProviderConnected=true, Fps=0. Keep them only as clearly marked placeholders:
+  - comment "// PLACEHOLDER(d): replace with real provider/session state"
+  - Fps must show the measured value or be hidden; never a fake 0.
+They must be replaced in item (d). Do not add more hard-coded market values anywhere.
+
+══ 5. C4 — STATUS CORRECTIONS IN IMPLEMENTATION_PROGRESS ══
+Append (do not edit old lines):
+  VISUAL.a | PARTIAL | awaiting owner approval after C2/C3
+  VISUAL.b | PARTIAL | awaiting owner approval after C1
+  VISUAL.chrome | PASS (owner approved A1, A2); remaining colours follow C1
+  VISUAL.shell / VISUAL.icons / VISUAL.c | PARTIAL | awaiting owner approval
+  T4.03, T6.01, T6.02, T7.01 | still GATE=VISUAL OPEN
+Only the owner turns PARTIAL into PASS.
+
+══ 6. C5 — LATER POLISH (do not start without the owner's word) ══
+ P1 MainWindow.xaml.cs is ~290 lines; T4.08 defines a thin shell. Move controller wiring
+    out of code-behind (e.g. into MyChart.UI or CompositionRoot) without changing behaviour.
+ P2 OnSettingsClick error text still names branch grok/t6-08-settings-wire; remove.
+ P3 Then item (d) real data (ProviderManager / SQLite / MetaTrader in App), then (e), (f)
+    of the AFTER-T7 list in HANDOFF_NOTES.
+
+══ 7. ORDER OF EXECUTION ══
+ 1) tag baseline-v1-T7 (owner)      2) C1 colours      3) C2 zoom      4) C3 placeholders
+ 5) C4 status lines                 6) owner VISUAL check of C1+C2     7) polish / item (d)
+Each step: branch, tests, counts, report. Owner approves before the next step.

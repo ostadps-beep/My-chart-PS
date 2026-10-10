@@ -7,6 +7,7 @@ CONTENT_POLICY=Every original decision, rule, requirement, node, test vector and
 ARCHITECTURE_MODE=PLUGIN_FIRST
 SETTINGS_MODE=EXISTING_EXTERNAL_SUBSYSTEM; REAL_INTEGRATION=T6.08
 EXECUTION_PRIORITY=PROJECT_BASELINE_AND_REQUIRED_INFRASTRUCTURE_BEFORE_PRODUCT_FEATURES
+ERRATA=Docs/CORRECTIONS_2026-10-10.txt (owner-approved; overrides this text for colours: T7.02 Dark and grid.background.background.color, and for ChartHost zoom/price-scale behaviour)
 ROOT
 ├─ READ_BEFORE_EXECUTION
 │  ├─ Read this control plane before reading or executing any node.

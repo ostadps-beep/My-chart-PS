@@ -22,6 +22,26 @@ public static class PriceScaleEngine
         state.MaxPrice = state.InverseTransform(maxT);
     }
 
+    /// <summary>
+    /// Zoom price scale around a fixed price (stays at same screen Y).
+    /// factor &gt; 1 = zoom out (wider range); factor &lt; 1 = zoom in.
+    /// Same geometry as Y(price) = plotTop + (maxT-pT)/(maxT-minT)*plotHeight.
+    /// </summary>
+    public static void ZoomAroundPrice(PriceScaleState state, double anchorPrice, double factor)
+    {
+        factor = Math.Clamp(factor, 0.15, 8.0);
+        double aT = state.TransformPrice(anchorPrice);
+        double minT = state.TransformPrice(state.MinPrice);
+        double maxT = state.TransformPrice(state.MaxPrice);
+        if (maxT <= minT)
+            maxT = minT + 1e-12;
+
+        double newMinT = aT + (minT - aT) * factor;
+        double newMaxT = aT + (maxT - aT) * factor;
+        EnsureMinSpan(state, ref newMinT, ref newMaxT, pointSize: 1e-8);
+        SetManual(state, newMinT, newMaxT);
+    }
+
     public static void ComputeAuto(
         PriceScaleState state,
         IReadOnlyList<Candle> bars,
@@ -85,16 +105,9 @@ public static class PriceScaleEngine
 
     public static void ManualDragZoom(PriceScaleState state, double anchorPrice, double dyDip)
     {
+        // Legacy path: one-shot factor from dy (prefer ZoomAroundPrice for continuous drag)
         double factor = Math.Clamp(1.0 + (-dyDip) * 0.005, 0.5, 2.0);
-        double aT = state.TransformPrice(anchorPrice);
-        double minT = state.TransformPrice(state.MinPrice);
-        double maxT = state.TransformPrice(state.MaxPrice);
-
-        minT = aT + (minT - aT) * factor;
-        maxT = aT + (maxT - aT) * factor;
-
-        EnsureMinSpan(state, ref minT, ref maxT, pointSize: 0.00001);
-        SetManual(state, minT, maxT);
+        ZoomAroundPrice(state, anchorPrice, factor);
     }
 
     private static void EnsureMinSpan(PriceScaleState state, ref double minT, ref double maxT, double pointSize)

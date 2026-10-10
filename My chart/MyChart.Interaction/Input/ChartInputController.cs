@@ -4,10 +4,7 @@ using MyChart.Core.Scale;
 namespace MyChart.Interaction.Input;
 
 /// <summary>
-/// T4.07 + C2 owner UX:
-/// Plot drag = 4 directions (time horizontal + price vertical shift).
-/// Price-axis drag = smooth zoom around anchor (from drag start, not stepped multiply).
-/// Wheel on plot = time zoom; wheel on price axis = price zoom.
+/// T4.07 + C2: 4-dir plot pan; price-axis zoom keeps price under cursor fixed (no downward jump).
 /// </summary>
 public sealed class ChartInputController
 {
@@ -17,7 +14,6 @@ public sealed class ChartInputController
     private double _lastY;
     private bool _priceAxisDragging;
 
-    // Price-axis zoom session (absolute from Down — avoids stepwise jumps)
     private double _axisAnchorPrice;
     private double _axisStartMinT;
     private double _axisStartMaxT;
@@ -72,6 +68,7 @@ public sealed class ChartInputController
                 _axisStartY = input.Y;
                 _axisStartMinT = vs.PriceScale.TransformPrice(vs.PriceScale.MinPrice);
                 _axisStartMaxT = vs.PriceScale.TransformPrice(vs.PriceScale.MaxPrice);
+                // Anchor = price at cursor — must stay on same screen row while zooming
                 _axisAnchorPrice = new CoordinateConverter(vs, BarCount).Price(input.Y);
                 LastAction = ChartInputAction.ManualPriceScale;
                 return LastAction;
@@ -91,17 +88,14 @@ public sealed class ChartInputController
                 double dx = input.X - _lastX;
                 double dy = input.Y - _lastY;
 
-                // Horizontal: content follows cursor
                 if (Math.Abs(dx) >= 0.5)
                     PanEngine.PanHorizontal(vs, BarCount, -dx);
 
-                // Vertical: shift price window so candles move with the cursor (4-direction pan)
                 if (Math.Abs(dy) >= 0.5 && vs.PlotHeight > 0)
                 {
                     double span = vs.PriceScale.MaxPrice - vs.PriceScale.MinPrice;
                     if (span > 0)
                     {
-                        // Screen Y down → prices on screen move down → window shifts up in price
                         double dPrice = dy / vs.PlotHeight * span;
                         double min = vs.PriceScale.MinPrice + dPrice;
                         double max = vs.PriceScale.MaxPrice + dPrice;
@@ -120,19 +114,19 @@ public sealed class ChartInputController
 
             if (_priceAxisDragging)
             {
-                // Smooth zoom from drag start: total dy from Down, not per-frame multiply
+                // Absolute zoom from Down: factor from total vertical drag (smooth, no step-stack)
+                // drag up (totalDy < 0) → factor < 1 → zoom in; anchor price fixed
                 double totalDy = input.Y - _axisStartY;
-                // drag up (totalDy < 0) → zoom in (smaller span)
-                double factor = Math.Clamp(1.0 + totalDy * 0.004, 0.25, 4.0);
+                double factor = Math.Clamp(Math.Exp(totalDy * 0.0035), 0.15, 8.0);
 
                 double aT = vs.PriceScale.TransformPrice(_axisAnchorPrice);
                 double minT = aT + (_axisStartMinT - aT) * factor;
                 double maxT = aT + (_axisStartMaxT - aT) * factor;
-                if (maxT - minT < 1e-12)
+                if (maxT <= minT)
                 {
                     double mid = (maxT + minT) * 0.5;
-                    minT = mid - 5e-13;
-                    maxT = mid + 5e-13;
+                    minT = mid - 1e-10;
+                    maxT = mid + 1e-10;
                 }
 
                 PriceScaleEngine.SetManual(vs.PriceScale, minT, maxT);
@@ -174,20 +168,12 @@ public sealed class ChartInputController
 
         if (region == HitRegion.PriceAxis)
         {
-            double price = new CoordinateConverter(vs, BarCount).Price(input.Y);
-            double span = vs.PriceScale.MaxPrice - vs.PriceScale.MinPrice;
-            double newSpan = notches > 0
-                ? span / Math.Pow(ZoomEngine.ZoomFactor(), notches)
-                : span * Math.Pow(ZoomEngine.ZoomFactor(), -notches);
-
-            double half = newSpan / 2;
-            double min = price - half;
-            double max = price + half;
-            if (max <= min) max = min + 1e-8;
-            PriceScaleEngine.SetManual(
-                vs.PriceScale,
-                vs.PriceScale.TransformPrice(min),
-                vs.PriceScale.TransformPrice(max));
+            // Keep price under cursor fixed (do NOT re-center the range on cursor)
+            double anchor = new CoordinateConverter(vs, BarCount).Price(input.Y);
+            double factor = notches > 0
+                ? Math.Pow(1.0 / ZoomEngine.ZoomFactor(), notches)  // zoom in
+                : Math.Pow(ZoomEngine.ZoomFactor(), -notches);       // zoom out
+            PriceScaleEngine.ZoomAroundPrice(vs.PriceScale, anchor, factor);
             return ChartInputAction.PriceZoom;
         }
 

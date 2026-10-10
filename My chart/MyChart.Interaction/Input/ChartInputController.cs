@@ -5,8 +5,8 @@ namespace MyChart.Interaction.Input;
 
 /// <summary>
 /// T4.07 + C2 owner UX:
-/// Zoom is always around the CENTER of the visible range (same effect from any mouse Y/X).
-/// Price-axis wheel: up = expand (open), down = compress (close).
+/// Zoom around CENTER of visible range (uniform from any mouse position).
+/// Wheel direction: inverted per owner (up/down as they requested).
 /// Plot drag = 4-direction pan.
 /// </summary>
 public sealed class ChartInputController
@@ -114,9 +114,7 @@ public sealed class ChartInputController
 
             if (_priceAxisDragging)
             {
-                // Zoom around CENTER of range at drag start — same result from any Y on the axis
                 double totalDy = input.Y - _axisStartY;
-                // drag down → expand; drag up → compress (matches wheel-up = open)
                 double factor = Math.Clamp(Math.Exp(totalDy * 0.0035), 0.15, 8.0);
                 double centerT = (_axisStartMinT + _axisStartMaxT) * 0.5;
                 double half0 = (_axisStartMaxT - _axisStartMinT) * 0.5;
@@ -153,9 +151,8 @@ public sealed class ChartInputController
 
     private ChartInputAction HandleWheel(ViewState vs, PointerInput input, HitRegion region)
     {
-        // WPF: positive delta = wheel up. Owner: up = expand, down = compress on price axis.
-        // notches > 0 after this mapping means "expand" for price; for time ZoomAt uses notches>0 = zoom in.
-        _wheelAccum += input.WheelDelta / 120.0;
+        // Owner: invert both price-axis and plot wheel directions vs previous build.
+        _wheelAccum += -input.WheelDelta / 120.0;
         int notches = (int)Math.Truncate(_wheelAccum);
         if (notches == 0)
             return ChartInputAction.None;
@@ -163,9 +160,8 @@ public sealed class ChartInputController
 
         if (region == HitRegion.PriceAxis)
         {
-            // Uniform zoom around visible price CENTER (ignore cursor Y)
             double midPrice = (vs.PriceScale.MinPrice + vs.PriceScale.MaxPrice) * 0.5;
-            // notches > 0 (wheel up) → factor > 1 → expand; notches < 0 → compress
+            // notches > 0 → expand; notches < 0 → compress (after invert above)
             double factor = notches > 0
                 ? Math.Pow(ZoomEngine.ZoomFactor(), notches)
                 : Math.Pow(1.0 / ZoomEngine.ZoomFactor(), -notches);
@@ -173,13 +169,11 @@ public sealed class ChartInputController
             return ChartInputAction.PriceZoom;
         }
 
-        // Plot / time axis: zoom around horizontal CENTER of plot (ignore cursor X)
         double zoomFactor = input.Ctrl
             ? ZoomEngine.PrecisionZoomFactor()
             : ZoomEngine.ZoomFactor();
         double centerX = vs.PlotLeft + vs.PlotWidth * 0.5;
-        // Wheel up (notches>0) → expand time (zoom out) = fewer pixels per bar = smaller BarSpacing
-        // ZoomAt: notches>0 multiplies BarSpacing → zoom in. So pass -notches for owner feel.
+        // Same invert: -notches so plot wheel matches owner expectation with inverted accum
         ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -notches);
         return input.Ctrl ? ChartInputAction.PrecisionZoom : ChartInputAction.Zoom;
     }

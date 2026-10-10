@@ -4,7 +4,9 @@ using MyChart.Core.Scale;
 namespace MyChart.Interaction.Input;
 
 /// <summary>
-/// T4.07 + C2: center price/time zoom; softer per-wheel steps.
+/// T4.07 + C2 (CORRECTIONS_2026-10-10):
+/// Wheel on plot = time zoom AT CURSOR (C2.8); price axis = Manual scale;
+/// never SetAuto from zoom/pan (only double-click price axis).
 /// </summary>
 public sealed class ChartInputController
 {
@@ -36,6 +38,7 @@ public sealed class ChartInputController
         {
             if (region == HitRegion.PriceAxis)
             {
+                // Only explicit user reset → SetAuto (C2.2)
                 PriceScaleEngine.SetAuto(vs.PriceScale);
                 LastAction = ChartInputAction.FitAuto;
             }
@@ -147,19 +150,17 @@ public sealed class ChartInputController
 
     private ChartInputAction HandleWheel(ViewState vs, PointerInput input, HitRegion region)
     {
-        // WPF usually sends ±120; map to smaller visual steps (was 10% → felt like a jump)
-        double notches = -input.WheelDelta / 120.0;
+        // Spec factor 1.10 per notch; apply fractional for smoothness
+        double notches = input.WheelDelta / 120.0;
         if (Math.Abs(notches) < 1e-9)
             return ChartInputAction.None;
 
-        // Soft step: ~3% per notch instead of 10%
-        const double SoftSpeed = 15; // ZoomFactor(15) = 1.03
-        double softFactor = ZoomEngine.ZoomFactor(SoftSpeed);
-
         if (region == HitRegion.PriceAxis)
         {
+            // Manual price zoom around range center (stable, not overwritten — C2.2)
             double midPrice = (vs.PriceScale.MinPrice + vs.PriceScale.MaxPrice) * 0.5;
-            double factor = Math.Pow(softFactor, notches);
+            // wheel up (positive delta) → expand (owner direction last confirmed)
+            double factor = Math.Pow(ZoomEngine.ZoomFactor(), -notches);
             PriceScaleEngine.ZoomAroundPrice(vs.PriceScale, midPrice, factor);
             return ChartInputAction.PriceZoom;
         }
@@ -167,11 +168,12 @@ public sealed class ChartInputController
         if (vs.PlotWidth <= 1 || vs.BarSpacing <= 0 || BarCount <= 0)
             return ChartInputAction.None;
 
-        double centerX = vs.PlotLeft + vs.PlotWidth * 0.5;
+        // C2.8: time zoom AT CURSOR (not center / not right edge)
         double zoomFactor = input.Ctrl
-            ? ZoomEngine.PrecisionZoomFactor(SoftSpeed)
-            : softFactor;
-        ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -notches);
+            ? ZoomEngine.PrecisionZoomFactor()
+            : ZoomEngine.ZoomFactor();
+        // ZoomAt: notches>0 = zoom in. WPF positive delta = wheel up → zoom in
+        ZoomEngine.ZoomAt(vs, BarCount, input.X, zoomFactor, notches);
         return input.Ctrl ? ChartInputAction.PrecisionZoom : ChartInputAction.Zoom;
     }
 }

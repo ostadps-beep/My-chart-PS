@@ -1,19 +1,21 @@
-MyChart - HANDOFF NOTES (for the next model / session)
+MyChart - HANDOFF NOTES
 Repo: https://github.com/ostadps-beep/My-chart-PS
 Solution folder: "My chart/".
 
-READ THIS FIRST
-1. Source of truth: Docs/MyChart_1_Engineering_Specification_Canonical_v1.4.txt
-1b. BINDING: Docs/CORRECTIONS_2026-10-10.txt (overrides conflict)
-2. Progress: Docs/IMPLEMENTATION_PROGRESS.txt
-3. git pull origin main. One item at a time. No magic numbers.
-4. No commit/push/merge to main without owner explicit approval.
+READ FIRST
+1. Canonical_v1.4 + Docs/CORRECTIONS_2026-10-10.txt (binding; overrides conflicts)
+2. Docs/IMPLEMENTATION_PROGRESS.txt
+3. git pull origin main. One item per branch. No main without owner word.
 
 LIVE STATUS — 2026-10-10
-- T0–T7 automated: COMPLETE
-- C1 PASS on main: one colour system (Settings Dark.xaml + schema); owner VERIFY 524 tests + visual chrome/settings OK
-- Branch fix/c1-one-colour-system merged conceptually into main (C1 files + this log)
-- NEXT = C2 zoom/price-scale (ChartHost FitPriceToVisible / SetAuto misuse per CORRECTIONS)
-- Then C3 HUD placeholders, C4 status lines, owner VISUAL of C1+C2, then (d) real data
+- C1 PASS on main
+- C2 PARTIAL on branch fix/c2-zoom-price-scale (owner interim register)
+  * FitPrice only when ScaleFit.Auto; never SetAuto from zoom/pan/paint
+  * No FitPrice every paint / UpdateSize
+  * Time zoom at cursor (C2.8); price-axis Manual
+  * 4-dir plot pan; Home=GoToLatest
+  * VISUAL gate C2.8 still OPEN for final owner approval
+- Branch: fix/c2-zoom-price-scale — merge to main when owner confirms PR / full code
+- NEXT: owner final C2 visual OR remaining C2 defect report; then C3 HUD placeholders
 
-DO NOT start C5 polish or item (d) without owner word.
+DO NOT start C5 / item (d) without owner word.

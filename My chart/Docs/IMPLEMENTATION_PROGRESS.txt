@@ -68,26 +68,17 @@ T6.05 | 2026-10-07 | PASS | ContextToolbar
 T6.06 | 2026-10-07 | PASS | IndicatorLayerAndDialog
 T6.07 | 2026-10-07 | PASS | NavigatorPanel
 T6.08 | 2026-10-07 | PASS | SettingsIntegration
-T6.09 | 2026-10-08 | PASS | Workspace (477+32 tests)
-T6.10.PG6.01 | 2026-10-08 | PASS | BuilderShellAndForm (484+32 tests)
-T6.10.PG6.02 | 2026-10-08 | PASS | LivePreview (493+32 tests)
-T6.10.PG6.03 | 2026-10-08 | PASS | IconPickerAndSave (500+32 tests)
+T6.09 | 2026-10-08 | PASS | Workspace
 T6.10 | 2026-10-08 | PASS | ToolBuilder complete
-T7.01 | 2026-10-09 | PASS | IconSystem (507+32)
-T7.02 | 2026-10-09 | PASS | ThemeProfiles (owner VERIFY 522 tests)
-T7.03 | 2026-10-09 | PASS | PerformanceTuning (owner VERIFY 522 tests)
-T7.04 | 2026-10-09 | PASS | TestingSweep (522+32 Failed 0)
-T7.05 | 2026-10-09 | PASS | ReleaseChecklist (7/7 + full suite Failed 0)
+T7.01 | 2026-10-09 | PASS | IconSystem
+T7.02 | 2026-10-09 | PASS | ThemeProfiles
+T7.03 | 2026-10-09 | PASS | PerformanceTuning
+T7.04 | 2026-10-09 | PASS | TestingSweep
+T7.05 | 2026-10-09 | PASS | ReleaseChecklist
 T7 | 2026-10-09 | PASS | Phase T7 complete (automated gates)
 
-# --- AFTER T7 VISUAL ---
-VISUAL.a | 2026-10-10 | PARTIAL | awaiting owner after C2/C3
-VISUAL.b | 2026-10-10 | PARTIAL | colour path; C1 owner visual OK
-VISUAL.chrome | 2026-10-10 | PASS | owner A1/A2 + C1 palette
-VISUAL.shell | 2026-10-10 | PARTIAL | awaiting owner approval
-VISUAL.icons | 2026-10-10 | PARTIAL | awaiting owner approval
-VISUAL.c | 2026-10-10 | PARTIAL | awaiting owner approval
+C1 | 2026-10-10 | PASS | One colour system; owner VERIFY 524 + visual OK
 
-C1 | 2026-10-10 | PASS | One colour system = Settings panel; schema bg #1E1E1E; ThemeService/Tokens aligned; MainWindow StaticResource; owner VERIFY MyChart.Tests 524 Failed 0 + visual OK
+C2 | 2026-10-10 | PARTIAL | CORRECTIONS §3: Fit only Auto; no SetAuto on zoom/pan/paint; no fit every paint; zoom at cursor; TimeAxisHeight 24; owner interim register (ثبت کن); C2.8 VISUAL still open for final screenshot
 
-# NEXT = C2 zoom/price-scale defect (fix/c2)
+# NEXT = C2 VISUAL final OR continue polish on C2 if owner reports remaining defect; then C3

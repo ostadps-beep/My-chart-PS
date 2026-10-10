@@ -4,14 +4,10 @@ using MyChart.Core.Scale;
 namespace MyChart.Interaction.Input;
 
 /// <summary>
-/// T4.07 + C2 owner UX:
-/// Price zoom around vertical center; time zoom around horizontal center.
-/// Wheel directions inverted per owner.
-/// Plot drag = 4-direction pan.
+/// T4.07 + C2: center price zoom; center time zoom; continuous smooth wheel.
 /// </summary>
 public sealed class ChartInputController
 {
-    private double _wheelAccum;
     private bool _panning;
     private double _lastX;
     private double _lastY;
@@ -151,18 +147,17 @@ public sealed class ChartInputController
 
     private ChartInputAction HandleWheel(ViewState vs, PointerInput input, HitRegion region)
     {
-        _wheelAccum += -input.WheelDelta / 120.0;
-        int notches = (int)Math.Truncate(_wheelAccum);
-        if (notches == 0)
+        // Continuous: apply every delta (no wait for full 120 notch → no step jump)
+        // Invert: negative delta sign matches owner-approved directions
+        double amount = -input.WheelDelta / 120.0;
+        if (Math.Abs(amount) < 1e-9)
             return ChartInputAction.None;
-        _wheelAccum -= notches;
 
         if (region == HitRegion.PriceAxis)
         {
             double midPrice = (vs.PriceScale.MinPrice + vs.PriceScale.MaxPrice) * 0.5;
-            double factor = notches > 0
-                ? Math.Pow(ZoomEngine.ZoomFactor(), notches)
-                : Math.Pow(1.0 / ZoomEngine.ZoomFactor(), -notches);
+            // amount > 0 → expand; amount < 0 → compress
+            double factor = Math.Pow(ZoomEngine.ZoomFactor(), amount);
             PriceScaleEngine.ZoomAroundPrice(vs.PriceScale, midPrice, factor);
             return ChartInputAction.PriceZoom;
         }
@@ -170,9 +165,9 @@ public sealed class ChartInputController
         double zoomFactor = input.Ctrl
             ? ZoomEngine.PrecisionZoomFactor()
             : ZoomEngine.ZoomFactor();
-        // Previous good state: zoom around horizontal CENTER of plot
         double centerX = vs.PlotLeft + vs.PlotWidth * 0.5;
-        ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -notches);
+        // amount inverted again for plot so same wheel feel as before invert pair
+        ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -amount);
         return input.Ctrl ? ChartInputAction.PrecisionZoom : ChartInputAction.Zoom;
     }
 }

@@ -1,7 +1,7 @@
 using System.Windows;
 using MyChart.Core.Models.Settings;
 using MyChart.Settings;
-using MyChart.Settings.Services;
+using SettingsSvc = MyChart.Settings.Services;
 
 namespace MyChart.App.Integration;
 
@@ -45,19 +45,20 @@ public sealed class SettingsBridgeHost
         window.ShowDialog();
     }
 
-    private sealed class HostProtocolAdapter : ISettingsProtocolListener
+    /// <summary>Must implement Settings.Services listener (not App.Integration duplicate).</summary>
+    private sealed class HostProtocolAdapter : SettingsSvc.ISettingsProtocolListener
     {
         private readonly SettingsBridge _bridge;
 
         public HostProtocolAdapter(SettingsBridge bridge) => _bridge = bridge;
 
-        public void OnUpdate(SettingsUpdateMessage message)
+        public void OnUpdate(SettingsSvc.SettingsUpdateMessage message)
             => _bridge.OnUpdate(message.Key, message.Value);
 
-        public void OnApplied(SettingsAppliedMessage message)
+        public void OnApplied(SettingsSvc.SettingsAppliedMessage message)
             => _bridge.OnApplied(message.Changed);
 
-        public void OnSave(SettingsSaveMessage message)
+        public void OnSave(SettingsSvc.SettingsSaveMessage message)
             => _bridge.OnSave(message.Path);
     }
 }

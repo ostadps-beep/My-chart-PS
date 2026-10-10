@@ -34,7 +34,7 @@ public sealed class ChartSettingValues
 
     // --- candles / theme colour keys (T7.02 Custom overrides) ---
     public double CandlesSpacing { get; set; } = 1.0; // body width follows candles.spacing
-    public string BackgroundColor { get; set; } = "#131722";
+    public string BackgroundColor { get; set; } = "#1E1E1E";
     public string BullColor { get; set; } = "#26A69A";
     public string BearColor { get; set; } = "#EF5350";
     public string WickColor { get; set; } = "#CCCCCC";

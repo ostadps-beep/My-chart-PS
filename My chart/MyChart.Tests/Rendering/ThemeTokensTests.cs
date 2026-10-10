@@ -10,7 +10,7 @@ public class ThemeTokensTests
     public void DarkProfile_MatchesSpecHex()
     {
         var t = ThemeService.Dark;
-        Assert.Equal(RgbaColor.ParseHex("#131722"), t.BackgroundColor);
+        Assert.Equal(RgbaColor.ParseHex("#1E1E1E"), t.BackgroundColor);
         Assert.Equal(RgbaColor.ParseHex("#1E222D"), t.GridColor);
         Assert.Equal(RgbaColor.ParseHex("#2A2E39"), t.GridMajorColor);
         Assert.Equal(RgbaColor.ParseHex("#1E222D"), t.GridMinorColor);

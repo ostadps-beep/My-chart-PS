@@ -21,7 +21,7 @@ public sealed class ThemeService : IThemeService
     };
 
     public static ThemeTokens Dark { get; } = Build(
-        background: "#131722",
+        background: "#1E1E1E",
         grid: "#1E222D",
         gridMajor: "#2A2E39",
         gridMinor: "#1E222D",

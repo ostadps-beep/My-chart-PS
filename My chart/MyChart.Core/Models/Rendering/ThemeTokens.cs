@@ -35,7 +35,7 @@ public sealed class ThemeTokens
     /// <summary>T4.02 / T7.02 Dark profile defaults used until a theme service is wired.</summary>
     public static ThemeTokens Dark { get; } = new()
     {
-        BackgroundColor = RgbaColor.ParseHex("#131722"),
+        BackgroundColor = RgbaColor.ParseHex("#1E1E1E"),
         BullColor = RgbaColor.ParseHex("#26A69A"),
         BearColor = RgbaColor.ParseHex("#EF5350"),
         GridColor = RgbaColor.ParseHex("#2A2E39"),

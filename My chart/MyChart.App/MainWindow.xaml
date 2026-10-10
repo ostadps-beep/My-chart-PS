@@ -5,26 +5,77 @@
         Title="MyChart"
         Height="720"
         Width="1280"
-        Background="#131722"
+        Background="#1E1E1E"
         Loaded="OnLoaded">
-  <DockPanel>
-    <Border DockPanel.Dock="Top" Background="#1E222D" Padding="8,4">
-      <StackPanel Orientation="Horizontal">
-        <Button Content="Settings"
-                Width="100"
-                Height="28"
-                Margin="0,0,8,0"
-                Click="OnSettingsClick"
-                Background="#2962FF"
-                Foreground="White"
-                BorderThickness="0"
-                Cursor="Hand"/>
+  <Window.Resources>
+    <Style TargetType="Menu">
+      <Setter Property="Background" Value="#1E1E1E"/>
+      <Setter Property="Foreground" Value="#FFFFFF"/>
+      <Setter Property="BorderThickness" Value="0"/>
+    </Style>
+    <Style TargetType="MenuItem">
+      <Setter Property="Foreground" Value="#FFFFFF"/>
+      <Setter Property="Background" Value="#1E1E1E"/>
+      <Setter Property="Padding" Value="10,4"/>
+      <Style.Triggers>
+        <Trigger Property="IsHighlighted" Value="True">
+          <Setter Property="Background" Value="#3A3A3A"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+    <Style x:Key="SettingsButton" TargetType="Button">
+      <Setter Property="Background" Value="#2A2A2A"/>
+      <Setter Property="Foreground" Value="#FFFFFF"/>
+      <Setter Property="BorderBrush" Value="#444444"/>
+      <Setter Property="BorderThickness" Value="1"/>
+      <Setter Property="Cursor" Value="Hand"/>
+      <Setter Property="Padding" Value="12,4"/>
+      <Style.Triggers>
+        <Trigger Property="IsMouseOver" Value="True">
+          <Setter Property="Background" Value="#3A3A3A"/>
+        </Trigger>
+      </Style.Triggers>
+    </Style>
+  </Window.Resources>
+
+  <DockPanel Background="#1E1E1E">
+    <!-- Title row: app name left, Settings right -->
+    <Border DockPanel.Dock="Top"
+            Background="#1E1E1E"
+            BorderBrush="#333333"
+            BorderThickness="0,0,0,1"
+            Padding="12,6">
+      <Grid>
         <TextBlock Text="MyChart"
                    VerticalAlignment="Center"
-                   Foreground="#D1D4DC"
-                   FontSize="14"/>
-      </StackPanel>
+                   HorizontalAlignment="Left"
+                   Foreground="#FFFFFF"
+                   FontSize="13"
+                   FontWeight="SemiBold"/>
+        <Button Content="Settings"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Style="{StaticResource SettingsButton}"
+                Click="OnSettingsClick"/>
+      </Grid>
     </Border>
+
+    <!-- Menu row (restored), same theme bg -->
+    <Menu DockPanel.Dock="Top"
+          Background="#1E1E1E"
+          Foreground="#FFFFFF"
+          Padding="4,2">
+      <MenuItem Header="_File">
+        <MenuItem Header="E_xit" Click="OnExitClick"/>
+      </MenuItem>
+      <MenuItem Header="_Chart">
+        <MenuItem Header="_Settings…" Click="OnSettingsClick"/>
+      </MenuItem>
+      <MenuItem Header="_View"/>
+      <MenuItem Header="_Tools"/>
+      <MenuItem Header="_Help"/>
+    </Menu>
+
     <chart:ChartHost x:Name="Chart" />
   </DockPanel>
 </Window>

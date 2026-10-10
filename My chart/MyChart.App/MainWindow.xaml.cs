@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace MyChart.App;
 
-/// <summary>T4.08 thin shell — code-behind kept small; wiring in CompositionRoot.</summary>
+/// <summary>T4.08 thin shell — chrome #1E1E1E, menu row, Settings right; Settings live wiring.</summary>
 public partial class MainWindow : Window
 {
     public MainWindow()
@@ -30,9 +30,7 @@ public partial class MainWindow : Window
         var host = CompositionRoot.SettingsHost;
         if (host is null)
         {
-            MessageBox.Show(
-                "SettingsHost is not initialized.",
-                "MyChart");
+            MessageBox.Show("SettingsHost is not initialized.", "MyChart");
             return;
         }
 
@@ -45,6 +43,8 @@ public partial class MainWindow : Window
             MessageBox.Show("Failed to open Settings:\n" + ex.Message, "MyChart");
         }
     }
+
+    private void OnExitClick(object sender, RoutedEventArgs e) => Close();
 
     private async void OnLoaded(object sender, RoutedEventArgs e)
     {
@@ -67,7 +67,6 @@ public partial class MainWindow : Window
         try
         {
             await CompositionRoot.LoadFixturesAsync(Chart, fixtures);
-            // Re-apply after bars loaded so visible-candles/shift can take effect
             var host = CompositionRoot.SettingsHost;
             if (host is not null)
                 Chart.ApplySettings(host.Bridge.Values);

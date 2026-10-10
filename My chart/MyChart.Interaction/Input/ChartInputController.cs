@@ -5,8 +5,9 @@ namespace MyChart.Interaction.Input;
 
 /// <summary>
 /// T4.07 + C2 owner UX:
-/// Price zoom around vertical center; time zoom anchored to RIGHT edge of plot
-/// (candles grow → expand left; shrink → release toward right).
+/// Price zoom around vertical center; time zoom around horizontal center.
+/// Wheel directions inverted per owner.
+/// Plot drag = 4-direction pan.
 /// </summary>
 public sealed class ChartInputController
 {
@@ -169,11 +170,9 @@ public sealed class ChartInputController
         double zoomFactor = input.Ctrl
             ? ZoomEngine.PrecisionZoomFactor()
             : ZoomEngine.ZoomFactor();
-
-        // Anchor at RIGHT edge of plot: zoom-in grows bars toward the left;
-        // zoom-out releases space toward the right (owner C2).
-        double rightEdgeX = vs.PlotLeft + vs.PlotWidth;
-        ZoomEngine.ZoomAt(vs, BarCount, rightEdgeX, zoomFactor, -notches);
+        // Previous good state: zoom around horizontal CENTER of plot
+        double centerX = vs.PlotLeft + vs.PlotWidth * 0.5;
+        ZoomEngine.ZoomAt(vs, BarCount, centerX, zoomFactor, -notches);
         return input.Ctrl ? ChartInputAction.PrecisionZoom : ChartInputAction.Zoom;
     }
 }

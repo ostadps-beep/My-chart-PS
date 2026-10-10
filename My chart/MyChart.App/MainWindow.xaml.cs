@@ -1,6 +1,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using MyChart.Core.Models.Market;
@@ -12,14 +13,18 @@ using MyChart.UI.Icons;
 namespace MyChart.App;
 
 /// <summary>
-/// Shell per System Map + mockup: TopToolbar, LeftToolbar, Chart, Tab, Status.
-/// All 23 catalog icons via IconView + IconProvider (T7.01).
+/// AFTER T7 (c) — Top/Left/Context toolbars wired to Core controllers (T6.03–T6.05).
+/// Popups: 2-click rule (Open then Apply). Context bar only when selectionCount &gt; 0.
 /// </summary>
 public partial class MainWindow : Window
 {
     private TopToolbarModel _top = TopToolbarModel.CreateDefault(settingsAvailable: true);
     private LeftToolbarModel _left = LeftToolbarModel.CreateDefault();
+    private readonly TopToolbarController _topCtl = new();
+    private readonly LeftToolbarController _leftCtl = new();
+    private readonly ContextToolbarController _ctxCtl = new();
     private IconProvider? _icons;
+    private int _selectionCount; // 0 until drawings selection exists (e)
 
     public MainWindow()
     {
@@ -29,7 +34,7 @@ public partial class MainWindow : Window
         WireSettingsToChart();
         BuildTopToolbar();
         BuildLeftToolbar();
-        BuildContextToolbar();
+        RefreshContextToolbar();
     }
 
     private void WireSettingsToChart()
@@ -76,12 +81,11 @@ public partial class MainWindow : Window
                 VerticalAlignment = VerticalAlignment.Center
             };
             panel.Children.Add(CreateIcon(IconKeyFor(item.Kind)));
-
             var text = item.SelectedValue is { Length: > 0 } sv ? sv : item.Label;
             panel.Children.Add(new TextBlock
             {
                 Text = text,
-                Foreground = new SolidColorBrush(Color.FromRgb(0xFF, 0xFF, 0xFF)),
+                Foreground = Brushes.White,
                 FontSize = 11,
                 Margin = new Thickness(6, 0, 0, 0),
                 VerticalAlignment = VerticalAlignment.Center
@@ -93,7 +97,7 @@ public partial class MainWindow : Window
                 Style = (Style)FindResource("TbButton"),
                 IsEnabled = item.IsEnabled,
                 Tag = item,
-                ToolTip = $"{item.Label} ({IconKeyFor(item.Kind)})"
+                ToolTip = item.Label
             };
             btn.Click += OnTopToolbarClick;
             TopToolbarHost.Items.Add(btn);
@@ -102,14 +106,15 @@ public partial class MainWindow : Window
 
     private void BuildLeftToolbar()
     {
-        _left = LeftToolbarModel.CreateDefault();
-        // Ensure first-party tools + core so all drawing icons appear
+        _left = LeftToolbarModel.CreateDefault(selectedItemId: _leftCtl.SelectedItemId);
         LeftToolbarHost.Items.Clear();
         foreach (var item in _left.Items)
         {
-            var iconKey = string.IsNullOrWhiteSpace(item.IconKey) ? "Icon.Cursor" : item.IconKey;
-            var state = item.IsSelected ? IconVisualState.Active : IconVisualState.Normal;
-            var icon = CreateIcon(iconKey, state);
+            var selected = item.ItemId == _leftCtl.SelectedItemId
+                           || (item.Kind == LeftToolbarItemKind.Crosshair && _leftCtl.CrosshairActive);
+            var icon = CreateIcon(
+                string.IsNullOrWhiteSpace(item.IconKey) ? "Icon.Cursor" : item.IconKey,
+                selected ? IconVisualState.Active : IconVisualState.Normal);
 
             var btn = new Button
             {
@@ -117,7 +122,7 @@ public partial class MainWindow : Window
                 Style = (Style)FindResource("LeftTbButton"),
                 Tag = item,
                 ToolTip = item.ItemId,
-                Background = item.IsSelected
+                Background = selected
                     ? new SolidColorBrush((Color)ColorConverter.ConvertFromString("#505050")!)
                     : Brushes.Transparent
             };
@@ -126,49 +131,150 @@ public partial class MainWindow : Window
         }
     }
 
-
-    private static readonly string[] ContextIconKeys =
+    private void RefreshContextToolbar()
     {
-        "Icon.Color", "Icon.Width", "Icon.Opacity", "Icon.Style",
-        "Icon.Template", "Icon.Lock", "Icon.Clone", "Icon.Delete",
-    };
+        // T6.05: hidden when selection empty
+        var model = ContextToolbarModel.Create(
+            selectionCount: _selectionCount,
+            selectionLeftDip: 80,
+            selectionTopDip: 120,
+            selectionRightDip: 220,
+            selectionBottomDip: 200,
+            viewportTopDip: 0,
+            viewportBottomDip: 600);
 
-    private void BuildContextToolbar()
-    {
+        var parent = ContextToolbarHost.Parent as FrameworkElement;
+        if (parent is not null)
+            parent.Visibility = model.IsVisible ? Visibility.Visible : Visibility.Collapsed;
+
         ContextToolbarHost.Items.Clear();
-        foreach (var key in ContextIconKeys)
+        if (!model.IsVisible)
+            return;
+
+        foreach (var item in model.Items)
         {
             var btn = new Button
             {
-                Content = CreateIcon(key),
+                Content = CreateIcon(item.IconKey),
                 Style = (Style)FindResource("TbButton"),
-                ToolTip = key,
-                Tag = key
+                ToolTip = item.Action.ToString(),
+                Tag = item
             };
-            btn.Click += (_, _) => { StatusText.Text = key; };
+            btn.Click += OnContextToolbarClick;
             ContextToolbarHost.Items.Add(btn);
         }
     }
 
     private void OnTopToolbarClick(object sender, RoutedEventArgs e)
     {
-        if (sender is not Button { Tag: TopToolbarItem item }) return;
+        if (sender is not Button btn || btn.Tag is not TopToolbarItem item)
+            return;
 
         if (item.Kind == TopToolbarItemKind.Settings)
         {
+            _topCtl.Close();
             OnSettingsClick(sender, e);
             return;
         }
 
-        StatusText.Text = $"{item.Label}: {item.SelectedValue ?? item.Id}";
+        // T6.03: first click opens popup
+        if (!_topCtl.Open(item))
+        {
+            StatusText.Text = "TopToolbar: disabled";
+            return;
+        }
+
+        if (item.Choices.Count == 0)
+        {
+            StatusText.Text = $"TopToolbar open: {item.Kind} (no choices yet)";
+            _topCtl.Close();
+            return;
+        }
+
+        var menu = new ContextMenu
+        {
+            Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")!),
+            BorderBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#333333")!),
+            Foreground = Brushes.White
+        };
+
+        foreach (var choice in item.Choices)
+        {
+            var mi = new MenuItem
+            {
+                Header = choice.IsQuick ? $"★ {choice.Label}" : choice.Label,
+                Tag = (item, choice),
+                Foreground = Brushes.White,
+                Background = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#1E1E1E")!)
+            };
+            mi.Click += OnTopToolbarChoice;
+            menu.Items.Add(mi);
+        }
+
+        menu.PlacementTarget = btn;
+        menu.Placement = PlacementMode.Bottom;
+        menu.IsOpen = true;
+        btn.ContextMenu = menu;
+        StatusText.Text = $"TopToolbar popup: {item.Kind}";
+    }
+
+    private void OnTopToolbarChoice(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem { Tag: (TopToolbarItem item, ToolbarChoice choice) })
+            return;
+
+        // T6.03: second interaction applies
+        if (_topCtl.Apply(item, choice.Value))
+        {
+            StatusText.Text = $"Applied {item.Kind} = {choice.Value}";
+            // Refresh label on matching button
+            BuildTopToolbar();
+            // Re-stamp selected values for TF/ChartType/Layout after rebuild from defaults —
+            // update status only; full ViewState wiring is later (d/e)
+            if (item.Kind == TopToolbarItemKind.Timeframe)
+                StatusText.Text = $"Timeframe → {choice.Value}";
+        }
+        else
+            StatusText.Text = "Apply failed (open popup first)";
     }
 
     private void OnLeftToolbarClick(object sender, RoutedEventArgs e)
     {
-        if (sender is not Button { Tag: LeftToolbarItem item }) return;
-        StatusText.Text = item.ItemId;
-        _left = LeftToolbarModel.CreateDefault(selectedItemId: item.ItemId);
+        if (sender is not Button { Tag: LeftToolbarItem item })
+            return;
+
+        if (!_leftCtl.Select(item))
+            return;
+
+        if (item.Kind == LeftToolbarItemKind.Crosshair)
+        {
+            StatusText.Text = _leftCtl.CrosshairActive
+                ? "Crosshair ON"
+                : "Crosshair OFF";
+        }
+        else
+        {
+            StatusText.Text = $"Tool: {item.ItemId}";
+            // Drawing tools: context toolbar appears once selection exists (e).
+            // For chrome VERIFY of strip, arm a provisional selection count when a draw tool is active.
+            _selectionCount = item.Kind == LeftToolbarItemKind.DrawingTool ? 1 : 0;
+            if (item.Kind == LeftToolbarItemKind.Cursor)
+                _selectionCount = 0;
+        }
+
         BuildLeftToolbar();
+        RefreshContextToolbar();
+    }
+
+    private void OnContextToolbarClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not Button { Tag: ContextToolbarItem item })
+            return;
+
+        if (_ctxCtl.TryIssue(item, _selectionCount))
+            StatusText.Text = $"Context: {_ctxCtl.IssuedCommands.LastOrDefault()}";
+        else
+            StatusText.Text = "Context: no selection";
     }
 
     private void OnTitleBarDrag(object sender, MouseButtonEventArgs e)
@@ -215,7 +321,7 @@ public partial class MainWindow : Window
             await CompositionRoot.LoadFixturesAsync(Chart, fixtures);
             var host = CompositionRoot.SettingsHost;
             if (host is not null) Chart.ApplySettings(host.Bridge.Values);
-            StatusText.Text = "EURUSD M1 · fixtures · icons " + (_icons?.All.Count ?? 0);
+            StatusText.Text = $"Ready · icons {_icons?.All.Count ?? 0}";
         }
         catch (Exception ex)
         {

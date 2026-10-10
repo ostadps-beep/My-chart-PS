@@ -29,6 +29,7 @@ public partial class MainWindow : Window
         WireSettingsToChart();
         BuildTopToolbar();
         BuildLeftToolbar();
+        BuildContextToolbar();
     }
 
     private void WireSettingsToChart()
@@ -122,6 +123,30 @@ public partial class MainWindow : Window
             };
             btn.Click += OnLeftToolbarClick;
             LeftToolbarHost.Items.Add(btn);
+        }
+    }
+
+
+    private static readonly string[] ContextIconKeys =
+    {
+        "Icon.Color", "Icon.Width", "Icon.Opacity", "Icon.Style",
+        "Icon.Template", "Icon.Lock", "Icon.Clone", "Icon.Delete",
+    };
+
+    private void BuildContextToolbar()
+    {
+        ContextToolbarHost.Items.Clear();
+        foreach (var key in ContextIconKeys)
+        {
+            var btn = new Button
+            {
+                Content = CreateIcon(key),
+                Style = (Style)FindResource("TbButton"),
+                ToolTip = key,
+                Tag = key
+            };
+            btn.Click += (_, _) => { StatusText.Text = key; };
+            ContextToolbarHost.Items.Add(btn);
         }
     }
 

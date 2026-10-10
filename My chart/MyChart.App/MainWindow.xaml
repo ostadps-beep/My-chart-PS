@@ -134,7 +134,20 @@
             </ItemsControl.ItemsPanel>
           </ItemsControl>
         </Border>
-        <chart:ChartHost x:Name="Chart"/>
+        <DockPanel>
+          <!-- Context toolbar icons (Color…Delete) — T6.05 slot; visible strip for catalog completeness -->
+          <Border DockPanel.Dock="Top" Background="#1E1E1E" Height="32"
+                  BorderBrush="#333333" BorderThickness="0,0,0,1" Padding="6,0">
+            <ItemsControl x:Name="ContextToolbarHost">
+              <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                  <StackPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+              </ItemsControl.ItemsPanel>
+            </ItemsControl>
+          </Border>
+          <chart:ChartHost x:Name="Chart"/>
+        </DockPanel>
       </DockPanel>
     </DockPanel>
   </Border>

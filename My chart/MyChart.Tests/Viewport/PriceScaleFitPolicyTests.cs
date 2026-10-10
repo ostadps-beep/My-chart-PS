@@ -5,7 +5,7 @@ using Xunit;
 
 namespace MyChart.Tests.Viewport;
 
-/// <summary>C2 — Manual price scale + anchor-fixed zoom.</summary>
+/// <summary>C2 — Manual scale + center-based uniform zoom.</summary>
 public class PriceScaleFitPolicyTests
 {
     private static List<Candle> Bars(int n, double basePrice = 1.10)
@@ -54,32 +54,30 @@ public class PriceScaleFitPolicyTests
     }
 
     [Fact]
-    public void ZoomAroundPrice_KeepsAnchorInsideRange()
+    public void ZoomAroundPrice_Center_SymmetricExpand()
     {
         var state = new PriceScaleState();
         PriceScaleEngine.SetManual(state, 1.0, 2.0);
-        double anchor = 1.4;
+        double mid = 1.5;
 
-        PriceScaleEngine.ZoomAroundPrice(state, anchor, factor: 0.5); // zoom in
+        PriceScaleEngine.ZoomAroundPrice(state, mid, factor: 2.0);
 
         Assert.Equal(ScaleFit.Manual, state.Fit);
-        Assert.True(state.MinPrice < anchor && anchor < state.MaxPrice);
-        // span halved
-        Assert.InRange(state.MaxPrice - state.MinPrice, 0.49, 0.51);
+        Assert.InRange(state.MinPrice, 0.49, 0.51);
+        Assert.InRange(state.MaxPrice, 2.49, 2.51);
+        Assert.InRange((state.MinPrice + state.MaxPrice) * 0.5, 1.49, 1.51);
     }
 
     [Fact]
-    public void ZoomAroundPrice_AnchorStaysSameRelativePosition()
+    public void ZoomAroundPrice_Center_Compress()
     {
         var state = new PriceScaleState();
         PriceScaleEngine.SetManual(state, 1.0, 2.0);
-        double anchor = 1.25; // 25% from min
-        double fracBefore = (anchor - 1.0) / (2.0 - 1.0);
 
-        PriceScaleEngine.ZoomAroundPrice(state, anchor, factor: 2.0); // zoom out
+        PriceScaleEngine.ZoomAroundPrice(state, 1.5, factor: 0.5);
 
-        double fracAfter = (anchor - state.MinPrice) / (state.MaxPrice - state.MinPrice);
-        Assert.InRange(fracAfter, fracBefore - 0.001, fracBefore + 0.001);
+        Assert.InRange(state.MaxPrice - state.MinPrice, 0.49, 0.51);
+        Assert.InRange((state.MinPrice + state.MaxPrice) * 0.5, 1.49, 1.51);
     }
 
     [Fact]

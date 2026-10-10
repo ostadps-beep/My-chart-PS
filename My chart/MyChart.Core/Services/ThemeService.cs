@@ -5,8 +5,7 @@ using MyChart.Core.Models.Settings;
 namespace MyChart.Core.Services;
 
 /// <summary>
-/// T4.02 / T7.02 ThemeProfiles — Dark, Light, ProDark, Custom.
-/// Custom = base profile + per-token overrides from Settings colour keys.
+/// T4.02 / T7.02 / C1 — single Dark palette = Settings panel (CORRECTIONS_2026-10-10).
 /// </summary>
 public sealed class ThemeService : IThemeService
 {
@@ -20,20 +19,23 @@ public sealed class ThemeService : IThemeService
         RgbaColor.ParseHex("#8BC34A"),
     };
 
+    /// <summary>C1 Dark: chrome + chart from Settings Dark.xaml / SettingsSchema.</summary>
     public static ThemeTokens Dark { get; } = Build(
         background: "#1E1E1E",
-        grid: "#1E222D",
+        grid: "#2A2E39",
         gridMajor: "#2A2E39",
-        gridMinor: "#1E222D",
-        axis: "#787B86",
-        hud: "#B2B5BE",
+        gridMinor: null, // 50% of #2A2E39
+        axis: "#888888",
+        hud: "#FFFFFF",
         accent: "#2962FF",
         selection: "#2962FF",
         bull: "#26A69A",
         bear: "#EF5350",
         warning: "#FF9800",
         error: "#F23645",
-        success: "#089981");
+        success: "#089981",
+        wick: "#CCCCCC",
+        border: "#1A1A1A");
 
     public static ThemeTokens ProDark { get; } = Build(
         background: "#0B0E14",
@@ -105,7 +107,6 @@ public sealed class ThemeService : IThemeService
         Changed?.Invoke();
     }
 
-    /// <summary>AFTER T7 (b) — apply theme.profile + colour keys from Settings live.</summary>
     public void ApplyFromSettings(ChartSettingValues values)
     {
         ArgumentNullException.ThrowIfNull(values);
@@ -113,7 +114,6 @@ public sealed class ThemeService : IThemeService
         SetProfile(profile, values);
     }
 
-    /// <summary>Switch to Custom using colour keys from Settings on the current base.</summary>
     public void ApplyCustomOverrides(ChartSettingValues values)
     {
         ArgumentNullException.ThrowIfNull(values);
@@ -177,16 +177,21 @@ public sealed class ThemeService : IThemeService
     }
 
     private static ThemeTokens Build(
-        string background, string grid, string gridMajor, string gridMinor,
+        string background, string grid, string gridMajor, string? gridMinor,
         string axis, string hud, string accent, string selection,
         string bull, string bear, string warning, string error, string success,
         string? wick = null, string? border = null)
-        => new()
+    {
+        var major = RgbaColor.ParseHex(gridMajor);
+        var minor = gridMinor is null
+            ? WithAlpha(major, 0.50)
+            : RgbaColor.ParseHex(gridMinor);
+        return new ThemeTokens
         {
             BackgroundColor = RgbaColor.ParseHex(background),
             GridColor = RgbaColor.ParseHex(grid),
-            GridMajorColor = RgbaColor.ParseHex(gridMajor),
-            GridMinorColor = RgbaColor.ParseHex(gridMinor),
+            GridMajorColor = major,
+            GridMinorColor = minor,
             AxisColor = RgbaColor.ParseHex(axis),
             HudColor = RgbaColor.ParseHex(hud),
             AccentColor = RgbaColor.ParseHex(accent),
@@ -200,4 +205,5 @@ public sealed class ThemeService : IThemeService
             BorderColor = RgbaColor.ParseHex(border ?? "#1A1A1A"),
             IndicatorPalette = IndicatorPaletteColors
         };
+    }
 }

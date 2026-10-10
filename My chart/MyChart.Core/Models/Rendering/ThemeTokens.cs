@@ -1,8 +1,8 @@
 namespace MyChart.Core.Models.Rendering;
 
 /// <summary>
-/// T4.02 ColorTokensMinimal — single color system.
-/// Renderers read colors only through IThemeService; no hex literal in renderers.
+/// T4.02 / C1 — single color system. Renderers via IThemeService only.
+/// Dark defaults match CORRECTIONS_2026-10-10 (Settings panel source of truth).
 /// </summary>
 public sealed class ThemeTokens
 {
@@ -23,7 +23,6 @@ public sealed class ThemeTokens
     public RgbaColor WickColor { get; init; }
     public RgbaColor BorderColor { get; init; }
 
-    /// <summary>IndicatorPalette = [#2962FF, #FF9800, #E040FB, #00BCD4, #FFEB3B, #8BC34A].</summary>
     public required IReadOnlyList<RgbaColor> IndicatorPalette { get; init; }
 
     public RgbaColor IndicatorColor(int index)
@@ -32,7 +31,7 @@ public sealed class ThemeTokens
         return IndicatorPalette[Math.Abs(index) % IndicatorPalette.Count];
     }
 
-    /// <summary>T4.02 / T7.02 Dark profile defaults used until a theme service is wired.</summary>
+    /// <summary>Same as ThemeService.Dark (C1). Kept for callers that use ThemeTokens.Dark.</summary>
     public static ThemeTokens Dark { get; } = new()
     {
         BackgroundColor = RgbaColor.ParseHex("#1E1E1E"),
@@ -41,13 +40,13 @@ public sealed class ThemeTokens
         GridColor = RgbaColor.ParseHex("#2A2E39"),
         GridMajorColor = RgbaColor.ParseHex("#2A2E39"),
         GridMinorColor = RgbaColor.FromArgb(128, 0x2A, 0x2E, 0x39),
-        AxisColor = RgbaColor.ParseHex("#B2B5BE"),
-        HudColor = RgbaColor.ParseHex("#D1D4DC"),
+        AxisColor = RgbaColor.ParseHex("#888888"),
+        HudColor = RgbaColor.ParseHex("#FFFFFF"),
         AccentColor = RgbaColor.ParseHex("#2962FF"),
         SelectionColor = RgbaColor.ParseHex("#2962FF"),
         WarningColor = RgbaColor.ParseHex("#FF9800"),
-        ErrorColor = RgbaColor.ParseHex("#EF5350"),
-        SuccessColor = RgbaColor.ParseHex("#26A69A"),
+        ErrorColor = RgbaColor.ParseHex("#F23645"),
+        SuccessColor = RgbaColor.ParseHex("#089981"),
         WickColor = RgbaColor.ParseHex("#CCCCCC"),
         BorderColor = RgbaColor.ParseHex("#1A1A1A"),
         IndicatorPalette = new[]

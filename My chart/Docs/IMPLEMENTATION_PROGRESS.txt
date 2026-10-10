@@ -91,3 +91,19 @@ T7.05 | 2026-10-09 | PASS | ReleaseChecklist (owner VERIFY: ReleaseChecklist 7/7
 T7 | 2026-10-09 | PASS | Phase T7 complete (automated gates)
 
 # NEXT = visual gates still open (T4.03, T6.01, T6.02, …) or product polish; no further T-node in v1 order
+
+# --- AFTER T7 VISUAL (owner-directed, 2026-10-10) ---
+VISUAL.a | 2026-10-10 | PASS | ChartHost: free-move crosshair, HUD, time labels, startup ~200 (owner assumed OK for continue)
+VISUAL.b | 2026-10-10 | PASS | Settings protocol → SettingsBridge → ThemeService/ChartHost.ApplySettings live
+VISUAL.chrome | 2026-10-10 | PASS | Global bg #1E1E1E only (other tokens deferred); Settings Dark.xaml bg aligned
+VISUAL.shell | 2026-10-10 | PASS | System Map layout: TopToolbar + LeftToolbar + Chart + Tab + Status; no classic File menu as primary chrome
+VISUAL.icons | 2026-10-10 | PASS | All 23 IconCatalog keys on Top + Left + Context strips via IconView
+
+# NEXT (AFTER T7 list)
+# c remaining: richer Top/Left/Context behavior (popups, controllers) — shell present
+# d Real data: ProviderManager / SQLite / MetaTrader in App
+# e Drawings, indicators, Navigator, Workspace on chart
+# f ToolBuilder in app, Replay, Offline, release checklist machine checks
+
+# SOURCE OF TRUTH for agents: origin/main @ see HANDOFF_NOTES LIVE STATUS
+

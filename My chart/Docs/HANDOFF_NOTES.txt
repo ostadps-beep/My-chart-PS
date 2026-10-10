@@ -85,3 +85,30 @@ LIVE STATUS
   Still open: GATE=VISUAL items (T4.03, T6.01, T6.02, toolbars chrome, etc.).
   Owner long stress (8 charts / 30 min) and Release x64 build remain optional machine checks in Docs/RELEASE_CHECKLIST.txt.
 
+═══════════════════════════════════════════════════════════
+LIVE STATUS — 2026-10-10 (registered on main for ALL agents)
+═══════════════════════════════════════════════════════════
+Commit tip: merge of grok/visual-shell-mockup (icons + shell).
+
+PHASE T0–T7 (automated nodes): COMPLETE (T7.05 PASS).
+
+AFTER T7 visual progress ON MAIN:
+  (a) ChartHost crosshair/HUD/time/startup — done
+  (b) Settings live → Theme/ChartHost — done
+  chrome: bg #1E1E1E global (other colors NOT mass-changed yet)
+  shell: TopToolbar + LeftToolbar + Tab + Status per System Map/mockup
+  icons: all 23 IconCatalog on Top/Left/Context strips (IconView)
+
+DO NOT:
+  - start from an old main without this merge
+  - replace TopToolbar with classic File menu as primary chrome
+  - invent new T-nodes; wire existing models only
+  - change remaining theme tokens until owner says so
+
+NEXT for agents:
+  Continue AFTER T7 list item (c) polish / (d) real data — only with owner command.
+  Owner VERIFY: pull origin/main, dotnet test, dotnet run MyChart.App.
+
+Branch policy: main is the shared follow branch for all models after this registration.
+═══════════════════════════════════════════════════════════
+

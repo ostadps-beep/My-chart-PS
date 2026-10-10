@@ -19,7 +19,7 @@ using SkiaSharp.Views.Desktop;
 namespace MyChart.UI.Chart;
 
 /// <summary>
-/// T4.08 ChartHost — C2: price Auto/Manual per T2.07 (no SetAuto on zoom/pan/paint).
+/// T4.08 ChartHost — C2: Auto/Manual price fit; left-drag pan; Home=GoToLatest.
 /// </summary>
 public partial class ChartHost : UserControl
 {
@@ -96,7 +96,6 @@ public partial class ChartHost : UserControl
 
         if (_bars.Count > 0 && values.VisibleCandles > 0)
         {
-            // C2.5: no 300 clamp — min 20, max = bar count
             int vis = Math.Min(Math.Max(20, values.VisibleCandles), _bars.Count);
             StartupView.Apply(_view, vis, values.Shift);
             FitPriceToVisibleIfAuto();
@@ -115,9 +114,6 @@ public partial class ChartHost : UserControl
         _converter = new CoordinateConverter(_view, _bars.Count);
     }
 
-    /// <summary>
-    /// C2.1–C2.3: only when Fit == Auto; uses PriceScaleEngine.ComputeAuto; never SetAuto here.
-    /// </summary>
     private void FitPriceToVisibleIfAuto()
     {
         if (_bars.Count == 0) return;
@@ -143,13 +139,12 @@ public partial class ChartHost : UserControl
 
     private void UpdateSize()
     {
-        // C2.4: size change must not force price fit / SetAuto
         var dpi = VisualTreeHelper.GetDpi(this);
         _dpi = dpi.PixelsPerDip;
         _view.Width = ActualWidth > 0 ? ActualWidth : 800;
         _view.Height = ActualHeight > 0 ? ActualHeight : 500;
         _view.PriceAxisWidth = 64;
-        _view.TimeAxisHeight = 24; // C2.6 (spec ViewState)
+        _view.TimeAxisHeight = 24;
         if (_bars.Count > 0)
             _converter = new CoordinateConverter(_view, _bars.Count);
     }
@@ -167,7 +162,6 @@ public partial class ChartHost : UserControl
         if (!_loaded || _converter is null || _bars.Count == 0)
             return;
 
-        // C2: Auto only — Manual range survives paint
         FitPriceToVisibleIfAuto();
         _converter = new CoordinateConverter(_view, _bars.Count);
 
@@ -177,9 +171,9 @@ public partial class ChartHost : UserControl
         var ticks = NiceTicks.PriceTicks(minT, maxT, step);
 
         var range = RenderWindow.Compute(_converter);
-        var timeUs = new List<double>();
+        var timeXs = new List<double>();
         var timeLabels = new List<(double, string)>();
-        BuildReadableTimeLabels(range, timeUs, timeLabels);
+        BuildReadableTimeLabels(range, timeXs, timeLabels);
 
         int first = Math.Max(0, range.RenderFrom);
         int lastIdx = Math.Min(_bars.Count - 1, range.RenderTo);
@@ -187,7 +181,7 @@ public partial class ChartHost : UserControl
             ? _bars.Skip(first).Take(lastIdx - first + 1).ToList()
             : _bars;
 
-        _grid.Render(ctx, _view, _converter, ticks, timeUs, _dpi);
+        _grid.Render(ctx, _view, _converter, ticks, timeXs, _dpi);
         _candles.Render(ctx, slice, firstIndex: first, _converter, _dpi, digits: _symbol.Digits);
         _priceAxis.Render(ctx, _view, _converter, ticks, step, digits: _symbol.Digits, _dpi);
         _timeAxis.Render(ctx, _view, _converter, timeLabels, _dpi);
@@ -267,7 +261,6 @@ public partial class ChartHost : UserControl
             Keyboard.Modifiers.HasFlag(ModifierKeys.Shift),
             Keyboard.IsKeyDown(Key.Space)));
         e.Handled = true;
-        // C2.2: do not SetAuto; only re-fit when still Auto (time zoom)
         FitPriceToVisibleIfAuto();
         SkiaSurface.InvalidateVisual();
     }
@@ -275,6 +268,7 @@ public partial class ChartHost : UserControl
     private void OnMouseDown(object sender, MouseButtonEventArgs e)
     {
         Focus();
+        SkiaSurface.CaptureMouse();
         var p = e.GetPosition(SkiaSurface);
         NotePointer(p.X, p.Y);
         var btn = e.ChangedButton switch
@@ -298,6 +292,8 @@ public partial class ChartHost : UserControl
 
     private void OnMouseUp(object sender, MouseButtonEventArgs e)
     {
+        if (SkiaSurface.IsMouseCaptured)
+            SkiaSurface.ReleaseMouseCapture();
         var p = e.GetPosition(SkiaSurface);
         NotePointer(p.X, p.Y);
         _input.OnPointer(_view, new PointerInput(
@@ -310,14 +306,18 @@ public partial class ChartHost : UserControl
         var p = e.GetPosition(SkiaSurface);
         NotePointer(p.X, p.Y);
 
-        bool dragging = e.MiddleButton == MouseButtonState.Pressed
-                        || e.LeftButton == MouseButtonState.Pressed
-                        || Keyboard.IsKeyDown(Key.Space);
-        if (dragging)
+        bool left = e.LeftButton == MouseButtonState.Pressed;
+        bool middle = e.MiddleButton == MouseButtonState.Pressed;
+        bool space = Keyboard.IsKeyDown(Key.Space);
+
+        if (left || middle || space)
         {
+            var btn = middle ? PointerButton.Middle : PointerButton.Left;
             _input.OnPointer(_view, new PointerInput(
-                PointerPhase.Move, PointerButton.Middle, p.X, p.Y, 0, false, false,
-                Keyboard.IsKeyDown(Key.Space)));
+                PointerPhase.Move, btn, p.X, p.Y, 0,
+                Keyboard.Modifiers.HasFlag(ModifierKeys.Control),
+                Keyboard.Modifiers.HasFlag(ModifierKeys.Shift),
+                space));
             FitPriceToVisibleIfAuto();
         }
 
@@ -341,7 +341,13 @@ public partial class ChartHost : UserControl
             Keyboard.Modifiers.HasFlag(ModifierKeys.Alt)));
 
         if (action == ChartInputAction.GoToLatest || action == ChartInputAction.LatestMarketPosition)
+        {
             LatestViewController.GoToLatest(_view);
+            // After jump, Auto price fit to visible
+            if (_view.PriceScale.Fit == ScaleFit.Auto)
+                FitPriceToVisibleIfAuto();
+            e.Handled = true;
+        }
 
         FitPriceToVisibleIfAuto();
         SkiaSurface.InvalidateVisual();

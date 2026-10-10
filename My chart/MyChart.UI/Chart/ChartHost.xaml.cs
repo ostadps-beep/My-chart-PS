@@ -19,8 +19,7 @@ using SkiaSharp.Views.Desktop;
 namespace MyChart.UI.Chart;
 
 /// <summary>
-/// T4.08 ChartHost — AFTER T7 visual (a): free-move crosshair, HUD, readable time labels, startup ~200 bars.
-/// Wires existing CrosshairCalculator/Renderer, HudDataProvider/HudRenderer, StartupView, RenderWindow.
+/// T4.08 ChartHost — C2: price Auto/Manual per T2.07 (no SetAuto on zoom/pan/paint).
 /// </summary>
 public partial class ChartHost : UserControl
 {
@@ -87,7 +86,6 @@ public partial class ChartHost : UserControl
 
     public void SetTimeframe(Timeframe tf) => _timeframe = tf;
 
-    /// <summary>Visual (b) — Settings → ThemeService + chart invalidate (live).</summary>
     public void ApplySettings(ChartSettingValues values)
     {
         ArgumentNullException.ThrowIfNull(values);
@@ -98,67 +96,60 @@ public partial class ChartHost : UserControl
 
         if (_bars.Count > 0 && values.VisibleCandles > 0)
         {
+            // C2.5: no 300 clamp — min 20, max = bar count
             int vis = Math.Min(Math.Max(20, values.VisibleCandles), _bars.Count);
-            vis = Math.Min(vis, 300);
             StartupView.Apply(_view, vis, values.Shift);
-            FitPriceToVisible();
+            FitPriceToVisibleIfAuto();
             _converter = new CoordinateConverter(_view, _bars.Count);
         }
 
         SkiaSurface.InvalidateVisual();
     }
 
-
     private void ApplyStartupView()
     {
         if (_bars.Count == 0) return;
         UpdateSize();
-        // AFTER T7 notes: sensible startup ≈ last 200 bars (existing StartupView)
         StartupView.Apply(_view, visibleCandles: Math.Min(200, Math.Max(20, _bars.Count)), shift: true);
-        FitPriceToVisible();
+        FitPriceToVisibleIfAuto();
         _converter = new CoordinateConverter(_view, _bars.Count);
     }
 
-    private void FitPriceToVisible()
+    /// <summary>
+    /// C2.1–C2.3: only when Fit == Auto; uses PriceScaleEngine.ComputeAuto; never SetAuto here.
+    /// </summary>
+    private void FitPriceToVisibleIfAuto()
     {
         if (_bars.Count == 0) return;
+        if (_view.PriceScale.Fit != ScaleFit.Auto) return;
+
         _converter = new CoordinateConverter(_view, _bars.Count);
         var range = RenderWindow.Compute(_converter);
+        int from, to;
         if (range.VisibleBarCount <= 0)
         {
-            double minAll = _bars.Min(c => c.Low);
-            double maxAll = _bars.Max(c => c.High);
-            double padAll = (maxAll - minAll) * 0.05;
-            if (padAll <= 0) padAll = 0.0001;
-            _view.PriceScale.MinPrice = minAll - padAll;
-            _view.PriceScale.MaxPrice = maxAll + padAll;
-            return;
+            from = 0;
+            to = _bars.Count - 1;
+        }
+        else
+        {
+            from = Math.Clamp(range.From, 0, _bars.Count - 1);
+            to = Math.Clamp(range.To, from, _bars.Count - 1);
         }
 
-        int from = Math.Clamp(range.From, 0, _bars.Count - 1);
-        int to = Math.Clamp(range.To, from, _bars.Count - 1);
-        double min = double.MaxValue, max = double.MinValue;
-        for (int i = from; i <= to; i++)
-        {
-            if (_bars[i].Low < min) min = _bars[i].Low;
-            if (_bars[i].High > max) max = _bars[i].High;
-        }
-        if (min > max) return;
-        double pad = (max - min) * 0.05;
-        if (pad <= 0) pad = 0.0001;
-        PriceScaleEngine.SetAuto(_view.PriceScale);
-        _view.PriceScale.MinPrice = min - pad;
-        _view.PriceScale.MaxPrice = max + pad;
+        double pointSize = Math.Pow(10, -Math.Max(0, _symbol.Digits));
+        PriceScaleEngine.ComputeAuto(_view.PriceScale, _bars, from, to, pointSize);
     }
 
     private void UpdateSize()
     {
+        // C2.4: size change must not force price fit / SetAuto
         var dpi = VisualTreeHelper.GetDpi(this);
         _dpi = dpi.PixelsPerDip;
         _view.Width = ActualWidth > 0 ? ActualWidth : 800;
         _view.Height = ActualHeight > 0 ? ActualHeight : 500;
         _view.PriceAxisWidth = 64;
-        _view.TimeAxisHeight = 28;
+        _view.TimeAxisHeight = 24; // C2.6 (spec ViewState)
         if (_bars.Count > 0)
             _converter = new CoordinateConverter(_view, _bars.Count);
     }
@@ -176,7 +167,8 @@ public partial class ChartHost : UserControl
         if (!_loaded || _converter is null || _bars.Count == 0)
             return;
 
-        FitPriceToVisible();
+        // C2: Auto only — Manual range survives paint
+        FitPriceToVisibleIfAuto();
         _converter = new CoordinateConverter(_view, _bars.Count);
 
         var minT = _view.PriceScale.TransformPrice(_view.PriceScale.MinPrice);
@@ -213,7 +205,6 @@ public partial class ChartHost : UserControl
             _crosshair.Render(ctx, _view, crosshairState, _dpi);
         }
 
-        // HUD (existing HudDataProvider + HudRenderer)
         var hudInput = new HudInput(
             Symbol: _symbol,
             Timeframe: _timeframe,
@@ -238,19 +229,18 @@ public partial class ChartHost : UserControl
 
     private void BuildReadableTimeLabels(
         RenderWindowRange range,
-        List<double> timeUs,
+        List<double> timeXs,
         List<(double, string)> timeLabels)
     {
         if (_bars.Count == 0 || range.VisibleBarCount <= 0) return;
         int from = Math.Clamp(range.From, 0, _bars.Count - 1);
         int to = Math.Clamp(range.To, from, _bars.Count - 1);
         int span = Math.Max(1, to - from);
-        // ~6–8 labels across the visible window
         int step = Math.Max(1, span / 7);
         string prevDay = "";
         for (int i = from; i <= to; i += step)
         {
-            timeUs.Add(i);
+            timeXs.Add(i);
             var ts = _bars[i].Timestamp.ToUniversalTime();
             string day = ts.ToString("MM-dd");
             string label = day != prevDay
@@ -259,10 +249,9 @@ public partial class ChartHost : UserControl
             prevDay = day;
             timeLabels.Add((i, label));
         }
-        // always include last visible bar
-        if (to != from && (timeUs.Count == 0 || timeUs[^1] != to))
+        if (to != from && (timeXs.Count == 0 || timeXs[^1] != to))
         {
-            timeUs.Add(to);
+            timeXs.Add(to);
             timeLabels.Add((to, _bars[to].Timestamp.ToUniversalTime().ToString("HH:mm")));
         }
     }
@@ -278,7 +267,8 @@ public partial class ChartHost : UserControl
             Keyboard.Modifiers.HasFlag(ModifierKeys.Shift),
             Keyboard.IsKeyDown(Key.Space)));
         e.Handled = true;
-        FitPriceToVisible();
+        // C2.2: do not SetAuto; only re-fit when still Auto (time zoom)
+        FitPriceToVisibleIfAuto();
         SkiaSurface.InvalidateVisual();
     }
 
@@ -304,7 +294,6 @@ public partial class ChartHost : UserControl
 
     private void OnMouseLeftDown(object sender, MouseButtonEventArgs e)
     {
-        // handled in OnMouseDown
     }
 
     private void OnMouseUp(object sender, MouseButtonEventArgs e)
@@ -321,7 +310,6 @@ public partial class ChartHost : UserControl
         var p = e.GetPosition(SkiaSurface);
         NotePointer(p.X, p.Y);
 
-        // Pan only while dragging; crosshair updates on every free move (AFTER T7 item a)
         bool dragging = e.MiddleButton == MouseButtonState.Pressed
                         || e.LeftButton == MouseButtonState.Pressed
                         || Keyboard.IsKeyDown(Key.Space);
@@ -330,7 +318,7 @@ public partial class ChartHost : UserControl
             _input.OnPointer(_view, new PointerInput(
                 PointerPhase.Move, PointerButton.Middle, p.X, p.Y, 0, false, false,
                 Keyboard.IsKeyDown(Key.Space)));
-            FitPriceToVisible();
+            FitPriceToVisibleIfAuto();
         }
 
         SkiaSurface.InvalidateVisual();
@@ -355,7 +343,7 @@ public partial class ChartHost : UserControl
         if (action == ChartInputAction.GoToLatest || action == ChartInputAction.LatestMarketPosition)
             LatestViewController.GoToLatest(_view);
 
-        FitPriceToVisible();
+        FitPriceToVisibleIfAuto();
         SkiaSurface.InvalidateVisual();
     }
 }

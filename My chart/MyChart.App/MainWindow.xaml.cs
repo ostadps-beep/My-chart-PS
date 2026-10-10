@@ -10,6 +10,19 @@ public partial class MainWindow : Window
     {
         InitializeComponent();
         CompositionRoot.CreatePluginHost();
+        WireSettingsToChart();
+    }
+
+    private void WireSettingsToChart()
+    {
+        var host = CompositionRoot.SettingsHost;
+        if (host is null) return;
+
+        host.Bridge.Changed += _ =>
+        {
+            Dispatcher.Invoke(() => Chart.ApplySettings(host.Bridge.Values));
+        };
+        Chart.ApplySettings(host.Bridge.Values);
     }
 
     private void OnSettingsClick(object sender, RoutedEventArgs e)
@@ -18,7 +31,7 @@ public partial class MainWindow : Window
         if (host is null)
         {
             MessageBox.Show(
-                "SettingsHost is not initialized.\nMake sure you are on branch grok/t6-08-settings-wire and rebuilt.",
+                "SettingsHost is not initialized.",
                 "MyChart");
             return;
         }
@@ -54,6 +67,10 @@ public partial class MainWindow : Window
         try
         {
             await CompositionRoot.LoadFixturesAsync(Chart, fixtures);
+            // Re-apply after bars loaded so visible-candles/shift can take effect
+            var host = CompositionRoot.SettingsHost;
+            if (host is not null)
+                Chart.ApplySettings(host.Bridge.Values);
         }
         catch (Exception ex)
         {

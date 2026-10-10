@@ -5,6 +5,7 @@ using System.Windows.Media;
 using MyChart.Core.Analysis;
 using MyChart.Core.Models.Chart;
 using MyChart.Core.Models.Market;
+using MyChart.Core.Models.Settings;
 using MyChart.Core.Models.Viewport;
 using MyChart.Core.Rendering;
 using MyChart.Core.Scale;
@@ -85,6 +86,28 @@ public partial class ChartHost : UserControl
     }
 
     public void SetTimeframe(Timeframe tf) => _timeframe = tf;
+
+    /// <summary>Visual (b) — Settings → ThemeService + chart invalidate (live).</summary>
+    public void ApplySettings(ChartSettingValues values)
+    {
+        ArgumentNullException.ThrowIfNull(values);
+        _theme.ApplyFromSettings(values);
+        _hud.Theme = _theme.Current;
+        _hud.Position = string.IsNullOrWhiteSpace(values.HudPosition) ? "TopLeft" : values.HudPosition;
+        _hud.Transparency = values.HudTransparency;
+
+        if (_bars.Count > 0 && values.VisibleCandles > 0)
+        {
+            int vis = Math.Min(Math.Max(20, values.VisibleCandles), _bars.Count);
+            vis = Math.Min(vis, 300);
+            StartupView.Apply(_view, vis, values.Shift);
+            FitPriceToVisible();
+            _converter = new CoordinateConverter(_view, _bars.Count);
+        }
+
+        SkiaSurface.InvalidateVisual();
+    }
+
 
     private void ApplyStartupView()
     {

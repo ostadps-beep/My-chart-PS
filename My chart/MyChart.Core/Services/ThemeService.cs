@@ -105,6 +105,14 @@ public sealed class ThemeService : IThemeService
         Changed?.Invoke();
     }
 
+    /// <summary>AFTER T7 (b) — apply theme.profile + colour keys from Settings live.</summary>
+    public void ApplyFromSettings(ChartSettingValues values)
+    {
+        ArgumentNullException.ThrowIfNull(values);
+        var profile = ParseProfile(values.ThemeProfileName ?? "Dark");
+        SetProfile(profile, values);
+    }
+
     /// <summary>Switch to Custom using colour keys from Settings on the current base.</summary>
     public void ApplyCustomOverrides(ChartSettingValues values)
     {
